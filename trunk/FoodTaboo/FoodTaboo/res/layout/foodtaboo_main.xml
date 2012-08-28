@@ -1,0 +1,22 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.freelunch.foodtaboo.ComboBox
+        android:id="@+id/id_comboBox"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" >
+    </com.freelunch.foodtaboo.ComboBox>
+
+    <ListView
+        android:id="@+id/curlistView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/id_comboBox"
+        android:layout_centerHorizontal="true" >
+    </ListView>
+
+</RelativeLayout>
