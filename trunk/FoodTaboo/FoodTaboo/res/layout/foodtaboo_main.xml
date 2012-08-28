@@ -3,20 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <com.freelunch.foodtaboo.ComboBox
-        android:id="@+id/id_comboBox"
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" >
-    </com.freelunch.foodtaboo.ComboBox>
+        android:layout_alignParentTop="true" >
+        <requestFocus />
+    </AutoCompleteTextView>
 
     <ListView
         android:id="@+id/curlistView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/id_comboBox"
+        android:layout_below="@+id/autoCompleteTextView1"
         android:layout_centerHorizontal="true" >
-    </ListView>
+    </ListView>  
 
 </RelativeLayout>

@@ -18,22 +18,15 @@ public final class R {
         public static final int star_3=0x7f020004;
     }
     public static final class id {
-        public static final int comboButton=0x7f070001;
-        public static final int comboEditText=0x7f070000;
-        public static final int curlistView=0x7f070005;
-        public static final int id_comboBox=0x7f070004;
-        public static final int id_listview=0x7f070003;
-        public static final int id_txt=0x7f070002;
-        public static final int listview_icon=0x7f070007;
-        public static final int listview_name=0x7f070006;
-        public static final int menu_settings=0x7f070008;
+        public static final int autoCompleteTextView1=0x7f070000;
+        public static final int curlistView=0x7f070001;
+        public static final int listview_icon=0x7f070003;
+        public static final int listview_name=0x7f070002;
+        public static final int menu_settings=0x7f070004;
     }
     public static final class layout {
-        public static final int combobox_entire=0x7f030000;
-        public static final int combobox_item=0x7f030001;
-        public static final int combobox_listview=0x7f030002;
-        public static final int foodtaboo_main=0x7f030003;
-        public static final int listview_item=0x7f030004;
+        public static final int foodtaboo_main=0x7f030000;
+        public static final int listview_item=0x7f030001;
     }
     public static final class menu {
         public static final int foodtaboo_main=0x7f060000;
