@@ -10,13 +10,21 @@
         android:layout_alignParentTop="true" >
         <requestFocus />
     </AutoCompleteTextView>
-
-    <ListView
-        android:id="@+id/curlistView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    
+    <GridView
+        android:id="@+id/my_grid" 
         android:layout_below="@+id/autoCompleteTextView1"
-        android:layout_centerHorizontal="true" >
-    </ListView>  
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content" 
+        
+        android:paddingTop="20dip" 
+        android:gravity="center" 
+        android:layout_marginTop="0.0dip" 
+        android:horizontalSpacing="10.0dip" 
+        android:verticalSpacing="20.0dip" 
+        android:stretchMode="columnWidth" 
+        android:columnWidth="60.0dip" 
+        android:numColumns="3" 
+        android:layout_weight="1.0"/>
 
 </RelativeLayout>

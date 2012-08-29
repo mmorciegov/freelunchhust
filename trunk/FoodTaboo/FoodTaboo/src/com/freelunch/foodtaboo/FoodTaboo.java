@@ -12,16 +12,29 @@ import java.util.Map;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.View.OnHoverListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 public class FoodTaboo extends Activity {
 	private AutoCompleteTextView m_autoCompleteTextView;
@@ -29,6 +42,22 @@ public class FoodTaboo extends Activity {
 	private Context context;
 	private List<PriData> m_data;
 	private List<String> m_szdata;
+	private GridView m_gridview;
+	private Toast m_toast;
+	
+	private void UpdateView()
+	{
+        List<Map<String, Object>> data = GridViewBindData.setData(m_autoCompleteTextView.getText().toString(), m_data);
+        ListAdapter adapter = new GridAdapter(context, data);
+        m_gridview.setAdapter(adapter);			
+	}
+	
+	private void InitView()
+	{
+        List<Map<String, Object>> data = GridViewBindData.setData(m_szdata);
+        ListAdapter adapter = new GridAdapter(context, data);
+        m_gridview.setAdapter(adapter);		  
+	}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,13 +99,96 @@ public class FoodTaboo extends Activity {
 					long arg3) {
 				// TODO Auto-generated method stub
 				Log.v("Click", m_autoCompleteTextView.getText().toString());
-		        List<Map<String, Object>> data = ListViewBindData.setData(m_autoCompleteTextView.getText().toString(), m_data);
-		        ListAdapter adapter = new ListViewAdapter(context, data);
-		        m_listview.setAdapter(adapter);					
+				UpdateView();			        
 			}
 	    });
 	    
-	    m_listview = (ListView)findViewById(R.id.curlistView);
+	    m_autoCompleteTextView.addTextChangedListener(new TextWatcher()
+	    {
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				Log.v("afterTextChanged", m_autoCompleteTextView.getText().toString());
+				if (m_autoCompleteTextView.getText().toString().trim().length() == 0)
+				{
+					InitView();
+				}
+				else
+				{
+					UpdateView();		
+				}
+				
+				m_autoCompleteTextView.setThreshold(1); 
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// TODO Auto-generated method stub
+				
+			}
+	    });
+	    
+	    //m_listview = (ListView)findViewById(R.id.curlistView);
+	    m_gridview = (GridView)findViewById(R.id.my_grid);
+        m_gridview.setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub
+				
+				GridViewHolder holder = null;
+				holder = (GridViewHolder) arg1.getTag();
+				
+				if (holder.degree.getBackground() == null)
+				{
+					// Select
+					// Shutdown dropdown now.
+					m_autoCompleteTextView.setThreshold(100);
+					m_autoCompleteTextView.setText(holder.name.getText());	
+				}
+				else
+				{
+					// Toast
+					//Toast toast = Toast.makeText(getApplicationContext(), "Hello", Toast.LENGTH_LONG);
+					if ((holder.photo.getTag() != null) && (holder.photo.getTag().toString().length() > 0))
+					{
+						LayoutInflater inflater = LayoutInflater.from(context);
+						if (m_toast == null)
+						{
+							m_toast = new Toast(context);
+						}
+						View toastRoot = inflater.inflate(R.layout.toast_item, null);
+						TextView tv = (TextView)toastRoot.findViewById(R.id.toast_text);
+						tv.setText(holder.photo.getTag().toString());
+
+						m_toast.setView(toastRoot);
+					
+						// Set toast pos
+						Rect frame = new Rect();
+						getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+						int statusBarHeight = frame.top;
+						int contentTop = getWindow().findViewById(Window.ID_ANDROID_CONTENT).getTop();
+						int titleBarHeight = contentTop - statusBarHeight;
+						
+						m_toast.setGravity(Gravity.TOP | Gravity.LEFT, 
+								(arg2%3)*arg1.getWidth() + arg1.getWidth()/2, 
+								titleBarHeight + m_autoCompleteTextView.getHeight() + (arg2/3)*arg1.getHeight() + arg1.getHeight()/2);
+						m_toast.setDuration(Toast.LENGTH_LONG);
+						m_toast.show();	
+					}
+				}
+			}
+        });
+        
+        InitView();
     }
 
     @Override
