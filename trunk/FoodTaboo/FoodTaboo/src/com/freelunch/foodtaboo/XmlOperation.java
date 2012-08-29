@@ -55,6 +55,7 @@ public class XmlOperation {
 				data.dstName = elem.getAttribute("dst");
 				String degree = elem.getAttribute("degree");
 				data.degree = Integer.parseInt(degree);
+				data.hint = elem.getAttribute("hint");
 				
 				dataList.add(data);
     		}
@@ -84,6 +85,7 @@ public class XmlOperation {
         		serializer.attribute("","src", dataList.get(i).srcName);
         		serializer.attribute("","dst", dataList.get(i).dstName);
         		serializer.attribute("","degree", String.valueOf(dataList.get(i).degree));
+        		serializer.attribute("","hint", dataList.get(i).hint);
         		serializer.endTag("","Data");
     		}
 
