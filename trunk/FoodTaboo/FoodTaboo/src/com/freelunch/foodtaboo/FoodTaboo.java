@@ -40,14 +40,18 @@ public class FoodTaboo extends Activity {
 	private AutoCompleteTextView m_autoCompleteTextView;
 	private ListView m_listview;
 	private Context context;
-	private List<PriData> m_data;
 	private List<String> m_szdata;
 	private GridView m_gridview;
 	private Toast m_toast;
 	
+	public static final String DATABASE_NAME = "food.db";	
+	Databasehelper dbHelper = null;
+	
 	private void UpdateView()
 	{
-        List<Map<String, Object>> data = GridViewBindData.setData(m_autoCompleteTextView.getText().toString(), m_data);
+		List<PriData> dataList = new ArrayList<PriData>();
+		dbHelper.findConflictedFood(m_autoCompleteTextView.getText().toString(), dataList);
+        List<Map<String, Object>> data = GridViewBindData.setData(m_autoCompleteTextView.getText().toString(), dataList);
         ListAdapter adapter = new GridAdapter(context, data);
         m_gridview.setAdapter(adapter);			
 	}
@@ -66,25 +70,13 @@ public class FoodTaboo extends Activity {
         
         context = this;
         
-        m_data = new ArrayList<PriData>();
-        String filename = GetXmlFile();  
-        File targetFile = new File(filename);
-    	if (targetFile == null || !targetFile.exists())        
-    	{
-			try {
-				copyBigDataBase();
-				Log.v("Debug", "copyBigDataBase");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	}
-        
-        XmlOperation.ReadXML(filename, m_data);
 
+        //Init database   
+        InitDabaseFile();  
+    	//Get Database
+        dbHelper = Databasehelper.getInstance(context);
         
-        m_szdata = new ArrayList<String>();
-        PriData2String(m_data, m_szdata);
+        m_szdata = dbHelper.getFoodList();
         
         m_autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);   
 	    ArrayAdapter<String> textViewAdapter = new ArrayAdapter<String>(this,   
@@ -196,13 +188,12 @@ public class FoodTaboo extends Activity {
         getMenuInflater().inflate(R.menu.foodtaboo_main, menu);
         return true;
     }
-    
-    private void copyBigDataBase() throws IOException {  
-        InputStream myInput;  
-        String outFileName = GetXmlFile();
-        OutputStream myOutput = new FileOutputStream(outFileName);  
 
-        myInput = getAssets().open("data.xml");  
+    private void copyBigDataBase(String databaseFileNameString ) throws IOException {  
+        InputStream myInput;  
+        OutputStream myOutput = new FileOutputStream(databaseFileNameString);  
+
+        myInput = getAssets().open(DATABASE_NAME);  
         byte[] buffer = new byte[1024];  
         int length;  
         while ((length = myInput.read(buffer)) > 0) {  
@@ -213,28 +204,29 @@ public class FoodTaboo extends Activity {
         myInput.close();  
     }  	    
     
-    private String GetXmlFile()
+    private void InitDabaseFile()
     {
-    	String targetFile = null;
-    	String filename = "/data.xml";
-//    	try
-//		{
-//			if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
-//			{
-//				File sdCardDir = Environment.getExternalStorageDirectory();
-//				targetFile = sdCardDir.getCanonicalPath()+filename;
-//			}
-//		}
-//		catch(IOException e)
-//		{
-//			e.printStackTrace();					
-//		}
+    	String databasePathString = getApplicationContext().getApplicationInfo().dataDir + "/databases";
+    	File databaseFolderFile = new File(databasePathString);
+    	if( !databaseFolderFile.exists() )
+    	{
+    		databaseFolderFile.mkdir();
+    	}
     	
-    	targetFile = getApplicationContext().getFilesDir().getAbsoluteFile().toString() + filename;
+    	String databaseFileName = getApplicationContext().getDatabasePath(DATABASE_NAME).getAbsolutePath().toString();  
     	
-    	
-    	
-    	return targetFile;
+        File targetFile = new File(databaseFileName);
+    	if (!targetFile.exists())        
+    	{
+			try {
+				targetFile.createNewFile();
+				copyBigDataBase(databaseFileName);
+				Log.v("Debug", "copyBigDataBase");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
     }  
     
     private boolean IsExistInList(String str, List<String> strList)
