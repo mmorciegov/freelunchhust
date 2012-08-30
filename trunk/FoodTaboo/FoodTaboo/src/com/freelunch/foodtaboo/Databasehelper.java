@@ -11,23 +11,34 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Databasehelper extends SQLiteOpenHelper {
 
-	private static Databasehelper mInstance = null;
-	
+	private static Databasehelper mInstance = null;	
 	static SQLiteDatabase db = null;
 	
-	public static final String DATABASE_NAME = "food.db";
-	
+	public static final String DATABASE_NAME = "food.db";	
 	private static final int DATABASE_VERSION = 1;
 	
-	//Food conflict table
-	private static final String TABLE_CREATE_FOOD_CONFLICT = "create table swct("
-			+ "_id INTEGER PRIMARY KEY AUTOINCREMENT," + "sw1 TEXT," + "sw2 TEXT,"
-			+ "ctjb INTEGER DEFAULT 3," + "ctyy TEXT);";
-	
-	//Food Info table
-	private static final String TABLE_CREATE_FOOD_INFO = "create table swxx("
-			+"_id INTEGER PRIMARY KEY AUTOINCREMENT," + "swmz TEXT," + "swjs TEXT,"
-			+ "swtp TEXT," + "djcs INTEGER DEFAULT 0);";
+    public final static String TABLE_CONFLICT = "xsxk";
+    public final static String ID = "_id";
+    public final static String FOOD_FIRST = "sw1";
+    public final static String FOOD_SECOND = "sw2";
+    public final static String LEVEL = "jb";
+    public final static String REASON = "yy";
+    // 0 -> Bad;  1 -> Good
+    public final static String GoodBad = "xsxk";
+
+    public final static String TABLE_FOOD_INFO = "swxx";
+    public final static String FOOD_NAME = "swmz";
+    public final static String FOOD_TYPE = "swfl";
+    public final static String FOOD_PHOTO = "swtp";
+    public final static String FOOD_SEARCH_NUMBER = "cxcs";
+    
+    private static List<PriData> foodConflictData = null;
+    private static ArrayList<String> foodList = null;	
+    
+    public final static String BAD_COMBINATION = "0";
+    public final static String GOOD_COMBINATION = "1";
+    public final static String ALL_COMBINATION = "2";
+    
 	
 	public Databasehelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -42,42 +53,12 @@ public class Databasehelper extends SQLiteOpenHelper {
 	        
 	        if( db == null )
 	        {
-	            db = mInstance.getReadableDatabase();
-	            initDatabase();
+	            return null;
 	        }
 		}
 		return mInstance;
 	}
-
-	@Override
-	public void onCreate(SQLiteDatabase db) {
-		db.execSQL(TABLE_CREATE_FOOD_CONFLICT);
-		db.execSQL(TABLE_CREATE_FOOD_INFO);
-	}
-
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO Auto-generated method stub
-		
-	}
 	
-	public boolean deleteDatabase(Context context) {
-		return context.deleteDatabase(DATABASE_NAME);
-	}	
-	
-	// Database operator	   
-    public final static String TABLE_CONFLICT = "swct";
-    public final static String ID = "_id";
-    public final static String FOOD_FIRST = "sw1";
-    public final static String FOOD_SECOND = "sw2";
-    public final static String LEVEL = "ctjb";
-    public final static String REASON = "ctyy";
-
-    public final static String TABLE_FOOD_INFO = "swxx";
-    public final static String FOOD_NAME = "swmz";
-    
-    private static List<PriData> foodConflictData = null;
-    private static ArrayList<String> foodList = null;
     
     public List<PriData> GetPrivateData( )
     {
@@ -87,22 +68,24 @@ public class Databasehelper extends SQLiteOpenHelper {
     		
         	Cursor cursor = db.query(TABLE_CONFLICT, null, null,
         			null, null, null, null, null);
-        	if( cursor.getCount() > 0 )
+        	if( cursor != null && cursor.getCount() > 0 )
         	{
-        		cursor.moveToFirst();        		
-        	}
-        	
-        	do{       
+        		cursor.moveToFirst();   
         		
-        	PriData pridata = new PriData();
-        	pridata.srcName = cursor.getString(1);
-        	pridata.dstName = cursor.getString(2);
-        	pridata.degree = cursor.getInt(3);
-        	pridata.hint = cursor.getString(4);
-        	
-        	foodConflictData.add(pridata);
-        	
-        	} while( cursor.moveToNext() );
+            	do{       
+            		
+                	PriData pridata = new PriData();
+                	pridata.srcName = cursor.getString(1);
+                	pridata.dstName = cursor.getString(2);
+                	pridata.degree = cursor.getInt(3);
+                	pridata.hint = cursor.getString(4);
+                	pridata.goodBad = cursor.getString(5);
+                	
+                	foodConflictData.add(pridata);
+                	
+                	} while( cursor.moveToNext() );
+        	}       	
+
     	}
     	
     	return foodConflictData;
@@ -115,17 +98,16 @@ public class Databasehelper extends SQLiteOpenHelper {
      		foodList = new ArrayList<String>();
     		
         	Cursor cursor = db.query(TABLE_FOOD_INFO, new String[]{FOOD_NAME}, null,
-        			null, null, null, null, null);
-        	if( cursor.getCount() > 0 )
+        			null, null, null, FOOD_SEARCH_NUMBER+" DESC", null);
+        	if( cursor != null && cursor.getCount() > 0 )
         	{
-        		cursor.moveToFirst();        		
-        	}
-        	
-        	do{       
-        	
-        		foodList.add(cursor.getString(0));
-        	
-        	} while( cursor.moveToNext() );
+        		cursor.moveToFirst();        	
+            	do{       
+                	
+            		foodList.add(cursor.getString(0));
+            	
+            	} while( cursor.moveToNext() );
+        	}       	
     	}
     	
     	return foodList;
@@ -133,26 +115,61 @@ public class Databasehelper extends SQLiteOpenHelper {
     
     public boolean findConflictedFood(String foodName, List<PriData> dataList)
     {
-    	Cursor cursor = db.query(TABLE_CONFLICT, new String[]{"DISTINCT *"}, FOOD_FIRST+"=?"+" or "+ FOOD_SECOND + "=?",
-    			new String[]{foodName, foodName}, null, null, LEVEL+" DESC", null);
+    	if( findRelatedFood(foodName, dataList, BAD_COMBINATION))
+    	{
+    		return true;    	
+    	}    		
+    	return false;
+    }
+    
+    public boolean findFittingFood(String foodName, List<PriData> dataList)
+    {
+    	if( findRelatedFood(foodName, dataList, GOOD_COMBINATION))
+    	{
+    		return true;    	
+    	}    		
+    	return false;
+    }
+    
+    /***
+     * 
+     * @param foodName
+     * @param dataList
+     * @param goodBad
+     * 0 -> Bad  BAD_COMBINATION
+     * 1 -> Good GOOD_COMBINATION 
+     * 2 -> All  ALL_COMBINATION
+     * @return
+     */
+
+    public boolean findRelatedFood(String foodName, List<PriData> dataList, String goodBad )
+    {
+    	Cursor cursor;
+    	if( goodBad.equals(ALL_COMBINATION) )
+    	{
+    		cursor = db.query(TABLE_CONFLICT, new String[]{"DISTINCT *"}, FOOD_FIRST+"=?"+" or "+ FOOD_SECOND + "=?",
+    				new String[]{foodName, foodName}, null, null, LEVEL+" DESC", null);   	
+    	}
+    	else
+    	{
+    		cursor = db.query(TABLE_CONFLICT, new String[]{"DISTINCT *"}, "(" + FOOD_FIRST+"=?"+" or "+ FOOD_SECOND + "=?" + ")" + " and " + GoodBad +"=?" ,
+    				new String[]{foodName, foodName, goodBad}, null, null, LEVEL+" DESC", null);
+    	}
     	
     	if (cursor == null || cursor.getCount() == 0)
     	{
     		return false;
     	}
     	
-    	if( cursor.getCount() > 0 )
-    	{
-    		cursor.moveToFirst();        		
-    	}
+   		cursor.moveToFirst();      		
     	
-    	do{       
-    		
+    	do{    		
     	PriData pridata = new PriData();
     	pridata.srcName = cursor.getString(1);
     	pridata.dstName = cursor.getString(2);
     	pridata.degree = cursor.getInt(3);
     	pridata.hint = cursor.getString(4);
+    	pridata.goodBad = cursor.getString(5);
     	
     	dataList.add(pridata);
     	
@@ -160,34 +177,18 @@ public class Databasehelper extends SQLiteOpenHelper {
     	
     	return true;
     }
+       
     
-    static private int getFoodCount()
-    {
-    	Cursor cursor = db.query(TABLE_CONFLICT, null, null,
-    			null, null, null, null, null);
-    	if( cursor == null )
-    	{
-    		return 0;
-    	}
-    	int count = cursor.getCount();
-    	return count;    	
-    }
-    
-    static private void initDatabase()
-    {
-    	if( db == null )
-    	{
-    		return ;
-    	}
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+	}
 
-    	//Already existed.
-    	if( getFoodCount() > 0 )
-    	{
-    		return ;    	
-    	}
-    	
-    	//TODO: Insert Data Here
-    	return ;    	
-    }
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		
+	}
 	
+	public boolean deleteDatabase(Context context) {
+		return context.deleteDatabase(DATABASE_NAME);
+	}	
 }

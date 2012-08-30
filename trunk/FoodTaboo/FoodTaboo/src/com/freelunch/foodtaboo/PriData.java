@@ -5,4 +5,5 @@ public final class PriData {
 	public String dstName;
 	public int degree;
 	public String hint;
+	public String goodBad;
 }
