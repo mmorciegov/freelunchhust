@@ -1,9 +1,10 @@
-package com.freelunch.foodtaboo;
+package com.freelunch.food;
 
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ListViewHolder {
-	public ImageView img;
-	public TextView title;
+	public ImageView icon;
+	public TextView name;
+	public ImageView degree;
 }
