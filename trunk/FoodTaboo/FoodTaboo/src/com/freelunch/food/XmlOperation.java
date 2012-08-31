@@ -1,4 +1,4 @@
-package com.freelunch.foodtaboo;
+package com.freelunch.food;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,13 +21,12 @@ import org.xmlpull.v1.XmlSerializer;
 import android.util.Xml;
 
 public class XmlOperation {
-	public static void ReadXML(String filename, List<PriData> dataList)
+	public static void ReadXML(String filename, ConfigData data)
 	{
     	File targetFile = new File(filename);
     	
     	if (targetFile == null || !targetFile.exists())
     	{
-//    		Log.v("debug", "xml is not exist.");
     		return;
     	}
     	
@@ -43,22 +42,12 @@ public class XmlOperation {
     		Element root = doc.getDocumentElement();
     		NodeList nodeList = root.getChildNodes();
     		
-//    		Log.v("debug", String.valueOf(topNodeList.getLength()));
-    		
-    		for(int i=0; i<nodeList.getLength(); i++)
-    		{
-				Node node = nodeList.item(i);
-				Element elem = (Element)nodeList.item(i);
+			Node node = nodeList.item(0);
+			Element elem = (Element)nodeList.item(0);
+			
+			data.tip = Integer.parseInt(elem.getAttribute("tip"));
+			data.display = Integer.parseInt(elem.getAttribute("display"));
 				
-				PriData data = new PriData();
-				data.srcName = elem.getAttribute("src");
-				data.dstName = elem.getAttribute("dst");
-				String degree = elem.getAttribute("degree");
-				data.degree = Integer.parseInt(degree);
-				data.hint = elem.getAttribute("hint");
-				
-				dataList.add(data);
-    		}
     	}catch (IOException e) {
     	} catch (SAXException e) {
     	} catch (ParserConfigurationException e) {
@@ -69,7 +58,7 @@ public class XmlOperation {
     	}
 	}
 	
-    private static String Data2XmlString(List<PriData> dataList)
+    private static String Data2XmlString(ConfigData data)
     {
     	XmlSerializer serializer = Xml.newSerializer();
     	StringWriter writer = new StringWriter();
@@ -79,15 +68,10 @@ public class XmlOperation {
     		
     		serializer.startTag("","Food");
     		
-    		for (int i=0; i<dataList.size(); i++)
-    		{
-        		serializer.startTag("","Data");
-        		serializer.attribute("","src", dataList.get(i).srcName);
-        		serializer.attribute("","dst", dataList.get(i).dstName);
-        		serializer.attribute("","degree", String.valueOf(dataList.get(i).degree));
-        		serializer.attribute("","hint", dataList.get(i).hint);
-        		serializer.endTag("","Data");
-    		}
+    		serializer.startTag("","Data");
+    		serializer.attribute("","tip", String.valueOf(data.tip));
+    		serializer.attribute("","display", String.valueOf(data.display));
+    		serializer.endTag("","Data");
 
     		serializer.endTag("","Food");	
     		serializer.endDocument();
@@ -98,12 +82,12 @@ public class XmlOperation {
     	{
     		throw new RuntimeException(e);
     	}
-    }    
+    } 
     
-    public static boolean WriteXml(String filename, List<PriData> dataList)
+    public static boolean WriteXml(String filename, ConfigData data)
     {
     	File file = new File(filename);
-    	String txt = Data2XmlString(dataList);
+    	String txt = Data2XmlString(data);
     	
     	try
     	{
@@ -122,5 +106,5 @@ public class XmlOperation {
     	}
     	
     	return true;
-    }       
+    }         
 }

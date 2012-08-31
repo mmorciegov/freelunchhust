@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.freelunch.foodtaboo"
+    package="com.freelunch.food"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -12,14 +12,32 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".FoodTaboo"
-            android:label="@string/title_activity_food_taboo" >
+            android:name=".Food"
+            android:label="@string/title_activity_food" >
+        </activity>
+        <activity
+            android:name=".InquireSearchPage"
+            android:label="@string/title_activity_food" >
+        </activity>           
+        <activity
+            android:name=".InquireResultPage"
+            android:label="@string/title_activity_food" >
+        </activity>   
+        <activity
+            android:name=".InquireResultListPage"
+            android:label="@string/title_activity_food" >
+        </activity>           
+        <activity
+            android:name=".DetailInfoPage"
+            android:label="@string/title_activity_food" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            </intent-filter>            
+        </activity>           
+        
+        
+        
     </application>
 
 </manifest>

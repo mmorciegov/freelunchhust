@@ -1,4 +1,4 @@
-package com.freelunch.foodtaboo;
+package com.freelunch.food;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +32,12 @@ public class Databasehelper extends SQLiteOpenHelper {
     public final static String FOOD_PHOTO = "swtp";
     public final static String FOOD_SEARCH_NUMBER = "cxcs";
     
-    private static List<PriData> foodConflictData = null;
-    private static ArrayList<String> foodList = null;	
+    public final static String TABLE_FOOD_CLASS_INFO = "swfl";
+    public final static String FOOD_CLASS_NAME = "swfl";
+    
+    //private static List<PriData> foodConflictData = null;
+    private static ArrayList<String> foodList = null;
+    private static ArrayList<String> foodClassList = null;	
     
     public final static String BAD_COMBINATION = "0";
     public final static String GOOD_COMBINATION = "1";
@@ -59,39 +63,64 @@ public class Databasehelper extends SQLiteOpenHelper {
 		return mInstance;
 	}
 	
-    
-    public List<PriData> GetPrivateData( )
-    {
-    	if( foodConflictData == null )
+	public List<String> GetFoodClassList()
+	{
+     	if( foodClassList == null )
     	{
-    		foodConflictData = new ArrayList<PriData>();
+     		foodClassList = new ArrayList<String>();
     		
-        	Cursor cursor = db.query(TABLE_CONFLICT, null, null,
+     		foodClassList.add("常用");
+        	Cursor cursor = db.query(TABLE_FOOD_CLASS_INFO, new String[]{FOOD_CLASS_NAME}, null,
         			null, null, null, null, null);
         	if( cursor != null && cursor.getCount() > 0 )
         	{
-        		cursor.moveToFirst();   
-        		
+        		cursor.moveToFirst();        	
             	do{       
-            		
-                	PriData pridata = new PriData();
-                	pridata.srcName = cursor.getString(1);
-                	pridata.dstName = cursor.getString(2);
-                	pridata.degree = cursor.getInt(3);
-                	pridata.hint = cursor.getString(4);
-                	pridata.goodBad = cursor.getString(5);
                 	
-                	foodConflictData.add(pridata);
-                	
-                	} while( cursor.moveToNext() );
-        	}       	
-
+            		foodClassList.add(cursor.getString(0));
+            	
+            	} while( cursor.moveToNext() );
+        	}
+        	
+        	foodClassList.add("全部");
     	}
     	
-    	return foodConflictData;
-    }
+    	return foodClassList;	
+	}
+	
     
-    public List<String> getFoodList()
+//    public List<PriData> GetPrivateData( )
+//    {
+//    	if( foodConflictData == null )
+//    	{
+//    		foodConflictData = new ArrayList<PriData>();
+//    		
+//        	Cursor cursor = db.query(TABLE_CONFLICT, null, null,
+//        			null, null, null, null, null);
+//        	if( cursor != null && cursor.getCount() > 0 )
+//        	{
+//        		cursor.moveToFirst();   
+//        		
+//            	do{       
+//            		
+//                	PriData pridata = new PriData();
+//                	pridata.srcName = cursor.getString(1);
+//                	pridata.dstName = cursor.getString(2);
+//                	pridata.degree = cursor.getInt(3);
+//                	pridata.hint = cursor.getString(4);
+//                	pridata.goodBad = cursor.getString(5);
+//                	
+//                	foodConflictData.add(pridata);
+//                	
+//                	} while( cursor.moveToNext() );
+//        	}       	
+//
+//    	}
+//    	
+//    	return foodConflictData;
+//    }
+//    
+    public List<String> getAllFoodList()
     {
      	if( foodList == null )
     	{
@@ -113,7 +142,34 @@ public class Databasehelper extends SQLiteOpenHelper {
     	return foodList;
     }
     
-    public boolean findConflictedFood(String foodName, List<PriData> dataList)
+    public List<String> getPreferFoodList(String foodClassName)
+    {
+    	if (foodClassName.equalsIgnoreCase("全部"))
+    	{
+    		return getAllFoodList();
+    	}
+    	else if (foodClassName.equalsIgnoreCase("常用"))
+    	{
+    		List<String> dataList = new ArrayList<String>();
+    		if (foodList == null)
+    		{
+    			getAllFoodList();
+    		}
+    		int count = foodList.size() < 9 ? foodList.size() : 9;
+    		for (int i=0; i<count; i++)
+    		{
+    			dataList.add(foodList.get(i));
+    		}
+    		return dataList;
+    	}
+    	else
+    	{
+    		// get data by class
+    		return getAllFoodList();
+    	}
+    }
+    
+    public boolean findConflictedFood(String foodName, List<RelativeData> dataList)
     {
     	if( findRelatedFood(foodName, dataList, BAD_COMBINATION))
     	{
@@ -122,7 +178,7 @@ public class Databasehelper extends SQLiteOpenHelper {
     	return false;
     }
     
-    public boolean findFittingFood(String foodName, List<PriData> dataList)
+    public boolean findFittingFood(String foodName, List<RelativeData> dataList)
     {
     	if( findRelatedFood(foodName, dataList, GOOD_COMBINATION))
     	{
@@ -142,7 +198,7 @@ public class Databasehelper extends SQLiteOpenHelper {
      * @return
      */
 
-    public boolean findRelatedFood(String foodName, List<PriData> dataList, String goodBad )
+    public boolean findRelatedFood(String foodName, List<RelativeData> dataList, String goodBad )
     {
     	Cursor cursor;
     	if( goodBad.equals(ALL_COMBINATION) )
@@ -164,14 +220,20 @@ public class Databasehelper extends SQLiteOpenHelper {
    		cursor.moveToFirst();      		
     	
     	do{    		
-    	PriData pridata = new PriData();
-    	pridata.srcName = cursor.getString(1);
-    	pridata.dstName = cursor.getString(2);
-    	pridata.degree = cursor.getInt(3);
-    	pridata.hint = cursor.getString(4);
-    	pridata.goodBad = cursor.getString(5);
-    	
-    	dataList.add(pridata);
+    		RelativeData pridata = new RelativeData();
+    		if (cursor.getString(1).equalsIgnoreCase(foodName))
+    		{
+    			pridata.name = cursor.getString(2);
+    		}
+    		else
+    		{
+    			pridata.name = cursor.getString(1);
+    		}
+
+	    	pridata.degree = cursor.getInt(3);
+	    	pridata.hint = cursor.getString(4);
+	    	
+	    	dataList.add(pridata);
     	
     	} while( cursor.moveToNext() );  
     	

@@ -1,3 +1,8 @@
 eclipse.preferences.version=1
-encoding//src/com/freelunch/foodtaboo/FoodTaboo.java=UTF-8
-encoding//src/com/freelunch/foodtaboo/ListViewBindData.java=UTF-8
+encoding//src/com/freelunch/food/Databasehelper.java=UTF-8
+encoding//src/com/freelunch/food/DetailInfoPage.java=UTF-8
+encoding//src/com/freelunch/food/Food.java=UTF-8
+encoding//src/com/freelunch/food/InquireResultListPage.java=UTF-8
+encoding//src/com/freelunch/food/InquireResultPage.java=UTF-8
+encoding//src/com/freelunch/food/InquireSearchPage.java=UTF-8
+encoding//src/com/freelunch/food/RelativeData.java=UTF-8

@@ -3,17 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" >
-        <requestFocus />
-    </AutoCompleteTextView>
-    
     <GridView
-        android:id="@+id/my_grid" 
-        android:layout_below="@+id/autoCompleteTextView1"
+        android:id="@+id/ui_main_grid" 
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content" 
         
@@ -24,7 +15,7 @@
         android:verticalSpacing="20.0dip" 
         android:stretchMode="columnWidth" 
         android:columnWidth="60.0dip" 
-        android:numColumns="3" 
-        android:layout_weight="1.0"/>
-
+        android:numColumns="2" 
+        android:layout_weight="1.0"/>    
+    
 </RelativeLayout>
