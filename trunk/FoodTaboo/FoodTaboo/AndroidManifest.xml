@@ -26,7 +26,15 @@
         <activity
             android:name=".InquireResultListPage"
             android:label="@string/title_activity_food" >
-        </activity>           
+        </activity>     
+        <activity
+            android:name=".DiseaseSearchPage"
+            android:label="@string/title_activity_food" >
+        </activity>   
+        <activity
+            android:name=".DiseaseSearchListPage"
+            android:label="@string/title_activity_food" >
+        </activity>                  
         <activity
             android:name=".DetailInfoPage"
             android:label="@string/title_activity_food" >

@@ -1,5 +1,10 @@
 package com.freelunch.food;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +13,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class Databasehelper extends SQLiteOpenHelper {
 
@@ -52,7 +58,8 @@ public class Databasehelper extends SQLiteOpenHelper {
 		if(mInstance == null )
 		{
 			mInstance = new Databasehelper(context);
-			
+	        //Init database   
+	        InitDabaseFile(context);  			
 	        db = SQLiteDatabase.openDatabase(context.getDatabasePath(DATABASE_NAME).getAbsolutePath().toString(), null, SQLiteDatabase.OPEN_READWRITE);
 	        
 	        if( db == null )
@@ -61,6 +68,16 @@ public class Databasehelper extends SQLiteOpenHelper {
 	        }
 		}
 		return mInstance;
+	}
+	
+	public List<String> GetDiseaseList()
+	{
+		// Todo
+		List<String> dataList = new ArrayList<String>();
+		dataList.add("高血压");
+		dataList.add("糖尿病");
+		
+		return dataList;
 	}
 	
 	public List<String> GetFoodClassList()
@@ -253,4 +270,48 @@ public class Databasehelper extends SQLiteOpenHelper {
 	public boolean deleteDatabase(Context context) {
 		return context.deleteDatabase(DATABASE_NAME);
 	}	
+	
+	
+
+	static private void InitDabaseFile(Context context)
+    {
+    	String databasePathString = context.getApplicationInfo().dataDir + "/databases";
+    	File databaseFolderFile = new File(databasePathString);
+    	if( !databaseFolderFile.exists() )
+    	{
+    		databaseFolderFile.mkdir();
+    	}
+    	
+    	String databaseFileName = context.getDatabasePath(DATABASE_NAME).getAbsolutePath().toString();  
+    	
+        File targetFile = new File(databaseFileName);
+    	if (!targetFile.exists())        
+    	{
+			try {
+				targetFile.createNewFile();
+				copyBigDataBase(context,databaseFileName);
+				Log.v("Debug", "copyBigDataBase");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    } 
+	
+
+   static private void copyBigDataBase(Context context, String databaseFileNameString ) throws IOException {  
+        InputStream myInput;  
+        OutputStream myOutput = new FileOutputStream(databaseFileNameString);  
+
+        myInput = context.getAssets().open(DATABASE_NAME);  
+        byte[] buffer = new byte[1024];  
+        int length;  
+        while ((length = myInput.read(buffer)) > 0) {  
+            myOutput.write(buffer, 0, length);  
+        }  
+        myOutput.flush();  
+        myOutput.close();
+        myInput.close();  
+    }  	
+	
 }

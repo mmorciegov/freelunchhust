@@ -101,6 +101,8 @@ public class DetailInfoPage extends Activity {
         m_dbHelper = Databasehelper.getInstance(this);
         
         // Get hint and degree from database
+        // m_flag : 0 查食物食物禁忌
+        // m_flag : 1 查疾病食物禁忌
         int degree = 1;
         String hint = "忌";
         
