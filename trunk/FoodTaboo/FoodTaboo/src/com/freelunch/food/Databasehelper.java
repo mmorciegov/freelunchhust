@@ -41,8 +41,13 @@ public class Databasehelper extends SQLiteOpenHelper {
     public final static String TABLE_FOOD_CLASS_INFO = "swfl";
     public final static String FOOD_CLASS_NAME = "swfl";
     
+    public final static String TABLE_DISEASE_INFO = "jbxx";
+    public final static String DISEASE_NAME = "jbmc";
+    public final static String DISEASE_SEARCH_NUMBER = "cxcs";
+    
     //private static List<PriData> foodConflictData = null;
     private static ArrayList<String> foodList = null;
+    private static ArrayList<String> diseaseList = null;
     private static ArrayList<String> foodClassList = null;	
     
     public final static String BAD_COMBINATION = "0";
@@ -72,12 +77,24 @@ public class Databasehelper extends SQLiteOpenHelper {
 	
 	public List<String> GetDiseaseList()
 	{
-		// Todo
-		List<String> dataList = new ArrayList<String>();
-		dataList.add("高血压");
-		dataList.add("糖尿病");
-		
-		return dataList;
+     	if( diseaseList == null )
+    	{
+     		diseaseList = new ArrayList<String>();
+
+        	Cursor cursor = db.query(TABLE_DISEASE_INFO, new String[]{DISEASE_NAME}, null,
+        			null, null, null, DISEASE_SEARCH_NUMBER+" DESC", null);
+        	if( cursor != null && cursor.getCount() > 0 )
+        	{
+        		cursor.moveToFirst();        	
+            	do{       
+                	
+            		diseaseList.add(cursor.getString(0));
+            	
+            	} while( cursor.moveToNext() );
+        	}
+    	}
+    	
+    	return diseaseList;	
 	}
 	
 	public List<String> GetFoodClassList()
