@@ -41,9 +41,6 @@ public class Food extends TitleActivity {
         
         m_context = this;
         
-        //Init database   
-        InitDabaseFile();  
-        
         m_gridview = (GridView)findViewById(R.id.ui_main_grid);
         InitGrid();
         m_gridview.setOnItemClickListener(new OnItemClickListener(){

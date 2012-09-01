@@ -1,11 +1,5 @@
 package com.freelunch.food;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -14,7 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -24,47 +17,7 @@ public class TitleActivity extends Activity {
 	public static final String CONFIG_FILENAME = "/config.xml";
 	
 	public Context m_context;
-	
-    private void copyBigDataBase(String databaseFileNameString ) throws IOException {  
-        InputStream myInput;  
-        OutputStream myOutput = new FileOutputStream(databaseFileNameString);  
-
-        myInput = getAssets().open(DATABASE_NAME);  
-        byte[] buffer = new byte[1024];  
-        int length;  
-        while ((length = myInput.read(buffer)) > 0) {  
-            myOutput.write(buffer, 0, length);  
-        }  
-        myOutput.flush();  
-        myOutput.close();
-        myInput.close();  
-    }  	
-    
-	public void InitDabaseFile()
-    {
-    	String databasePathString = getApplicationContext().getApplicationInfo().dataDir + "/databases";
-    	File databaseFolderFile = new File(databasePathString);
-    	if( !databaseFolderFile.exists() )
-    	{
-    		databaseFolderFile.mkdir();
-    	}
-    	
-    	String databaseFileName = getApplicationContext().getDatabasePath(DATABASE_NAME).getAbsolutePath().toString();  
-    	
-        File targetFile = new File(databaseFileName);
-    	if (!targetFile.exists())        
-    	{
-			try {
-				targetFile.createNewFile();
-				copyBigDataBase(databaseFileName);
-				Log.v("Debug", "copyBigDataBase");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	}
-    } 
-	
+		
 	public String GetConfigFileName()
 	{
 		return getApplicationContext().getFilesDir().getAbsoluteFile().toString() + CONFIG_FILENAME;
