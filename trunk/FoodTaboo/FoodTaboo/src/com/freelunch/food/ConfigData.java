@@ -11,4 +11,20 @@ public class ConfigData {
 		tip = 1;
 		display = 0;
 	}
+	
+	public static int GetSystemTip(String filename)
+	{
+    	ConfigData configData = new ConfigData();
+    	XmlOperation.ReadXML(filename, configData);	
+    	
+    	return configData.tip;
+	}
+	
+	public static int GetSystemDisplay(String filename)
+	{
+    	ConfigData configData = new ConfigData();
+    	XmlOperation.ReadXML(filename, configData);	
+    	
+    	return configData.display;
+	}
 }

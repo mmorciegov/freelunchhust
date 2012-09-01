@@ -3,19 +3,16 @@ package com.freelunch.food;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class DetailInfoPage extends Activity {
+public class DetailInfoPage extends TitleActivity {
 	private String m_name1 = null;
 	private String m_name2 = null;
 	private int m_flag = 0;
@@ -35,7 +32,7 @@ public class DetailInfoPage extends Activity {
 	
 	private void InitFood(ImageView image, TextView text, String name)
 	{
-		image.setBackgroundResource(R.drawable.food);
+		image.setBackgroundResource(ResourceManager.GetIcon(name));
 		text.setText(name);
 	}
 	
@@ -43,6 +40,10 @@ public class DetailInfoPage extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_detail_info);
+        
+        // Database
+        InitDabaseFile(); 
+        m_dbHelper = Databasehelper.getInstance(this);
         
         Intent intent = getIntent();
         if (intent != null)
@@ -80,7 +81,7 @@ public class DetailInfoPage extends Activity {
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
 				// TODO Auto-generated method stub
-	        	String filename = getApplicationContext().getFilesDir().getAbsoluteFile().toString() + "/config.xml";
+	        	String filename = GetConfigFileName();
 	        	ConfigData configData = new ConfigData();
 	        	
 	        	XmlOperation.ReadXML(filename, configData);	
@@ -97,26 +98,23 @@ public class DetailInfoPage extends Activity {
         InitFood(m_imageView1, m_textView1, m_name1);
         InitFood(m_imageView2, m_textView2, m_name2);
         
-        // Database
-        m_dbHelper = Databasehelper.getInstance(this);
-        
         // Get hint and degree from database
         // m_flag : 0 查食物食物禁忌
         // m_flag : 1 查疾病食物禁忌
+        if (m_flag == 0)
+        {
+        	
+        }
         int degree = 1;
         String hint = "忌";
         
-        m_imageViewDegree.setBackgroundResource(R.drawable.bad_3);
+        m_imageViewDegree.setBackgroundResource(ResourceManager.GetDegreeId(degree));
         m_textViewHint.setText(hint);
         
         if (m_isTipStart)
         {
-        	String filename = getApplicationContext().getFilesDir().getAbsoluteFile().toString() + "/config.xml";
-        	ConfigData configData = new ConfigData();
-        	
-        	XmlOperation.ReadXML(filename, configData);
         	final Intent it = new Intent(DetailInfoPage.this, Food.class);
-        	if (configData.tip == 1)
+        	if (ConfigData.GetSystemTip(GetConfigFileName()) == 1)
         	{
     			Timer timer = new Timer();
     			TimerTask task = new TimerTask() {
@@ -135,11 +133,5 @@ public class DetailInfoPage extends Activity {
         		finish();
         	}
         }
-    }
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
     }
 }
