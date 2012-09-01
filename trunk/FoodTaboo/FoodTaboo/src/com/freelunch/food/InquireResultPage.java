@@ -3,111 +3,20 @@ package com.freelunch.food;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.GridView;
-import android.widget.ListAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-public class InquireResultPage extends Activity {
-	private Context m_context;
-	
-	private AutoCompleteTextView m_textview;
-	private Spinner m_foodClassSpin;
-	private Spinner m_relativeSpin;
-	private GridView m_gridview;
-	
-	private Databasehelper m_dbHelper = null;	
-	private String m_curFoodClass;
-	private List<String> m_curFoodList;
-	
-	private void InitFoodClassSpin(String foodClass)
-	{
-		List<String> dataList = m_dbHelper.GetFoodClassList();
-		SpinAdapter adapter = new SpinAdapter(m_context, dataList);
-		m_foodClassSpin.setAdapter(adapter);
-		
-		int index = 0;
-		for (int i=0; i<dataList.size(); i++)
-		{
-			if (foodClass.equalsIgnoreCase(dataList.get(i)))
-			{
-				index = i;
-				break;
-			}
-		}
-		m_foodClassSpin.setSelection(index);
-		
-		m_curFoodClass = foodClass;
-		m_curFoodList = m_dbHelper.getPreferFoodList(m_curFoodClass);
-		
-		m_foodClassSpin.setOnItemSelectedListener(new OnItemSelectedListener(){
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-				// TODO Auto-generated method stub
-				TextView tv = (TextView)arg1;
-				
-				if (!m_curFoodClass.equalsIgnoreCase(tv.getText().toString()))
-				{
-					m_curFoodClass = tv.getText().toString();
-					m_curFoodList = m_dbHelper.getPreferFoodList(m_curFoodClass);		
-					
-					UpdateInputTextView();
-				}
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		});		
-	}
-	
-	private void InitRelativeSpin(int pos)
-	{
-		List<String> dataList = new ArrayList<String>();
-		dataList.add("全部");
-		dataList.add("相生");
-		dataList.add("相克");
-		
-		SpinAdapter adapter = new SpinAdapter(m_context, dataList);
-		m_relativeSpin.setAdapter(adapter);
-		m_relativeSpin.setSelection(pos);
-	}
-	
-	private boolean IsFoodValid(String foodName)
-	{
-		for (int i=0; i<m_curFoodList.size(); i++)
-		{
-			if (foodName.equalsIgnoreCase(m_curFoodList.get(i)))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	private void UpdateInputTextView()
-	{
-	    ArrayAdapter<String> textViewAdapter = new ArrayAdapter<String>(this,   
-	            android.R.layout.simple_dropdown_item_1line, m_curFoodList);   
-	    m_textview.setAdapter(textViewAdapter);  	    
-	    m_textview.setThreshold(1); 		
-	}
+public class InquireResultPage extends InquirePage {
 	
 	private void InitInputTextView(String foodName)
 	{
@@ -168,63 +77,17 @@ public class InquireResultPage extends Activity {
 		switch(relativeFlag)
 		{
 		case 0:
-			goodBad = m_dbHelper.ALL_COMBINATION;
+			goodBad = Databasehelper.ALL_COMBINATION;
 			break;
 		case 1:
-			goodBad = m_dbHelper.GOOD_COMBINATION;
+			goodBad = Databasehelper.GOOD_COMBINATION;
 			break;
 		default:
-			goodBad = m_dbHelper.BAD_COMBINATION;
+			goodBad = Databasehelper.BAD_COMBINATION;
 			break;
 		}
 
 		m_dbHelper.findRelatedFood(curFood, dataList, goodBad);
-	}
-	
-	private int GetDegreeId(int degree)
-	{
-		int id = 0;
-		switch(degree)
-		{
-		case 1:
-			id = R.drawable.good_1;
-			break;
-		case 2:
-			id = R.drawable.good_2;
-			break;
-		case 3:
-			id = R.drawable.good_3;
-			break;
-		case -1:
-			id = R.drawable.bad_1;
-			break;
-		case -2:
-			id = R.drawable.bad_2;
-			break;			
-		case -3:
-			id = R.drawable.bad_3;
-			break;
-		default:
-			break;
-		}
-		
-		return id;
-	}
-	
-	private void UpdateGrid(List<RelativeData> dataList)
-	{
-        List<GridViewHolderData> gridDataList = new ArrayList<GridViewHolderData>();
-		for (int i=0; i<dataList.size(); i++)
-		{
-	        GridViewHolderData data = new GridViewHolderData();
-	        data.icon = R.drawable.food;
-	        data.name = dataList.get(i).name;
-	        data.degree = GetDegreeId(dataList.get(i).degree);
-	        gridDataList.add(data);		
-		}
-        
-        ListAdapter adapter = new GridViewAdapter(m_context, gridDataList);
-        m_gridview.setAdapter(adapter);		
 	}
 	
 	private void InitGrid(List<RelativeData> dataList)
@@ -278,6 +141,29 @@ public class InquireResultPage extends Activity {
         relativeFlag = (Integer)bind.getSerializable("Relative");
         
         InitFoodClassSpin(foodClass);
+        m_foodClassSpin.setOnItemSelectedListener(new OnItemSelectedListener(){
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				// TODO Auto-generated method stub
+				TextView tv = (TextView)arg1;
+				
+				if (!m_curFoodClass.equalsIgnoreCase(tv.getText().toString()))
+				{
+					m_curFoodClass = tv.getText().toString();
+					m_curFoodList = m_dbHelper.getPreferFoodList(m_curFoodClass);		
+					
+					UpdateInputTextView();
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});		
+        
         InitRelativeSpin(relativeFlag);
         InitInputTextView(foodName);
         
@@ -289,11 +175,5 @@ public class InquireResultPage extends Activity {
         m_gridview.setFocusable(true);
         m_gridview.setFocusableInTouchMode(true);
         m_gridview.requestFocus();        
-    }
-	
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
     }
 }
