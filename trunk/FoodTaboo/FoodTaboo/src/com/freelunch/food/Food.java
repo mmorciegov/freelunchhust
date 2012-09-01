@@ -55,45 +55,6 @@ public class Food extends Activity {
         m_gridview.setAdapter(adapter);	
 	}
 	
-    private void copyBigDataBase(String databaseFileNameString ) throws IOException {  
-        InputStream myInput;  
-        OutputStream myOutput = new FileOutputStream(databaseFileNameString);  
-
-        myInput = getAssets().open(DATABASE_NAME);  
-        byte[] buffer = new byte[1024];  
-        int length;  
-        while ((length = myInput.read(buffer)) > 0) {  
-            myOutput.write(buffer, 0, length);  
-        }  
-        myOutput.flush();  
-        myOutput.close();
-        myInput.close();  
-    }  	
-	
-	private void InitDabaseFile()
-    {
-    	String databasePathString = getApplicationContext().getApplicationInfo().dataDir + "/databases";
-    	File databaseFolderFile = new File(databasePathString);
-    	if( !databaseFolderFile.exists() )
-    	{
-    		databaseFolderFile.mkdir();
-    	}
-    	
-    	String databaseFileName = getApplicationContext().getDatabasePath(DATABASE_NAME).getAbsolutePath().toString();  
-    	
-        File targetFile = new File(databaseFileName);
-    	if (!targetFile.exists())        
-    	{
-			try {
-				targetFile.createNewFile();
-				copyBigDataBase(databaseFileName);
-				Log.v("Debug", "copyBigDataBase");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	}
-    } 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,9 +62,7 @@ public class Food extends Activity {
         setContentView(R.layout.ui_main);
         
         m_context = this;
-        
-        //Init database   
-        InitDabaseFile();  
+
         
         m_gridview = (GridView)findViewById(R.id.ui_main_grid);
         InitGrid();
@@ -117,6 +76,26 @@ public class Food extends Activity {
 				case 0:
 					Intent intent = new Intent(Food.this, InquireSearchPage.class);
 					startActivity(intent);
+					break;
+					
+				case 1:
+				{
+			    	String filename = getApplicationContext().getFilesDir().getAbsoluteFile().toString() + "/config.xml";
+			    	ConfigData configData = new ConfigData();
+			    	XmlOperation.ReadXML(filename, configData);	
+			    	
+					Intent intent2 = null;
+					
+					if (configData.display == 0)
+					{
+						intent2 = new Intent(Food.this, DiseaseSearchPage.class);
+					}
+					else
+					{
+						intent2 = new Intent(Food.this, DiseaseSearchListPage.class);
+					}
+					startActivity(intent2);
+				}
 					break;
 				
 				default:
