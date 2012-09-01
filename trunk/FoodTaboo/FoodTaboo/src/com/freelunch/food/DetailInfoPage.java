@@ -41,8 +41,6 @@ public class DetailInfoPage extends TitleActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_detail_info);
         
-        // Database
-        InitDabaseFile(); 
         m_dbHelper = Databasehelper.getInstance(this);
         
         Intent intent = getIntent();
