@@ -1,5 +1,7 @@
 package com.freelunch.food;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -99,15 +101,21 @@ public class DetailInfoPage extends TitleActivity {
         // Get hint and degree from database
         // m_flag : 0 查食物食物禁忌
         // m_flag : 1 查疾病食物禁忌
+        List<RelativeData> dataList = new ArrayList<RelativeData>();
         if (m_flag == 0)
         {
-        	
+        	m_dbHelper.findDetailInfoInFood(m_name1, m_name2, dataList);
         }
-        int degree = 1;
-        String hint = "忌";
+        else
+        {
+        	m_dbHelper.findDetailInfoInDisease(m_name1, m_name2, dataList);
+        }
         
-        m_imageViewDegree.setBackgroundResource(ResourceManager.GetDegreeId(degree));
-        m_textViewHint.setText(hint);
+        if (dataList.size() > 0)
+        {
+	        m_imageViewDegree.setBackgroundResource(ResourceManager.GetDegreeId(dataList.get(0).degree));
+	        m_textViewHint.setText(dataList.get(0).hint);
+        }
         
         if (m_isTipStart)
         {
