@@ -65,9 +65,9 @@ public class InquirePage extends TitleActivity {
 	public void InitRelativeSpin(int pos)
 	{
 		List<String> dataList = new ArrayList<String>();
-		dataList.add("È«²¿");
-		dataList.add("ÏàÉú");
-		dataList.add("Ïà¿Ë");
+		dataList.add("È«ï¿½ï¿½");
+		dataList.add("ï¿½ï¿½ï¿½ï¿½");
+		dataList.add("ï¿½ï¿½ï¿½");
 		
 		SpinAdapter adapter = new SpinAdapter(m_context, dataList);
 		m_relativeSpin.setAdapter(adapter);
@@ -89,8 +89,9 @@ public class InquirePage extends TitleActivity {
 		{
 	        GridViewHolderData data = new GridViewHolderData();
 	        data.name = dataList.get(i).name;
-	        data.icon = ResourceManager.GetIcon(data.name);
+	        data.icon = ResourceManager.GetIcon(this,  m_dbHelper.getIconName(data.name));
 	        data.degree = ResourceManager.GetDegreeId(dataList.get(i).degree);
+
 	        gridDataList.add(data);		
 		}
         
@@ -105,7 +106,7 @@ public class InquirePage extends TitleActivity {
 		{
 			ListViewHolderData data = new ListViewHolderData();
 	        data.name = dataList.get(i).name;
-	        data.icon = ResourceManager.GetIcon(data.name);
+	        data.icon = ResourceManager.GetIcon(this,  m_dbHelper.getIconName(data.name));
 	        data.degree = ResourceManager.GetDegreeId(dataList.get(i).degree);
 	        listDataList.add(data);		
 		}

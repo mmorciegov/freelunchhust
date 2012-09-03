@@ -26,15 +26,15 @@ public class TitleActivity extends Activity {
 	@Override
 	public Dialog onCreateDialog(int id, Bundle state)
 	{
-		// ÅĞ¶ÏĞèÒªÉú³ÉÄÄÖÖÀàĞÍµÄ¶Ô»°¿ò
+		// åˆ¤æ–­éœ€è¦ç”Ÿæˆå“ªç§ç±»å‹çš„å¯¹è¯æ¡†
 		switch (id)
 		{
 			case SETTING_DIALOG:
 				Builder b = new AlertDialog.Builder(this);
-				// ÉèÖÃ¶Ô»°¿òµÄÍ¼±ê
+				// è®¾ç½®å¯¹è¯æ¡†çš„å›¾æ ‡
 				b.setIcon(R.drawable.ic_launcher);
-				// ÉèÖÃ¶Ô»°¿òµÄ±êÌâ
-				b.setTitle("ÅäÖÃ");
+				// è®¾ç½®å¯¹è¯æ¡†çš„æ ‡é¢˜
+				b.setTitle("é…ç½®");
 				final boolean[] checkStatus = new boolean[2];
 	        	
 	        	if(ConfigData.GetSystemTip(GetConfigFileName()) == 0)
@@ -55,11 +55,11 @@ public class TitleActivity extends Activity {
 	        		checkStatus[1] = true;
 	        	}
 	        	
-				// Îª¶Ô»°¿òÉèÖÃ¶à¸öÁĞ±í
-				b.setMultiChoiceItems(new String[] { "³õÊ¼ÌáÊ¾", "ÁĞ±íÏÔÊ¾" }
-				// ÉèÖÃÄ¬ÈÏ¹´Ñ¡ÁËÄÄĞ©ÁĞ±íÏî
+				// ä¸ºå¯¹è¯æ¡†è®¾ç½®å¤šä¸ªåˆ—è¡¨
+				b.setMultiChoiceItems(new String[] { "åˆå§‹æç¤º", "åˆ—è¡¨æ˜¾ç¤º" }
+				// è®¾ç½®é»˜è®¤å‹¾é€‰äº†å“ªäº›åˆ—è¡¨é¡¹
 					, checkStatus
-					// ÎªÁĞ±íÏîµÄµ¥»÷ÊÂ¼şÉèÖÃ¼àÌıÆ÷
+					// ä¸ºåˆ—è¡¨é¡¹çš„å•å‡»äº‹ä»¶è®¾ç½®ç›‘å¬å™¨
 					, new OnMultiChoiceClickListener()
 					{
 						@Override
@@ -74,9 +74,9 @@ public class TitleActivity extends Activity {
 				        	XmlOperation.WriteXml(filename, configData);
 						}
 					});
-				// Ìí¼ÓÒ»¸ö¡°È·¶¨¡±°´Å¥£¬ÓÃÓÚ¹Ø±Õ¸Ã¶Ô»°¿ò
-				b.setPositiveButton("ÍË³ö", null);
-				// ´´½¨¶Ô»°¿ò
+				// æ·»åŠ ä¸€ä¸ªâ€œç¡®å®šâ€æŒ‰é’®ï¼Œç”¨äºå…³é—­è¯¥å¯¹è¯æ¡†
+				b.setPositiveButton("é€€å‡º", null);
+				// åˆ›å»ºå¯¹è¯æ¡†
 				return b.create();
 		}
 		return null;
