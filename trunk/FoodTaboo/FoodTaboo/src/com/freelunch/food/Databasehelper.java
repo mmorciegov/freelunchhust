@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -235,6 +236,60 @@ public class Databasehelper extends SQLiteOpenHelper {
     		return true;    	
     	}    		
     	return false;
+    }
+    
+    public boolean getRandomDataInFood(List<String> dataList)
+    {
+    	Cursor cursor;
+		cursor = db.query(TABLE_CONFLICT, new String[]{"DISTINCT *"}, null,
+				null, null, null, LEVEL+" DESC", null);   	
+    	
+    	if (cursor == null || cursor.getCount() == 0)
+    	{
+    		return false;
+    	}
+    	
+    	Random random = new Random();
+    	int rand = random.nextInt() % cursor.getCount();
+    	
+   		cursor.moveToFirst();     
+   		
+   		for (int i=0; i<rand; i++)
+   		{
+   			cursor.moveToNext();
+   		} 		
+		
+		dataList.add(cursor.getString(1));
+		dataList.add(cursor.getString(2));
+    	
+    	return true;   	
+    }
+    
+    public boolean getRandomDataInDisease(List<String> dataList)
+    {
+    	Cursor cursor;
+		cursor = db.query(TABLE_DISEASE_FOOD_INFO, new String[]{"DISTINCT *"}, null,
+				null, null, null, LEVEL+" DESC", null);   	
+    	
+    	if (cursor == null || cursor.getCount() == 0)
+    	{
+    		return false;
+    	}
+    	
+    	Random random = new Random();
+    	int rand = random.nextInt() % cursor.getCount();
+    	
+   		cursor.moveToFirst();     
+   		
+   		for (int i=0; i<rand; i++)
+   		{
+   			cursor.moveToNext();
+   		} 		
+		
+		dataList.add(cursor.getString(2));
+		dataList.add(cursor.getString(1));
+    	
+    	return true;    	
     }
     
     /***
