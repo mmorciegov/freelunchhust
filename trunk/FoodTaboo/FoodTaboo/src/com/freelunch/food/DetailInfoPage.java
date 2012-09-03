@@ -35,7 +35,7 @@ public class DetailInfoPage extends TitleActivity {
 	
 	private void InitFood(ImageView image, TextView text, String name)
 	{
-		image.setBackgroundResource(ResourceManager.GetIcon(name));
+		image.setBackgroundResource(ResourceManager.GetIcon(this, m_dbHelper.getIconName(name)));
 		text.setText(name);
 	}
 	

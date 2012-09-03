@@ -29,9 +29,9 @@ public class DiseasePage extends TitleActivity {
 	public void InitRelativeSpin()
 	{
 		List<String> dataList = new ArrayList<String>();
-		dataList.add("全部");
-		dataList.add("相生");
-		dataList.add("相克");
+		dataList.add("鍏ㄩ儴");
+		dataList.add("鐩哥敓");
+		dataList.add("鐩稿厠");
 		
 		SpinAdapter adapter = new SpinAdapter(m_context, dataList);
 		m_relativeSpin.setAdapter(adapter);
@@ -64,7 +64,7 @@ public class DiseasePage extends TitleActivity {
 		{
 	        GridViewHolderData data = new GridViewHolderData();
 	        data.name = dataList.get(i).name;
-	        data.icon = ResourceManager.GetIcon(data.name);
+	        data.icon = ResourceManager.GetIcon(this,  m_dbHelper.getIconName(data.name) );
 	        data.degree = ResourceManager.GetDegreeId(dataList.get(i).degree);
 	        gridDataList.add(data);		
 		}
@@ -80,7 +80,7 @@ public class DiseasePage extends TitleActivity {
 		{
 			ListViewHolderData data = new ListViewHolderData();
 			data.name = dataList.get(i).name;
-	        data.icon = ResourceManager.GetIcon(data.name);
+	        data.icon = ResourceManager.GetIcon(this,  m_dbHelper.getIconName(data.name));
 	        data.degree = ResourceManager.GetDegreeId(dataList.get(i).degree);
 	        listDataList.add(data);		
 		}

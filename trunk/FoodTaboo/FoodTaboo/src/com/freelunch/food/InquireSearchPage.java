@@ -90,7 +90,7 @@ public class InquireSearchPage extends InquirePage {
 		{
 	        GridViewHolderData data = new GridViewHolderData();
 	        data.name = m_curFoodList.get(i);
-	        data.icon = ResourceManager.GetIcon(data.name);
+	        data.icon = ResourceManager.GetIcon(this,  m_dbHelper.getIconName(data.name));
 	        data.degree = 0;
 	        gridDataList.add(data);		
 		}

@@ -1,5 +1,7 @@
 package com.freelunch.food;
 
+import android.content.Context;
+
 public class ResourceManager {
 	public static int GetDegreeId(int degree)
 	{
@@ -31,21 +33,13 @@ public class ResourceManager {
 		return id;
 	}
 	
-	public static int GetIcon(String name)
+	public static int GetIcon(Context context, String name)
 	{
-		int id = 0;
-		if (name.equalsIgnoreCase("»Æ¹Ï"))
+		int id = context.getResources().getIdentifier(name, "drawable", context.getPackageName());
+		if( id == 0 )
 		{
 			id = R.drawable.food;
 		}		
-		else if (name.equalsIgnoreCase("°×ÂÜ²·"))
-		{
-			id = R.drawable.food;
-		}
-		else
-		{
-			id = R.drawable.food;
-		}
 		
 		return id;
 	}

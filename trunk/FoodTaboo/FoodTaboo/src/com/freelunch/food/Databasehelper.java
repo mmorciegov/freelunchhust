@@ -407,6 +407,29 @@ public class Databasehelper extends SQLiteOpenHelper {
     	return true;
     }
     
+    public String getIconName (String iconName) 
+    {
+    	Cursor cursor;
+		cursor = db.query(TABLE_FOOD_INFO, new String[]{FOOD_PHOTO}, "("+FOOD_NAME+"=?"+")", new String[]{iconName}, null, null, null, null);   	
+    	
+    	if (cursor == null || cursor.getCount() == 0)
+    	{
+    		return "food";
+    	}
+    	
+   		cursor.moveToFirst();      		
+    	
+   		String iconNameString = cursor.getString(0);
+   		
+   		if( iconNameString == null )
+   		{
+   			iconNameString = "food";
+   		}
+   		   		
+    	return iconNameString;
+    }
+   
+    
     public boolean findDetailInfoInDisease(String diseaseName, String foodName, List<RelativeData> dataList)
     {
     	Cursor cursor;
@@ -488,6 +511,10 @@ public class Databasehelper extends SQLiteOpenHelper {
         myOutput.flush();  
         myOutput.close();
         myInput.close();  
-    }  	
+    }
+
 	
+   
+   
+   
 }
