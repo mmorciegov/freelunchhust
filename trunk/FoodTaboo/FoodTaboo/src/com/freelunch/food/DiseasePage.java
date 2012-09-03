@@ -54,8 +54,7 @@ public class DiseasePage extends TitleActivity {
 			break;
 		}
 
-		// Todo: Ìæ»»³É²é¼²²¡±í
-		m_dbHelper.findRelatedFood(curDisease, dataList, goodBad);
+		m_dbHelper.findRelatedFoodByDisease(curDisease, dataList, goodBad);
 	}
 	
 	public void UpdateGrid(List<RelativeData> dataList)

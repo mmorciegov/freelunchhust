@@ -8,7 +8,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -44,6 +43,9 @@ public class Databasehelper extends SQLiteOpenHelper {
     public final static String TABLE_DISEASE_INFO = "jbxx";
     public final static String DISEASE_NAME = "jbmc";
     public final static String DISEASE_SEARCH_NUMBER = "cxcs";
+    
+    public final static String TABLE_DISEASE_FOOD_INFO = "swjb";
+    
     
     //private static List<PriData> foodConflictData = null;
     private static ArrayList<String> foodList = null;
@@ -274,6 +276,94 @@ public class Databasehelper extends SQLiteOpenHelper {
     	return true;
     }
        
+    public boolean findRelatedFoodByDisease(String diseaseName, List<RelativeData> dataList, String goodBad )
+    {
+    	Cursor cursor;
+    	if( goodBad.equals(ALL_COMBINATION) )
+    	{
+    		cursor = db.query(TABLE_DISEASE_FOOD_INFO, new String[]{"DISTINCT *"}, DISEASE_NAME+"=?",
+    				new String[]{diseaseName}, null, null, LEVEL+" DESC", null);   	
+    	}
+    	else
+    	{
+    		cursor = db.query(TABLE_DISEASE_FOOD_INFO, new String[]{"DISTINCT *"}, DISEASE_NAME+"=?" + " and " + GoodBad +"=?" ,
+    				new String[]{diseaseName, goodBad}, null, null, LEVEL+" DESC", null);
+    	}
+    	
+    	if (cursor == null || cursor.getCount() == 0)
+    	{
+    		return false;
+    	}
+    	
+   		cursor.moveToFirst();      		
+    	
+    	do{    		
+    		RelativeData pridata = new RelativeData();
+    		pridata.name = cursor.getString(1);
+	    	pridata.degree = cursor.getInt(3);
+	    	pridata.hint = cursor.getString(4);
+	    	
+	    	dataList.add(pridata);
+    	
+    	} while( cursor.moveToNext() );  
+    	
+    	return true;
+    }
+    
+    public boolean findDetailInfoInFood(String foodName1, String foodName2, List<RelativeData> dataList)
+    {
+    	Cursor cursor;
+		cursor = db.query(TABLE_CONFLICT, new String[]{"DISTINCT *"}, 
+				"("+FOOD_FIRST+"=?"+" and "+ FOOD_SECOND + "=?" + ")" + " or "
+				+"("+FOOD_FIRST+"=?"+" and "+ FOOD_SECOND + "=?" + ")",
+				new String[]{foodName1, foodName2, foodName2, foodName1}, null, null, LEVEL+" DESC", null);   	
+    	
+    	if (cursor == null || cursor.getCount() == 0)
+    	{
+    		return false;
+    	}
+    	
+   		cursor.moveToFirst();      		
+    	
+    	do{    		
+    		RelativeData pridata = new RelativeData();
+    		pridata.name = cursor.getString(1);
+	    	pridata.degree = cursor.getInt(3);
+	    	pridata.hint = cursor.getString(4);
+	    	
+	    	dataList.add(pridata);
+    	
+    	} while( cursor.moveToNext() );  
+    	
+    	return true;
+    }
+    
+    public boolean findDetailInfoInDisease(String diseaseName, String foodName, List<RelativeData> dataList)
+    {
+    	Cursor cursor;
+		cursor = db.query(TABLE_DISEASE_FOOD_INFO, new String[]{"DISTINCT *"}, 
+				DISEASE_NAME+"=?" + " and " + "swmc=?",
+				new String[]{diseaseName, foodName}, null, null, LEVEL+" DESC", null);   	
+    	
+    	if (cursor == null || cursor.getCount() == 0)
+    	{
+    		return false;
+    	}
+    	
+   		cursor.moveToFirst();      		
+    	
+    	do{    		
+    		RelativeData pridata = new RelativeData();
+    		pridata.name = cursor.getString(1);
+	    	pridata.degree = cursor.getInt(3);
+	    	pridata.hint = cursor.getString(4);
+	    	
+	    	dataList.add(pridata);
+    	
+    	} while( cursor.moveToNext() );  
+    	
+    	return true;
+    }
     
 	@Override
 	public void onCreate(SQLiteDatabase db) {
