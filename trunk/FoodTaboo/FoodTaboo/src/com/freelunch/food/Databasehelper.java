@@ -201,7 +201,21 @@ public class Databasehelper extends SQLiteOpenHelper {
     	else
     	{
     		// get data by class
-    		return getAllFoodList();
+     		List<String> dataList = new ArrayList<String>();
+    		
+        	Cursor cursor = db.query(TABLE_FOOD_INFO, new String[]{FOOD_NAME}, FOOD_CLASS_NAME+"=?",
+        			new String[]{foodClassName}, null, null, FOOD_SEARCH_NUMBER+" DESC", null);
+        	if( cursor != null && cursor.getCount() > 0 )
+        	{
+        		cursor.moveToFirst();        	
+            	do{       
+                	
+            		dataList.add(cursor.getString(0));
+            	
+            	} while( cursor.moveToNext() );
+        	}       	
+		    		
+    		return dataList;
     	}
     }
     
