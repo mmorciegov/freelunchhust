@@ -2,6 +2,7 @@ package com.freelunch.food;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -64,7 +65,23 @@ public class DetailInfoPage extends TitleActivity {
         	
         	m_name1 = "花生";
         	m_name2 = "牛奶";
-        	m_flag = 0;
+        	List<String> randList = new ArrayList<String>();
+        	Random rand = new Random();
+        	m_flag = rand.nextInt() % 2;
+        	if (m_flag == 0)
+        	{
+        		m_dbHelper.getRandomDataInFood(randList);
+        	}
+        	else
+        	{
+        		m_dbHelper.getRandomDataInDisease(randList);
+        	}
+        	
+        	if (randList.size() >= 2)
+        	{
+            	m_name1 = randList.get(0);
+            	m_name2 = randList.get(1);	
+        	}
         }
         
         m_imageView1 = (ImageView)findViewById(R.id.ui_detail_icon_1);
@@ -130,7 +147,7 @@ public class DetailInfoPage extends TitleActivity {
     					finish();
     				}
     			};
-    			timer.schedule(task, 1000 * 5);
+    			timer.schedule(task, 1000 * 3);
     			m_tip.setChecked(true);
         	}
         	else
