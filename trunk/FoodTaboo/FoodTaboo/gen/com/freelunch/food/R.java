@@ -127,7 +127,7 @@ public final class R {
         public static final int huasheng=0x7f020071;
         public static final int hujiaofen=0x7f020072;
         public static final int hulu=0x7f020073;
-        public static final int huluobu=0x7f020074;
+        public static final int huluobo=0x7f020074;
         public static final int huolongguo=0x7f020075;
         public static final int huotui=0x7f020076;
         public static final int ic_action_search=0x7f020077;
@@ -406,7 +406,13 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f040000;
+        public static final int display_list_view=0x7f040009;
+        public static final int food_related_all=0x7f040007;
+        public static final int food_related_bad=0x7f040006;
+        public static final int food_related_good=0x7f040005;
         public static final int hello_world=0x7f040001;
+        public static final int init_introduction=0x7f040008;
+        public static final int menu_exit=0x7f040004;
         public static final int menu_settings=0x7f040002;
         public static final int title_activity_food=0x7f040003;
     }

@@ -34,7 +34,7 @@ public class TitleActivity extends Activity {
 				// 设置对话框的图标
 				b.setIcon(R.drawable.ic_launcher);
 				// 设置对话框的标题
-				b.setTitle("配置");
+				b.setTitle(this.getString(R.string.menu_settings));
 				final boolean[] checkStatus = new boolean[2];
 	        	
 	        	if(ConfigData.GetSystemTip(GetConfigFileName()) == 0)
@@ -56,7 +56,7 @@ public class TitleActivity extends Activity {
 	        	}
 	        	
 				// 为对话框设置多个列表
-				b.setMultiChoiceItems(new String[] { "初始提示", "列表显示" }
+				b.setMultiChoiceItems(new String[] { this.getString(R.string.init_introduction), this.getString(R.string.display_list_view) }
 				// 设置默认勾选了哪些列表项
 					, checkStatus
 					// 为列表项的单击事件设置监听器
@@ -75,7 +75,7 @@ public class TitleActivity extends Activity {
 						}
 					});
 				// 添加一个“确定”按钮，用于关闭该对话框
-				b.setPositiveButton("退出", null);
+				b.setPositiveButton(this.getString(R.string.menu_exit), null);
 				// 创建对话框
 				return b.create();
 		}
