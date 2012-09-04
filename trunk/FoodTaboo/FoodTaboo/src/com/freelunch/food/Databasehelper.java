@@ -126,37 +126,6 @@ public class Databasehelper extends SQLiteOpenHelper {
 	}
 	
     
-//    public List<PriData> GetPrivateData( )
-//    {
-//    	if( foodConflictData == null )
-//    	{
-//    		foodConflictData = new ArrayList<PriData>();
-//    		
-//        	Cursor cursor = db.query(TABLE_CONFLICT, null, null,
-//        			null, null, null, null, null);
-//        	if( cursor != null && cursor.getCount() > 0 )
-//        	{
-//        		cursor.moveToFirst();   
-//        		
-//            	do{       
-//            		
-//                	PriData pridata = new PriData();
-//                	pridata.srcName = cursor.getString(1);
-//                	pridata.dstName = cursor.getString(2);
-//                	pridata.degree = cursor.getInt(3);
-//                	pridata.hint = cursor.getString(4);
-//                	pridata.goodBad = cursor.getString(5);
-//                	
-//                	foodConflictData.add(pridata);
-//                	
-//                	} while( cursor.moveToNext() );
-//        	}       	
-//
-//    	}
-//    	
-//    	return foodConflictData;
-//    }
-//    
     public List<String> getAllFoodList()
     {
      	if( foodList == null )
