@@ -77,13 +77,13 @@ public class InquireResultListPage extends InquirePage {
 		switch(relativeFlag)
 		{
 		case 0:
-			goodBad = Databasehelper.ALL_COMBINATION;
-			break;
-		case 1:
 			goodBad = Databasehelper.GOOD_COMBINATION;
 			break;
-		default:
+		case 1:
 			goodBad = Databasehelper.BAD_COMBINATION;
+			break;
+		default:
+			goodBad = Databasehelper.ALL_COMBINATION;
 			break;
 		}
 

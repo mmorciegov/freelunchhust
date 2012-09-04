@@ -2,7 +2,16 @@
 
     <string name="app_name">Food</string>
     <string name="hello_world">Hello world!</string>
-    <string name="menu_settings">Settings</string>
+    <string name="menu_settings">设置</string>
     <string name="title_activity_food">Food</string>
+    <string name="menu_exit">退出</string>
 
+    
+    <string name="food_related_good">相宜</string>
+    <string name="food_related_bad">相克</string>
+    <string name="food_related_all">全部</string>
+    
+    <string name="init_introduction">初始提示</string>
+    <string name="display_list_view"> 列表显示</string>
+    
 </resources>

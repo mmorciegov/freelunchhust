@@ -65,9 +65,9 @@ public class InquirePage extends TitleActivity {
 	public void InitRelativeSpin(int pos)
 	{
 		List<String> dataList = new ArrayList<String>();
-		dataList.add("ȫ��");
-		dataList.add("����");
-		dataList.add("���");
+		dataList.add(this.getString(R.string.food_related_good));
+		dataList.add(this.getString(R.string.food_related_bad));
+		dataList.add(this.getString(R.string.food_related_all));
 		
 		SpinAdapter adapter = new SpinAdapter(m_context, dataList);
 		m_relativeSpin.setAdapter(adapter);
