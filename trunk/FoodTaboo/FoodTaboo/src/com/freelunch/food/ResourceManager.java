@@ -35,7 +35,7 @@ public class ResourceManager {
 	
 	public static int GetIcon(Context context, String name)
 	{
-		int id = context.getResources().getIdentifier(name, "drawable", context.getPackageName());
+		int id = context.getResources().getIdentifier( DatabaseHelper.getInstance(context).getIconName(name), "drawable", context.getPackageName());
 		if( id == 0 )
 		{
 			id = R.drawable.food;

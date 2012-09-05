@@ -13,7 +13,6 @@ import android.view.MenuItem;
 
 public class TitleActivity extends Activity {
 	public static final int SETTING_DIALOG = 0x113;
-	public static final String DATABASE_NAME = "food.db";
 	public static final String CONFIG_FILENAME = "/config.xml";
 	
 	public Context m_context;

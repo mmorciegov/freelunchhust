@@ -77,13 +77,13 @@ public class InquireResultListPage extends InquirePage {
 		switch(relativeFlag)
 		{
 		case 0:
-			goodBad = Databasehelper.ALL_COMBINATION;
+			goodBad = DatabaseHelper.ALL_COMBINATION;
 			break;
 		case 1:
-			goodBad = Databasehelper.GOOD_COMBINATION;
+			goodBad = DatabaseHelper.GOOD_COMBINATION;
 			break;
 		default:
-			goodBad = Databasehelper.BAD_COMBINATION;
+			goodBad = DatabaseHelper.BAD_COMBINATION;
 			break;
 		}
 
@@ -106,7 +106,7 @@ public class InquireResultListPage extends InquirePage {
 				bind.putSerializable("Name2", holder.name.getText().toString());
 				bind.putSerializable("Relative", 0);
 				
-				Intent intent = new Intent(InquireResultListPage.this, DetailInfoPage.class);
+				Intent intent = new Intent(InquireResultListPage.this, FoodMasterPage.class);
 				intent.putExtras(bind);
 				
 				startActivity(intent);
@@ -122,7 +122,7 @@ public class InquireResultListPage extends InquirePage {
         m_context = this;
         
     	//Get Database
-        m_dbHelper = Databasehelper.getInstance(m_context); 
+        m_dbHelper = DatabaseHelper.getInstance(m_context); 
         
         m_textview = (AutoCompleteTextView) findViewById(R.id.ui_inquire_result_list_food_input);
         m_foodClassSpin = (Spinner) findViewById(R.id.ui_inquire_result_list_food_class_selector);
