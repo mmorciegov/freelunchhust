@@ -61,26 +61,33 @@ public class InquireSearchPage extends InquirePage {
 	private void GotoResultPage()
 	{
 		String curFood = m_textview.getText().toString();
-		int relativeFlag = m_relativeSpin.getSelectedItemPosition();
-		
-		Bundle bind = new Bundle();
-		bind.putSerializable("FoodClass", m_curFoodClass);
-		bind.putSerializable("FoodName", curFood);
-		bind.putSerializable("Relative", relativeFlag);
     	
-		Intent intent = null;
+		Intent intent = new Intent();
+		Bundle bundle = new	Bundle();
 		
-		if (ConfigData.GetSystemDisplay(GetConfigFileName()) == 0)
-		{
-			intent = new Intent(InquireSearchPage.this, InquireResultPage.class);
-		}
-		else
-		{
-			intent = new Intent(InquireSearchPage.this, InquireResultListPage.class);
-		}
-		intent.putExtras(bind);
-		
-		startActivity(intent);
+		bundle.putString(FoodConst.KYE_ITEM_NAME, curFood);
+		bundle.putString(FoodConst.KEY_ITEM_TYPE, m_curFoodClass);
+		intent.putExtras(bundle);
+
+//		bundle.putInt(FoodConst.KEY_ITEM_RELATIVE, relativeFlag);
+		setResult(FoodConst.INTENT_RESULT_FIRST_SEARCH_PAGE, intent);
+		finish();
+
+//		Bundle bind = new Bundle();
+//		bind.putSerializable("FoodClass", m_curFoodClass);
+//		bind.putSerializable("FoodName", curFood);
+//		bind.putSerializable("Relative", relativeFlag);
+//		if (ConfigData.GetSystemDisplay(GetConfigFileName()) == 0)
+//		{
+//			intent = new Intent(InquireSearchPage.this, InquireResultPage.class);
+//		}
+//		else
+//		{
+//			intent = new Intent(InquireSearchPage.this, InquireResultListPage.class);
+//		}
+//		intent.putExtras(bind);
+//		
+//		startActivity(intent);
 	}
 	
 	private void UpdateGrid()
@@ -90,7 +97,7 @@ public class InquireSearchPage extends InquirePage {
 		{
 	        GridViewHolderData data = new GridViewHolderData();
 	        data.name = m_curFoodList.get(i);
-	        data.icon = ResourceManager.GetIcon(this,  m_dbHelper.getIconName(data.name));
+	        data.icon = ResourceManager.GetIcon(this, data.name);
 	        data.degree = 0;
 	        gridDataList.add(data);		
 		}
@@ -123,14 +130,18 @@ public class InquireSearchPage extends InquirePage {
         m_context = this;
         
     	//Get Database
-        m_dbHelper = Databasehelper.getInstance(m_context);        
+        m_dbHelper = DatabaseHelper.getInstance(m_context);        
         
         m_textview = (AutoCompleteTextView) findViewById(R.id.ui_inquire_search_food_input);
         m_foodClassSpin = (Spinner) findViewById(R.id.ui_inquire_search_food_class_selector);
         m_relativeSpin = (Spinner) findViewById(R.id.ui_inquire_search_food_relative);
         m_gridview = (GridView)findViewById(R.id.ui_inquire_search_grid);
         
-        InitFoodClassSpin(null);
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        String foodClass = bundle.getString(FoodConst.KEY_ITEM_TYPE);
+        InitFoodClassSpin(foodClass);
+        
         m_foodClassSpin.setOnItemSelectedListener(new OnItemSelectedListener(){
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -154,7 +165,7 @@ public class InquireSearchPage extends InquirePage {
 				
 			}
 		});
-
+   
         
         InitRelativeSpin(0);
         InitInputTextView();

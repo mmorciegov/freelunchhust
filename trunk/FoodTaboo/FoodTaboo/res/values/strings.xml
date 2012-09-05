@@ -5,13 +5,18 @@
     <string name="menu_settings">设置</string>
     <string name="title_activity_food">Food</string>
     <string name="menu_exit">退出</string>
-
-    
+    <string name="menu_food_relationship">查询</string>
+    <string name="menu_food_medecine">食疗</string>
     <string name="food_related_good">相宜</string>
     <string name="food_related_bad">相克</string>
     <string name="food_related_all">全部</string>
-    
     <string name="init_introduction">初始提示</string>
     <string name="display_list_view"> 列表显示</string>
-    
+    <!-- <string name="title_food_start_page">食物相宜相克大考验</string> -->
+
+    <string name="title_activity_food_start_page">食物相克相宜查询</string>
+    <string name="search_food">查询相克相宜食物</string>
+    <string name="status_text">食物冲突</string>
+    <string name="reason_text">冲突原因不详</string>
+
 </resources>
