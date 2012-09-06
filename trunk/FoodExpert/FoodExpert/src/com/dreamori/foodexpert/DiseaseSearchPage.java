@@ -47,7 +47,7 @@ public class DiseaseSearchPage extends DiseasePage {
         m_context = this;
         
     	//Get Database
-        m_dbHelper = Databasehelper.getInstance(m_context); 
+        m_dbHelper = DatabaseHelper.getInstance(m_context); 
         
         m_diseaseSpin = (Spinner) findViewById(R.id.ui_disease_search_disease_selector);
         m_relativeSpin = (Spinner) findViewById(R.id.ui_disease_search_food_relative);

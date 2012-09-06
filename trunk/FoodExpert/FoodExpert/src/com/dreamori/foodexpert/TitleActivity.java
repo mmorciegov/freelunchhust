@@ -26,14 +26,14 @@ public class TitleActivity extends Activity {
 	@Override
 	public Dialog onCreateDialog(int id, Bundle state)
 	{
-		// 判断需要生成哪种类型的对话框
+		// Find out dialog type.
 		switch (id)
 		{
 			case SETTING_DIALOG:
 				Builder b = new AlertDialog.Builder(this);
-				// 设置对话框的图标
+				// Set Dialog icon
 				b.setIcon(R.drawable.ic_launcher);
-				// 设置对话框的标题
+				// Set Dialog title
 				b.setTitle(this.getString(R.string.menu_settings));
 				final boolean[] checkStatus = new boolean[2];
 	        	
@@ -55,11 +55,11 @@ public class TitleActivity extends Activity {
 	        		checkStatus[1] = true;
 	        	}
 	        	
-				// 为对话框设置多个列表
+				// Set multi table for dialog. 
 				b.setMultiChoiceItems(new String[] { this.getString(R.string.init_introduction), this.getString(R.string.display_list_view) }
-				// 设置默认勾选了哪些列表项
+				// Set item checked default status
 					, checkStatus
-					// 为列表项的单击事件设置监听器
+					// Set Listener for items
 					, new OnMultiChoiceClickListener()
 					{
 						@Override
@@ -74,9 +74,9 @@ public class TitleActivity extends Activity {
 				        	XmlOperation.WriteXml(filename, configData);
 						}
 					});
-				// 添加一个“确定”按钮，用于关闭该对话框
+				// Add button
 				b.setPositiveButton(this.getString(R.string.menu_exit), null);
-				// 创建对话框
+				// Create Dialog
 				return b.create();
 		}
 		return null;

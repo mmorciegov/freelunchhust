@@ -14,7 +14,7 @@ public class DiseasePage extends TitleActivity {
 	public GridView m_gridview;
 	public ListView m_listview;
 	
-	public Databasehelper m_dbHelper = null;	
+	public DatabaseHelper m_dbHelper = DatabaseHelper.getInstance(m_context);;	
 	public String m_curDisease;
 	
 	public void InitDiseaseSpin()
@@ -44,13 +44,13 @@ public class DiseasePage extends TitleActivity {
 		switch(relativeFlag)
 		{
 		case 0:
-			goodBad = Databasehelper.ALL_COMBINATION;
+			goodBad = DatabaseHelper.ALL_COMBINATION;
 			break;
 		case 1:
-			goodBad = Databasehelper.GOOD_COMBINATION;
+			goodBad = DatabaseHelper.GOOD_COMBINATION;
 			break;
 		default:
-			goodBad = Databasehelper.BAD_COMBINATION;
+			goodBad = DatabaseHelper.BAD_COMBINATION;
 			break;
 		}
 

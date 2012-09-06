@@ -30,7 +30,7 @@ public class DetailInfoPage extends TitleActivity {
 	
 	private CheckBox m_tip;
 	
-	private Databasehelper m_dbHelper = null;	
+	private DatabaseHelper m_dbHelper = null;	
 	private boolean m_isTipStart = false;
 	
 	private void InitFood(ImageView image, TextView text, String name)
@@ -44,7 +44,7 @@ public class DetailInfoPage extends TitleActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_detail_info);
         
-        m_dbHelper = Databasehelper.getInstance(this);
+        m_dbHelper = DatabaseHelper.getInstance(this);
         
         Intent intent = getIntent();
         if (intent != null)
@@ -63,8 +63,8 @@ public class DetailInfoPage extends TitleActivity {
         	// Get random data for tip page.
         	m_isTipStart = true;
         	
-        	m_name1 = "花生";
-        	m_name2 = "牛奶";
+        	m_name1 = "èŠ±ç”Ÿ";
+        	m_name2 = "ç‰›å¥¶";
         	List<String> randList = new ArrayList<String>();
         	Random rand = new Random();
         	m_flag = rand.nextInt() % 2;
@@ -116,8 +116,8 @@ public class DetailInfoPage extends TitleActivity {
         InitFood(m_imageView2, m_textView2, m_name2);
         
         // Get hint and degree from database
-        // m_flag : 0 查食物食物禁忌
-        // m_flag : 1 查疾病食物禁忌
+        // m_flag : 0 Bad Relationship
+        // m_flag : 1 Good Relationship
         List<RelativeData> dataList = new ArrayList<RelativeData>();
         if (m_flag == 0)
         {

@@ -14,4 +14,11 @@
     <string name="init_introduction">初始提示</string>
     <string name="display_list_view"> 列表显示</string>
     
+    <string name="food_class_usual">常用</string>
+    <string name="food_class_all">全部</string>
+    
+    <string name="menu_food_search">相生相克查询</string>
+    <string name="menu_food_disease">食疗</string>
+    
+    
 </resources>
