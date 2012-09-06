@@ -18,7 +18,7 @@ public class InquirePage extends TitleActivity {
 	public GridView m_gridview;
 	public ListView m_listview;
 	
-	public Databasehelper m_dbHelper = null;	
+	public DatabaseHelper m_dbHelper = null;	
 	public String m_curFoodClass;
 	public List<String> m_curFoodList;
 	
