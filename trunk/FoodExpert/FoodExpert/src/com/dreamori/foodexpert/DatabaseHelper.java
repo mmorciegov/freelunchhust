@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -57,7 +58,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public final static String GOOD_COMBINATION = "1";
     public final static String ALL_COMBINATION = "2";
     
-	
+	private static Context mContext = null;
+    
 	private DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
@@ -66,6 +68,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		if(mInstance == null )
 		{
 			mInstance = new DatabaseHelper(context);
+			
+			mContext = context;
+					
 	        //Init database   
 	        InitDabaseFile(context);  			
 	        db = SQLiteDatabase.openDatabase(context.getDatabasePath(DATABASE_NAME).getAbsolutePath().toString(), null, SQLiteDatabase.OPEN_READWRITE);
@@ -104,9 +109,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	{
      	if( foodClassList == null )
     	{
-     		foodClassList = new ArrayList<String>();
-    		
-     		foodClassList.add("常用");
+     		foodClassList = new ArrayList<String>();    		
+     		
+     		foodClassList.add(mContext.getString(R.string.food_class_usual));
+     		
         	Cursor cursor = db.query(TABLE_FOOD_CLASS_INFO, new String[]{FOOD_CLASS_NAME}, null,
         			null, null, null, null, null);
         	if( cursor != null && cursor.getCount() > 0 )
@@ -117,9 +123,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             		foodClassList.add(cursor.getString(0));
             	
             	} while( cursor.moveToNext() );
-        	}
-        	
-        	foodClassList.add("全部");
+        	}        	
+
+     		foodClassList.add(mContext.getString(R.string.food_class_all));
     	}
     	
     	return foodClassList;	
@@ -148,13 +154,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     	return foodList;
     }
     
+    
+    
     public List<String> getPreferFoodList(String foodClassName)
     {
-    	if (foodClassName.equalsIgnoreCase("全部"))
+     	if (foodClassName.equalsIgnoreCase(mContext.getString(R.string.food_class_all)))
     	{
     		return getAllFoodList();
     	}
-    	else if (foodClassName.equalsIgnoreCase("常用"))
+    	else if (foodClassName.equalsIgnoreCase(mContext.getString(R.string.food_class_usual)))
     	{
     		List<String> dataList = new ArrayList<String>();
     		if (foodList == null)
