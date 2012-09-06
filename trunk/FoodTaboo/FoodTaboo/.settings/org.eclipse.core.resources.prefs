@@ -1,7 +1,8 @@
 eclipse.preferences.version=1
+encoding//src/com/freelunch/food/Databasehelper.java=UTF-8
+encoding//src/com/freelunch/food/DetailInfoPage.java=UTF-8
 encoding//src/com/freelunch/food/DiseasePage.java=UTF-8
 encoding//src/com/freelunch/food/Food.java=UTF-8
-encoding//src/com/freelunch/food/FoodMasterPage.java=UTF-8
 encoding//src/com/freelunch/food/InquirePage.java=UTF-8
 encoding//src/com/freelunch/food/InquireResultListPage.java=UTF-8
 encoding//src/com/freelunch/food/InquireResultPage.java=UTF-8

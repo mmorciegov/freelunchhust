@@ -15,9 +15,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class Databasehelper extends SQLiteOpenHelper {
 
-	private static DatabaseHelper mInstance = null;	
+	private static Databasehelper mInstance = null;	
 	static SQLiteDatabase db = null;
 	
 	public static final String DATABASE_NAME = "food.db";	
@@ -58,14 +58,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public final static String ALL_COMBINATION = "2";
     
 	
-	public DatabaseHelper(Context context) {
+	public Databasehelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 	
-	static synchronized DatabaseHelper getInstance(Context context){
+	static synchronized Databasehelper getInstance(Context context){
 		if(mInstance == null )
 		{
-			mInstance = new DatabaseHelper(context);
+			mInstance = new Databasehelper(context);
 	        //Init database   
 	        InitDabaseFile(context);  			
 	        db = SQLiteDatabase.openDatabase(context.getDatabasePath(DATABASE_NAME).getAbsolutePath().toString(), null, SQLiteDatabase.OPEN_READWRITE);

@@ -18,7 +18,7 @@ public class InquirePage extends TitleActivity {
 	public GridView m_gridview;
 	public ListView m_listview;
 	
-	public DatabaseHelper m_dbHelper = null;	
+	public Databasehelper m_dbHelper = null;	
 	public String m_curFoodClass;
 	public List<String> m_curFoodList;
 	
@@ -40,7 +40,7 @@ public class InquirePage extends TitleActivity {
 		SpinAdapter adapter = new SpinAdapter(m_context, dataList);
 		m_foodClassSpin.setAdapter(adapter);
 		
-		if (foodClass == null || foodClass.equals(""))
+		if (foodClass == null)
 		{
 			m_curFoodClass = dataList.get(0);
 		}
@@ -89,7 +89,7 @@ public class InquirePage extends TitleActivity {
 		{
 	        GridViewHolderData data = new GridViewHolderData();
 	        data.name = dataList.get(i).name;
-	        data.icon = ResourceManager.GetIcon(this,  data.name);
+	        data.icon = ResourceManager.GetIcon(this,  m_dbHelper.getIconName(data.name));
 	        data.degree = ResourceManager.GetDegreeId(dataList.get(i).degree);
 
 	        gridDataList.add(data);		
@@ -106,7 +106,7 @@ public class InquirePage extends TitleActivity {
 		{
 			ListViewHolderData data = new ListViewHolderData();
 	        data.name = dataList.get(i).name;
-	        data.icon = ResourceManager.GetIcon(this, data.name);
+	        data.icon = ResourceManager.GetIcon(this,  m_dbHelper.getIconName(data.name));
 	        data.degree = ResourceManager.GetDegreeId(dataList.get(i).degree);
 	        listDataList.add(data);		
 		}

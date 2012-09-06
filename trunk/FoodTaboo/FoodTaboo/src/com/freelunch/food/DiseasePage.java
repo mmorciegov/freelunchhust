@@ -14,7 +14,7 @@ public class DiseasePage extends TitleActivity {
 	public GridView m_gridview;
 	public ListView m_listview;
 	
-	public DatabaseHelper m_dbHelper = null;	
+	public Databasehelper m_dbHelper = null;	
 	public String m_curDisease;
 	
 	public void InitDiseaseSpin()
@@ -44,13 +44,13 @@ public class DiseasePage extends TitleActivity {
 		switch(relativeFlag)
 		{
 		case 0:
-			goodBad = DatabaseHelper.ALL_COMBINATION;
+			goodBad = Databasehelper.ALL_COMBINATION;
 			break;
 		case 1:
-			goodBad = DatabaseHelper.GOOD_COMBINATION;
+			goodBad = Databasehelper.GOOD_COMBINATION;
 			break;
 		default:
-			goodBad = DatabaseHelper.BAD_COMBINATION;
+			goodBad = Databasehelper.BAD_COMBINATION;
 			break;
 		}
 
@@ -64,7 +64,7 @@ public class DiseasePage extends TitleActivity {
 		{
 	        GridViewHolderData data = new GridViewHolderData();
 	        data.name = dataList.get(i).name;
-	        data.icon = ResourceManager.GetIcon(this, data.name );
+	        data.icon = ResourceManager.GetIcon(this,  m_dbHelper.getIconName(data.name) );
 	        data.degree = ResourceManager.GetDegreeId(dataList.get(i).degree);
 	        gridDataList.add(data);		
 		}
@@ -80,7 +80,7 @@ public class DiseasePage extends TitleActivity {
 		{
 			ListViewHolderData data = new ListViewHolderData();
 			data.name = dataList.get(i).name;
-	        data.icon = ResourceManager.GetIcon(this, data.name);
+	        data.icon = ResourceManager.GetIcon(this,  m_dbHelper.getIconName(data.name));
 	        data.degree = ResourceManager.GetDegreeId(dataList.get(i).degree);
 	        listDataList.add(data);		
 		}
