@@ -31,7 +31,7 @@ public class DiseaseSearchPage extends DiseasePage {
 				bind.putSerializable("Name2", holder.name.getText().toString());
 				bind.putSerializable("Relative", 1);
 				
-				Intent intent = new Intent(DiseaseSearchPage.this, FoodMasterPage.class);
+				Intent intent = new Intent(DiseaseSearchPage.this, DetailInfoPage.class);
 				intent.putExtras(bind);
 				
 				startActivity(intent);
@@ -47,7 +47,7 @@ public class DiseaseSearchPage extends DiseasePage {
         m_context = this;
         
     	//Get Database
-        m_dbHelper = DatabaseHelper.getInstance(m_context); 
+        m_dbHelper = Databasehelper.getInstance(m_context); 
         
         m_diseaseSpin = (Spinner) findViewById(R.id.ui_disease_search_disease_selector);
         m_relativeSpin = (Spinner) findViewById(R.id.ui_disease_search_food_relative);

@@ -15,7 +15,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class FoodMasterPage extends TitleActivity {
+public class DetailInfoPage extends TitleActivity {
 	private String m_name1 = null;
 	private String m_name2 = null;
 	private int m_flag = 0;
@@ -30,12 +30,12 @@ public class FoodMasterPage extends TitleActivity {
 	
 	private CheckBox m_tip;
 	
-	private DatabaseHelper m_dbHelper = null;	
+	private Databasehelper m_dbHelper = null;	
 	private boolean m_isTipStart = false;
 	
 	private void InitFood(ImageView image, TextView text, String name)
 	{
-		image.setBackgroundResource(ResourceManager.GetIcon(this, name));
+		image.setBackgroundResource(ResourceManager.GetIcon(this, m_dbHelper.getIconName(name)));
 		text.setText(name);
 	}
 	
@@ -44,7 +44,7 @@ public class FoodMasterPage extends TitleActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_detail_info);
         
-        m_dbHelper = DatabaseHelper.getInstance(this);
+        m_dbHelper = Databasehelper.getInstance(this);
         
         Intent intent = getIntent();
         if (intent != null)
@@ -136,7 +136,7 @@ public class FoodMasterPage extends TitleActivity {
         
         if (m_isTipStart)
         {
-        	final Intent it = new Intent(FoodMasterPage.this, Food.class);
+        	final Intent it = new Intent(DetailInfoPage.this, Food.class);
         	if (ConfigData.GetSystemTip(GetConfigFileName()) == 1)
         	{
     			Timer timer = new Timer();

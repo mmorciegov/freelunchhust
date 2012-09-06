@@ -77,13 +77,13 @@ public class InquireResultPage extends InquirePage {
 		switch(relativeFlag)
 		{
 		case 0:
-			goodBad = DatabaseHelper.ALL_COMBINATION;
+			goodBad = Databasehelper.ALL_COMBINATION;
 			break;
 		case 1:
-			goodBad = DatabaseHelper.GOOD_COMBINATION;
+			goodBad = Databasehelper.GOOD_COMBINATION;
 			break;
 		default:
-			goodBad = DatabaseHelper.BAD_COMBINATION;
+			goodBad = Databasehelper.BAD_COMBINATION;
 			break;
 		}
 
@@ -101,19 +101,15 @@ public class InquireResultPage extends InquirePage {
 				// TODO Auto-generated method stub
 				GridViewHolder holder = (GridViewHolder) arg1.getTag();
 				
+				Bundle bind = new Bundle();
+				bind.putSerializable("Name1", m_textview.getText().toString());
+				bind.putSerializable("Name2", holder.name.getText().toString());
+				bind.putSerializable("Relative", 0);
 				
-				Intent intent = new Intent();
+				Intent intent = new Intent(InquireResultPage.this, DetailInfoPage.class);
+				intent.putExtras(bind);
 				
-				Bundle bundle = new Bundle();				
-	
-				bundle.putString(FoodConst.KYE_ITEM_NAME, holder.name.getText().toString());
-				//TODO: INit values
-				bundle.putString(FoodConst.KEY_ITEM_TYPE, "");
-				bundle.putInt(FoodConst.KEY_ITEM_RELATIVE, 0);
-				
-				intent.putExtras(bundle);
-				setResult(FoodConst.INTENT_RESULT_SECOND_SEARCH_PAGE, intent);
-				finish();
+				startActivity(intent);
 			}
         });        
 	}
@@ -126,7 +122,7 @@ public class InquireResultPage extends InquirePage {
         m_context = this;
         
     	//Get Database
-        m_dbHelper = DatabaseHelper.getInstance(m_context); 
+        m_dbHelper = Databasehelper.getInstance(m_context); 
         
         m_textview = (AutoCompleteTextView) findViewById(R.id.ui_inquire_result_food_input);
         m_foodClassSpin = (Spinner) findViewById(R.id.ui_inquire_result_food_class_selector);
@@ -134,15 +130,15 @@ public class InquireResultPage extends InquirePage {
         m_gridview = (GridView)findViewById(R.id.ui_inquire_result_grid);   
         
         Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
+        Bundle bind = intent.getExtras();
         
         String foodClass;
         String foodName;
         int relativeFlag;
         
-        foodName = bundle.getString(FoodConst.KYE_ITEM_NAME);        
-        foodClass = bundle.getString(FoodConst.KEY_ITEM_TYPE);
-        relativeFlag = bundle.getInt(FoodConst.KEY_ITEM_RELATIVE);
+        foodClass = (String)bind.getSerializable("FoodClass");
+        foodName = (String)bind.getSerializable("FoodName");
+        relativeFlag = (Integer)bind.getSerializable("Relative");
         
         InitFoodClassSpin(foodClass);
         m_foodClassSpin.setOnItemSelectedListener(new OnItemSelectedListener(){
