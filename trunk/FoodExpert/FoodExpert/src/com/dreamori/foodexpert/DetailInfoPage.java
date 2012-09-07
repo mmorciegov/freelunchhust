@@ -5,6 +5,9 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -59,5 +62,33 @@ public class DetailInfoPage extends ContentPage {
 	        m_textViewHint.setText(dataList.get(0).hint);
         }
         
+        Button search = (Button)findViewById(R.id.ui_detail_search);
+        Button share = (Button)findViewById(R.id.ui_detail_share);
+        
+        search.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = null;
+				if (m_flag == 0)
+				{
+					intent = new Intent(DetailInfoPage.this, InquireSearchPage.class);
+				}
+				else
+				{
+					intent = new Intent(DetailInfoPage.this, DiseaseSearchPage.class);
+				}
+				
+				startActivity(intent);
+			}
+        });
+        
+        share.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+        });
     }
 }

@@ -61,23 +61,14 @@ public class InquireSearchPage extends InquirePage {
 	private void GotoResultPage()
 	{
 		String curFood = m_textview.getText().toString();
-		int relativeFlag = m_relativeSpin.getSelectedItemPosition();
+		int relativeFlag = 0;
 		
 		Bundle bind = new Bundle();
 		bind.putSerializable("FoodClass", m_curFoodClass);
 		bind.putSerializable("FoodName", curFood);
 		bind.putSerializable("Relative", relativeFlag);
     	
-		Intent intent = null;
-		
-		if (ConfigData.GetSystemDisplay(GetConfigFileName()) == 0)
-		{
-			intent = new Intent(InquireSearchPage.this, InquireResultPage.class);
-		}
-		else
-		{
-			intent = new Intent(InquireSearchPage.this, InquireResultListPage.class);
-		}
+		Intent intent = new Intent(InquireSearchPage.this, InquireResultPage.class);
 		intent.putExtras(bind);
 		
 		startActivity(intent);
@@ -127,7 +118,6 @@ public class InquireSearchPage extends InquirePage {
         
         m_textview = (AutoCompleteTextView) findViewById(R.id.ui_inquire_search_food_input);
         m_foodClassSpin = (Spinner) findViewById(R.id.ui_inquire_search_food_class_selector);
-        m_relativeSpin = (Spinner) findViewById(R.id.ui_inquire_search_food_relative);
         m_gridview = (GridView)findViewById(R.id.ui_inquire_search_grid);
         
         InitFoodClassSpin(null);
@@ -155,8 +145,6 @@ public class InquireSearchPage extends InquirePage {
 			}
 		});
 
-        
-        InitRelativeSpin(0);
         InitInputTextView();
         InitGrid();
         

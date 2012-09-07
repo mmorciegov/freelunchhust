@@ -13,10 +13,7 @@ import android.widget.Spinner;
 public class InquirePage extends TitleActivity {
 	public AutoCompleteTextView m_textview;
 	public Spinner m_foodClassSpin;
-	public Spinner m_relativeSpin;
-	
 	public GridView m_gridview;
-	public ListView m_listview;
 	
 	public DatabaseHelper m_dbHelper = null;	
 	public String m_curFoodClass;
@@ -62,18 +59,6 @@ public class InquirePage extends TitleActivity {
 		m_curFoodList = m_dbHelper.getPreferFoodList(m_curFoodClass);
 	}
 	
-	public void InitRelativeSpin(int pos)
-	{
-		List<String> dataList = new ArrayList<String>();
-		dataList.add(this.getString(R.string.food_related_all));
-		dataList.add(this.getString(R.string.food_related_good));
-		dataList.add(this.getString(R.string.food_related_bad));
-		
-		SpinAdapter adapter = new SpinAdapter(m_context, dataList);
-		m_relativeSpin.setAdapter(adapter);
-		m_relativeSpin.setSelection(pos);
-	}
-	
 	public void UpdateInputTextView()
 	{
 	    ArrayAdapter<String> textViewAdapter = new ArrayAdapter<String>(this,   
@@ -97,21 +82,5 @@ public class InquirePage extends TitleActivity {
         
         ListAdapter adapter = new GridViewAdapter(m_context, gridDataList);
         m_gridview.setAdapter(adapter);		
-	}
-	
-	public void UpdateList(List<RelativeData> dataList)
-	{
-        List<ListViewHolderData> listDataList = new ArrayList<ListViewHolderData>();
-		for (int i=0; i<dataList.size(); i++)
-		{
-			ListViewHolderData data = new ListViewHolderData();
-	        data.name = dataList.get(i).name;
-	        data.icon = ResourceManager.GetIcon(this,  m_dbHelper.getIconName(data.name));
-	        data.degree = ResourceManager.GetDegreeId(dataList.get(i).degree);
-	        listDataList.add(data);		
-		}
-        
-        ListAdapter adapter = new ListViewAdapter(m_context, listDataList);
-        m_listview.setAdapter(adapter);		
 	}
 }

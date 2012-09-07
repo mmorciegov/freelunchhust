@@ -91,4 +91,25 @@
 		android:layout_toRightOf="@+id/ui_detail_degree"
 		/>
 
+
+   	<Button
+   	    android:id="@+id/ui_detail_search"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+   	    android:layout_alignLeft="@+id/ui_detail_degree"
+   	    android:layout_alignParentBottom="true"
+   	    android:layout_margin="10dip"
+   	    android:background="@drawable/search"
+   	    android:text="查找" />
+
+   	<Button
+   	    android:id="@+id/ui_detail_share"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+   	    android:layout_toRightOf="@+id/ui_detail_search"
+   	    android:layout_alignParentBottom="true"
+   	    android:layout_margin="10dip"
+   	    android:background="@drawable/share"
+   	    android:text="分享" />
+
 </RelativeLayout>
