@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.GridView;
 import android.widget.ListAdapter;
@@ -18,6 +19,60 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 public class InquireSearchPage extends InquirePage {
+	private AutoCompleteTextView m_textview;
+	private Spinner m_foodClassSpin;
+	
+	private String m_curFoodClass;
+	private List<String> m_curFoodList;
+	
+	private boolean IsFoodValid(String foodName)
+	{
+		for (int i=0; i<m_curFoodList.size(); i++)
+		{
+			if (foodName.equalsIgnoreCase(m_curFoodList.get(i)))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private void InitFoodClassSpin(String foodClass)
+	{
+		List<String> dataList = m_dbHelper.GetFoodClassList();
+		SpinAdapter adapter = new SpinAdapter(m_context, dataList);
+		m_foodClassSpin.setAdapter(adapter);
+		
+		if (foodClass == null)
+		{
+			m_curFoodClass = dataList.get(0);
+		}
+		else
+		{
+			int index = 0;
+			for (int i=0; i<dataList.size(); i++)
+			{
+				if (foodClass.equalsIgnoreCase(dataList.get(i)))
+				{
+					index = i;
+					break;
+				}
+			}
+			m_foodClassSpin.setSelection(index);
+			
+			m_curFoodClass = foodClass;
+		}
+		m_curFoodList = m_dbHelper.getPreferFoodList(m_curFoodClass);
+	}
+	
+	private void UpdateInputTextView()
+	{
+	    ArrayAdapter<String> textViewAdapter = new ArrayAdapter<String>(this,   
+	            android.R.layout.simple_dropdown_item_1line, m_curFoodList);   
+	    m_textview.setAdapter(textViewAdapter);  	    
+	    m_textview.setThreshold(1); 		
+	}
+
 	
 	private void InitInputTextView()
 	{
