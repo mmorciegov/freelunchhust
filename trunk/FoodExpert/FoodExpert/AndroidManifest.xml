@@ -34,9 +34,13 @@
         <activity
             android:name=".DiseaseSearchListPage"
             android:label="@string/title_activity_food" >
-        </activity>                  
+        </activity>            
         <activity
             android:name=".DetailInfoPage"
+            android:label="@string/title_activity_food" >
+        </activity>     
+        <activity
+            android:name=".TipPage"
             android:label="@string/title_activity_food" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

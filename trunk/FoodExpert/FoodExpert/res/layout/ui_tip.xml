@@ -13,7 +13,7 @@
         android:orientation="vertical" >
         
         <ImageView 
-			android:id="@+id/ui_detail_icon_1"
+			android:id="@+id/ui_tip_icon_1"
 			android:layout_gravity="center"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
@@ -21,7 +21,7 @@
 			/>   
 				
 		<TextView 
-			android:id="@+id/ui_detail_name_1"
+			android:id="@+id/ui_tip_name_1"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
 			android:textColor="#ff000000"
@@ -40,7 +40,7 @@
         android:orientation="vertical" >
 		
         <ImageView 
-			android:id="@+id/ui_detail_icon_2"
+			android:id="@+id/ui_tip_icon_2"
 			android:layout_gravity="center"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
@@ -48,7 +48,7 @@
 			/>   
 				
 		<TextView 
-			android:id="@+id/ui_detail_name_2"
+			android:id="@+id/ui_tip_name_2"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
 			android:textColor="#ff000000"
@@ -59,7 +59,7 @@
     </LinearLayout>
     
    	<TextView 
-		android:id="@+id/ui_detail_vs"
+		android:id="@+id/ui_tip_vs"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content" 
 		android:textColor="#ffff0000"
@@ -71,7 +71,7 @@
 		/>   
 		
 	<ImageView 
-		android:id="@+id/ui_detail_degree"
+		android:id="@+id/ui_tip_degree"
 		android:layout_gravity="center"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content" 
@@ -80,7 +80,7 @@
 		/>      	
 		
    	<TextView 
-		android:id="@+id/ui_detail_hint"
+		android:id="@+id/ui_tip_hint"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content" 
 		android:textColor="#ffff0000"
@@ -88,7 +88,15 @@
 		android:layout_gravity="center"
 		android:layout_margin="30dip"
 		android:layout_below="@+id/linearLayout1"
-		android:layout_toRightOf="@+id/ui_detail_degree"
+		android:layout_toRightOf="@+id/ui_tip_degree"
 		/>
+
+   	<CheckBox
+   	    android:id="@+id/ui_tip_check"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+   	    android:text="始终显示在初始化时" />
 
 </RelativeLayout>
