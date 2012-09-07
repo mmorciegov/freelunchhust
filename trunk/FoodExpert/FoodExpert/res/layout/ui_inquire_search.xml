@@ -11,10 +11,11 @@
         android:layout_alignParentTop="true"
         android:orientation="horizontal" >
 
-        <Spinner
+        <com.dreamori.foodexpert.ComboBox
             android:id="@+id/ui_inquire_search_food_class_selector"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content" >
+        </com.dreamori.foodexpert.ComboBox>
 
         <AutoCompleteTextView
             android:id="@+id/ui_inquire_search_food_input"

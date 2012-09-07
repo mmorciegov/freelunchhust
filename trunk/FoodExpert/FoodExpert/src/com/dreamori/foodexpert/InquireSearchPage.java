@@ -3,6 +3,8 @@ package com.dreamori.foodexpert;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dreamori.foodexpert.ComboBox.GirdViewItemClickListener;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,10 +22,11 @@ import android.widget.TextView;
 
 public class InquireSearchPage extends InquirePage {
 	private AutoCompleteTextView m_textview;
-	private Spinner m_foodClassSpin;
+	private ComboBox m_foodClassSpin;
 	
 	private String m_curFoodClass;
 	private List<String> m_curFoodList;
+	private List<String> m_FoodClassList;
 	
 	private boolean IsFoodValid(String foodName)
 	{
@@ -39,29 +42,9 @@ public class InquireSearchPage extends InquirePage {
 	
 	private void InitFoodClassSpin(String foodClass)
 	{
-		List<String> dataList = m_dbHelper.GetFoodClassList();
-		SpinAdapter adapter = new SpinAdapter(m_context, dataList);
-		m_foodClassSpin.setAdapter(adapter);
-		
-		if (foodClass == null)
-		{
-			m_curFoodClass = dataList.get(0);
-		}
-		else
-		{
-			int index = 0;
-			for (int i=0; i<dataList.size(); i++)
-			{
-				if (foodClass.equalsIgnoreCase(dataList.get(i)))
-				{
-					index = i;
-					break;
-				}
-			}
-			m_foodClassSpin.setSelection(index);
-			
-			m_curFoodClass = foodClass;
-		}
+		m_FoodClassList = m_dbHelper.GetFoodClassList();
+		m_foodClassSpin.setData(m_FoodClassList);
+		m_curFoodClass = m_FoodClassList.get(0);
 		m_curFoodList = m_dbHelper.getPreferFoodList(m_curFoodClass);
 	}
 	
@@ -172,33 +155,24 @@ public class InquireSearchPage extends InquirePage {
         m_dbHelper = DatabaseHelper.getInstance(m_context);        
         
         m_textview = (AutoCompleteTextView) findViewById(R.id.ui_inquire_search_food_input);
-        m_foodClassSpin = (Spinner) findViewById(R.id.ui_inquire_search_food_class_selector);
+        m_foodClassSpin = (ComboBox) findViewById(R.id.ui_inquire_search_food_class_selector);
         m_gridview = (GridView)findViewById(R.id.ui_inquire_search_grid);
         
         InitFoodClassSpin(null);
-        m_foodClassSpin.setOnItemSelectedListener(new OnItemSelectedListener(){
+        m_foodClassSpin.setGridViewOnClickListener(new GirdViewItemClickListener(){
 			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
+			public void onItemClick(int position) {
 				// TODO Auto-generated method stub
-				TextView tv = (TextView)arg1;
-				
-				if (!m_curFoodClass.equalsIgnoreCase(tv.getText().toString()))
+				if (!m_FoodClassList.get(position).equalsIgnoreCase(m_curFoodClass))
 				{
-					m_curFoodClass = tv.getText().toString();
+					m_curFoodClass = m_FoodClassList.get(position);
 					m_curFoodList = m_dbHelper.getPreferFoodList(m_curFoodClass);		
 					
 					UpdateInputTextView();
 					UpdateGrid();
 				}
 			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+        });
 
         InitInputTextView();
         InitGrid();
