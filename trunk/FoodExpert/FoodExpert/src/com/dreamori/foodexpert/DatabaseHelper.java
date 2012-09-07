@@ -450,15 +450,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 
 	static private void InitDabaseFile(Context context)
-    {
-    	String databasePathString = context.getApplicationInfo().dataDir + "/databases";
-    	File databaseFolderFile = new File(databasePathString);
-    	if( !databaseFolderFile.exists() )
-    	{
-    		databaseFolderFile.mkdir();
-    	}
+    {    	
+        File dbFile = context.getDatabasePath(DATABASE_NAME);
+		if (!dbFile.getParentFile().exists()) {
+			dbFile.getParentFile().mkdirs();
+		}
     	
-    	String databaseFileName = context.getDatabasePath(DATABASE_NAME).getAbsolutePath().toString();  
+    	String databaseFileName = dbFile.getAbsolutePath().toString();  
     	
         File targetFile = new File(databaseFileName);
     	if (!targetFile.exists())        
