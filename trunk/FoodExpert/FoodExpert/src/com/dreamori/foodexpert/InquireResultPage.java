@@ -5,16 +5,10 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AutoCompleteTextView;
 import android.widget.GridView;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 public class InquireResultPage extends InquirePage {
 	private String m_foodname;
@@ -77,11 +71,11 @@ public class InquireResultPage extends InquirePage {
         Intent intent = getIntent();
         Bundle bind = intent.getExtras();
         
-        String foodClass;
+//        String foodClass;
         String foodName;
         int relativeFlag;
         
-        foodClass = (String)bind.getSerializable("FoodClass");
+//        foodClass = (String)bind.getSerializable("FoodClass");
         foodName = (String)bind.getSerializable("FoodName");
         relativeFlag = (Integer)bind.getSerializable("Relative");
         
