@@ -48,7 +48,7 @@ public class GridViewAdapter extends BaseAdapter {
 			
 			holder.icon = (ImageView) convertView.findViewById(R.id.gridview_item_icon);
 			holder.name = (TextView) convertView.findViewById(R.id.gridview_item_name);
-			//holder.degree = (ImageView) convertView.findViewById(R.id.gridview_item_degree);
+			holder.degree = (ImageView) convertView.findViewById(R.id.gridview_item_degree);
 			
 			convertView.setTag(holder);
 		} 
@@ -62,10 +62,10 @@ public class GridViewAdapter extends BaseAdapter {
 			holder.icon.setBackgroundResource(m_data.get(position).icon);
 		}
 		holder.name.setText(m_data.get(position).name);
-//		if (m_data.get(position).degree != 0)
-//		{
-//			holder.degree.setBackgroundResource(m_data.get(position).degree);
-//		}
+		if (m_data.get(position).degree != 0)
+		{
+			holder.degree.setBackgroundResource(m_data.get(position).degree);
+		}
 		
 		return convertView;
 	}

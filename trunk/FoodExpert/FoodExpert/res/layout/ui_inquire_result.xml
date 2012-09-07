@@ -2,40 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:orientation="horizontal" >
-
-        <Spinner
-            android:id="@+id/ui_inquire_result_food_class_selector"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <AutoCompleteTextView
-            android:id="@+id/ui_inquire_result_food_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10" >
-        </AutoCompleteTextView>
-
-        <Spinner
-            android:id="@+id/ui_inquire_result_food_relative"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
     
     <GridView
         android:id="@+id/ui_inquire_result_grid" 
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content" 
-        android:layout_below="@+id/linearLayout1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         
         android:paddingTop="20dip" 
         android:gravity="center" 
