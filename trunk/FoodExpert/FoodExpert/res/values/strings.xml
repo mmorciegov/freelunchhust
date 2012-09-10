@@ -20,5 +20,7 @@
     <string name="menu_food_search">相生相克查询</string>
     <string name="menu_food_disease">食疗</string>
     
+    <string name = "title_food_related">相关食物</string>
+    
     
 </resources>
