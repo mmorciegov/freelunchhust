@@ -58,25 +58,25 @@
 			        
     </LinearLayout>
     
-   	<TextView 
-		android:id="@+id/ui_detail_vs"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content" 
-		android:textColor="#ffff0000"
-		android:textSize="22.0dip" 
-		android:layout_gravity="center"
-		android:layout_centerHorizontal="true"
-		android:text="V"
-		android:layout_margin="30dip"
-		/>   
+<!--    	<TextView  -->
+<!-- 		android:id="@+id/ui_detail_vs" -->
+<!-- 		android:layout_width="wrap_content" -->
+<!-- 		android:layout_height="wrap_content"  -->
+<!-- 		android:textColor="#ffff0000" -->
+<!-- 		android:textSize="22.0dip"  -->
+<!-- 		android:layout_gravity="center" -->
+<!-- 		android:layout_centerHorizontal="true" -->
+<!-- 		android:text="V" -->
+<!-- 		android:layout_margin="30dip" -->
+<!-- 		/>    -->
 		
 	<ImageView 
 		android:id="@+id/ui_detail_degree"
 		android:layout_gravity="center"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content" 
-		android:layout_margin="3.0dip"
-		android:layout_below="@+id/linearLayout1"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="30dip"
 		/>      	
 		
    	<TextView 
@@ -88,9 +88,7 @@
 		android:layout_gravity="center"
 		android:layout_margin="30dip"
 		android:layout_below="@+id/linearLayout1"
-		android:layout_toRightOf="@+id/ui_detail_degree"
 		/>
-
 
    	<Button
    	    android:id="@+id/ui_detail_search"
@@ -100,7 +98,7 @@
    	    android:layout_alignParentBottom="true"
    	    android:layout_margin="10dip"
    	    android:background="@drawable/search"
-   	    android:text="查找" />
+   	    android:text="@string/menu_share" />
 
    	<Button
    	    android:id="@+id/ui_detail_share"
@@ -110,6 +108,6 @@
    	    android:layout_alignParentBottom="true"
    	    android:layout_margin="10dip"
    	    android:background="@drawable/share"
-   	    android:text="分享" />
+   	    android:text="@string/menu_search"/>
 
 </RelativeLayout>

@@ -22,5 +22,9 @@
     
     <string name = "title_food_related">相关食物</string>
     
+    <string name="menu_search">查找</string>
+    <string name="menu_share">分享</string>
+    
+    <string name="menu_show_on_start">始终显示在初始化时</string>
     
 </resources>
