@@ -80,7 +80,7 @@ public class InquireResultPage extends InquirePage {
         relativeFlag = (Integer)bind.getSerializable("Relative");
         
         m_foodname = foodName;
-        setTitle(m_foodname);
+        setTitle(m_foodname + getString(R.string.title_food_related));
         
         List<RelativeData> dataList = new ArrayList<RelativeData>();
         Search(foodName, relativeFlag, dataList);
