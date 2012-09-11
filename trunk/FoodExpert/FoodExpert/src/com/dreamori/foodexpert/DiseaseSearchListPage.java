@@ -67,7 +67,7 @@ public class DiseaseSearchListPage extends DiseasePage {
 					int relativeFlag = m_relativeSpin.getSelectedItemPosition();
 					
 			        List<RelativeData> dataList = new ArrayList<RelativeData>();
-			        Search(m_curDisease, relativeFlag, dataList);	
+			        Search(m_curDisease, dataList);	
 			        
 			        UpdateList(dataList);
 				}
@@ -83,7 +83,7 @@ public class DiseaseSearchListPage extends DiseasePage {
         InitRelativeSpin();
         
         List<RelativeData> dataList = new ArrayList<RelativeData>();
-        Search(m_curDisease, 0, dataList);
+        Search(m_curDisease, dataList);
         
         InitList(dataList);
         

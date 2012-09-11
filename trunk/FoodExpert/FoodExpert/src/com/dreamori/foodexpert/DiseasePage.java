@@ -37,24 +37,9 @@ public class DiseasePage extends TitleActivity {
 		m_relativeSpin.setAdapter(adapter);
 	}
 	
-	public void Search(String curDisease, int relativeFlag, List<RelativeData> dataList)
+	public void Search(String curDisease, List<RelativeData> dataList)
 	{
-		String goodBad = null;
-		
-		switch(relativeFlag)
-		{
-		case 0:
-			goodBad = DatabaseHelper.ALL_COMBINATION;
-			break;
-		case 1:
-			goodBad = DatabaseHelper.GOOD_COMBINATION;
-			break;
-		default:
-			goodBad = DatabaseHelper.BAD_COMBINATION;
-			break;
-		}
-
-		m_dbHelper.findRelatedFoodByDisease(curDisease, dataList, goodBad);
+		m_dbHelper.findRelatedFoodByDisease(curDisease, dataList);
 	}
 	
 	public void UpdateGrid(List<RelativeData> dataList)
