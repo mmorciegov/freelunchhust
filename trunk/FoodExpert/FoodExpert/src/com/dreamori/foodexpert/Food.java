@@ -82,14 +82,7 @@ public class Food extends TitleActivity {
 					break;
 					
 				case 1:				
-					if (ConfigData.GetSystemDisplay(GetConfigFileName()) == 0)
-					{
-						intent = new Intent(Food.this, DiseaseSearchPage.class);
-					}
-					else
-					{
-						intent = new Intent(Food.this, DiseaseSearchListPage.class);
-					}
+					intent = new Intent(Food.this, DiseaseSearchPage.class);
 					startActivity(intent);
 					break;
 				

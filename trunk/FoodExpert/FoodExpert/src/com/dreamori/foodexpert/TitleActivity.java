@@ -10,9 +10,15 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.CheckBox;
 
 public class TitleActivity extends Activity {
 	public static final int SETTING_DIALOG = 0x113;
@@ -78,49 +84,96 @@ public class TitleActivity extends Activity {
 		{
 			case SETTING_DIALOG:
 				Builder b = new AlertDialog.Builder(this);
-				// Set Dialog icon
-				b.setIcon(R.drawable.ic_launcher);
-				// Set Dialog title
-				b.setTitle(this.getString(R.string.menu_settings));
-				final boolean[] checkStatus = new boolean[2];
-	        	
+				View view = LayoutInflater.from(m_context).inflate(R.layout.ui_setting, null);
+				b.setView(view);
+				
+				final CheckBox tipCheck = (CheckBox) view.findViewById(R.id.ui_setting_tip);
 	        	if(ConfigData.GetSystemTip(GetConfigFileName()) == 0)
 	        	{
-	        		checkStatus[0] = false;
+	        		tipCheck.setChecked(false);
 	        	}
 	        	else
 	        	{
-	        		checkStatus[0] = true;
+	        		tipCheck.setChecked(true);
 	        	}
 	        	
-	        	if(ConfigData.GetSystemDisplay(GetConfigFileName()) == 0)
-	        	{
-	        		checkStatus[1] = false;
-	        	}
-	        	else
-	        	{
-	        		checkStatus[1] = true;
-	        	}
+	        	tipCheck.setOnClickListener(new OnClickListener(){
+					@Override
+					public void onClick(View arg0) {
+						// TODO Auto-generated method stub
+			        	String filename = GetConfigFileName();
+			        	ConfigData configData = new ConfigData();
+			        	
+			        	if (tipCheck.isChecked())
+			        	{
+			        		configData.tip = 1;
+			        	}
+			        	else
+			        	{
+			        		configData.tip = 0;
+			        	}
+			        	XmlOperation.WriteXml(filename, configData);
+					}
+	        	});
 	        	
-				// Set multi table for dialog. 
-				b.setMultiChoiceItems(new String[] { this.getString(R.string.init_introduction), this.getString(R.string.display_list_view) }
-				// Set item checked default status
-					, checkStatus
-					// Set Listener for items
-					, new OnMultiChoiceClickListener()
-					{
-						@Override
-						public void onClick(DialogInterface dialog, int which,
-							boolean isChecked)
-						{
-				        	String filename = GetConfigFileName();
-				        	ConfigData configData = new ConfigData();
-				        	
-				        	configData.tip = checkStatus[0] ? 1 : 0;
-				        	configData.display = checkStatus[1] ? 1 : 0;
-				        	XmlOperation.WriteXml(filename, configData);
-						}
-					});
+	        	final Button mailBtn = (Button) view.findViewById(R.id.ui_setting_email);
+	        	mailBtn.setOnClickListener(new OnClickListener(){
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						String addr = "mailto:freelunch@gmail.com";
+						Intent intent = new Intent(Intent.ACTION_SENDTO);
+						intent.setData(Uri.parse(addr));
+						intent.putExtra(Intent.EXTRA_SUBJECT, "");
+						intent.putExtra(Intent.EXTRA_TEXT, "");
+						startActivity(intent);
+					}
+	        	});
+				
+//				// Set Dialog icon
+//				b.setIcon(R.drawable.ic_launcher);
+//				// Set Dialog title
+//				b.setTitle(this.getString(R.string.menu_settings));
+//				final boolean[] checkStatus = new boolean[2];
+//	        	
+//	        	if(ConfigData.GetSystemTip(GetConfigFileName()) == 0)
+//	        	{
+//	        		checkStatus[0] = false;
+//	        	}
+//	        	else
+//	        	{
+//	        		checkStatus[0] = true;
+//	        	}
+//	        	
+//	        	if(ConfigData.GetSystemDisplay(GetConfigFileName()) == 0)
+//	        	{
+//	        		checkStatus[1] = false;
+//	        	}
+//	        	else
+//	        	{
+//	        		checkStatus[1] = true;
+//	        	}
+//	        	
+//				// Set multi table for dialog. 
+//				b.setMultiChoiceItems(new String[] { this.getString(R.string.init_introduction), this.getString(R.string.display_list_view) }
+//				// Set item checked default status
+//					, checkStatus
+//					// Set Listener for items
+//					, new OnMultiChoiceClickListener()
+//					{
+//						@Override
+//						public void onClick(DialogInterface dialog, int which,
+//							boolean isChecked)
+//						{
+//				        	String filename = GetConfigFileName();
+//				        	ConfigData configData = new ConfigData();
+//				        	
+//				        	configData.tip = checkStatus[0] ? 1 : 0;
+//				        	configData.display = checkStatus[1] ? 1 : 0;
+//				        	XmlOperation.WriteXml(filename, configData);
+//						}
+//					});
+				
 				// Add button
 				b.setPositiveButton(this.getString(R.string.menu_exit), null);
 				// Create Dialog

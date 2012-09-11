@@ -43,7 +43,7 @@ public class XmlOperation {
 			Element elem = (Element)nodeList.item(0);
 			
 			data.tip = Integer.parseInt(elem.getAttribute("tip"));
-			data.display = Integer.parseInt(elem.getAttribute("display"));
+//			data.display = Integer.parseInt(elem.getAttribute("display"));
 				
     	}catch (IOException e) {
     	} catch (SAXException e) {
@@ -67,7 +67,7 @@ public class XmlOperation {
     		
     		serializer.startTag("","Data");
     		serializer.attribute("","tip", String.valueOf(data.tip));
-    		serializer.attribute("","display", String.valueOf(data.display));
+//    		serializer.attribute("","display", String.valueOf(data.display));
     		serializer.endTag("","Data");
 
     		serializer.endTag("","Food");	
