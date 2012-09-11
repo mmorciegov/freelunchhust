@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -154,6 +155,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     	return foodList;
     }
     
+    public void AddFoodSearchFrequency( String foodName )
+    {
+       	Cursor cursor;
+		cursor = db.query(TABLE_FOOD_INFO, new String[]{FOOD_SEARCH_NUMBER}, "("+FOOD_NAME+"=?"+")", new String[]{foodName}, null, null, null, null);   	
+    	
+    	if (cursor == null || cursor.getCount() == 0)
+    	{
+    		return;
+    	}
+    	
+   		cursor.moveToFirst();      		
+    	
+   		int foodSearchFrequency = cursor.getInt(0);
+   		cursor.close();
+   		
+   		if( foodSearchFrequency >= 0 )
+   		{
+   			foodSearchFrequency++;
+   		}
+   		   		   		
+   		//Update food frequency
+   		ContentValues values = new ContentValues();
+   		values.put(FOOD_SEARCH_NUMBER, foodSearchFrequency);
+   		db.update(TABLE_FOOD_INFO, values, "("+FOOD_NAME+"=?"+")", new String[]{foodName});
+    	
+    }
+    
     
     
     public List<String> getPreferFoodList(String foodClassName)
@@ -169,7 +197,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     		{
     			getAllFoodList();
     		}
-    		int count = foodList.size() < 9 ? foodList.size() : 9;
+    		int count = foodList.size() < FoodConst.COMMON_FOOD_INIT_COUNT ? foodList.size() : FoodConst.COMMON_FOOD_INIT_COUNT;
     		for (int i=0; i<count; i++)
     		{
     			dataList.add(foodList.get(i));
@@ -239,6 +267,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		dataList.add(cursor.getString(1));
 		dataList.add(cursor.getString(2));
     	
+		cursor.close();
     	return true;   	
     }
     
@@ -265,7 +294,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		
 		dataList.add(cursor.getString(2));
 		dataList.add(cursor.getString(1));
-    	
+		cursor.close();
     	return true;    	
     }
     
@@ -319,6 +348,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     	
     	} while( cursor.moveToNext() );  
     	
+    	cursor.close();
     	return true;
     }
        
@@ -352,7 +382,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    	dataList.add(pridata);
     	
     	} while( cursor.moveToNext() );  
-    	
+    	cursor.close();
     	return true;
     }
     
@@ -380,7 +410,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    	dataList.add(pridata);
     	
     	} while( cursor.moveToNext() );  
-    	
+    	cursor.close();
     	return true;
     }
     
@@ -402,7 +432,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
    		{
    			iconNameString = "food";
    		}
-   		   		
+   		cursor.close();   		
     	return iconNameString;
     }
    
@@ -430,7 +460,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    	dataList.add(pridata);
     	
     	} while( cursor.moveToNext() );  
-    	
+    	cursor.close();
     	return true;
     }
     
@@ -487,9 +517,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         myOutput.close();
         myInput.close();  
     }
-
-	
    
+   void CloseDatabase()
+   {
+	   db.close();
+	   db = null;
+   }
+     
    
    
 }
