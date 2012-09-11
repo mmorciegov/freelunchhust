@@ -419,7 +419,17 @@ public class DatabaseHelper {
 	
 	public boolean deleteDatabase(Context context) {
 		return context.deleteDatabase(DATABASE_NAME);
-	}	
+	}
+	
+	public void closeDatabase()
+	{
+		try {
+			db.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	
 

@@ -46,7 +46,7 @@ public class Food extends TitleActivity {
 		DatabaseHelper dbHelper = DatabaseHelper.getInstance(this);
 		if( dbHelper != null )
 		{
-			dbHelper.CloseDatabase();
+			dbHelper.closeDatabase();
 		}
 		
         ActivityManager activityManager = (ActivityManager) this.getSystemService(Context.ACTIVITY_SERVICE);
