@@ -56,8 +56,6 @@ public class DatabaseHelper {
     private static ArrayList<String> diseaseList = null;
     private static ArrayList<String> foodClassList = null;	
     
-	private static Context mContext = null;
-    
 	private DatabaseHelper(Context context) {
 	}
 	
@@ -65,8 +63,6 @@ public class DatabaseHelper {
 		if(mInstance == null )
 		{
 			mInstance = new DatabaseHelper(context);
-			
-			mContext = context;
 					
 	        //Init database   
 	        InitDabaseFile(context);
@@ -115,7 +111,6 @@ public class DatabaseHelper {
     	{
      		foodClassList = new ArrayList<String>();    		
      		
-     		foodClassList.add(mContext.getString(R.string.food_class_usual));
      		
      		TableResult tableResult = null;
 			try {
@@ -128,8 +123,6 @@ public class DatabaseHelper {
 			for (String[] rowData : tableResult.rows) {
 				foodClassList.add(rowData[0]);
 			}
-
-     		foodClassList.add(mContext.getString(R.string.food_class_all));
     	}
     	
     	return foodClassList;	
@@ -159,8 +152,7 @@ public class DatabaseHelper {
     }
     
     public void AddFoodSearchFrequency( String foodName )
-    {
-   		
+    {   		
    		TableResult tableResult = null;
 		try {
 			tableResult = db.get_table("select "+FOOD_SEARCH_NUMBER+" from "+TABLE_FOOD_INFO
@@ -190,50 +182,28 @@ public class DatabaseHelper {
 			e.printStackTrace();
 		}	
     }
-    
-    
+        
     
     public List<String> getPreferFoodList(String foodClassName)
     {
-     	if (foodClassName.equalsIgnoreCase(mContext.getString(R.string.food_class_all)))
-    	{
-    		return getAllFoodList();
-    	}
-    	else if (foodClassName.equalsIgnoreCase(mContext.getString(R.string.food_class_usual)))
-    	{
-    		List<String> dataList = new ArrayList<String>();
-    		if (foodList == null)
-    		{
-    			getAllFoodList();
-    		}
-    		int count = foodList.size() < FoodConst.COMMON_FOOD_INIT_COUNT ? foodList.size() : FoodConst.COMMON_FOOD_INIT_COUNT;
-    		for (int i=0; i<count; i++)
-    		{
-    			dataList.add(foodList.get(i));
-    		}
-    		return dataList;
-    	}
-    	else
-    	{
-    		// get data by class
-     		List<String> dataList = new ArrayList<String>();
+		// get data by class
+ 		List<String> dataList = new ArrayList<String>();
 
-        	TableResult tableResult = null;
-			try {
-				tableResult = db.get_table("select "+FOOD_NAME+" from "+TABLE_FOOD_INFO
-						+" where "+FOOD_CLASS_NAME+"='"+foodClassName+"' order by "+FOOD_SEARCH_NUMBER+" desc");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+    	TableResult tableResult = null;
+		try {
+			tableResult = db.get_table("select "+FOOD_NAME+" from "+TABLE_FOOD_INFO
+					+" where "+FOOD_CLASS_NAME+"='"+foodClassName+"' order by "+FOOD_SEARCH_NUMBER+" desc");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-			for (String[] rowData : tableResult.rows) {
-				dataList.add(rowData[0]);
-			}
-		    		
-    		return dataList;
-    	}
-    }
+		for (String[] rowData : tableResult.rows) {
+			dataList.add(rowData[0]);
+		}
+	    		
+		return dataList;
+     }
     
     public boolean getRandomDataInFood(List<String> dataList)
     {

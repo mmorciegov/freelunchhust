@@ -125,13 +125,47 @@ public class InquireSearchPage extends InquirePage {
 		}
 		return false;
 	}
+		
+	private List<String> GetFoodClassList()
+	{	
+ 		List<String>  foodClassList = new ArrayList<String>();    	
+ 		foodClassList.add(getString(R.string.food_class_usual));
+ 		foodClassList.addAll(m_dbHelper.GetFoodClassList());	
+ 		foodClassList.add(getString(R.string.food_class_all));
+    	
+    	return foodClassList;	
+	}
+	
+	private List<String> GetPreferFoodList( String foodClassName )
+	{
+     	if (foodClassName.equalsIgnoreCase(getString(R.string.food_class_all))) 
+    	{
+    		return m_dbHelper.getAllFoodList();
+    	}
+    	else if (foodClassName.equalsIgnoreCase(getString( R.string.food_class_usual)))
+    	{
+    		List<String> dataList = new ArrayList<String>();
+   			List<String> foodList = m_dbHelper.getAllFoodList();
+    		int count = foodList.size() < FoodConst.COMMON_FOOD_INIT_COUNT ? foodList.size() : FoodConst.COMMON_FOOD_INIT_COUNT;
+    		for (int i=0; i<count; i++)
+    		{
+    			dataList.add(foodList.get(i));
+    		}
+    		return dataList;
+    	}
+    	else
+    	{		    		
+    		return m_dbHelper.getPreferFoodList(foodClassName);
+    	}
+	    
+	}
 	
 	private void InitFoodClassSpin(String foodClass)
 	{
-		m_FoodClassList = m_dbHelper.GetFoodClassList();
+		m_FoodClassList = GetFoodClassList();
 		m_foodClassSpin.setData(m_FoodClassList);
 		m_curFoodClass = m_FoodClassList.get(0);
-		m_curFoodList = m_dbHelper.getPreferFoodList(m_curFoodClass);
+		m_curFoodList = GetPreferFoodList(m_curFoodClass);
 	}
 	
 	private void UpdateInputTextView()
@@ -266,7 +300,7 @@ public class InquireSearchPage extends InquirePage {
 				if (!m_FoodClassList.get(position).equalsIgnoreCase(m_curFoodClass))
 				{
 					m_curFoodClass = m_FoodClassList.get(position);
-					m_curFoodList = m_dbHelper.getPreferFoodList(m_curFoodClass);		
+					m_curFoodList = GetPreferFoodList(m_curFoodClass);		
 					
 					UpdateInputTextView();
 					UpdateGrid();
