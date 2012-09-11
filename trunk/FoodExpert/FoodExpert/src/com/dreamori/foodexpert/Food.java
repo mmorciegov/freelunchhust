@@ -34,7 +34,14 @@ public class Food extends TitleActivity {
         m_gridview.setAdapter(adapter);	
 	}
 
-    @Override
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		DatabaseHelper.getInstance(this).CloseDatabase();
+		super.onDestroy();
+	}
+
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_main);

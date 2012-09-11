@@ -74,8 +74,10 @@ public class InquireSearchPage extends InquirePage {
 			@Override
 			public void afterTextChanged(Editable s) {
 				// TODO Auto-generated method stub
-				if (IsFoodValid(m_textview.getText().toString()))
+				String foodName = m_textview.getText().toString();
+				if (IsFoodValid(foodName))
 				{
+					m_dbHelper.AddFoodSearchFrequency(foodName);
 					GotoResultPage();
 				}
 			}
