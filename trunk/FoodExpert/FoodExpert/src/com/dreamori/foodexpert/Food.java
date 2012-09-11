@@ -55,6 +55,7 @@ public class Food extends TitleActivity {
         setContentView(R.layout.ui_main);
         
         m_context = this;
+        m_level = 1;
         
 		Log.v("Food Activity", "onCreate");    
 		

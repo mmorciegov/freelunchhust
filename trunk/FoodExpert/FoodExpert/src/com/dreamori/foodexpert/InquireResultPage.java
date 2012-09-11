@@ -65,6 +65,7 @@ public class InquireResultPage extends InquirePage {
         setContentView(R.layout.ui_inquire_result);
         
         m_context = this;
+        m_level = 3;
         
     	//Get Database
         m_dbHelper = DatabaseHelper.getInstance(m_context); 
