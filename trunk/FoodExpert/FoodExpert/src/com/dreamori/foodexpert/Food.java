@@ -41,7 +41,11 @@ public class Food extends TitleActivity {
 		
 		Log.v("Food Activity", "onDestroy");
 		
-		DatabaseHelper.getInstance(this).CloseDatabase();
+//		DatabaseHelper dbHelper = DatabaseHelper.getInstance(this);
+//		if( dbHelper != null )
+//		{
+//			dbHelper.CloseDatabase();
+//		}
 		super.onDestroy();
 	}
 
