@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -41,11 +43,16 @@ public class Food extends TitleActivity {
 		
 		Log.v("Food Activity", "onDestroy");
 		
-//		DatabaseHelper dbHelper = DatabaseHelper.getInstance(this);
-//		if( dbHelper != null )
-//		{
-//			dbHelper.CloseDatabase();
-//		}
+		DatabaseHelper dbHelper = DatabaseHelper.getInstance(this);
+		if( dbHelper != null )
+		{
+			dbHelper.CloseDatabase();
+		}
+		
+        ActivityManager activityManager = (ActivityManager) this.getSystemService(Context.ACTIVITY_SERVICE);
+        activityManager.killBackgroundProcesses(getPackageName());
+        System.exit(0);
+        
 		super.onDestroy();
 	}
 
