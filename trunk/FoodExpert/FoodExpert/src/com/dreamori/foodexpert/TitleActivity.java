@@ -60,6 +60,16 @@ public class TitleActivity extends Activity {
 		return getApplicationContext().getFilesDir().getAbsoluteFile().toString() + CONFIG_FILENAME;
 	}
 	
+	public void KillActivity( int level )
+	{
+		Intent broadIntent = new Intent(BROADCAST_EXIT);
+		Bundle broadbind = new Bundle();
+		broadbind.putSerializable("Level", level);
+		broadIntent.putExtras(broadbind);
+		sendBroadcast(broadIntent);
+	}
+	
+	
 	@Override
 	public Dialog onCreateDialog(int id, Bundle state)
 	{
