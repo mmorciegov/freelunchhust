@@ -68,6 +68,12 @@ public class DetailInfoPage extends ContentPage {
 			
 			@Override
 			public void onClick(View v) {
+				Intent broadIntent = new Intent(BROADCAST_EXIT);
+				Bundle broadbind = new Bundle();
+				broadbind.putSerializable("Level", 3);
+				broadIntent.putExtras(broadbind);
+				sendBroadcast(broadIntent);
+				
 				Bundle bind = new Bundle();
 				bind.putSerializable("FoodName", m_name1);
 				bind.putSerializable("Relative", m_flag);
@@ -84,6 +90,12 @@ public class DetailInfoPage extends ContentPage {
 			
 			@Override
 			public void onClick(View v) {
+				Intent broadIntent = new Intent(BROADCAST_EXIT);
+				Bundle broadbind = new Bundle();
+				broadbind.putSerializable("Level", 3);
+				broadIntent.putExtras(broadbind);
+				sendBroadcast(broadIntent);
+				
 				Bundle bind = new Bundle();
 				bind.putSerializable("FoodName", m_name2);
 				bind.putSerializable("Relative", m_flag);
