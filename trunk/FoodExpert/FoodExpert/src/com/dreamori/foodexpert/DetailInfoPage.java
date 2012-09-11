@@ -67,13 +67,8 @@ public class DetailInfoPage extends ContentPage {
         m_imageView1.setOnClickListener( new OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
-				Intent broadIntent = new Intent(BROADCAST_EXIT);
-				Bundle broadbind = new Bundle();
-				broadbind.putSerializable("Level", 3);
-				broadIntent.putExtras(broadbind);
-				sendBroadcast(broadIntent);
-				
+			public void onClick(View v) {				
+				KillActivity(FoodConst.ACTIVITY_LEVEL3);				
 				Bundle bind = new Bundle();
 				bind.putSerializable("FoodName", m_name1);
 				bind.putSerializable("Relative", m_flag);
@@ -90,11 +85,8 @@ public class DetailInfoPage extends ContentPage {
 			
 			@Override
 			public void onClick(View v) {
-				Intent broadIntent = new Intent(BROADCAST_EXIT);
-				Bundle broadbind = new Bundle();
-				broadbind.putSerializable("Level", 3);
-				broadIntent.putExtras(broadbind);
-				sendBroadcast(broadIntent);
+				
+				KillActivity(FoodConst.ACTIVITY_LEVEL3);
 				
 				Bundle bind = new Bundle();
 				bind.putSerializable("FoodName", m_name2);
@@ -116,11 +108,7 @@ public class DetailInfoPage extends ContentPage {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				// Close all activity first
-				Intent broadIntent = new Intent(BROADCAST_EXIT);
-				Bundle bind = new Bundle();
-				bind.putSerializable("Level", 2);
-				broadIntent.putExtras(bind);
-				sendBroadcast(broadIntent);
+				KillActivity(FoodConst.ACTIVITY_LEVEL2);
 				
 				Intent intent = null;
 				if (m_flag == 0)
