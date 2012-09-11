@@ -8,6 +8,8 @@ import java.util.TimerTask;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.StaticLayout;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -98,6 +100,7 @@ public class TipPage extends ContentPage {
 			TimerTask task = new TimerTask() {
 				@Override
 				public void run() {
+			    	Log.v("Tip Page", "TimerTask");
 					startActivity(m_intent);
 					finish();
 				}
@@ -112,8 +115,18 @@ public class TipPage extends ContentPage {
     	}
     }
     
+    private static Boolean bRunOnce = false;
+    
     public boolean onTouchEvent(MotionEvent event)
-    {
+    {   	
+    	if( bRunOnce )
+    	{
+    		return true;
+    	}
+    	
+    	bRunOnce = true;
+    	
+    	Log.v("Tip Page", "onTouchEvgent");
     	if (m_timer != null)
     	{
     		m_timer.cancel();

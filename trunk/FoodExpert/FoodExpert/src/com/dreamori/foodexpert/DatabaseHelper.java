@@ -520,8 +520,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
    
    void CloseDatabase()
    {
-	   db.close();
-	   db = null;
+	   if( db != null )
+	   {
+		   db.close();
+		   db = null;
+	   }
    }
      
    
