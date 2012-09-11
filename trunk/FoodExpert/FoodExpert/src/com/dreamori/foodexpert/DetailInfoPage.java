@@ -102,6 +102,10 @@ public class DetailInfoPage extends ContentPage {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				// Close all activity first
+				Intent broadIntent = new Intent(BROADCAST_EXIT);
+				sendBroadcast(broadIntent);
+				
 				Intent intent = null;
 				if (m_flag == 0)
 				{
@@ -113,7 +117,6 @@ public class DetailInfoPage extends ContentPage {
 				}
 				
 				startActivity(intent);
-				finish();
 			}
         });
         

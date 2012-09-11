@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.AlertDialog.Builder;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +20,33 @@ public class TitleActivity extends Activity {
 	public static final String CONFIG_FILENAME = "/config.xml";
 	
 	public Context m_context;
+	public static final String BROADCAST_EXIT = "FoodExit";
+	
+	public BroadcastReceiver m_recv = new BroadcastReceiver()
+	{
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			String action = intent.getAction();
+			if(action.equalsIgnoreCase(BROADCAST_EXIT))
+			{
+				finish();
+			}
+		}
+	};
+	
+	public void RegisterBroadcastReceiver()
+	{
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(BROADCAST_EXIT);
+		
+		registerReceiver(m_recv, filter);
+	}
+	
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        RegisterBroadcastReceiver();
+    }
 		
 	public String GetConfigFileName()
 	{

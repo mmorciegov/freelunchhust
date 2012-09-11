@@ -5,19 +5,19 @@
     android:orientation="horizontal"
     android:background="#EFE4EF" >
     
-    <EditText
+    <TextView
         android:id="@+id/combobox_main_text"
         android:layout_marginTop="4dp"
         android:layout_marginLeft="5dp"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
         android:hint="请输入">
-    </EditText>
+    </TextView>
     <Button  
         android:layout_gravity="center_vertical"
         android:background="@drawable/icon_dropdown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:id="@+id/combobox_main_button"> 
     </Button>    
 
