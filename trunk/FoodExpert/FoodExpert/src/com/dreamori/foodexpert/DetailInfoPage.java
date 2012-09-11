@@ -19,6 +19,7 @@ public class DetailInfoPage extends ContentPage {
         setContentView(R.layout.ui_detail_info);
         
         m_dbHelper = DatabaseHelper.getInstance(this);
+        m_level = 4;
         
         Intent intent = getIntent();
         if (intent != null)
@@ -104,6 +105,9 @@ public class DetailInfoPage extends ContentPage {
 				// TODO Auto-generated method stub
 				// Close all activity first
 				Intent broadIntent = new Intent(BROADCAST_EXIT);
+				Bundle bind = new Bundle();
+				bind.putSerializable("Level", 2);
+				broadIntent.putExtras(bind);
 				sendBroadcast(broadIntent);
 				
 				Intent intent = null;
@@ -117,6 +121,7 @@ public class DetailInfoPage extends ContentPage {
 				}
 				
 				startActivity(intent);
+				finish();
 			}
         });
         

@@ -21,6 +21,7 @@ public class TitleActivity extends Activity {
 	
 	public Context m_context;
 	public static final String BROADCAST_EXIT = "FoodExit";
+	public int m_level;
 	
 	public BroadcastReceiver m_recv = new BroadcastReceiver()
 	{
@@ -28,9 +29,15 @@ public class TitleActivity extends Activity {
 		public void onReceive(Context context, Intent intent) {
 			// TODO Auto-generated method stub
 			String action = intent.getAction();
+
 			if(action.equalsIgnoreCase(BROADCAST_EXIT))
 			{
-				finish();
+				Bundle bind = intent.getExtras();
+				int level = (Integer)bind.getSerializable("Level");
+				if (m_level >= level)
+				{
+					finish();
+				}
 			}
 		}
 	};

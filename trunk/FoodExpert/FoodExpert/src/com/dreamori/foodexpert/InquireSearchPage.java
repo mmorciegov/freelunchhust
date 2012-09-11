@@ -32,6 +32,8 @@ public class InquireSearchPage extends InquirePage {
 	private List<String> m_curFoodList;
 	private List<String> m_FoodClassList;
 	
+	private List<String> m_displayFoodList;
+	
 	class SearchFoodFilter extends Filter
 	{
 		@Override
@@ -67,7 +69,7 @@ public class InquireSearchPage extends InquirePage {
 		protected void publishResults(CharSequence constraint,
 				FilterResults results) {
 			// TODO Auto-generated method stub
-			
+			m_displayFoodList = (List<String>) results.values;
 		}
 	}
 	
@@ -77,26 +79,26 @@ public class InquireSearchPage extends InquirePage {
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
-			return m_curFoodList.size();
+			return m_displayFoodList.size();
 		}
 
 		@Override
 		public Object getItem(int position) {
 			// TODO Auto-generated method stub
-			return null;
+			return m_displayFoodList.get(position);
 		}
 
 		@Override
 		public long getItemId(int position) {
 			// TODO Auto-generated method stub
-			return 0;
+			return position;
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			// TODO Auto-generated method stub
 			TextView text = new TextView(m_context);
-			text.setText(m_curFoodList.get(position));
+			text.setText(m_displayFoodList.get(position));
 			return text;
 		}
 
@@ -134,20 +136,19 @@ public class InquireSearchPage extends InquirePage {
 	
 	private void UpdateInputTextView()
 	{
-		List<String> curList = new ArrayList<String>();
-		String prefix = m_textview.getText().toString().trim().toLowerCase();
-		
-		for (int i = 0; i < m_curFoodList.size(); i++)
-		{ 
-			if (m_curFoodList.get(i).contains(prefix))
-			{
-				curList.add(m_curFoodList.get(i));
-			}
-		}
-		
-	    ArrayAdapter<String> textViewAdapter = new ArrayAdapter<String>(this,   
-	            android.R.layout.simple_dropdown_item_1line, curList);
-//		SearchFoodAdapter textViewAdapter = new SearchFoodAdapter();
+//		List<String> curList = new ArrayList<String>();
+//		String prefix = m_textview.getText().toString().trim().toLowerCase();
+//		
+//		for (int i = 0; i < m_curFoodList.size(); i++)
+//		{ 
+//			if (m_curFoodList.get(i).contains(prefix))
+//			{
+//				curList.add(m_curFoodList.get(i));
+//			}
+//		}
+//	    ArrayAdapter<String> textViewAdapter = new ArrayAdapter<String>(this,   
+//	            android.R.layout.simple_dropdown_item_1line, m_curFoodList);
+		SearchFoodAdapter textViewAdapter = new SearchFoodAdapter();
 	    m_textview.setAdapter(textViewAdapter);  	    
 	    m_textview.setThreshold(1); 		
 	}
@@ -175,10 +176,6 @@ public class InquireSearchPage extends InquirePage {
 				{
 					m_dbHelper.AddFoodSearchFrequency(foodName);
 					GotoResultPage();
-				}
-				else
-				{
-					UpdateInputTextView();
 				}
 			}
 
@@ -252,6 +249,7 @@ public class InquireSearchPage extends InquirePage {
         setContentView(R.layout.ui_inquire_search);
         
         m_context = this;
+        m_level = 2;
         
     	//Get Database
         m_dbHelper = DatabaseHelper.getInstance(m_context);        

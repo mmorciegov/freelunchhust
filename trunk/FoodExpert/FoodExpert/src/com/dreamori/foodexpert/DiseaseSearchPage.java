@@ -45,6 +45,7 @@ public class DiseaseSearchPage extends DiseasePage {
         setContentView(R.layout.ui_disease_search);
         
         m_context = this;
+        m_level = 2;
         
     	//Get Database
         m_dbHelper = DatabaseHelper.getInstance(m_context); 
