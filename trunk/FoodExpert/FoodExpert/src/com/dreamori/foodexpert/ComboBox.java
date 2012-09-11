@@ -25,7 +25,7 @@ public class ComboBox extends LinearLayout {
 	private List<String> m_data;
 	
 	private Button m_Button;
-	private EditText m_EditText;
+	private TextView m_EditText;
 	
 	private View m_dropView;
 	
@@ -47,7 +47,7 @@ public class ComboBox extends LinearLayout {
 	private void init() {
 		View mainView = LayoutInflater.from(m_context).inflate(R.layout.combobox_main, this, true);
 		m_Button = (Button) mainView.findViewById(R.id.combobox_main_button);		
-		m_EditText = (EditText) mainView.findViewById(R.id.combobox_main_text);
+		m_EditText = (TextView) mainView.findViewById(R.id.combobox_main_text);
 		
 //		ComboBoxGridViewAdapter gridAdapter = new ComboBoxGridViewAdapter(m_context);
 //		m_dropView = LayoutInflater.from(m_context).inflate(R.layout.combobox_grid, null);
@@ -104,7 +104,7 @@ public class ComboBox extends LinearLayout {
 							}
 						});
 											 
-					 m_popupwindow = new PopupWindow(m_dropView, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+					 m_popupwindow = new PopupWindow(m_dropView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 	                 m_popupwindow.setBackgroundDrawable(new BitmapDrawable());
 					 
 	                 //pop.setFocusable(true)

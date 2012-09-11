@@ -10,10 +10,14 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.AdapterView.OnItemClickListener;
@@ -27,6 +31,86 @@ public class InquireSearchPage extends InquirePage {
 	private String m_curFoodClass;
 	private List<String> m_curFoodList;
 	private List<String> m_FoodClassList;
+	
+	class SearchFoodFilter extends Filter
+	{
+		@Override
+		protected FilterResults performFiltering(CharSequence constraint) {
+			// TODO Auto-generated method stub
+			FilterResults results = new FilterResults(); 
+			if (m_curFoodList == null) 
+			{  
+				return null;
+			} 
+
+			if (constraint == null || constraint.length() == 0) 
+			{  
+				results.values = m_curFoodList;  
+				results.count = m_curFoodList.size();  
+			} 
+			else { 
+				List<String> curList = new ArrayList<String>();
+	
+				for (int i = 0; i < m_curFoodList.size(); i++) { 
+					if (m_curFoodList.get(i).contains(constraint.toString().toLowerCase()))
+					{
+						curList.add(m_curFoodList.get(i));
+					}
+				}
+				results.values = curList;  
+				results.count = curList.size();  
+			}  
+			return results;  			
+		}
+
+		@Override
+		protected void publishResults(CharSequence constraint,
+				FilterResults results) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	
+	class SearchFoodAdapter extends BaseAdapter implements Filterable
+	{
+		Filter m_filter = null;
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return m_curFoodList.size();
+		}
+
+		@Override
+		public Object getItem(int position) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			// TODO Auto-generated method stub
+			TextView text = new TextView(m_context);
+			text.setText(m_curFoodList.get(position));
+			return text;
+		}
+
+		@Override
+		public Filter getFilter() {
+			// TODO Auto-generated method stub
+			if (m_filter == null)
+			{
+				m_filter = new SearchFoodFilter();
+			}
+			return m_filter;
+		}
+		
+	}
 	
 	private boolean IsFoodValid(String foodName)
 	{
@@ -50,8 +134,20 @@ public class InquireSearchPage extends InquirePage {
 	
 	private void UpdateInputTextView()
 	{
+		List<String> curList = new ArrayList<String>();
+		String prefix = m_textview.getText().toString().trim().toLowerCase();
+		
+		for (int i = 0; i < m_curFoodList.size(); i++)
+		{ 
+			if (m_curFoodList.get(i).contains(prefix))
+			{
+				curList.add(m_curFoodList.get(i));
+			}
+		}
+		
 	    ArrayAdapter<String> textViewAdapter = new ArrayAdapter<String>(this,   
-	            android.R.layout.simple_dropdown_item_1line, m_curFoodList);   
+	            android.R.layout.simple_dropdown_item_1line, curList);
+//		SearchFoodAdapter textViewAdapter = new SearchFoodAdapter();
 	    m_textview.setAdapter(textViewAdapter);  	    
 	    m_textview.setThreshold(1); 		
 	}
@@ -79,6 +175,10 @@ public class InquireSearchPage extends InquirePage {
 				{
 					m_dbHelper.AddFoodSearchFrequency(foodName);
 					GotoResultPage();
+				}
+				else
+				{
+					UpdateInputTextView();
 				}
 			}
 

@@ -98,7 +98,7 @@
    	    android:layout_alignParentBottom="true"
    	    android:layout_margin="10dip"
    	    android:background="@drawable/search"
-   	    android:text="@string/menu_share" />
+   	    android:text="@string/menu_search" />
 
    	<Button
    	    android:id="@+id/ui_detail_share"
@@ -108,6 +108,6 @@
    	    android:layout_alignParentBottom="true"
    	    android:layout_margin="10dip"
    	    android:background="@drawable/share"
-   	    android:text="@string/menu_search"/>
+   	    android:text="@string/menu_share"/>
 
 </RelativeLayout>
