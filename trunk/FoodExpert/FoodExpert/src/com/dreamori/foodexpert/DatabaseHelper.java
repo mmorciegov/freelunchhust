@@ -21,7 +21,8 @@ public class DatabaseHelper {
 
 	private static DatabaseHelper mInstance = null;
 	static Database db = null;
-	static String srcDBName = "libFoodFuncion.so";
+	//static String srcDBName = "libFoodFuncion.so";
+	static String srcDBName = "food.db";
 
 	public static final String DATABASE_NAME = "food.db";
 	
@@ -72,7 +73,7 @@ public class DatabaseHelper {
 	        try {
 	        	db = new Database();
 	        	db.open(context.getDatabasePath(DATABASE_NAME).getAbsolutePath(), Constants.SQLITE_OPEN_READWRITE);
-		        db.key(db.dbkey());
+		        //db.key(db.dbkey());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -443,17 +444,14 @@ public class DatabaseHelper {
     	String databaseFileName = dbFile.getAbsolutePath().toString();  
     	
         File targetFile = new File(databaseFileName);
-    	if (!targetFile.exists())        
-    	{
-			try {
-				targetFile.createNewFile();
-				copyBigDataBase(context,databaseFileName);
-				Log.v("Debug", "copyBigDataBase");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	}
+    	try {
+			targetFile.createNewFile();
+			copyBigDataBase(context,databaseFileName);
+			Log.v("Debug", "copyBigDataBase");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     } 
 	
 
