@@ -62,6 +62,39 @@ public class DetailInfoPage extends ContentPage {
 	        m_textViewHint.setText(dataList.get(0).hint);
         }
         
+        
+        m_imageView1.setOnClickListener( new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Bundle bind = new Bundle();
+				bind.putSerializable("FoodName", m_name1);
+				bind.putSerializable("Relative", m_flag);
+		    	
+				Intent intent = new Intent(DetailInfoPage.this, InquireResultPage.class);
+				intent.putExtras(bind);
+				
+				startActivity(intent);
+				finish();			
+			}
+		});
+        
+        m_imageView2.setOnClickListener( new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Bundle bind = new Bundle();
+				bind.putSerializable("FoodName", m_name2);
+				bind.putSerializable("Relative", m_flag);
+		    	
+				Intent intent = new Intent(DetailInfoPage.this, InquireResultPage.class);
+				intent.putExtras(bind);
+				
+				startActivity(intent);
+				finish();			
+			}
+		});
+        
         Button search = (Button)findViewById(R.id.ui_detail_search);
         Button share = (Button)findViewById(R.id.ui_detail_share);
         
@@ -72,7 +105,7 @@ public class DetailInfoPage extends ContentPage {
 				Intent intent = null;
 				if (m_flag == 0)
 				{
-					intent = new Intent(DetailInfoPage.this, InquireSearchPage.class);
+					intent = new Intent(DetailInfoPage.this, InquireSearchPage.class);					
 				}
 				else
 				{
@@ -80,6 +113,7 @@ public class DetailInfoPage extends ContentPage {
 				}
 				
 				startActivity(intent);
+				finish();
 			}
         });
         
@@ -90,5 +124,8 @@ public class DetailInfoPage extends ContentPage {
 				
 			}
         });
+        
+        
+        
     }
 }

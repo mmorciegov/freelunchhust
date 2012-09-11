@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -37,6 +38,9 @@ public class Food extends TitleActivity {
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
+		
+		Log.v("Food Activity", "onDestroy");
+		
 		DatabaseHelper.getInstance(this).CloseDatabase();
 		super.onDestroy();
 	}
@@ -48,6 +52,8 @@ public class Food extends TitleActivity {
         
         m_context = this;
         
+		Log.v("Food Activity", "onCreate");    
+		
         m_gridview = (GridView)findViewById(R.id.ui_main_grid);
         InitGrid();
         m_gridview.setOnItemClickListener(new OnItemClickListener(){
