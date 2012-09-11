@@ -13,24 +13,9 @@ import android.widget.AdapterView.OnItemClickListener;
 public class InquireResultPage extends InquirePage {
 	private String m_foodname;
 
-	private void Search(String curFood, int relativeFlag, List<RelativeData> dataList)
+	private void Search(String curFood, List<RelativeData> dataList)
 	{
-		String goodBad = null;
-		
-		switch(relativeFlag)
-		{
-		case 0:
-			goodBad = DatabaseHelper.ALL_COMBINATION;
-			break;
-		case 1:
-			goodBad = DatabaseHelper.GOOD_COMBINATION;
-			break;
-		default:
-			goodBad = DatabaseHelper.BAD_COMBINATION;
-			break;
-		}
-
-		m_dbHelper.findRelatedFood(curFood, dataList, goodBad);
+		m_dbHelper.findRelatedFood(curFood, dataList);
 	}
 	
 	private void InitGrid(List<RelativeData> dataList)
@@ -86,7 +71,7 @@ public class InquireResultPage extends InquirePage {
         setTitle(m_foodname + getString(R.string.title_food_related));
         
         List<RelativeData> dataList = new ArrayList<RelativeData>();
-        Search(foodName, relativeFlag, dataList);
+        Search(foodName, dataList);
         
         InitGrid(dataList);
         

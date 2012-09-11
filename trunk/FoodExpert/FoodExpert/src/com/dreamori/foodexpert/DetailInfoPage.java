@@ -132,8 +132,5 @@ public class DetailInfoPage extends ContentPage {
 				
 			}
         });
-        
-        
-        
     }
 }

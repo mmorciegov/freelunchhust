@@ -10,20 +10,20 @@ import java.util.List;
 import java.util.Random;
 
 
-import android.content.ContentValues;
+import SQLite3.Constants;
+import SQLite3.Database;
+import SQLite3.Exception;
+import SQLite3.TableResult;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class DatabaseHelper {
 
-	private static DatabaseHelper mInstance = null;	
-	static SQLiteDatabase db = null;
-	
-	public static final String DATABASE_NAME = "food.db";	
-	private static final int DATABASE_VERSION = 1;
+	private static DatabaseHelper mInstance = null;
+	static Database db = null;
+	static String srcDBName = "libFoodFuncion.so";
+
+	public static final String DATABASE_NAME = "food.db";
 	
     public final static String TABLE_CONFLICT = "xsxk";
     public final static String ID = "_id";
@@ -55,14 +55,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static ArrayList<String> diseaseList = null;
     private static ArrayList<String> foodClassList = null;	
     
-    public final static String BAD_COMBINATION = "0";
-    public final static String GOOD_COMBINATION = "1";
-    public final static String ALL_COMBINATION = "2";
-    
 	private static Context mContext = null;
     
 	private DatabaseHelper(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 	
 	static synchronized DatabaseHelper getInstance(Context context){
@@ -73,8 +68,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			mContext = context;
 					
 	        //Init database   
-	        InitDabaseFile(context);  			
-	        db = SQLiteDatabase.openDatabase(context.getDatabasePath(DATABASE_NAME).getAbsolutePath().toString(), null, SQLiteDatabase.OPEN_READWRITE);
+	        InitDabaseFile(context);
+	        try {
+	        	db = new Database();
+	        	db.open(context.getDatabasePath(DATABASE_NAME).getAbsolutePath(), Constants.SQLITE_OPEN_READWRITE);
+		        db.key(db.dbkey());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	        
 	        if( db == null )
 	        {
@@ -89,18 +91,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      	if( diseaseList == null )
     	{
      		diseaseList = new ArrayList<String>();
+        	
+			TableResult tableResult = null;
+			try {
+				tableResult = db.get_table("select "+DISEASE_NAME+" from "+TABLE_DISEASE_INFO+" order by "+DISEASE_SEARCH_NUMBER+" desc");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-        	Cursor cursor = db.query(TABLE_DISEASE_INFO, new String[]{DISEASE_NAME}, null,
-        			null, null, null, DISEASE_SEARCH_NUMBER+" DESC", null);
-        	if( cursor != null && cursor.getCount() > 0 )
-        	{
-        		cursor.moveToFirst();        	
-            	do{       
-                	
-            		diseaseList.add(cursor.getString(0));
-            	
-            	} while( cursor.moveToNext() );
-        	}
+			for (String[] rowData : tableResult.rows) {
+				diseaseList.add(rowData[0]);
+			}
     	}
     	
     	return diseaseList;	
@@ -114,17 +116,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      		
      		foodClassList.add(mContext.getString(R.string.food_class_usual));
      		
-        	Cursor cursor = db.query(TABLE_FOOD_CLASS_INFO, new String[]{FOOD_CLASS_NAME}, null,
-        			null, null, null, null, null);
-        	if( cursor != null && cursor.getCount() > 0 )
-        	{
-        		cursor.moveToFirst();        	
-            	do{       
-                	
-            		foodClassList.add(cursor.getString(0));
-            	
-            	} while( cursor.moveToNext() );
-        	}        	
+     		TableResult tableResult = null;
+			try {
+				tableResult = db.get_table("select "+FOOD_CLASS_NAME+" from "+TABLE_FOOD_CLASS_INFO);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			for (String[] rowData : tableResult.rows) {
+				foodClassList.add(rowData[0]);
+			}
 
      		foodClassList.add(mContext.getString(R.string.food_class_all));
     	}
@@ -139,17 +141,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     	{
      		foodList = new ArrayList<String>();
     		
-        	Cursor cursor = db.query(TABLE_FOOD_INFO, new String[]{FOOD_NAME}, null,
-        			null, null, null, FOOD_SEARCH_NUMBER+" DESC", null);
-        	if( cursor != null && cursor.getCount() > 0 )
-        	{
-        		cursor.moveToFirst();        	
-            	do{       
-                	
-            		foodList.add(cursor.getString(0));
-            	
-            	} while( cursor.moveToNext() );
-        	}       	
+			TableResult tableResult = null;
+			try {
+				tableResult = db.get_table("select "+FOOD_NAME+" from "+TABLE_FOOD_INFO+" order by "+FOOD_SEARCH_NUMBER+" desc");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			for (String[] rowData : tableResult.rows) {
+				foodList.add(rowData[0]);
+			}
     	}
     	
     	return foodList;
@@ -157,18 +159,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     
     public void AddFoodSearchFrequency( String foodName )
     {
-       	Cursor cursor;
-		cursor = db.query(TABLE_FOOD_INFO, new String[]{FOOD_SEARCH_NUMBER}, "("+FOOD_NAME+"=?"+")", new String[]{foodName}, null, null, null, null);   	
+   		
+   		TableResult tableResult = null;
+		try {
+			tableResult = db.get_table("select "+FOOD_SEARCH_NUMBER+" from "+TABLE_FOOD_INFO
+					+" where "+FOOD_NAME+"='"+foodName+"'");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if( tableResult == null || tableResult.rows.isEmpty() )
+			return;
+		
+		int foodSearchFrequency = Integer.parseInt(tableResult.rows.get(0)[0]);
     	
-    	if (cursor == null || cursor.getCount() == 0)
-    	{
-    		return;
-    	}
-    	
-   		cursor.moveToFirst();      		
-    	
-   		int foodSearchFrequency = cursor.getInt(0);
-   		cursor.close();
    		
    		if( foodSearchFrequency >= 0 )
    		{
@@ -176,10 +181,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
    		}
    		   		   		
    		//Update food frequency
-   		ContentValues values = new ContentValues();
-   		values.put(FOOD_SEARCH_NUMBER, foodSearchFrequency);
-   		db.update(TABLE_FOOD_INFO, values, "("+FOOD_NAME+"=?"+")", new String[]{foodName});
-    	
+   		try {
+			db.exec("update "+TABLE_FOOD_INFO+" set "+FOOD_SEARCH_NUMBER+"="+foodSearchFrequency
+					+" where "+FOOD_NAME+"='"+foodName+"'", null);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
     }
     
     
@@ -208,93 +216,65 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     	{
     		// get data by class
      		List<String> dataList = new ArrayList<String>();
-    		
-        	Cursor cursor = db.query(TABLE_FOOD_INFO, new String[]{FOOD_NAME}, FOOD_CLASS_NAME+"=?",
-        			new String[]{foodClassName}, null, null, FOOD_SEARCH_NUMBER+" DESC", null);
-        	if( cursor != null && cursor.getCount() > 0 )
-        	{
-        		cursor.moveToFirst();        	
-            	do{       
-                	
-            		dataList.add(cursor.getString(0));
-            	
-            	} while( cursor.moveToNext() );
-        	}       	
+
+        	TableResult tableResult = null;
+			try {
+				tableResult = db.get_table("select "+FOOD_NAME+" from "+TABLE_FOOD_INFO
+						+" where "+FOOD_CLASS_NAME+"='"+foodClassName+"' order by "+FOOD_SEARCH_NUMBER+" desc");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			for (String[] rowData : tableResult.rows) {
+				dataList.add(rowData[0]);
+			}
 		    		
     		return dataList;
     	}
     }
     
-    public boolean findConflictedFood(String foodName, List<RelativeData> dataList)
-    {
-    	if( findRelatedFood(foodName, dataList, BAD_COMBINATION))
-    	{
-    		return true;    	
-    	}    		
-    	return false;
-    }
-    
-    public boolean findFittingFood(String foodName, List<RelativeData> dataList)
-    {
-    	if( findRelatedFood(foodName, dataList, GOOD_COMBINATION))
-    	{
-    		return true;    	
-    	}    		
-    	return false;
-    }
-    
     public boolean getRandomDataInFood(List<String> dataList)
     {
-    	Cursor cursor;
-		cursor = db.query(TABLE_CONFLICT, new String[]{"DISTINCT *"}, null,
-				null, null, null, LEVEL+" DESC", null);   	
-    	
-    	if (cursor == null || cursor.getCount() == 0)
-    	{
-    		return false;
-    	}
-    	
-    	Random random = new Random();
-    	int rand = random.nextInt() % cursor.getCount();
-    	
-   		cursor.moveToFirst();     
-   		
-   		for (int i=0; i<rand; i++)
-   		{
-   			cursor.moveToNext();
-   		} 		
+    	TableResult tableResult = null;
+		try {
+			tableResult = db.get_table("select distinct * from "+TABLE_CONFLICT+" order by "+LEVEL+" desc");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		dataList.add(cursor.getString(1));
-		dataList.add(cursor.getString(2));
+		if( tableResult == null || tableResult.rows.isEmpty() )
+			return false;
+		
+		Random random = new Random();
+    	int rand = random.nextInt() % tableResult.rows.size();
+
+    	dataList.add(tableResult.rows.get(rand)[1]);
+    	dataList.add(tableResult.rows.get(rand)[2]);
     	
-		cursor.close();
     	return true;   	
     }
     
     public boolean getRandomDataInDisease(List<String> dataList)
-    {
-    	Cursor cursor;
-		cursor = db.query(TABLE_DISEASE_FOOD_INFO, new String[]{"DISTINCT *"}, null,
-				null, null, null, LEVEL+" DESC", null);   	
-    	
-    	if (cursor == null || cursor.getCount() == 0)
-    	{
-    		return false;
-    	}
-    	
-    	Random random = new Random();
-    	int rand = random.nextInt() % cursor.getCount();
-    	
-   		cursor.moveToFirst();     
-   		
-   		for (int i=0; i<rand; i++)
-   		{
-   			cursor.moveToNext();
-   		} 		
+    {	
+    	TableResult tableResult = null;
+		try {
+			tableResult = db.get_table("select distinct * from "+TABLE_DISEASE_FOOD_INFO+" order by "+LEVEL+" desc");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		dataList.add(cursor.getString(2));
-		dataList.add(cursor.getString(1));
-		cursor.close();
+		if( tableResult == null || tableResult.rows.isEmpty() )
+			return false;
+		
+		Random random = new Random();
+    	int rand = random.nextInt() % tableResult.rows.size();
+
+    	dataList.add(tableResult.rows.get(rand)[1]);
+    	dataList.add(tableResult.rows.get(rand)[2]);
+    	
     	return true;    	
     }
     
@@ -302,176 +282,140 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * 
      * @param foodName
      * @param dataList
-     * @param goodBad
-     * 0 -> Bad  BAD_COMBINATION
-     * 1 -> Good GOOD_COMBINATION 
-     * 2 -> All  ALL_COMBINATION
      * @return
      */
 
-    public boolean findRelatedFood(String foodName, List<RelativeData> dataList, String goodBad )
+    public boolean findRelatedFood(String foodName, List<RelativeData> dataList )
     {
-    	Cursor cursor;
-    	if( goodBad.equals(ALL_COMBINATION) )
-    	{
-    		cursor = db.query(TABLE_CONFLICT, new String[]{"DISTINCT *"}, FOOD_FIRST+"=?"+" or "+ FOOD_SECOND + "=?",
-    				new String[]{foodName, foodName}, null, null, LEVEL+" DESC", null);   	
-    	}
-    	else
-    	{
-    		cursor = db.query(TABLE_CONFLICT, new String[]{"DISTINCT *"}, "(" + FOOD_FIRST+"=?"+" or "+ FOOD_SECOND + "=?" + ")" + " and " + GoodBad +"=?" ,
-    				new String[]{foodName, foodName, goodBad}, null, null, LEVEL+" DESC", null);
-    	}
-    	
-    	if (cursor == null || cursor.getCount() == 0)
-    	{
-    		return false;
-    	}
-    	
-   		cursor.moveToFirst();      		
-    	
-    	do{    		
-    		RelativeData pridata = new RelativeData();
-    		if (cursor.getString(1).equalsIgnoreCase(foodName))
+    	TableResult tableResult = null;
+		try {
+			tableResult = db.get_table("select distinct * from "+TABLE_CONFLICT
+					+" where "+FOOD_FIRST+"='"+foodName+"' or "+FOOD_SECOND+"='"+foodName+"'"
+					+" order by "+LEVEL+" desc");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		for (String[] rowData : tableResult.rows) {
+			
+			RelativeData pridata = new RelativeData();
+    		if (rowData[1].equalsIgnoreCase(foodName))
     		{
-    			pridata.name = cursor.getString(2);
+    			pridata.name = rowData[2];
     		}
     		else
     		{
-    			pridata.name = cursor.getString(1);
+    			pridata.name = rowData[1];
     		}
-
-	    	pridata.degree = cursor.getInt(3);
-	    	pridata.hint = cursor.getString(4);
+    		
+	    	pridata.degree = Integer.parseInt(rowData[3]);
+	    	pridata.hint = rowData[4];
 	    	
 	    	dataList.add(pridata);
+		}
     	
-    	} while( cursor.moveToNext() );  
-    	
-    	cursor.close();
     	return true;
     }
        
-    public boolean findRelatedFoodByDisease(String diseaseName, List<RelativeData> dataList, String goodBad )
-    {
-    	Cursor cursor;
-    	if( goodBad.equals(ALL_COMBINATION) )
-    	{
-    		cursor = db.query(TABLE_DISEASE_FOOD_INFO, new String[]{"DISTINCT *"}, DISEASE_NAME+"=?",
-    				new String[]{diseaseName}, null, null, LEVEL+" DESC", null);   	
-    	}
-    	else
-    	{
-    		cursor = db.query(TABLE_DISEASE_FOOD_INFO, new String[]{"DISTINCT *"}, DISEASE_NAME+"=?" + " and " + GoodBad +"=?" ,
-    				new String[]{diseaseName, goodBad}, null, null, LEVEL+" DESC", null);
-    	}
-    	
-    	if (cursor == null || cursor.getCount() == 0)
-    	{
-    		return false;
-    	}
-    	
-   		cursor.moveToFirst();      		
-    	
-    	do{    		
-    		RelativeData pridata = new RelativeData();
-    		pridata.name = cursor.getString(1);
-	    	pridata.degree = cursor.getInt(3);
-	    	pridata.hint = cursor.getString(4);
+    public boolean findRelatedFoodByDisease(String diseaseName, List<RelativeData> dataList )
+    {    	
+    	TableResult tableResult = null;
+		try {
+			tableResult = db.get_table("select distinct * from "+TABLE_DISEASE_FOOD_INFO
+					+" where "+DISEASE_NAME+"='"+diseaseName+"' order by "+LEVEL+" desc");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		for (String[] rowData : tableResult.rows) {
+			
+			RelativeData pridata = new RelativeData();
+    		pridata.name = rowData[1];
+	    	pridata.degree = Integer.parseInt(rowData[3]);
+	    	pridata.hint = rowData[4];
 	    	
 	    	dataList.add(pridata);
-    	
-    	} while( cursor.moveToNext() );  
-    	cursor.close();
+		}
+		
     	return true;
     }
     
     public boolean findDetailInfoInFood(String foodName1, String foodName2, List<RelativeData> dataList)
     {
-    	Cursor cursor;
-		cursor = db.query(TABLE_CONFLICT, new String[]{"DISTINCT *"}, 
-				"("+FOOD_FIRST+"=?"+" and "+ FOOD_SECOND + "=?" + ")" + " or "
-				+"("+FOOD_FIRST+"=?"+" and "+ FOOD_SECOND + "=?" + ")",
-				new String[]{foodName1, foodName2, foodName2, foodName1}, null, null, LEVEL+" DESC", null);   	
-    	
-    	if (cursor == null || cursor.getCount() == 0)
-    	{
-    		return false;
-    	}
-    	
-   		cursor.moveToFirst();      		
-    	
-    	do{    		
-    		RelativeData pridata = new RelativeData();
-    		pridata.name = cursor.getString(1);
-	    	pridata.degree = cursor.getInt(3);
-	    	pridata.hint = cursor.getString(4);
+    	TableResult tableResult = null;
+		try {
+			tableResult = db.get_table("select distinct * from "+TABLE_CONFLICT
+					+" where ("+FOOD_FIRST+"='"+foodName1+"' and "+FOOD_SECOND+"='"+foodName2+"'"
+					+") or ("+FOOD_FIRST+"='"+foodName2+"' and "+FOOD_SECOND+"='"+foodName1+"'"
+					+") order by "+LEVEL+" desc");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		for (String[] rowData : tableResult.rows) {
+			
+			RelativeData pridata = new RelativeData();
+    		pridata.name = rowData[1];
+	    	pridata.degree = Integer.parseInt(rowData[3]);
+	    	pridata.hint = rowData[4];
 	    	
 	    	dataList.add(pridata);
-    	
-    	} while( cursor.moveToNext() );  
-    	cursor.close();
+		}
     	return true;
     }
     
     public String getIconName (String iconName) 
-    {
-    	Cursor cursor;
-		cursor = db.query(TABLE_FOOD_INFO, new String[]{FOOD_PHOTO}, "("+FOOD_NAME+"=?"+")", new String[]{iconName}, null, null, null, null);   	
-    	
-    	if (cursor == null || cursor.getCount() == 0)
-    	{
-    		return "food";
-    	}
-    	
-   		cursor.moveToFirst();      		
-    	
-   		String iconNameString = cursor.getString(0);
+    {    	
+    	TableResult tableResult = null;
+		try {
+			tableResult = db.get_table("select "+FOOD_PHOTO+" from "+TABLE_FOOD_INFO
+					+" where "+FOOD_NAME+"='"+iconName+"'");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		String iconNameString= null;
+		if( tableResult != null && !tableResult.rows.isEmpty() )
+			iconNameString = tableResult.rows.get(0)[0];
    		
    		if( iconNameString == null )
    		{
    			iconNameString = "food";
    		}
-   		cursor.close();   		
+   		   		
     	return iconNameString;
     }
    
     
     public boolean findDetailInfoInDisease(String diseaseName, String foodName, List<RelativeData> dataList)
     {
-    	Cursor cursor;
-		cursor = db.query(TABLE_DISEASE_FOOD_INFO, new String[]{"DISTINCT *"}, 
-				DISEASE_NAME+"=?" + " and " + "swmc=?",
-				new String[]{diseaseName, foodName}, null, null, LEVEL+" DESC", null);   	
-    	
-    	if (cursor == null || cursor.getCount() == 0)
-    	{
-    		return false;
-    	}
-    	
-   		cursor.moveToFirst();      		
-    	
-    	do{    		
-    		RelativeData pridata = new RelativeData();
-    		pridata.name = cursor.getString(1);
-	    	pridata.degree = cursor.getInt(3);
-	    	pridata.hint = cursor.getString(4);
+    	TableResult tableResult = null;
+		try {
+			tableResult = db.get_table("select distinct * from "+TABLE_DISEASE_FOOD_INFO
+					+" where "+DISEASE_NAME+"='"+diseaseName+"' and swmc='"+foodName+"'"
+					+" order by "+LEVEL+" desc");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		for (String[] rowData : tableResult.rows) {
+			
+			RelativeData pridata = new RelativeData();
+    		pridata.name = rowData[1];
+	    	pridata.degree = Integer.parseInt(rowData[3]);
+	    	pridata.hint = rowData[4];
 	    	
 	    	dataList.add(pridata);
+		}
     	
-    	} while( cursor.moveToNext() );  
-    	cursor.close();
     	return true;
     }
-    
-	@Override
-	public void onCreate(SQLiteDatabase db) {
-	}
-
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		
-	}
 	
 	public boolean deleteDatabase(Context context) {
 		return context.deleteDatabase(DATABASE_NAME);
@@ -507,7 +451,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         InputStream myInput;  
         OutputStream myOutput = new FileOutputStream(databaseFileNameString);  
 
-        myInput = context.getAssets().open(DATABASE_NAME);  
+        myInput = context.getAssets().open(srcDBName);  
         byte[] buffer = new byte[1024];  
         int length;  
         while ((length = myInput.read(buffer)) > 0) {  
@@ -516,17 +460,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         myOutput.flush();  
         myOutput.close();
         myInput.close();  
-    }
-   
-   void CloseDatabase()
-   {
-	   if( db != null )
-	   {
-		   db.close();
-		   db = null;
-	   }
-   }
-     
-   
+    }  
    
 }
