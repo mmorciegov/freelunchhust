@@ -75,7 +75,7 @@ public class DetailInfoPage extends ContentPage {
         	Log.v("Food Expert", "m_flag > 0");
         	
         	setTitle(m_name1 + getString(R.string.and) + m_name2 + getString(R.string.food_related_good));
-        	m_textViewHint.setTextColor(Color.rgb(10,10,250));
+        	m_textViewHint.setTextColor(Color.rgb(10,250,10));
         }
         else if(dataList.get(0).degree < 0)
         {
