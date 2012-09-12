@@ -58,19 +58,4 @@ public class DiseasePage extends TitleActivity {
         m_gridview.setAdapter(adapter);		
 	}
 	
-	public void UpdateList(List<RelativeData> dataList)
-	{
-        List<ListViewHolderData> listDataList = new ArrayList<ListViewHolderData>();
-		for (int i=0; i<dataList.size(); i++)
-		{
-			ListViewHolderData data = new ListViewHolderData();
-			data.name = dataList.get(i).name;
-	        data.icon = ResourceManager.GetIcon(this,  m_dbHelper.getIconName(data.name));
-	        data.degree = ResourceManager.GetDegreeId(dataList.get(i).degree);
-	        listDataList.add(data);		
-		}
-        
-        ListAdapter adapter = new ListViewAdapter(m_context, listDataList);
-        m_listview.setAdapter(adapter);		
-	}
 }
