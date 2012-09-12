@@ -10,8 +10,8 @@ public final class FoodConst
 	static final int ACTIVITY_LEVEL2 = 2;
 	static final int ACTIVITY_LEVEL3 = 3;
 	
-	static final int ACTIVITY_TYPE_FOOD = 1;
-	static final int ACTIVITY_TYPE_DISEASE = 0;
+	static final int ACTIVITY_TYPE_FOOD = 0;
+	static final int ACTIVITY_TYPE_DISEASE = 1;
 	
 	static final int DISEASE_RESULT_SEARCH_DISEASE = 0;
 	static final int DISEASE_RESULT_SEARCH_FOOD = 1;
