@@ -5,36 +5,24 @@
     <string name="menu_settings">设置</string>
     <string name="title_activity_food">Food</string>
     <string name="menu_exit">退出</string>
-
-    
     <string name="food_related_good">相宜</string>
     <string name="food_related_bad">相克</string>
     <string name="food_related_all">全部</string>
-    
     <string name="init_introduction">初始提示</string>
     <string name="display_list_view"> 列表显示</string>
-    
     <string name="food_class_usual">常用</string>
     <string name="food_class_all">全部</string>
-    
     <string name="menu_food_search">相宜相克查询</string>
     <string name="menu_food_disease">食疗</string>
-    
-    <string name = "title_food_related">相关食物</string>
-    
+    <string name="title_food_related">相关食物</string>
     <string name="menu_search">查找</string>
     <string name="menu_share">分享</string>
-    
     <string name="menu_show_on_start">始终显示在初始化时</string>
-    
     <string name="checkbox_hint">选择类别</string>
-    
     <string name="and">与</string>
-    
     <string name="title_food_search">食物相宜相克查询</string>
     <string name="title_tip">每日学习小常识</string>
     <string name="title_main">欢迎使用食物专家</string>
-    
-    <string name="title_disease_search">疾病食物查询</string>
-    
+    <string name="title_disease_search">疾病食物查询</string>    
+
 </resources>

@@ -53,7 +53,7 @@ public class DetailInfoPage extends ContentPage {
         // m_flag : 1 Good Relationship
         List<RelativeData> dataList = new ArrayList<RelativeData>();
         
-        if (m_flag == 0)
+        if (m_flag == FoodConst.ACTIVITY_TYPE_FOOD)
         {
         	m_dbHelper.findDetailInfoInFood(m_name1, m_name2, dataList);    
         }
@@ -91,36 +91,51 @@ public class DetailInfoPage extends ContentPage {
 			@Override
 			public void onClick(View v) {				
 				KillActivity(FoodConst.ACTIVITY_LEVEL3);				
-				Bundle bind = new Bundle();
-				bind.putSerializable("FoodName", m_name1);
-				bind.putSerializable("Relative", m_flag);
+				Bundle bundle = new Bundle();
 		    	
-				Intent intent = new Intent(DetailInfoPage.this, InquireResultPage.class);
-				intent.putExtras(bind);
+				Intent intent;
+				if (m_flag == FoodConst.ACTIVITY_TYPE_FOOD)
+				{			
+					bundle.putSerializable("FoodName", m_name1);
+					bundle.putSerializable("Relative", m_flag);
+					intent = new Intent(DetailInfoPage.this, InquireResultPage.class);
+				}
+				else
+				{
+					bundle.putSerializable(FoodConst.INTENT_DISEASE, m_name1);
+					intent = new Intent(DetailInfoPage.this, DiseaseResultPage.class);
+				}
+				
+				intent.putExtras(bundle);
 				
 				startActivity(intent);
 				finish();			
 			}
 		});
+              
+       
+        if (m_flag == FoodConst.ACTIVITY_TYPE_FOOD)
+        {
+            m_imageView2.setOnClickListener( new OnClickListener() {
+    			
+    			@Override
+    			public void onClick(View v) {
+    				
+    				KillActivity(FoodConst.ACTIVITY_LEVEL3);
+    				
+    				Bundle bind = new Bundle();
+    				bind.putSerializable("FoodName", m_name2);
+    				bind.putSerializable("Relative", m_flag);
+    		    	
+    				Intent intent = new Intent(DetailInfoPage.this, InquireResultPage.class);
+    				intent.putExtras(bind);
+    				
+    				startActivity(intent);
+    				finish();			
+    			}
+    		});
+        }
         
-        m_imageView2.setOnClickListener( new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-				KillActivity(FoodConst.ACTIVITY_LEVEL3);
-				
-				Bundle bind = new Bundle();
-				bind.putSerializable("FoodName", m_name2);
-				bind.putSerializable("Relative", m_flag);
-		    	
-				Intent intent = new Intent(DetailInfoPage.this, InquireResultPage.class);
-				intent.putExtras(bind);
-				
-				startActivity(intent);
-				finish();			
-			}
-		});
         
         Button search = (Button)findViewById(R.id.ui_detail_search);
         Button share = (Button)findViewById(R.id.ui_detail_share);
@@ -133,13 +148,13 @@ public class DetailInfoPage extends ContentPage {
 				KillActivity(FoodConst.ACTIVITY_LEVEL2);
 				
 				Intent intent = null;
-				if (m_flag == 0)
+				if (m_flag == FoodConst.ACTIVITY_TYPE_FOOD)
 				{
 					intent = new Intent(DetailInfoPage.this, InquireSearchPage.class);					
 				}
 				else
 				{
-					intent = new Intent(DetailInfoPage.this, DiseaseSearchPage.class);
+					intent = new Intent(DetailInfoPage.this, DiseaseResultPage.class);
 				}
 				
 				startActivity(intent);
