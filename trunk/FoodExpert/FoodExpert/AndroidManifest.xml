@@ -14,11 +14,11 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".Food"
-            android:label="@string/title_activity_food" >
+            android:label="@string/title_main" >
         </activity>
         <activity
             android:name=".InquireSearchPage"
-            android:label="@string/title_activity_food" >
+            android:label="@string/title_food_search" >
         </activity>           
         <activity
             android:name=".InquireResultPage"
@@ -30,7 +30,7 @@
         </activity>     
         <activity
             android:name=".DiseaseSearchPage"
-            android:label="@string/title_activity_food" >
+            android:label="@string/title_disease_search" >
         </activity>   
         <activity
             android:name=".DiseaseSearchListPage"
@@ -42,7 +42,7 @@
         </activity>     
         <activity
             android:name=".TipPage"
-            android:label="@string/title_activity_food" >
+            android:label="@string/title_tip" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
