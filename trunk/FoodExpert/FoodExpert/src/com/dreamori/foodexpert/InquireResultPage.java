@@ -37,8 +37,6 @@ public class InquireResultPage extends InquirePage {
 				Intent intent = new Intent(InquireResultPage.this, DetailInfoPage.class);
 				intent.putExtras(bind);
 				
-				m_dbHelper.AddFoodSearchFrequency(m_foodname);
-				
 				startActivity(intent);
 			}
         });        

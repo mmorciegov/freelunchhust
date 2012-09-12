@@ -207,8 +207,7 @@ public class InquireSearchPage extends InquirePage {
 				// TODO Auto-generated method stub
 				String foodName = m_textview.getText().toString();
 				if (IsFoodValid(foodName))
-				{
-					m_dbHelper.AddFoodSearchFrequency(foodName);
+				{					
 					GotoResultPage();
 				}
 			}
