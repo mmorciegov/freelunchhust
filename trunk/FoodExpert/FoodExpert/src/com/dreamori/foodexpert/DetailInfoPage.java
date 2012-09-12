@@ -46,21 +46,26 @@ public class DetailInfoPage extends ContentPage {
         
         InitFood(m_imageView1, m_textView1, m_name1);
         InitFood(m_imageView2, m_textView2, m_name2);
-
         
         // Get hint and degree from database
         // m_flag : 0 Bad Relationship
         // m_flag : 1 Good Relationship
-        List<RelativeData> dataList = new ArrayList<RelativeData>();
-        
+        List<RelativeData> dataList = new ArrayList<RelativeData>();                
+
         if (m_flag == FoodConst.ACTIVITY_TYPE_FOOD)
         {
         	m_dbHelper.findDetailInfoInFood(m_name1, m_name2, dataList);    
+        	//Update food query frequency
+	        m_dbHelper.AddFoodSearchFrequency(m_name1);
         }
         else
         {
         	m_dbHelper.findDetailInfoInDisease(m_name1, m_name2, dataList);
+        	//Update disease query frequency        	
+            m_dbHelper.AddDiseaseSearchFrequency(m_name1);
         }
+        
+        m_dbHelper.AddFoodSearchFrequency(m_name2);
         
         if (dataList.size() > 0)
         {

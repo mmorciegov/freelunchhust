@@ -183,6 +183,38 @@ public class DatabaseHelper {
 		}	
     }
         
+
+    public void AddDiseaseSearchFrequency( String diseaseName )
+    {   		
+   		TableResult tableResult = null;
+		try {
+			tableResult = db.get_table("select "+DISEASE_SEARCH_NUMBER+" from "+TABLE_DISEASE_INFO
+					+" where "+DISEASE_NAME+"='"+diseaseName+"'");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if( tableResult == null || tableResult.rows.isEmpty() )
+			return;
+		
+		int diseaseSearchFrequency = Integer.parseInt(tableResult.rows.get(0)[0]);
+    	
+   		
+   		if( diseaseSearchFrequency >= 0 )
+   		{
+   			diseaseSearchFrequency++;
+   		}
+   		   		   		
+   		//Update food frequency
+   		try {
+			db.exec("update "+TABLE_DISEASE_INFO+" set "+DISEASE_SEARCH_NUMBER+"="+diseaseSearchFrequency
+					+" where "+DISEASE_NAME+"='"+diseaseName+"'", null);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+    }
     
     public List<String> getPreferFoodList(String foodClassName)
     {
