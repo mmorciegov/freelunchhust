@@ -61,6 +61,12 @@ public class TitleActivity extends Activity {
         RegisterBroadcastReceiver();
     }
 		
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();		
+		unregisterReceiver(m_recv);		
+	}
+
 	public String GetConfigFileName()
 	{
 		return getApplicationContext().getFilesDir().getAbsoluteFile().toString() + CONFIG_FILENAME;

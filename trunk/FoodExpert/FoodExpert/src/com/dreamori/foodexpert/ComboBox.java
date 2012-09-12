@@ -80,6 +80,15 @@ public class ComboBox extends LinearLayout {
 			}
 		});
 		
+		m_EditText.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				m_Button.performClick();
+			}
+		});
+		
 		m_Button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

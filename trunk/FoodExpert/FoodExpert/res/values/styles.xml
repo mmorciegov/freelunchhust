@@ -1,5 +1,6 @@
 <resources>
 
     <style name="AppTheme" parent="android:Theme.Light" />
+    <color name="search_backgroud">#EFE4EF</color>
 
 </resources>
