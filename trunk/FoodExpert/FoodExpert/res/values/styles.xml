@@ -2,5 +2,7 @@
 
     <style name="AppTheme" parent="android:Theme.Light" />
     <color name="search_backgroud">#EFE4EF</color>
+    <color name="bad_relationship">#F01010</color>
+    <color name="good_relationship">#10F030</color>
 
 </resources>

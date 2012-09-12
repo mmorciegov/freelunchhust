@@ -7,6 +7,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.StaticLayout;
 import android.util.Log;
@@ -33,7 +34,7 @@ public class TipPage extends ContentPage {
     	List<String> randList = new ArrayList<String>();
     	Random rand = new Random();
     	m_flag = rand.nextInt() % 2;
-    	if (m_flag == 0)
+    	if (m_flag == FoodConst.ACTIVITY_TYPE_FOOD)
     	{
     		m_dbHelper.getRandomDataInFood(randList);
     	}
@@ -78,7 +79,7 @@ public class TipPage extends ContentPage {
         // m_flag : 0 Bad Relationship
         // m_flag : 1 Good Relationship
         List<RelativeData> dataList = new ArrayList<RelativeData>();
-        if (m_flag == 0)
+        if (m_flag == FoodConst.ACTIVITY_TYPE_FOOD)
         {
         	m_dbHelper.findDetailInfoInFood(m_name1, m_name2, dataList);
         }
@@ -87,13 +88,33 @@ public class TipPage extends ContentPage {
         	m_dbHelper.findDetailInfoInDisease(m_name1, m_name2, dataList);
         }
         
-        if (dataList.size() > 0)
-        {
-	        m_imageViewDegree.setBackgroundResource(ResourceManager.GetDegreeId(dataList.get(0).degree));
-	        m_textViewHint.setText(dataList.get(0).hint);
-        }
-        
-        m_timer = null;
+		if (dataList.size() > 0) {
+			
+			Log.v("Food Expert","DataList has value");
+			
+			m_imageViewDegree.setBackgroundResource(ResourceManager
+					.GetDegreeId(dataList.get(0).degree));
+			m_textViewHint.setText(dataList.get(0).hint);
+			
+			if (dataList.get(0).degree > 0) {
+				setTitle(m_name1 + getString(R.string.and) + m_name2
+						+ getString(R.string.food_related_good));
+				m_textViewHint.setTextColor( getResources().getColor(R.color.good_relationship));
+				
+			} else if (dataList.get(0).degree < 0) {
+				setTitle(m_name1 + getString(R.string.and) + m_name2
+						+ getString(R.string.food_related_bad));
+				m_textViewHint.setTextColor(getResources().getColor(R.color.bad_relationship));
+			}
+		}
+		else
+		{
+			Log.v("Food Expert","DataList is null");
+		}
+
+
+
+		m_timer = null;
     	if (ConfigData.GetSystemTip(GetConfigFileName()) == 1)
     	{
     		m_timer = new Timer();
