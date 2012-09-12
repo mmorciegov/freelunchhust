@@ -446,14 +446,17 @@ public class DatabaseHelper {
     	String databaseFileName = dbFile.getAbsolutePath().toString();  
     	
         File targetFile = new File(databaseFileName);
-    	try {
-			targetFile.createNewFile();
-			copyBigDataBase(context,databaseFileName);
-			Log.v("Debug", "copyBigDataBase");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        if (!targetFile.exists())        
+    	{
+			try {
+				targetFile.createNewFile();
+				copyBigDataBase(context,databaseFileName);
+				Log.v("Debug", "copyBigDataBase");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
     } 
 	
 
