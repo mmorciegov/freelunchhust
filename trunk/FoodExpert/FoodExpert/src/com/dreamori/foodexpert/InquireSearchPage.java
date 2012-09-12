@@ -232,12 +232,11 @@ public class InquireSearchPage extends InquirePage {
 	private void GotoResultPage()
 	{
 		String curFood = m_textview.getText().toString();
-		int relativeFlag = 0;
 		
 		Bundle bind = new Bundle();
 		bind.putSerializable("FoodClass", m_curFoodClass);
 		bind.putSerializable("FoodName", curFood);
-		bind.putSerializable("Relative", relativeFlag);
+		bind.putSerializable("Relative", FoodConst.ACTIVITY_TYPE_FOOD);
     	
 		Intent intent = new Intent(InquireSearchPage.this, InquireResultPage.class);
 		intent.putExtras(bind);

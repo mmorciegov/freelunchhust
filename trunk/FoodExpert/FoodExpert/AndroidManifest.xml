@@ -6,7 +6,8 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
-    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
+
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -19,38 +20,40 @@
         <activity
             android:name=".InquireSearchPage"
             android:label="@string/title_food_search" >
-        </activity>           
+        </activity>
         <activity
             android:name=".InquireResultPage"
             android:label="@string/title_activity_food" >
-        </activity>   
+        </activity>
         <activity
             android:name=".InquireResultListPage"
             android:label="@string/title_activity_food" >
-        </activity>     
+        </activity>
         <activity
             android:name=".DiseaseSearchPage"
             android:label="@string/title_disease_search" >
-        </activity>   
+        </activity>
         <activity
             android:name=".DiseaseSearchListPage"
             android:label="@string/title_activity_food" >
-        </activity>            
+        </activity>
         <activity
             android:name=".DetailInfoPage"
             android:label="@string/title_activity_food" >
-        </activity>     
+        </activity>
         <activity
             android:name=".TipPage"
             android:label="@string/title_tip" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>            
-        </activity>           
-        
-        
-        
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".DiseaseResultPage"
+            android:label="@string/title_disease_search" >
+        </activity>
     </application>
 
 </manifest>

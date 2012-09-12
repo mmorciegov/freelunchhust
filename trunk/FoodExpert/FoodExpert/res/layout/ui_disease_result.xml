@@ -1,0 +1,21 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <GridView
+        android:id="@+id/ui_disease_result_grid"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0.0dip"
+        android:layout_weight="1.0"
+        android:columnWidth="60.0dip"
+        android:gravity="center"
+        android:horizontalSpacing="10.0dip"
+        android:numColumns="3"
+        android:paddingTop="20dip"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="20.0dip" />
+</RelativeLayout>
