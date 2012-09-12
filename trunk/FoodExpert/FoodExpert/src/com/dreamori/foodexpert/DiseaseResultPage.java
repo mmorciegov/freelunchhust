@@ -16,11 +16,12 @@ import android.support.v4.app.NavUtils;
 
 public class DiseaseResultPage extends DiseasePage {
 	
-	private String m_diseaseName;
+	private String m_diseasePageSearchName;
+	private int  m_searchType;
 
-	public void Search(String curDisease, List<RelativeData> dataList)
+	public void Search(String value, int searchType, List<RelativeData> dataList)
 	{
-		m_dbHelper.findRelatedFoodByDisease(curDisease, dataList);
+		m_dbHelper.findDiseaseRelatedInfo(value, searchType, dataList);
 	}
 	
 	private void InitGrid(List<RelativeData> dataList)
@@ -35,10 +36,19 @@ public class DiseaseResultPage extends DiseasePage {
 				GridViewHolder holder = (GridViewHolder) arg1.getTag();
 				
 				Bundle bundle = new Bundle();
-				bundle.putSerializable("Name1", m_diseaseName);
-				bundle.putSerializable("Name2", holder.name.getText().toString());
+				if( m_searchType == FoodConst.DISEASE_RESULT_SEARCH_DISEASE )
+				{
+					bundle.putSerializable("Name1", m_diseasePageSearchName);
+					bundle.putSerializable("Name2", holder.name.getText().toString());
+				}
+				else
+				{
+					bundle.putSerializable("Name1", holder.name.getText().toString());
+					bundle.putSerializable("Name2", m_diseasePageSearchName);		
+				}
+
 				bundle.putSerializable("Relative", FoodConst.ACTIVITY_TYPE_DISEASE);
-				
+			
 				Intent intent = new Intent(DiseaseResultPage.this, DetailInfoPage.class);
 				intent.putExtras(bundle);
 				
@@ -63,12 +73,15 @@ public class DiseaseResultPage extends DiseasePage {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         
-        m_diseaseName = bundle.getString(FoodConst.INTENT_DISEASE);
+        m_diseasePageSearchName = bundle.getString(FoodConst.INTENT_DISEASE);
         
-        setTitle(m_diseaseName + getString(R.string.title_food_related));
+        m_searchType = bundle.getInt(FoodConst.INTENT_DISEASE_SEARCH_TYPE);
+        
+        setTitle(m_diseasePageSearchName + getString(R.string.title_food_related));
         
         List<RelativeData> dataList = new ArrayList<RelativeData>();
-        Search(m_diseaseName, dataList);
+                
+        Search(m_diseasePageSearchName, m_searchType, dataList);
         
         InitGrid(dataList);
         

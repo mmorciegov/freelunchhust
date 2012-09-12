@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 public class DetailInfoPage extends ContentPage {
 	
+	private int m_diseaseSerachType;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,15 +28,14 @@ public class DetailInfoPage extends ContentPage {
         Intent intent = getIntent();
         if (intent != null)
         {
-            Bundle bind = intent.getExtras();
-            if (bind != null)
+            Bundle bundle = intent.getExtras();
+            if (bundle != null)
             {
-                m_name1 = (String)bind.getSerializable("Name1");
-                m_name2 = (String)bind.getSerializable("Name2");
-                m_flag = (Integer)bind.getSerializable("Relative");
+                m_name1 = (String)bundle.getSerializable("Name1");
+                m_name2 = (String)bundle.getSerializable("Name2");
+                m_flag = (Integer)bundle.getSerializable("Relative");                
             }
         }       
-
                 
         m_imageView1 = (ImageView)findViewById(R.id.ui_detail_icon_1);
         m_imageView2 = (ImageView)findViewById(R.id.ui_detail_icon_2);
@@ -43,6 +44,8 @@ public class DetailInfoPage extends ContentPage {
         
         m_imageViewDegree = (ImageView)findViewById(R.id.ui_detail_degree);
         m_textViewHint = (TextView)findViewById(R.id.ui_detail_hint);
+        
+
         
         InitFood(m_imageView1, m_textView1, m_name1);
         InitFood(m_imageView2, m_textView2, m_name2);
@@ -72,8 +75,7 @@ public class DetailInfoPage extends ContentPage {
 	        m_imageViewDegree.setBackgroundResource(ResourceManager.GetDegreeId(dataList.get(0).degree));
 	        m_textViewHint.setText(dataList.get(0).hint);
         }
-        
-        
+                
         if(dataList.get(0).degree > 0)
         {
         	
@@ -108,6 +110,7 @@ public class DetailInfoPage extends ContentPage {
 				else
 				{
 					bundle.putSerializable(FoodConst.INTENT_DISEASE, m_name1);
+					bundle.putSerializable(FoodConst.INTENT_DISEASE_SEARCH_TYPE, FoodConst.DISEASE_RESULT_SEARCH_DISEASE);
 					intent = new Intent(DetailInfoPage.this, DiseaseResultPage.class);
 				}
 				
@@ -117,33 +120,37 @@ public class DetailInfoPage extends ContentPage {
 				finish();			
 			}
 		});
-              
-       
-        if (m_flag == FoodConst.ACTIVITY_TYPE_FOOD)
-        {
-            m_imageView2.setOnClickListener( new OnClickListener() {
-    			
-    			@Override
-    			public void onClick(View v) {
-    				
-    				KillActivity(FoodConst.ACTIVITY_LEVEL3);
-    				
-    				Bundle bind = new Bundle();
-    				bind.putSerializable("FoodName", m_name2);
-    				bind.putSerializable("Relative", m_flag);
-    		    	
-    				Intent intent = new Intent(DetailInfoPage.this, InquireResultPage.class);
-    				intent.putExtras(bind);
-    				
-    				startActivity(intent);
-    				finish();			
-    			}
-    		});
-        }
-        
-        
-        Button search = (Button)findViewById(R.id.ui_detail_search);
-        Button share = (Button)findViewById(R.id.ui_detail_share);
+
+		m_imageView2.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				KillActivity(FoodConst.ACTIVITY_LEVEL3);
+
+				Bundle bundle = new Bundle();
+				Intent intent;
+				if (m_flag == FoodConst.ACTIVITY_TYPE_FOOD)
+				{			
+					bundle.putSerializable("FoodName", m_name2);
+					bundle.putSerializable("Relative", m_flag);
+					intent = new Intent(DetailInfoPage.this, InquireResultPage.class);
+				}
+				else
+				{
+					bundle.putSerializable(FoodConst.INTENT_DISEASE, m_name2);
+					bundle.putSerializable(FoodConst.INTENT_DISEASE_SEARCH_TYPE, FoodConst.DISEASE_RESULT_SEARCH_FOOD);
+					intent = new Intent(DetailInfoPage.this, DiseaseResultPage.class);
+				}
+				intent.putExtras(bundle);
+
+				startActivity(intent);
+				finish();
+			}
+		});
+
+		Button search = (Button) findViewById(R.id.ui_detail_search);
+		Button share = (Button)findViewById(R.id.ui_detail_share);
         
         search.setOnClickListener(new OnClickListener(){
 			@Override

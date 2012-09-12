@@ -46,6 +46,7 @@ public class DatabaseHelper {
     
     public final static String TABLE_DISEASE_INFO = "jbxx";
     public final static String DISEASE_NAME = "jbmc";
+    public final static String DISEASE_RELATED_FOOD_NAME = "swmc";
     public final static String DISEASE_SEARCH_NUMBER = "cxcs";
     
     public final static String TABLE_DISEASE_FOOD_INFO = "swjb";
@@ -321,26 +322,58 @@ public class DatabaseHelper {
     	return true;
     }
        
-    public boolean findRelatedFoodByDisease(String diseaseName, List<RelativeData> dataList )
+    
+    //input disease, return food list
+    //input food, return disease list
+    public boolean findDiseaseRelatedInfo(String diseaseName, int searchType, List<RelativeData> dataList )
     {    	
     	TableResult tableResult = null;
-		try {
-			tableResult = db.get_table("select distinct * from "+TABLE_DISEASE_FOOD_INFO
-					+" where "+DISEASE_NAME+"='"+diseaseName+"' order by "+LEVEL+" desc");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+    	
+    	if( searchType == FoodConst.DISEASE_RESULT_SEARCH_DISEASE )
+    	{
+        	try {
+    			tableResult = db.get_table("select distinct * from "+TABLE_DISEASE_FOOD_INFO
+    					+" where "+DISEASE_NAME+"='"+diseaseName+"'"
+    					+" order by "+LEVEL+" desc");
+    		} catch (Exception e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+        	
+
+    		for (String[] rowData : tableResult.rows) {
+    			
+    			RelativeData pridata = new RelativeData();
+        		pridata.name = rowData[1];
+    	    	pridata.degree = Integer.parseInt(rowData[3]);
+    	    	pridata.hint = rowData[4];
+    	    	
+    	    	dataList.add(pridata);
+    		}
+    	}
+    	else
+    	{    	
+    		try {
+    			tableResult = db.get_table("select distinct * from "+TABLE_DISEASE_FOOD_INFO
+    					+" where "+DISEASE_RELATED_FOOD_NAME+"='"+diseaseName+"'"
+    					+" order by "+LEVEL+" desc");
+    		} catch (Exception e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}    		
+
+    		for (String[] rowData : tableResult.rows) {
+    			
+    			RelativeData pridata = new RelativeData();
+        		pridata.name = rowData[2];
+    	    	pridata.degree = Integer.parseInt(rowData[3]);
+    	    	pridata.hint = rowData[4];
+    	    	
+    	    	dataList.add(pridata);
+    		}
 		}
 
-		for (String[] rowData : tableResult.rows) {
-			
-			RelativeData pridata = new RelativeData();
-    		pridata.name = rowData[1];
-	    	pridata.degree = Integer.parseInt(rowData[3]);
-	    	pridata.hint = rowData[4];
-	    	
-	    	dataList.add(pridata);
-		}
+
 		
     	return true;
     }
@@ -400,7 +433,8 @@ public class DatabaseHelper {
     	TableResult tableResult = null;
 		try {
 			tableResult = db.get_table("select distinct * from "+TABLE_DISEASE_FOOD_INFO
-					+" where "+DISEASE_NAME+"='"+diseaseName+"' and swmc='"+foodName+"'"
+					+" where "+  "(" +  DISEASE_NAME+"='"+diseaseName+"' and "+ DISEASE_RELATED_FOOD_NAME+"='"+foodName+"'" + ")" 
+					+ " or " + "(" +  DISEASE_NAME+"='"+foodName+"' and "+ DISEASE_RELATED_FOOD_NAME+"='"+diseaseName+"'" + ")" 
 					+" order by "+LEVEL+" desc");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

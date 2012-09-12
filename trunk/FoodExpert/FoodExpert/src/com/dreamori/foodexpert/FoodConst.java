@@ -13,6 +13,10 @@ public final class FoodConst
 	static final int ACTIVITY_TYPE_FOOD = 1;
 	static final int ACTIVITY_TYPE_DISEASE = 0;
 	
+	static final int DISEASE_RESULT_SEARCH_DISEASE = 0;
+	static final int DISEASE_RESULT_SEARCH_FOOD = 1;
+	
 	static final String INTENT_DISEASE = "diseaseName";
+	static final String INTENT_DISEASE_SEARCH_TYPE = "diseaseSearchType";
 
 }

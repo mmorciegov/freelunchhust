@@ -59,6 +59,7 @@ public class DiseaseSearchPage extends DiseasePage {
 				
 				Bundle bundle = new Bundle();
 				bundle.putString(FoodConst.INTENT_DISEASE, holder.name.getText().toString());
+				bundle.putInt(FoodConst.INTENT_DISEASE_SEARCH_TYPE, FoodConst.DISEASE_RESULT_SEARCH_DISEASE);
 				
 				Log.v("Food Expert", "Disease Name: "+ holder.name.getText().toString() );
 				
