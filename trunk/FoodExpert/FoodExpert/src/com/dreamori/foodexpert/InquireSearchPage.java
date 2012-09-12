@@ -235,8 +235,7 @@ public class InquireSearchPage extends InquirePage {
 		Bundle bind = new Bundle();
 		bind.putSerializable("FoodClass", m_curFoodClass);
 		bind.putSerializable("FoodName", curFood);
-		bind.putSerializable("Relative", FoodConst.ACTIVITY_TYPE_FOOD);
-    	
+		    	
 		Intent intent = new Intent(InquireSearchPage.this, InquireResultPage.class);
 		intent.putExtras(bind);
 		

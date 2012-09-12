@@ -32,7 +32,7 @@ public class InquireResultPage extends InquirePage {
 				Bundle bind = new Bundle();
 				bind.putSerializable("Name1", m_foodname);
 				bind.putSerializable("Name2", holder.name.getText().toString());
-				bind.putSerializable("Relative", 0);
+				bind.putSerializable("Relative", FoodConst.ACTIVITY_TYPE_FOOD);
 				
 				Intent intent = new Intent(InquireResultPage.this, DetailInfoPage.class);
 				intent.putExtras(bind);
@@ -59,11 +59,9 @@ public class InquireResultPage extends InquirePage {
         
 //        String foodClass;
         String foodName;
-        int relativeFlag;
-        
+
 //        foodClass = (String)bind.getSerializable("FoodClass");
         foodName = (String)bind.getSerializable("FoodName");
-        relativeFlag = (Integer)bind.getSerializable("Relative");
         
         m_foodname = foodName;
         setTitle(m_foodname + getString(R.string.title_food_related));
