@@ -2,23 +2,16 @@ package com.dreamori.foodexpert;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.AlertDialog.Builder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.CheckBox;
 
 public class TitleActivity extends Activity {
 	public static final int SETTING_DIALOG = 0x113;
@@ -79,122 +72,64 @@ public class TitleActivity extends Activity {
 		broadbind.putSerializable("Level", level);
 		broadIntent.putExtras(broadbind);
 		sendBroadcast(broadIntent);
-	}
-	
-	
-	@Override
-	public Dialog onCreateDialog(int id, Bundle state)
-	{
-		// Find out dialog type.
-		switch (id)
-		{
-			case SETTING_DIALOG:
-				Builder b = new AlertDialog.Builder(this);
-				View view = LayoutInflater.from(m_context).inflate(R.layout.ui_setting, null);
-				b.setView(view);
-				
-				final CheckBox tipCheck = (CheckBox) view.findViewById(R.id.ui_setting_tip);
-	        	if(ConfigData.GetSystemTip(GetConfigFileName()) == 0)
-	        	{
-	        		tipCheck.setChecked(false);
-	        	}
-	        	else
-	        	{
-	        		tipCheck.setChecked(true);
-	        	}
-	        	
-	        	tipCheck.setOnClickListener(new OnClickListener(){
-					@Override
-					public void onClick(View arg0) {
-						// TODO Auto-generated method stub
-			        	String filename = GetConfigFileName();
-			        	ConfigData configData = new ConfigData();
-			        	
-			        	if (tipCheck.isChecked())
-			        	{
-			        		configData.tip = 1;
-			        	}
-			        	else
-			        	{
-			        		configData.tip = 0;
-			        	}
-			        	XmlOperation.WriteXml(filename, configData);
-					}
-	        	});
-	        	
-	        	final Button mailBtn = (Button) view.findViewById(R.id.ui_setting_email);
-	        	mailBtn.setOnClickListener(new OnClickListener(){
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						String addr = "mailto:freelunch@gmail.com";
-						Intent intent = new Intent(Intent.ACTION_SENDTO);
-						intent.setData(Uri.parse(addr));
-						intent.putExtra(Intent.EXTRA_SUBJECT, "");
-						intent.putExtra(Intent.EXTRA_TEXT, "");
-						startActivity(intent);
-					}
-	        	});
-				
-//				// Set Dialog icon
-//				b.setIcon(R.drawable.ic_launcher);
-//				// Set Dialog title
-//				b.setTitle(this.getString(R.string.menu_settings));
-//				final boolean[] checkStatus = new boolean[2];
-//	        	
-//	        	if(ConfigData.GetSystemTip(GetConfigFileName()) == 0)
-//	        	{
-//	        		checkStatus[0] = false;
-//	        	}
-//	        	else
-//	        	{
-//	        		checkStatus[0] = true;
-//	        	}
-//	        	
-//	        	if(ConfigData.GetSystemDisplay(GetConfigFileName()) == 0)
-//	        	{
-//	        		checkStatus[1] = false;
-//	        	}
-//	        	else
-//	        	{
-//	        		checkStatus[1] = true;
-//	        	}
-//	        	
-//				// Set multi table for dialog. 
-//				b.setMultiChoiceItems(new String[] { this.getString(R.string.init_introduction), this.getString(R.string.display_list_view) }
-//				// Set item checked default status
-//					, checkStatus
-//					// Set Listener for items
-//					, new OnMultiChoiceClickListener()
-//					{
-//						@Override
-//						public void onClick(DialogInterface dialog, int which,
-//							boolean isChecked)
-//						{
-//				        	String filename = GetConfigFileName();
-//				        	ConfigData configData = new ConfigData();
-//				        	
-//				        	configData.tip = checkStatus[0] ? 1 : 0;
-//				        	configData.display = checkStatus[1] ? 1 : 0;
-//				        	XmlOperation.WriteXml(filename, configData);
-//						}
-//					});
-				
-				// Add button
-				b.setPositiveButton(this.getString(R.string.menu_exit), null);
-				// Create Dialog
-				return b.create();
-		}
-		return null;
-	}    
+	} 
 	
     @Override
     public boolean onOptionsItemSelected(MenuItem mi)
     {
     	switch(mi.getItemId())
     	{
+    	case R.id.menu_showtip:
+        	String filename = GetConfigFileName();
+        	ConfigData configData = new ConfigData();
+        	
+        	if(ConfigData.GetSystemTip(GetConfigFileName()) == 0)
+        	{
+        		configData.tip = 1;
+        	}
+        	else
+        	{
+        		configData.tip = 0;
+        	}
+        	XmlOperation.WriteXml(filename, configData);  
+        	
+        	if(ConfigData.GetSystemTip(GetConfigFileName()) == 0)
+        	{
+        		mi.setTitle(getString(R.string.menu_show_tip));
+        	}
+        	else
+        	{
+        		mi.setTitle(getString(R.string.menu_hide_tip));
+        	}
+    		break;
+    	case R.id.menu_contact:
+			String addr = "mailto:freelunch@gmail.com";
+			Intent intent = new Intent(Intent.ACTION_SENDTO);
+			intent.setData(Uri.parse(addr));
+			intent.putExtra(Intent.EXTRA_SUBJECT, "");
+			intent.putExtra(Intent.EXTRA_TEXT, "");
+			startActivity(intent);
+    		break;
+    	case R.id.menu_exit:
+    		Builder b = new AlertDialog.Builder(this);
+    		b.setIcon(getResources().getDrawable(R.drawable.exit));
+    		b.setTitle(getString(R.string.menu_exit));
+    		b.setMessage(getString(R.string.menu_exit_sure));
+    		b.setPositiveButton(getString(R.string.menu_ok), new DialogInterface.OnClickListener(){
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					KillActivity(0);
+					finish();
+				}
+    		});
+    		
+    		b.setNegativeButton(getString(R.string.menu_cancel), null);
+    		
+    		b.create().show();
+
+    		break;
 		default:
-			showDialog(SETTING_DIALOG);
 			break;
     	}
     	return true;
@@ -204,5 +139,23 @@ public class TitleActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
+    }
+    
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
+    	super.onPrepareOptionsMenu(menu);
+    	
+    	MenuItem showtip = menu.getItem(0);
+    	if(ConfigData.GetSystemTip(GetConfigFileName()) == 0)
+    	{
+    		showtip.setTitle(getString(R.string.menu_show_tip));
+    	}
+    	else
+    	{
+    		showtip.setTitle(getString(R.string.menu_hide_tip));
+    	}
+    	
+    	return true;
     }
 }

@@ -24,5 +24,12 @@
     <string name="title_tip">每日小常识</string>
     <string name="title_main">欢迎使用食物专家</string>
     <string name="title_disease_search">疾病食物查询</string>    
+    
+    <string name="menu_show_tip">显示每日小提示</string>
+    <string name="menu_hide_tip">隐藏每日小提示</string>
+    <string name="menu_exit_sure">确定要退出吗？</string>      
+    
+    <string name="menu_ok">确定</string>
+    <string name="menu_cancel">取消</string>      
 
 </resources>
