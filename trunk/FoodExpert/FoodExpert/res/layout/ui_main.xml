@@ -17,5 +17,11 @@
         android:columnWidth="60.0dip" 
         android:numColumns="1" 
         android:layout_weight="1.0"/>    
-    
+ 
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+	    android:id="@+id/adLayout"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	   />
 </RelativeLayout>

@@ -1,5 +1,11 @@
 package com.dreamori.foodexpert;
 
+import com.adview.AdViewInterface;
+import com.adview.AdViewLayout;
+import com.adview.AdViewTargeting;
+import com.adview.AdViewTargeting.RunMode;
+import com.adview.AdViewTargeting.UpdateMode;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -12,8 +18,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 
-public class TitleActivity extends Activity {
+public class TitleActivity extends Activity implements AdViewInterface {
 	public static final int SETTING_DIALOG = 0x113;
 	public static final String DATABASE_NAME = "food.db";
 	public static final String CONFIG_FILENAME = "/config.xml";
@@ -52,6 +59,23 @@ public class TitleActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         RegisterBroadcastReceiver();
+    }
+    
+    @Override
+    protected void onStart()
+    {
+    	super.onStart();
+    	LinearLayout layout = (LinearLayout)findViewById(R.id.adLayout);
+        if (layout == null) 
+            return;
+
+        AdViewTargeting.setUpdateMode(UpdateMode.EVERYTIME);  //Must delete before release!!!!!
+        AdViewTargeting.setRunMode(RunMode.TEST);        //Must delete before release!!!!!
+
+        AdViewLayout adViewLayout = new AdViewLayout(this, "SDK20120912090935ahwlxnjz3q9r67q");
+        adViewLayout.setAdViewInterface(this);
+        layout.addView(adViewLayout);
+        layout.invalidate(); 
     }
 		
 	@Override
@@ -158,4 +182,16 @@ public class TitleActivity extends Activity {
     	
     	return true;
     }
+
+	@Override
+	public void onClickAd() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onDisplayAd() {
+		// TODO Auto-generated method stub
+		
+	}
 }

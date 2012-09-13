@@ -18,3 +18,33 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+#The below is used for AdView SDK settings,only instead for your app
+-dontwarn
+-libraryjars /libs/AdViewSDK_Android.jar
+-keep public class com.adview.** {*;} 
+-keeppackagenames com.madhouse.android.ads
+-keepclassmembers class * {public *;}
+-libraryjars /libs/WQAndroidSDK_2.0.2.jar
+-keep public class com.wqmobile.sdk.** {*;} 
+-keep public class * {public *;}
+-keep public class com.adwo.adsdk.AdwoAdBrowserActivity
+-keep public class com.wooboo.** {*;}
+-keep public class cn.aduu.adsdk.**{*;}
+-keep public class MobWin.*
+-keep public class MobWin.cnst.*
+-keep class com.tencent.lbsapi.*
+-keep class com.tencent.lbsapi.core.*
+-keep class LBSAPIProtocol.*
+-keep class com.tencent.lbsapi.core.QLBSJNI {
+*;
+}
+
+-keeppackagenames com.adchina.android.ads
+-keeppackagenames com.adchina.android.ads.controllers
+-keeppackagenames com.adchina.android.ads.views
+-keeppackagenames com.adchina.android.ads.animations
+-keep class com.adchina.android.ads.*{*;}
+-keep class com.adchina.android.ads.controllers.*{*;}
+-keep class com.adchina.android.ads.views.*{*;}
+-keep class com.adchina.android.ads.animations.*{*;}

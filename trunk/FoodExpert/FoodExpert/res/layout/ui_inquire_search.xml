@@ -19,7 +19,7 @@
 
         <AutoCompleteTextView
             android:id="@+id/ui_inquire_search_food_input"
-            android:layout_width="wrap_content"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10" >
@@ -40,7 +40,13 @@
         android:verticalSpacing="20.0dip" 
         android:stretchMode="columnWidth" 
         android:columnWidth="60.0dip" 
-        android:numColumns="3" 
-        android:layout_weight="1.0" />        
+        android:numColumns="3" />
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+	    android:id="@+id/adLayout"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	   />
 
 </RelativeLayout>
