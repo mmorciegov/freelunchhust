@@ -1,14 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 	<item android:id="@+id/menu_showtip"
-        android:title="显示每日小常识"
+        android:title="@string/menu_show_tip"
         android:orderInCategory="100"
         android:icon="@drawable/tip"/>    
     <item android:id="@+id/menu_contact"
-        android:title="联系我们"
+        android:title="@string/menu_contact"
         android:orderInCategory="100"
         android:icon="@drawable/email"/>         
 	<item android:id="@+id/menu_exit"
-        android:title="退出"
+        android:title="@string/menu_exit"
         android:orderInCategory="100"
         android:icon="@drawable/exit"/>   
 </menu>
