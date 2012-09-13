@@ -25,7 +25,7 @@ public class DiseaseSearchPage extends DiseasePage {
         m_level = 2;
         
     	//Get Database
-        m_dbHelper = DatabaseHelper.getInstance(m_context);         
+        m_dbHelper = DatabaseHelper.getInstance(getApplicationContext());         
         m_gridview = (GridView)findViewById(R.id.ui_disease_search_grid);   
 
         

@@ -67,7 +67,7 @@ public class DiseaseResultPage extends DiseasePage {
         m_level = 3;
         
     	//Get Database
-        m_dbHelper = DatabaseHelper.getInstance(m_context); 
+        m_dbHelper = DatabaseHelper.getInstance(getApplicationContext()); 
         m_gridview = (GridView)findViewById(R.id.ui_disease_result_grid);   
         
         Intent intent = getIntent();

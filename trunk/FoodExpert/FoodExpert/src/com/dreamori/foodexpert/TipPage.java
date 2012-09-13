@@ -28,7 +28,7 @@ public class TipPage extends ContentPage {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_tip);
         
-        m_dbHelper = DatabaseHelper.getInstance(this);
+        m_dbHelper = DatabaseHelper.getInstance(getApplicationContext());
         m_intent = new Intent(TipPage.this, Food.class);
         	
     	List<String> randList = new ArrayList<String>();

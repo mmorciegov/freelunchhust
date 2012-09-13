@@ -273,8 +273,8 @@ public class InquireSearchPage extends InquirePage {
 			}
         });        
 	}
-	
-    @Override
+
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_inquire_search);
@@ -283,7 +283,7 @@ public class InquireSearchPage extends InquirePage {
         m_level = 2;
         
     	//Get Database
-        m_dbHelper = DatabaseHelper.getInstance(m_context);        
+        m_dbHelper = DatabaseHelper.getInstance(getApplicationContext());        
         
         m_textview = (AutoCompleteTextView) findViewById(R.id.ui_inquire_search_food_input);
         m_foodClassSpin = (ComboBox) findViewById(R.id.ui_inquire_search_food_class_selector);

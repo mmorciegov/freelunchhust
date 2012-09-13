@@ -43,7 +43,7 @@ public class Food extends TitleActivity {
 		
 		Log.v("Food Activity", "onDestroy");
 		
-		DatabaseHelper dbHelper = DatabaseHelper.getInstance(this);
+		DatabaseHelper dbHelper = DatabaseHelper.getInstance(getApplicationContext());
 		if( dbHelper != null )
 		{
 			dbHelper.closeDatabase();
