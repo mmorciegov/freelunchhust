@@ -12,6 +12,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class InquireResultPage extends InquirePage {
 	private String m_foodname;
+	private List<RelativeData> m_dataList;
 
 	private void Search(String curFood, List<RelativeData> dataList)
 	{
@@ -41,7 +42,7 @@ public class InquireResultPage extends InquirePage {
 			}
         });        
 	}
-	
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +52,7 @@ public class InquireResultPage extends InquirePage {
         m_level = 3;
         
     	//Get Database
-        m_dbHelper = DatabaseHelper.getInstance(m_context); 
+        m_dbHelper = DatabaseHelper.getInstance(getApplicationContext()); 
         m_gridview = (GridView)findViewById(R.id.ui_inquire_result_grid);   
         
         Intent intent = getIntent();
@@ -66,10 +67,10 @@ public class InquireResultPage extends InquirePage {
         m_foodname = foodName;
         setTitle(m_foodname + getString(R.string.title_food_related));
         
-        List<RelativeData> dataList = new ArrayList<RelativeData>();
-        Search(foodName, dataList);
+        m_dataList = new ArrayList<RelativeData>();
+        Search(foodName, m_dataList);
         
-        InitGrid(dataList);
+        InitGrid(m_dataList);
         
         m_gridview.setFocusable(true);
         m_gridview.setFocusableInTouchMode(true);

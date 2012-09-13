@@ -12,7 +12,7 @@ public class DiseasePage extends TitleActivity {
 
 	public GridView m_gridview;
 	
-	public DatabaseHelper m_dbHelper = DatabaseHelper.getInstance(m_context);
+	public DatabaseHelper m_dbHelper = DatabaseHelper.getInstance(getApplicationContext());
 		
 	public void UpdateGrid(List<RelativeData> dataList)
 	{

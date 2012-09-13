@@ -15,14 +15,14 @@ import android.widget.TextView;
 
 public class DetailInfoPage extends ContentPage {
 	
-	private int m_diseaseSerachType;
+	
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_detail_info);
         
-        m_dbHelper = DatabaseHelper.getInstance(this);
+        m_dbHelper = DatabaseHelper.getInstance(getApplicationContext());
         m_level = 4;
         
         Intent intent = getIntent();
