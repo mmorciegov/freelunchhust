@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,7 +21,25 @@ public class DetailInfoPage extends ContentPage {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.ui_detail_info);
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.ui_title);
+
+        View titleView = getWindow().getDecorView();
+        final TextView titleViewTxt = (TextView) titleView.findViewById(R.id.ui_title_text);
+        titleViewTxt.setTextColor(Color.WHITE);
+        ImageView shareView = (ImageView) titleView.findViewById(R.id.ui_title_share);
+        shareView.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(Intent.ACTION_SEND);
+				intent.setType("text/plain");
+				intent.putExtra(Intent.EXTRA_SUBJECT, titleViewTxt.getText());
+				intent.putExtra(Intent.EXTRA_TEXT, m_textViewHint.getText());
+				startActivity(Intent.createChooser(intent, "Share"));
+			}
+        });
         
         m_dbHelper = DatabaseHelper.getInstance(getApplicationContext());
         m_level = 4;
@@ -81,6 +100,7 @@ public class DetailInfoPage extends ContentPage {
         	
         	Log.v("Food Expert", "m_flag > 0");
         	
+        	titleViewTxt.setText(m_name1 + getString(R.string.and) + m_name2 + getString(R.string.food_related_good));
         	setTitle(m_name1 + getString(R.string.and) + m_name2 + getString(R.string.food_related_good));
         	m_textViewHint.setTextColor( getResources().getColor(R.color.good_relationship));
         }
@@ -88,6 +108,7 @@ public class DetailInfoPage extends ContentPage {
         {
         	Log.v("Food Expert", "m_flag < 0");  	
         	
+        	titleViewTxt.setText(m_name1 + getString(R.string.and) + m_name2 + getString(R.string.food_related_bad));
         	setTitle(m_name1 + getString(R.string.and) + m_name2 + getString(R.string.food_related_bad));
         	m_textViewHint.setTextColor( getResources().getColor(R.color.bad_relationship));
 		}
@@ -150,7 +171,6 @@ public class DetailInfoPage extends ContentPage {
 		});
 
 		Button search = (Button) findViewById(R.id.ui_detail_search);
-		Button share = (Button)findViewById(R.id.ui_detail_share);
         
         search.setOnClickListener(new OnClickListener(){
 			@Override
@@ -171,14 +191,6 @@ public class DetailInfoPage extends ContentPage {
 				
 				startActivity(intent);
 				finish();
-			}
-        });
-        
-        share.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
 			}
         });
     }
