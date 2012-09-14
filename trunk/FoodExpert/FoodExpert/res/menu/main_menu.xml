@@ -1,14 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:id="@+id/menu_showtip"
-        android:title="@string/menu_show_tip"
-        android:orderInCategory="100"
-        android:icon="@drawable/tip"/>    
-    <item android:id="@+id/menu_contact"
-        android:title="@string/menu_contact"
-        android:orderInCategory="100"
-        android:icon="@drawable/email"/>         
-	<item android:id="@+id/menu_exit"
-        android:title="@string/menu_exit"
-        android:orderInCategory="100"
-        android:icon="@drawable/exit"/>   
+    <item android:id="@+id/menu_showtip" android:title="@string/menu_show_tip" android:showAsAction="never"></item>
+    <item android:id="@+id/menu_contact" android:title="@string/menu_contact" android:showAsAction="never"></item>
+    <item android:id="@+id/menu_exit" android:title="@string/menu_exit" android:showAsAction="never"></item>
+    <item android:id="@+id/menu_share" android:title="@string/menu_share" android:icon="@drawable/share" android:showAsAction="always"></item>
 </menu>
