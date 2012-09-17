@@ -18,6 +18,18 @@ public class DiseaseResultPage extends GridViewBasePage {
 	
 	private String m_diseasePageSearchName;
 	private int  m_searchType;
+	private List<RelativeData> m_dataList = null;
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		
+		if( m_dataList != null )
+		{
+			m_dataList.clear();
+			m_dataList = null;
+		}
+	}
 
 	public void Search(String value, int searchType, List<RelativeData> dataList)
 	{
@@ -84,11 +96,11 @@ public class DiseaseResultPage extends GridViewBasePage {
 		}
                
         
-        List<RelativeData> dataList = new ArrayList<RelativeData>();
+        m_dataList = new ArrayList<RelativeData>();
                 
-        Search(m_diseasePageSearchName, m_searchType, dataList);
+        Search(m_diseasePageSearchName, m_searchType, m_dataList);
         
-        InitGrid(dataList);
+        InitGrid(m_dataList);
         
         m_gridview.setFocusable(true);
         m_gridview.setFocusableInTouchMode(true);
