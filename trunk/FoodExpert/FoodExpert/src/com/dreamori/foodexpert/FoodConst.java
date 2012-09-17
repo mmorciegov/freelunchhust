@@ -3,7 +3,7 @@ package com.dreamori.foodexpert;
 public final class FoodConst 
 {
 	
-	static final int COMMON_FOOD_INIT_COUNT = 18;
+	static final int COMMON_FOOD_INIT_COUNT = 32;
 	
 	
 	static final int ACTIVIY_LEVEL1 = 1;
