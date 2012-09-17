@@ -29,14 +29,23 @@ public class TipPage extends ContentPage {
         setContentView(R.layout.ui_tip);
         
         m_dbHelper = DatabaseHelper.getInstance(getApplicationContext());
+        
+        if( m_dbHelper == null )
+        {
+        	DreamoriLog.LogFoodExpert("Get db error");
+        	return;
+        }
+        
         m_intent = new Intent(TipPage.this, Food.class);
         	
     	List<String> randList = new ArrayList<String>();
     	Random rand = new Random();
-    	m_flag = rand.nextInt() % 2;
+    	m_flag = Math.abs(rand.nextInt()) % 2;
     	if (m_flag == FoodConst.ACTIVITY_TYPE_FOOD)
     	{
+    		DreamoriLog.LogFoodExpert("Before getRandomDataInFood");
     		m_dbHelper.getRandomDataInFood(randList);
+    		DreamoriLog.LogFoodExpert("After getRandomDataInFood");
     	}
     	else
     	{
@@ -90,7 +99,7 @@ public class TipPage extends ContentPage {
         
 		if (dataList.size() > 0) {
 			
-			Log.v("Food Expert","DataList has value");
+			DreamoriLog.LogFoodExpert("DataList has value");
 			
 			m_imageViewDegree.setBackgroundResource(ResourceManager
 					.GetDegreeId(dataList.get(0).degree));
@@ -109,7 +118,7 @@ public class TipPage extends ContentPage {
 		}
 		else
 		{
-			Log.v("Food Expert","DataList is null");
+			DreamoriLog.LogFoodExpert("DataList is null");
 		}
 
 
@@ -121,7 +130,7 @@ public class TipPage extends ContentPage {
 			TimerTask task = new TimerTask() {
 				@Override
 				public void run() {
-			    	Log.v("Tip Page", "TimerTask");
+					DreamoriLog.LogFoodExpert("TimerTask");
 					startActivity(m_intent);
 					finish();
 				}
@@ -147,7 +156,7 @@ public class TipPage extends ContentPage {
     	
     	bRunOnce = true;
     	
-    	Log.v("Tip Page", "onTouchEvgent");
+    	DreamoriLog.LogFoodExpert("onTouchEvgent");
     	if (m_timer != null)
     	{
     		m_timer.cancel();

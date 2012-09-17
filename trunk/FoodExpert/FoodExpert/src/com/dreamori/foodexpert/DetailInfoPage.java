@@ -98,7 +98,7 @@ public class DetailInfoPage extends ContentPage {
         if(dataList.get(0).degree > 0)
         {
         	
-        	Log.v("Food Expert", "m_flag > 0");
+        	DreamoriLog.LogFoodExpert( "m_flag > 0");
         	
 //        	titleViewTxt.setText(m_name1 + getString(R.string.and) + m_name2 + getString(R.string.food_related_good));
         	setTitle(m_name1 + getString(R.string.and) + m_name2 + getString(R.string.food_related_good));
@@ -106,7 +106,7 @@ public class DetailInfoPage extends ContentPage {
         }
         else if(dataList.get(0).degree < 0)
         {
-        	Log.v("Food Expert", "m_flag < 0");  	
+        	DreamoriLog.LogFoodExpert( "m_flag < 0");  	
         	
 //        	titleViewTxt.setText(m_name1 + getString(R.string.and) + m_name2 + getString(R.string.food_related_bad));
         	setTitle(m_name1 + getString(R.string.and) + m_name2 + getString(R.string.food_related_bad));

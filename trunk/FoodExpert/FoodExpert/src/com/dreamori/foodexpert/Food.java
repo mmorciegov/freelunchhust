@@ -41,7 +41,7 @@ public class Food extends TitleActivity {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		
-		Log.v("Food Activity", "onDestroy");
+		DreamoriLog.LogFoodExpert("Food Activity onDestroy");
 		
 		DatabaseHelper dbHelper = DatabaseHelper.getInstance(getApplicationContext());
 		if( dbHelper != null )
@@ -64,7 +64,7 @@ public class Food extends TitleActivity {
         m_context = this;
         m_level = 1;
         
-		Log.v("Food Activity", "onCreate");    
+        DreamoriLog.LogFoodExpert("Food Activyt, onCreate");    
 		
         m_gridview = (GridView)findViewById(R.id.ui_main_grid);
         InitGrid();

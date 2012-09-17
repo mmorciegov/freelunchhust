@@ -61,7 +61,7 @@ public class DiseaseSearchPage extends DiseasePage {
 				bundle.putString(FoodConst.INTENT_DISEASE, holder.name.getText().toString());
 				bundle.putInt(FoodConst.INTENT_DISEASE_SEARCH_TYPE, FoodConst.DISEASE_RESULT_SEARCH_DISEASE);
 				
-				Log.v("Food Expert", "Disease Name: "+ holder.name.getText().toString() );
+				DreamoriLog.LogFoodExpert("Disease Name: "+ holder.name.getText().toString() );
 				
 				Intent intent = new Intent(DiseaseSearchPage.this, DiseaseResultPage.class);
 				intent.putExtras(bundle);
