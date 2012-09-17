@@ -310,7 +310,7 @@ public class DatabaseHelper {
 			return false;
 		
 		Random random = new Random();
-    	int rand = random.nextInt() % tableResult.rows.size();
+    	int rand = Math.abs(random.nextInt()) % tableResult.rows.size();
 
     	dataList.add(tableResult.rows.get(rand)[1]);
     	dataList.add(tableResult.rows.get(rand)[2]);
