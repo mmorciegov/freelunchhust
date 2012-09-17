@@ -15,6 +15,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -152,6 +153,8 @@ public class TitleActivity extends Activity implements AdViewInterface {
         m_popWnd.setFocusable(true);        
         m_popWnd.setOutsideTouchable(true);
         m_popWnd.update();
+        
+        m_popWnd.setBackgroundDrawable(new ColorDrawable(0));
         
 //        m_popWnd.setTouchInterceptor(new OnTouchListener(){
 //			@Override
