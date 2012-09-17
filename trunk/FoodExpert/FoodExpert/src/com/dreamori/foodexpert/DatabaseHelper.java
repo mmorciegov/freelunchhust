@@ -70,7 +70,9 @@ public class DatabaseHelper {
 	        try {
 	        	db = new Database();
 	        	db.open(context.getDatabasePath(DATABASE_NAME).getAbsolutePath(), Constants.SQLITE_OPEN_READWRITE);
-		        //db.key(db.dbkey());
+	        	
+	        	//String uri = (String) db.getdb()+"SQLITE_OPEN_READWRITE";
+		        //db.key(uri);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

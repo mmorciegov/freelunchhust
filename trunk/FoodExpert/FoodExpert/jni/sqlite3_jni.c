@@ -3272,8 +3272,8 @@ JNI_OnUnload(JavaVM *vm, void *reserved)
 }
 #endif
 
-jstring
-Java_SQLite3_Database_dbkey( JNIEnv* env, jobject this )
+jobject
+Java_SQLite3_Database_getdb( JNIEnv* env, jobject this )
 {
 	char text[128] = {"([BLjava/lang/String;)V"};
 	int i;

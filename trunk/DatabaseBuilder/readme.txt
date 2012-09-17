@@ -11,6 +11,7 @@
 在DatabaseHelper类中
 去掉static String srcDBName = "libFoodFuncion.so";这一行的注释
 注释static String srcDBName = "food.db";这一行
+去掉String uri = (String) db.getdb()+"SQLITE_OPEN_READWRITE";这一行的注释
 去掉getInstance函数中db.key(db.dbkey());这一行的注释
 
 编译，运行即可

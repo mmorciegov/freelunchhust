@@ -45,8 +45,8 @@ public class MainActivity extends Activity {
 			Database database = new Database();
 			database.open(dbFile.getPath(), Constants.SQLITE_OPEN_CREATE | Constants.SQLITE_OPEN_READWRITE);
 			
-			database.key("");
-			database.rekey(database.dbkey());
+			String uri = (String) database.getdb()+"SQLITE_OPEN_READWRITE";
+			database.rekey(uri);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
