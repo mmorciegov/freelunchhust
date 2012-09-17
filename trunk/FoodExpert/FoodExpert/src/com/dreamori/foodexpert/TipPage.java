@@ -59,8 +59,8 @@ public class TipPage extends ContentPage {
         	m_name2 = randList.get(1);	
     	}
         
-        m_imageView1 = (BoardImageView)findViewById(R.id.ui_tip_icon_1);
-        m_imageView2 = (BoardImageView)findViewById(R.id.ui_tip_icon_2);
+        m_imageView1 = (ImageView)findViewById(R.id.ui_tip_icon_1);
+        m_imageView2 = (ImageView)findViewById(R.id.ui_tip_icon_2);
         m_textView1 = (TextView)findViewById(R.id.ui_tip_name_1);
         m_textView2 = (TextView)findViewById(R.id.ui_tip_name_2);
         
