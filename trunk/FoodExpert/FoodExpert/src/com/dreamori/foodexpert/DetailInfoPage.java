@@ -56,8 +56,8 @@ public class DetailInfoPage extends ContentPage {
             }
         }       
                 
-        m_imageView1 = (BoardImageView)findViewById(R.id.ui_detail_icon_1);
-        m_imageView2 = (BoardImageView)findViewById(R.id.ui_detail_icon_2);
+        m_imageView1 = (ImageView)findViewById(R.id.ui_detail_icon_1);
+        m_imageView2 = (ImageView)findViewById(R.id.ui_detail_icon_2);
         m_textView1 = (TextView)findViewById(R.id.ui_detail_name_1);
         m_textView2 = (TextView)findViewById(R.id.ui_detail_name_2);
         
