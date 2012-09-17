@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class InquireResultPage extends InquirePage {
+public class InquireResultPage extends GridViewBasePage {
 	private String m_foodname;
 	private List<RelativeData> m_dataList;
 
@@ -21,7 +21,7 @@ public class InquireResultPage extends InquirePage {
 	
 	private void InitGrid(List<RelativeData> dataList)
 	{
-		UpdateGrid(dataList);
+		UpdateGrid(dataList, true);
         
         m_gridview.setOnItemClickListener(new OnItemClickListener(){
 			@Override
