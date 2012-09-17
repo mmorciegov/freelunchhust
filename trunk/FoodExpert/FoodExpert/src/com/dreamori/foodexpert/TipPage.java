@@ -146,24 +146,20 @@ public class TipPage extends ContentPage {
     	}
     }
     
-    private static Boolean bRunOnce = false;
-    
     public boolean onTouchEvent(MotionEvent event)
     {   	
-    	if( bRunOnce )
+    	if (event.getAction() == MotionEvent.ACTION_DOWN)
     	{
-    		return true;
+        	DreamoriLog.LogFoodExpert("onTouchEvgent ACTION_DOWN");
+        	if (m_timer != null)
+        	{
+        		m_timer.cancel();
+        	}
+    		startActivity(m_intent);
+    		finish();    	
+        	return true;	
     	}
     	
-    	bRunOnce = true;
-    	
-    	DreamoriLog.LogFoodExpert("onTouchEvgent");
-    	if (m_timer != null)
-    	{
-    		m_timer.cancel();
-    	}
-		startActivity(m_intent);
-		finish();    	
-    	return true;
+    	return false;
     }
 }
