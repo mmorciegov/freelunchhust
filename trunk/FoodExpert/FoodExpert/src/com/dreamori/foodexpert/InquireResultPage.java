@@ -47,8 +47,7 @@ public class InquireResultPage extends InquirePage {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_inquire_result);
-        
-        m_context = this;
+
         m_level = 3;
         
     	//Get Database

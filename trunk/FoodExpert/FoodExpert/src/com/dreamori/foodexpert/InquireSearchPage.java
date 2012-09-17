@@ -95,7 +95,7 @@ public class InquireSearchPage extends InquirePage {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			// TODO Auto-generated method stub
-			TextView text = new TextView(m_context);
+			TextView text = new TextView(InquireSearchPage.this);
 			text.setText(m_displayFoodList.get(position));
 			return text;
 		}
@@ -252,7 +252,7 @@ public class InquireSearchPage extends InquirePage {
 	        gridDataList.add(data);		
 		}
         
-        ListAdapter adapter = new GridViewAdapter(m_context, gridDataList);
+        ListAdapter adapter = new GridViewAdapter(this, gridDataList);
         m_gridview.setAdapter(adapter);		
 	}
 	
@@ -277,7 +277,6 @@ public class InquireSearchPage extends InquirePage {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_inquire_search);
         
-        m_context = this;
         m_level = 2;
         
     	//Get Database

@@ -41,7 +41,6 @@ public class DetailInfoPage extends ContentPage {
 //			}
 //        });
         
-        m_context = this;
         m_level = 4;
         
         Intent intent = getIntent();
@@ -186,7 +185,7 @@ public class DetailInfoPage extends ContentPage {
 				}
 				else
 				{
-					intent = new Intent(DetailInfoPage.this, DiseaseResultPage.class);
+					intent = new Intent(DetailInfoPage.this, DiseaseSearchPage.class);
 				}
 				
 				startActivity(intent);
