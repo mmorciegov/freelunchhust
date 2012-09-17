@@ -16,7 +16,7 @@ public class InquireResultPage extends InquirePage {
 
 	private void Search(String curFood, List<RelativeData> dataList)
 	{
-		m_dbHelper.findRelatedFood(curFood, dataList);
+		getDatabaseHelper().findRelatedFood(curFood, dataList);
 	}
 	
 	private void InitGrid(List<RelativeData> dataList)
@@ -52,7 +52,6 @@ public class InquireResultPage extends InquirePage {
         m_level = 3;
         
     	//Get Database
-        m_dbHelper = DatabaseHelper.getInstance(getApplicationContext()); 
         m_gridview = (GridView)findViewById(R.id.ui_inquire_result_grid);   
         
         Intent intent = getIntent();
@@ -65,7 +64,7 @@ public class InquireResultPage extends InquirePage {
         foodName = (String)bind.getSerializable("FoodName");
         
         m_foodname = foodName;
-        setTitle(m_foodname + getString(R.string.title_food_related));
+        setTitle(getString( R.string.title_choose) +  m_foodname + getString(R.string.title_food_related));
         
         m_dataList = new ArrayList<RelativeData>();
         Search(foodName, m_dataList);

@@ -41,7 +41,6 @@ public class DetailInfoPage extends ContentPage {
 //			}
 //        });
         
-        m_dbHelper = DatabaseHelper.getInstance(getApplicationContext());
         m_level = 4;
         
         Intent intent = getIntent();
@@ -76,18 +75,18 @@ public class DetailInfoPage extends ContentPage {
 
         if (m_flag == FoodConst.ACTIVITY_TYPE_FOOD)
         {
-        	m_dbHelper.findDetailInfoInFood(m_name1, m_name2, dataList);    
+        	getDatabaseHelper().findDetailInfoInFood(m_name1, m_name2, dataList);    
         	//Update food query frequency
-	        m_dbHelper.AddFoodSearchFrequency(m_name1);
+        	getDatabaseHelper().AddFoodSearchFrequency(m_name1);
         }
         else
         {
-        	m_dbHelper.findDetailInfoInDisease(m_name1, m_name2, dataList);
+        	getDatabaseHelper().findDetailInfoInDisease(m_name1, m_name2, dataList);
         	//Update disease query frequency        	
-            m_dbHelper.AddDiseaseSearchFrequency(m_name1);
+        	getDatabaseHelper().AddDiseaseSearchFrequency(m_name1);
         }
         
-        m_dbHelper.AddFoodSearchFrequency(m_name2);
+        getDatabaseHelper().AddFoodSearchFrequency(m_name2);
         
         if (dataList.size() > 0)
         {

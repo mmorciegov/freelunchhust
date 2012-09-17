@@ -21,7 +21,7 @@ public class DiseaseResultPage extends DiseasePage {
 
 	public void Search(String value, int searchType, List<RelativeData> dataList)
 	{
-		m_dbHelper.findDiseaseRelatedInfo(value, searchType, dataList);
+		getDatabaseHelper().findDiseaseRelatedInfo(value, searchType, dataList);
 	}
 	
 	private void InitGrid(List<RelativeData> dataList)
@@ -67,7 +67,6 @@ public class DiseaseResultPage extends DiseasePage {
         m_level = 3;
         
     	//Get Database
-        m_dbHelper = DatabaseHelper.getInstance(getApplicationContext()); 
         m_gridview = (GridView)findViewById(R.id.ui_disease_result_grid);   
         
         Intent intent = getIntent();
@@ -77,7 +76,15 @@ public class DiseaseResultPage extends DiseasePage {
         
         m_searchType = bundle.getInt(FoodConst.INTENT_DISEASE_SEARCH_TYPE);
         
-        setTitle(m_diseasePageSearchName + getString(R.string.title_food_related));
+        if( m_searchType == FoodConst.DISEASE_RESULT_SEARCH_DISEASE )
+        {        	
+        	setTitle(getString(R.string.title_choose) + m_diseasePageSearchName + getString(R.string.title_food_related));
+        }
+        else
+        {
+        	setTitle(getString(R.string.title_choose) + m_diseasePageSearchName + getString(R.string.title_disease_related));        	 
+		}
+               
         
         List<RelativeData> dataList = new ArrayList<RelativeData>();
                 

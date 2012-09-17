@@ -11,9 +11,6 @@ import android.widget.Spinner;
 public class DiseasePage extends TitleActivity {
 
 	public GridView m_gridview;
-	
-	public DatabaseHelper m_dbHelper = DatabaseHelper.getInstance(getApplicationContext());
-		
 	public void UpdateGrid(List<RelativeData> dataList)
 	{
         List<GridViewHolderData> gridDataList = new ArrayList<GridViewHolderData>();
@@ -21,7 +18,7 @@ public class DiseasePage extends TitleActivity {
 		{
 	        GridViewHolderData data = new GridViewHolderData();
 	        data.name = dataList.get(i).name;
-	        data.icon = ResourceManager.GetIcon(this,  m_dbHelper.getIconName(data.name) );
+	        data.icon = ResourceManager.GetIcon(this,  getDatabaseHelper().getIconName(data.name) );
 	        data.degree = ResourceManager.GetDegreeId(dataList.get(i).degree);
 	        gridDataList.add(data);		
 		}

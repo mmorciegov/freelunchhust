@@ -16,11 +16,9 @@ public class ContentPage extends TitleActivity {
 	public ImageView m_imageViewDegree;
 	public TextView m_textViewHint;
 	
-	public DatabaseHelper m_dbHelper = null;	
-	
 	public void InitFood(ImageView image, TextView text, String name)
 	{
-		image.setBackgroundResource(ResourceManager.GetIcon(this, m_dbHelper.getIconName(name)));
+		image.setBackgroundResource(ResourceManager.GetIcon(this, getDatabaseHelper().getIconName(name)));
 		text.setText(name);
 	}
 }

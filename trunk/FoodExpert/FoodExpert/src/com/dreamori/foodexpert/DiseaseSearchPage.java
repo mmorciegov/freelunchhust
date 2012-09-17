@@ -24,20 +24,19 @@ public class DiseaseSearchPage extends DiseasePage {
         m_context = this;
         m_level = 2;
         
-    	//Get Database
-        m_dbHelper = DatabaseHelper.getInstance(getApplicationContext());         
+    	//Get Database  
         m_gridview = (GridView)findViewById(R.id.ui_disease_search_grid);   
 
         
         List<GridViewHolderData> dataList =  new ArrayList<GridViewHolderData>();
         
-        List<String> diseaseList = m_dbHelper.GetDiseaseList();
+        List<String> diseaseList = getDatabaseHelper().GetDiseaseList();
         
 		for (int i=0; i<diseaseList.size(); i++)
 		{
 	        GridViewHolderData data = new GridViewHolderData();
 	        data.name = diseaseList.get(i);
-	        data.icon = ResourceManager.GetIcon(this,  m_dbHelper.getIconName(data.name));
+	        data.icon = ResourceManager.GetIcon(this,  getDatabaseHelper().getIconName(data.name));
 	        data.degree = 0;
 	        dataList.add(data);		
 		}       

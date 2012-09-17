@@ -128,7 +128,7 @@ public class InquireSearchPage extends InquirePage {
 	{	
  		List<String>  foodClassList = new ArrayList<String>();    	
  		foodClassList.add(getString(R.string.food_class_usual));
- 		foodClassList.addAll(m_dbHelper.GetFoodClassList());	
+ 		foodClassList.addAll(getDatabaseHelper().GetFoodClassList());	
  		foodClassList.add(getString(R.string.food_class_all));
     	
     	return foodClassList;	
@@ -138,12 +138,12 @@ public class InquireSearchPage extends InquirePage {
 	{
      	if (foodClassName.equalsIgnoreCase(getString(R.string.food_class_all))) 
     	{
-    		return m_dbHelper.getAllFoodList();
+    		return getDatabaseHelper().getAllFoodList();
     	}
     	else if (foodClassName.equalsIgnoreCase(getString( R.string.food_class_usual)))
     	{
     		List<String> dataList = new ArrayList<String>();
-   			List<String> foodList = m_dbHelper.getAllFoodList();
+   			List<String> foodList = getDatabaseHelper().getAllFoodList();
     		int count = foodList.size() < FoodConst.COMMON_FOOD_INIT_COUNT ? foodList.size() : FoodConst.COMMON_FOOD_INIT_COUNT;
     		for (int i=0; i<count; i++)
     		{
@@ -153,7 +153,7 @@ public class InquireSearchPage extends InquirePage {
     	}
     	else
     	{		    		
-    		return m_dbHelper.getPreferFoodList(foodClassName);
+    		return getDatabaseHelper().getPreferFoodList(foodClassName);
     	}
 	    
 	}
@@ -247,7 +247,7 @@ public class InquireSearchPage extends InquirePage {
 		{
 	        GridViewHolderData data = new GridViewHolderData();
 	        data.name = m_curFoodList.get(i);
-	        data.icon = ResourceManager.GetIcon(this,  m_dbHelper.getIconName(data.name));
+	        data.icon = ResourceManager.GetIcon(this,  getDatabaseHelper().getIconName(data.name));
 	        data.degree = 0;
 	        gridDataList.add(data);		
 		}
@@ -281,8 +281,6 @@ public class InquireSearchPage extends InquirePage {
         m_level = 2;
         
     	//Get Database
-        m_dbHelper = DatabaseHelper.getInstance(getApplicationContext());        
-        
         m_textview = (AutoCompleteTextView) findViewById(R.id.ui_inquire_search_food_input);
         m_foodClassSpin = (ComboBox) findViewById(R.id.ui_inquire_search_food_class_selector);
         m_gridview = (GridView)findViewById(R.id.ui_inquire_search_grid);

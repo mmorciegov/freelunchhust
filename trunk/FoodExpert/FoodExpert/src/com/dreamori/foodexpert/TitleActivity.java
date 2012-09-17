@@ -39,6 +39,17 @@ public class TitleActivity extends Activity implements AdViewInterface {
 	public static final String DATABASE_NAME = "food.db";
 	public static final String CONFIG_FILENAME = "/config.xml";
 	
+	private DatabaseHelper m_dbHelper = null;
+	public DatabaseHelper getDatabaseHelper()
+	{
+		if( m_dbHelper == null )
+		{
+			m_dbHelper = DatabaseHelper.getInstance(getApplicationContext());
+		}
+		
+		return m_dbHelper;
+	}
+	
 	public Context m_context;
 	public static final String BROADCAST_EXIT = "FoodExit";
 	public int m_level;

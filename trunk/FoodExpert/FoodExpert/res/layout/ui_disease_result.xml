@@ -14,7 +14,7 @@
         android:columnWidth="60.0dip"
         android:gravity="center"
         android:horizontalSpacing="10.0dip"
-        android:numColumns="3"
+        android:numColumns="@string/grid_column_number"
         android:paddingTop="20dip"
         android:stretchMode="columnWidth"
         android:verticalSpacing="20.0dip" />
