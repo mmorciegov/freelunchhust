@@ -53,8 +53,7 @@
             android:label="@string/title_activity_food" >
         </activity>
         <activity
-            android:name=".TipPage"
-            android:label="@string/title_tip" >
+            android:name=".TipPage" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
