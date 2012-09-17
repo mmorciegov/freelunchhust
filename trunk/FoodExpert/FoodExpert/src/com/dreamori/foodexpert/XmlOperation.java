@@ -19,40 +19,38 @@ import org.xmlpull.v1.XmlSerializer;
 import android.util.Xml;
 
 public class XmlOperation {
-	public static void ReadXML(String filename, ConfigData data)
-	{
-    	File targetFile = new File(filename);
-    	
-    	if (targetFile == null || !targetFile.exists())
-    	{
-    		return;
-    	}
-    	
-    	DocumentBuilderFactory docBuilderFactory = null;
-    	DocumentBuilder docBuilder = null;
-    	Document doc = null;
-    	
-    	try {
-    		docBuilderFactory = DocumentBuilderFactory.newInstance();
-    		docBuilder = docBuilderFactory.newDocumentBuilder();
+	public static void ReadXML(String filename, ConfigData data) {
+		File targetFile = new File(filename);
 
-    		doc = docBuilder.parse(targetFile);
-    		Element root = doc.getDocumentElement();
-    		NodeList nodeList = root.getChildNodes();
-    		
-			Element elem = (Element)nodeList.item(0);
-			
+		if (targetFile == null || !targetFile.exists()) {
+			return;
+		}
+
+		DocumentBuilderFactory docBuilderFactory = null;
+		DocumentBuilder docBuilder = null;
+		Document doc = null;
+
+		try {
+			docBuilderFactory = DocumentBuilderFactory.newInstance();
+			docBuilder = docBuilderFactory.newDocumentBuilder();
+
+			doc = docBuilder.parse(targetFile);
+			Element root = doc.getDocumentElement();
+			NodeList nodeList = root.getChildNodes();
+
+			Element elem = (Element) nodeList.item(0);
+
 			data.tip = Integer.parseInt(elem.getAttribute("tip"));
-//			data.display = Integer.parseInt(elem.getAttribute("display"));
-				
-    	}catch (IOException e) {
-    	} catch (SAXException e) {
-    	} catch (ParserConfigurationException e) {
-    	} finally {
-    		doc = null;
-    		docBuilder = null;
-    		docBuilderFactory = null;
-    	}
+			// data.display = Integer.parseInt(elem.getAttribute("display"));
+
+		} catch (IOException e) {
+		} catch (SAXException e) {
+		} catch (ParserConfigurationException e) {
+		} finally {
+			doc = null;
+			docBuilder = null;
+			docBuilderFactory = null;
+		}
 	}
 	
     private static String Data2XmlString(ConfigData data)

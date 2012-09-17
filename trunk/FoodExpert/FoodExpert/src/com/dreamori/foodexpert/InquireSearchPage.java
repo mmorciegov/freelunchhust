@@ -60,6 +60,12 @@ public class InquireSearchPage extends GridViewBasePage {
 			m_displayFoodList.clear();
 			m_displayFoodList = null;
 		}
+		
+		if( m_dataList != null )
+		{
+			m_dataList.clear();
+			m_dataList = null;
+		}
 			
 	}
 

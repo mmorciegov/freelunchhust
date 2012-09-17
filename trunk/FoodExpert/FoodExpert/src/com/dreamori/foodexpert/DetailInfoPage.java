@@ -16,11 +16,22 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class DetailInfoPage extends ContentPage {
-	
-	
-	
+public class DetailInfoPage extends ContentPage {		
     @Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		
+		m_imageView1 = null;
+		m_imageView2 = null;
+		m_textView1 = null;
+		m_textView2 = null;
+
+		m_imageViewDegree = null;
+		m_textViewHint = null;
+	}
+
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_detail_info);

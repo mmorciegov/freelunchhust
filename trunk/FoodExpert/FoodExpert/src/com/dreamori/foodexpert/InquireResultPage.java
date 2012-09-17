@@ -13,6 +13,17 @@ import android.widget.AdapterView.OnItemClickListener;
 public class InquireResultPage extends GridViewBasePage {
 	private String m_foodname;
 	private List<RelativeData> m_dataList;
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		
+		if( m_dataList != null )
+		{
+			m_dataList.clear();
+			m_dataList = null;
+		}
+	}
 
 	private void Search(String curFood, List<RelativeData> dataList)
 	{
