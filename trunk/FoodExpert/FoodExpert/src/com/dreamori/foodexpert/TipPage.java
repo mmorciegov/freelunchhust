@@ -28,9 +28,7 @@ public class TipPage extends ContentPage {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_tip);
         
-        m_dbHelper = DatabaseHelper.getInstance(getApplicationContext());
-        
-        if( m_dbHelper == null )
+        if( getDatabaseHelper() == null )
         {
         	DreamoriLog.LogFoodExpert("Get db error");
         	return;
@@ -44,12 +42,12 @@ public class TipPage extends ContentPage {
     	if (m_flag == FoodConst.ACTIVITY_TYPE_FOOD)
     	{
     		DreamoriLog.LogFoodExpert("Before getRandomDataInFood");
-    		m_dbHelper.getRandomDataInFood(randList);
+    		getDatabaseHelper().getRandomDataInFood(randList);
     		DreamoriLog.LogFoodExpert("After getRandomDataInFood");
     	}
     	else
     	{
-    		m_dbHelper.getRandomDataInDisease(randList);
+    		getDatabaseHelper().getRandomDataInDisease(randList);
     	}
     	
     	if (randList.size() >= 2)
@@ -90,11 +88,11 @@ public class TipPage extends ContentPage {
         List<RelativeData> dataList = new ArrayList<RelativeData>();
         if (m_flag == FoodConst.ACTIVITY_TYPE_FOOD)
         {
-        	m_dbHelper.findDetailInfoInFood(m_name1, m_name2, dataList);
+        	getDatabaseHelper().findDetailInfoInFood(m_name1, m_name2, dataList);
         }
         else
         {
-        	m_dbHelper.findDetailInfoInDisease(m_name1, m_name2, dataList);
+        	getDatabaseHelper().findDetailInfoInDisease(m_name1, m_name2, dataList);
         }
         
 		if (dataList.size() > 0) {

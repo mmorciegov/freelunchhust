@@ -43,7 +43,7 @@ public class Food extends TitleActivity {
 		
 		DreamoriLog.LogFoodExpert("Food Activity onDestroy");
 		
-		DatabaseHelper dbHelper = DatabaseHelper.getInstance(getApplicationContext());
+		DatabaseHelper dbHelper = getDatabaseHelper();
 		if( dbHelper != null )
 		{
 			dbHelper.closeDatabase();
@@ -63,6 +63,7 @@ public class Food extends TitleActivity {
         
         m_context = this;
         m_level = 1;
+        
         
         DreamoriLog.LogFoodExpert("Food Activyt, onCreate");    
 		
