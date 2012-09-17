@@ -7,8 +7,6 @@ import android.widget.GridView;
 import android.widget.ListAdapter;
 
 public class InquirePage extends TitleActivity {
-
-	public GridView m_gridview;
 	
 	public void UpdateGrid(List<RelativeData> dataList)
 	{

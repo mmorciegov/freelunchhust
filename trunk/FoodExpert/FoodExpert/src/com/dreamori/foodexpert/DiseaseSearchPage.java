@@ -20,8 +20,7 @@ public class DiseaseSearchPage extends DiseasePage {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_disease_search);
-        
-        m_context = this;
+
         m_level = 2;
         
     	//Get Database  
@@ -41,7 +40,7 @@ public class DiseaseSearchPage extends DiseasePage {
 	        dataList.add(data);		
 		}       
         
-        ListAdapter adapter = new GridViewAdapter(m_context, dataList);
+        ListAdapter adapter = new GridViewAdapter(this, dataList);
         m_gridview.setAdapter(adapter);	
 		        
         m_gridview.setFocusable(true);

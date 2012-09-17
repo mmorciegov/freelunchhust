@@ -10,7 +10,6 @@ import android.widget.Spinner;
 
 public class DiseasePage extends TitleActivity {
 
-	public GridView m_gridview;
 	public void UpdateGrid(List<RelativeData> dataList)
 	{
         List<GridViewHolderData> gridDataList = new ArrayList<GridViewHolderData>();

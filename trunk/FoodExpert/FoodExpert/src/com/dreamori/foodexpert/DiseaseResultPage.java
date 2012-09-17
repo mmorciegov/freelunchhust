@@ -62,8 +62,6 @@ public class DiseaseResultPage extends DiseasePage {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_disease_result);
 
-        
-        m_context = this;
         m_level = 3;
         
     	//Get Database
