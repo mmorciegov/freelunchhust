@@ -46,6 +46,7 @@ public class DatabaseHelper {
     
     public final static String TABLE_DISEASE_INFO = "jbxx";
     public final static String DISEASE_NAME = "jbmc";
+    public final static String DISEASE_PHOTO = "jbtp";
     public final static String DISEASE_RELATED_FOOD_NAME = "swmc";
     public final static String DISEASE_SEARCH_NUMBER = "cxcs";
     
