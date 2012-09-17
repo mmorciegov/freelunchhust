@@ -28,6 +28,8 @@ public class TipPage extends ContentPage {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_tip);
         
+        this.setTitle(getString(R.string.title_tip));
+        
         if( getDatabaseHelper() == null )
         {
         	DreamoriLog.LogFoodExpert("Get db error");

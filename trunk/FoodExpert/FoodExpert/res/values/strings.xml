@@ -1,9 +1,9 @@
 <resources>
 
-    <string name="app_name">Food</string>
+    <string name="app_name">食物专家</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">设置</string>
-    <string name="title_activity_food">Food</string>
+    <string name="title_activity_food">食物专家</string>
     <string name="menu_exit">退出</string>
     <string name="food_related_good">相宜</string>
     <string name="food_related_bad">相克</string>
