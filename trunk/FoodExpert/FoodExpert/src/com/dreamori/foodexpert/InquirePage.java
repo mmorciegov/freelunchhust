@@ -21,7 +21,7 @@ public class InquirePage extends TitleActivity {
 	        gridDataList.add(data);		
 		}
         
-        ListAdapter adapter = new GridViewAdapter(m_context, gridDataList);
+        ListAdapter adapter = new GridViewAdapter(this, gridDataList);
         m_gridview.setAdapter(adapter);		
 	}
 }

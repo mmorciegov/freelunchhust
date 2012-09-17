@@ -28,8 +28,7 @@ public class TipPage extends ContentPage {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_tip);
         
-		m_context = this;
-        this.setTitle(getString(R.string.title_tip));
+        setTitle(getString(R.string.title_tip));
         
         if( getDatabaseHelper() == null )
         {

@@ -50,8 +50,6 @@ public class TitleActivity extends Activity implements AdViewInterface {
 	}
 		
 	public GridView m_gridview;
-	
-	public Context m_context;
 
 	public int m_level;
 	
@@ -135,7 +133,7 @@ public class TitleActivity extends Activity implements AdViewInterface {
 					startActivity(intent);
 		    		break;	
 				case 2:
-		    		Builder b = new AlertDialog.Builder(m_context);
+		    		Builder b = new AlertDialog.Builder(TitleActivity.this);
 		    		b.setIcon(getResources().getDrawable(R.drawable.exit));
 		    		b.setTitle(getString(R.string.menu_exit));
 		    		b.setMessage(getString(R.string.menu_exit_sure));

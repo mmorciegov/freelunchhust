@@ -15,8 +15,6 @@ import android.widget.GridView;
 import android.widget.ListAdapter;
 
 public class Food extends TitleActivity {
-	private GridView m_gridview;
-	
 	private void InitGrid()
 	{
         List<GridViewHolderData> dataList = new ArrayList<GridViewHolderData>();
@@ -33,7 +31,7 @@ public class Food extends TitleActivity {
         disease_data.degree = 0;       
         dataList.add(disease_data);
         
-        ListAdapter adapter = new GridViewAdapter(m_context, dataList);
+        ListAdapter adapter = new GridViewAdapter(this, dataList);
         m_gridview.setAdapter(adapter);	
 	}
 
@@ -61,7 +59,6 @@ public class Food extends TitleActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_main);
         
-        m_context = this;
         m_level = 1;
         
         
