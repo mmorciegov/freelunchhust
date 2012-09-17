@@ -36,7 +36,6 @@ import android.widget.LinearLayout.LayoutParams;
 
 public class TitleActivity extends Activity implements AdViewInterface {
 	public static final int SETTING_DIALOG = 0x113;
-	public static final String DATABASE_NAME = "food.db";
 	public static final String CONFIG_FILENAME = "/config.xml";
 	
 	private DatabaseHelper m_dbHelper = null;
@@ -49,9 +48,11 @@ public class TitleActivity extends Activity implements AdViewInterface {
 		
 		return m_dbHelper;
 	}
+		
+	public GridView m_gridview;
 	
 	public Context m_context;
-	public static final String BROADCAST_EXIT = "FoodExit";
+
 	public int m_level;
 	
 	public PopupWindow m_popWnd;
@@ -64,7 +65,7 @@ public class TitleActivity extends Activity implements AdViewInterface {
 			// TODO Auto-generated method stub
 			String action = intent.getAction();
 
-			if(action.equalsIgnoreCase(BROADCAST_EXIT))
+			if(action.equalsIgnoreCase(FoodConst.BROADCAST_EXIT))
 			{
 				Bundle bind = intent.getExtras();
 				int level = (Integer)bind.getSerializable("Level");
@@ -79,11 +80,11 @@ public class TitleActivity extends Activity implements AdViewInterface {
 	public void RegisterBroadcastReceiver()
 	{
 		IntentFilter filter = new IntentFilter();
-		filter.addAction(BROADCAST_EXIT);
+		filter.addAction(FoodConst.BROADCAST_EXIT);
 		
 		registerReceiver(m_recv, filter);
 	}
-	
+		
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         RegisterBroadcastReceiver();
@@ -218,7 +219,10 @@ public class TitleActivity extends Activity implements AdViewInterface {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();		
-		unregisterReceiver(m_recv);		
+		unregisterReceiver(m_recv);	
+		
+		DreamoriLog.LogFoodExpert("Destory Activity");	
+		
 	}
 
 	public String GetConfigFileName()
@@ -228,7 +232,7 @@ public class TitleActivity extends Activity implements AdViewInterface {
 	
 	public void KillActivity( int level )
 	{
-		Intent broadIntent = new Intent(BROADCAST_EXIT);
+		Intent broadIntent = new Intent(FoodConst.BROADCAST_EXIT);
 		Bundle broadbind = new Bundle();
 		broadbind.putSerializable("Level", level);
 		broadIntent.putExtras(broadbind);

@@ -20,5 +20,7 @@ public final class FoodConst
 	static final String INTENT_DISEASE_SEARCH_TYPE = "diseaseSearchType";
 	
 	static final String LOG_CAT = "FoodExpert";
+	
+	static final String BROADCAST_EXIT = "FoodExit";
 
 }

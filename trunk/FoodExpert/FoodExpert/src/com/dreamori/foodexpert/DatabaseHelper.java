@@ -15,7 +15,6 @@ import SQLite3.Database;
 import SQLite3.Exception;
 import SQLite3.TableResult;
 import android.content.Context;
-import android.util.Log;
 
 public class DatabaseHelper {
 
@@ -104,6 +103,12 @@ public class DatabaseHelper {
 			for (String[] rowData : tableResult.rows) {
 				diseaseList.add(rowData[0]);
 			}
+			
+	   		if( tableResult != null )
+	    	{
+	    		tableResult.clear();
+	    		tableResult = null;
+	    	}
     	}
     	
     	return diseaseList;	
@@ -127,6 +132,12 @@ public class DatabaseHelper {
 			for (String[] rowData : tableResult.rows) {
 				foodClassList.add(rowData[0]);
 			}
+			
+	   		if( tableResult != null )
+	    	{
+	    		tableResult.clear();
+	    		tableResult = null;
+	    	}
     	}
     	
     	return foodClassList;	
@@ -170,7 +181,12 @@ public class DatabaseHelper {
 			return;
 		
 		int foodSearchFrequency = Integer.parseInt(tableResult.rows.get(0)[0]);
-    	
+   		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}
+
    		
    		if( foodSearchFrequency >= 0 )
    		{
@@ -203,7 +219,12 @@ public class DatabaseHelper {
 			return;
 		
 		int diseaseSearchFrequency = Integer.parseInt(tableResult.rows.get(0)[0]);
-    	
+   		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}
+
    		
    		if( diseaseSearchFrequency >= 0 )
    		{
@@ -237,6 +258,12 @@ public class DatabaseHelper {
 		for (String[] rowData : tableResult.rows) {
 			dataList.add(rowData[0]);
 		}
+		
+   		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}
 	    		
 		return dataList;
      }
@@ -260,6 +287,12 @@ public class DatabaseHelper {
     	dataList.add(tableResult.rows.get(rand)[1]);
     	dataList.add(tableResult.rows.get(rand)[2]);
     	
+   		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}
+    	
     	return true;   	
     }
     
@@ -281,6 +314,12 @@ public class DatabaseHelper {
 
     	dataList.add(tableResult.rows.get(rand)[1]);
     	dataList.add(tableResult.rows.get(rand)[2]);
+    	
+   		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}
     	
     	return true;    	
     }
@@ -321,6 +360,12 @@ public class DatabaseHelper {
 	    	
 	    	dataList.add(pridata);
 		}
+		
+   		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}
     	
     	return true;
     }
@@ -376,6 +421,12 @@ public class DatabaseHelper {
     		}
 		}
 
+    	if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}
+
 
 		
     	return true;
@@ -403,6 +454,13 @@ public class DatabaseHelper {
 	    	
 	    	dataList.add(pridata);
 		}
+		
+		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}
+
     	return true;
     }
     
@@ -427,6 +485,12 @@ public class DatabaseHelper {
    			iconNameString = "food";
    		}
    		   		
+   		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}
+
     	return iconNameString;
     }
    
@@ -453,6 +517,13 @@ public class DatabaseHelper {
 	    	
 	    	dataList.add(pridata);
 		}
+		
+		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}
+
     	
     	return true;
     }
