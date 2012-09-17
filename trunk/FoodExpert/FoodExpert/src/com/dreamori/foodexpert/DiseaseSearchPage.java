@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-public class DiseaseSearchPage extends DiseasePage {
+public class DiseaseSearchPage extends GridViewBasePage {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

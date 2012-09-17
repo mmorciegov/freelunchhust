@@ -14,7 +14,7 @@ import android.widget.GridView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.support.v4.app.NavUtils;
 
-public class DiseaseResultPage extends DiseasePage {
+public class DiseaseResultPage extends GridViewBasePage {
 	
 	private String m_diseasePageSearchName;
 	private int  m_searchType;
@@ -26,7 +26,7 @@ public class DiseaseResultPage extends DiseasePage {
 	
 	private void InitGrid(List<RelativeData> dataList)
 	{
-		UpdateGrid(dataList);
+		UpdateGrid(dataList, true);
         
         m_gridview.setOnItemClickListener(new OnItemClickListener(){
 			@Override

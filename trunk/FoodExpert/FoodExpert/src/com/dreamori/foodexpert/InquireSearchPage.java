@@ -22,7 +22,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class InquireSearchPage extends InquirePage {
+public class InquireSearchPage extends GridViewBasePage {
 	private AutoCompleteTextView m_textview;
 	private ComboBox m_foodClassSpin;
 	
@@ -32,6 +32,37 @@ public class InquireSearchPage extends InquirePage {
 	
 	private List<String> m_displayFoodList;
 	
+	private List<RelativeData> m_dataList = null;
+
+		
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		
+		m_textview = null;
+		m_foodClassSpin = null;
+		
+		if( m_curFoodList != null )
+		{
+			m_curFoodList.clear();
+			m_curFoodList = null;
+		}
+		
+		if( m_FoodClassList != null )
+		{
+			m_FoodClassList.clear();
+			m_FoodClassList = null;
+		}
+		
+		if( m_displayFoodList != null )
+		{
+			m_displayFoodList.clear();
+			m_displayFoodList = null;
+		}
+			
+	}
+
 	class SearchFoodFilter extends Filter
 	{
 		@Override
@@ -239,26 +270,21 @@ public class InquireSearchPage extends InquirePage {
 		
 		startActivity(intent);
 	}
-	
+		
 	private void UpdateGrid()
 	{
-        List<GridViewHolderData> gridDataList = new ArrayList<GridViewHolderData>();
-		for (int i=0; i<m_curFoodList.size(); i++)
+		m_dataList = new ArrayList<RelativeData>();
+		for(int i = 0; i < m_curFoodList.size(); i++ )
 		{
-	        GridViewHolderData data = new GridViewHolderData();
-	        data.name = m_curFoodList.get(i);
-	        data.icon = ResourceManager.GetIcon(this,  getDatabaseHelper().getIconName(data.name));
-	        data.degree = 0;
-	        gridDataList.add(data);		
+			m_dataList.add(new RelativeData(m_curFoodList.get(i)));
 		}
-        
-        ListAdapter adapter = new GridViewAdapter(this, gridDataList);
-        m_gridview.setAdapter(adapter);		
+		
+		UpdateGrid( m_dataList, false );			
 	}
 	
 	private void InitGrid()
-	{
-		UpdateGrid();
+	{		
+		UpdateGrid( );
         
         m_gridview.setOnItemClickListener(new OnItemClickListener(){
 			@Override
