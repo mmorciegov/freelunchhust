@@ -3,8 +3,8 @@ package com.dreamori.foodexpert;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 
 public class GridViewBasePage extends TitleActivity {		
@@ -41,10 +41,29 @@ public class GridViewBasePage extends TitleActivity {
 //			m_gridDataList = null;
 //		}	
 //	}
+	
+	
+	private void ReleaseGridBitmap()
+	{
+		if (m_gridview.getChildCount() <= 0)
+		{
+			return;
+		}
+		
+		for (int i=0; i<m_gridview.getChildCount(); i++)
+		{
+			View convertView = m_gridview.getChildAt(i);
+			GridViewHolder holder = (GridViewHolder) convertView.getTag();
+			ImageView imgView = holder.icon;
+			
+			GridViewAdapter.ReleaseImageView(imgView);
+		}
+	}
 
 	public void UpdateGrid(List<RelativeData> dataList, Boolean showIcon )
 	{
 //		ReleaseIconRes();
+		ReleaseGridBitmap();
         m_gridDataList = new ArrayList<GridViewHolderData>();
 		for (int i=0; i<dataList.size(); i++)
 		{
