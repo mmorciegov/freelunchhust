@@ -40,31 +40,31 @@ public class InquireSearchPage extends GridViewBasePage {
 		
 		m_textview = null;
 		m_foodClassSpin = null;
-		
-		if( m_curFoodList != null )
-		{
-			m_curFoodList.clear();
-			m_curFoodList = null;
-		}
-		
-		if( m_FoodClassList != null )
-		{
-			m_FoodClassList.clear();
-			m_FoodClassList = null;
-		}
-		
-		if( m_displayFoodList != null )
-		{
-			m_displayFoodList.clear();
-			m_displayFoodList = null;
-		}
-		
-		if( m_dataList != null )
-		{
-			m_dataList.clear();
-			m_dataList = null;
-		}
-			
+//		
+//		if( m_curFoodList != null )
+//		{
+//			m_curFoodList.clear();
+//			m_curFoodList = null;
+//		}
+//		
+//		if( m_FoodClassList != null )
+//		{
+//			m_FoodClassList.clear();
+//			m_FoodClassList = null;
+//		}
+//		
+//		if( m_displayFoodList != null )
+//		{
+//			m_displayFoodList.clear();
+//			m_displayFoodList = null;
+//		}
+//		
+//		if( m_dataList != null )
+//		{
+//			m_dataList.clear();
+//			m_dataList = null;
+//		}
+//			
 	}
 
 	class SearchFoodFilter extends Filter
