@@ -15,10 +15,10 @@ public class GridViewBasePage extends TitleActivity {
 		if( m_gridDataList != null )
 		{
 			m_gridDataList.clear();
-			m_gridDataList = null;
-			
-			m_adapter = null;
+			m_gridDataList = null;		
 		}
+		
+		m_adapter = null;
 	}
 
 	public void UpdateGrid(List<RelativeData> dataList, Boolean showIcon )
