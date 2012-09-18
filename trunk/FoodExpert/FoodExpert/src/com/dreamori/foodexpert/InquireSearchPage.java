@@ -17,9 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.GridView;
-import android.widget.ListAdapter;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 public class InquireSearchPage extends GridViewBasePage {
@@ -100,6 +98,7 @@ public class InquireSearchPage extends GridViewBasePage {
 			return results;  			
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		protected void publishResults(CharSequence constraint,
 				FilterResults results) {

@@ -3,7 +3,6 @@ package com.dreamori.foodexpert;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.widget.GridView;
 import android.widget.ListAdapter;
 
 public class GridViewBasePage extends TitleActivity {		
