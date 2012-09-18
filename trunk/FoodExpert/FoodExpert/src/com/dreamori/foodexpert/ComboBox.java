@@ -3,7 +3,7 @@ package com.dreamori.foodexpert;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -13,9 +13,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -114,7 +112,7 @@ public class ComboBox extends LinearLayout {
 						});
 											 
 					 m_popupwindow = new PopupWindow(m_dropView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-	                 m_popupwindow.setBackgroundDrawable(new BitmapDrawable());
+	                 m_popupwindow.setBackgroundDrawable(new ColorDrawable(0));
 					 
 	                 //pop.setFocusable(true)
 					 m_popupwindow.setFocusable(true);  

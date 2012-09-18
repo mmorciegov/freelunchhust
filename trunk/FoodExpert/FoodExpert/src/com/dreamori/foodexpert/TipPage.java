@@ -7,10 +7,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.StaticLayout;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
