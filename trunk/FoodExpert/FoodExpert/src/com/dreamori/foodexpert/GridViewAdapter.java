@@ -28,13 +28,13 @@ public class GridViewAdapter extends BaseAdapter {
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return null;
+		return m_data.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
-		return 0;
+		return position;
 	}
 
 	@Override
@@ -59,11 +59,13 @@ public class GridViewAdapter extends BaseAdapter {
 		
 		if (m_data.get(position).icon != 0)
 		{
+			holder.icon.setBackgroundDrawable(null);
 			holder.icon.setBackgroundResource(m_data.get(position).icon);
 		}
 		holder.name.setText(m_data.get(position).name);
 		if (m_data.get(position).degree != 0)
 		{
+			holder.degree.setBackgroundDrawable(null);
 			holder.degree.setBackgroundResource(m_data.get(position).degree);
 		}
 		
