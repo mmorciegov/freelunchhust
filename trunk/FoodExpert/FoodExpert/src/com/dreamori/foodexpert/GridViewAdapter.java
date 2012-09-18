@@ -3,6 +3,10 @@ package com.dreamori.foodexpert;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +17,10 @@ import android.widget.TextView;
 public class GridViewAdapter extends BaseAdapter {
 	private List<GridViewHolderData> m_data;
 	private LayoutInflater m_inflater;
+	private Context m_context;
 	
 	public GridViewAdapter(Context context, List<GridViewHolderData> data) {
+		m_context = context;
 		m_inflater = LayoutInflater.from(context);
 		m_data = data;
 	}
@@ -35,6 +41,25 @@ public class GridViewAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
 		return position;
+	}
+	
+	private void SetImageView(ImageView imageView, int resid)
+	{
+		Bitmap bm = BitmapFactory.decodeResource(m_context.getResources(), resid);
+		BitmapDrawable bd = new BitmapDrawable(m_context.getResources(), bm);
+		imageView.setBackgroundDrawable(bd);
+		
+//		imageView.setBackgroundResource(resid);
+	}
+	
+	public static void ReleaseImageView(ImageView imageView)
+	{
+		BitmapDrawable bd = (BitmapDrawable) imageView.getBackground();
+		imageView.setBackgroundResource(0);
+		bd.setCallback(null);
+		bd.getBitmap().recycle();
+		
+//		imageView.setBackgroundResource(0);
 	}
 
 	@Override
@@ -59,14 +84,29 @@ public class GridViewAdapter extends BaseAdapter {
 		
 		if (m_data.get(position).icon != 0)
 		{
-			holder.icon.setBackgroundDrawable(null);
-			holder.icon.setBackgroundResource(m_data.get(position).icon);
+			SetImageView(holder.icon, m_data.get(position).icon);
 		}
-		holder.name.setText(m_data.get(position).name);
+		else
+		{
+			holder.icon.setVisibility(View.GONE);
+		}
+		
+		if (m_data.get(position).name != null && m_data.get(position).name.length() > 0)
+		{
+			holder.name.setText(m_data.get(position).name);
+		}
+		else
+		{
+			holder.name.setVisibility(View.GONE);
+		}
+		
 		if (m_data.get(position).degree != 0)
 		{
-			holder.degree.setBackgroundDrawable(null);
-			holder.degree.setBackgroundResource(m_data.get(position).degree);
+			SetImageView(holder.degree, m_data.get(position).degree);
+		}
+		else
+		{
+			holder.degree.setVisibility(View.GONE);
 		}
 		
 		return convertView;

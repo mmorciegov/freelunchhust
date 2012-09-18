@@ -26,13 +26,13 @@ public class Food extends TitleActivity {
 			m_dataList = new ArrayList<GridViewHolderData>();
 	        GridViewHolderData inq_data = new GridViewHolderData();
 	        inq_data.icon = R.drawable.foodrelationship;
-	        //inq_data.name = getString(R.string.menu_food_search);
+	        inq_data.name = null;
 	        inq_data.degree = 0;
 	        m_dataList.add(inq_data);
 	        
 	        GridViewHolderData disease_data = new GridViewHolderData();
 	        disease_data.icon = R.drawable.foodanddisease;
-	        //disease_data.name = getString(R.string.menu_food_disease);
+	        disease_data.name = null;
 	        disease_data.degree = 0;       
 	        m_dataList.add(disease_data);
 		}	
