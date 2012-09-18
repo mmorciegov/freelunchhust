@@ -17,7 +17,7 @@
     <string name="title_choose">选择</string>
     <string name="title_food_related">相关食物</string>
     <string name="title_disease_related">相关疾病</string>
-    <string name="menu_search">查找</string>
+    <string name="menu_search">重新查询</string>
     <string name="menu_share">分享</string>
     <string name="menu_show_on_start">始终显示在初始化时</string>
     <string name="checkbox_hint">选择类别</string>
@@ -28,8 +28,8 @@
     <string name="title_main">欢迎使用饮食专家</string>
     <string name="title_disease_search">疾病食物查询</string>    
     
-    <string name="menu_show_tip">显示每日小提示</string>
-    <string name="menu_hide_tip">隐藏每日小提示</string>
+    <string name="menu_show_tip">显示启动时小提示</string>
+    <string name="menu_hide_tip">隐藏启动时小提示</string>
     <string name="menu_exit_sure">确定要退出吗？</string>      
     
     <string name="menu_ok">确定</string>

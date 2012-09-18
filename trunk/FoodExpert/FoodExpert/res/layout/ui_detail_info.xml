@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="64dip"
+        android:layout_marginTop="32dip"
         android:layout_marginLeft="24dip"
         android:orientation="vertical" >
         
@@ -21,11 +21,11 @@
 			android:background="@drawable/buttonbackageground"
 			android:padding="8.0dip">
             <ImageView
-			android:id="@+id/ui_detail_icon_1"
-			android:layout_gravity="center"
-			android:layout_width="90dip"
-			android:layout_height="90dip"
-			/> 
+				android:id="@+id/ui_detail_icon_1"
+				android:layout_gravity="center"
+				android:layout_width="90dip"
+				android:layout_height="90dip"
+				/> 
 		</LinearLayout>
           
 				
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="64dip"
+        android:layout_marginTop="32dip"
         android:layout_marginRight="24dip"
         android:orientation="vertical" >
 		
@@ -55,12 +55,12 @@
 			android:layout_margin="2.0dip"
 			android:background="@drawable/buttonbackageground"
 			android:padding="8.0dip">
-            <ImageView
-			android:id="@+id/ui_detail_icon_2"
-			android:layout_gravity="center"
-			android:layout_width="90dip"
-			android:layout_height="90dip"
-			/> 
+            <ImageView 
+				android:id="@+id/ui_detail_icon_2"
+				android:layout_gravity="center"
+				android:layout_width="90dip"
+				android:layout_height="90dip"
+				/> 
 		</LinearLayout>  
 				
 		<TextView 
@@ -89,12 +89,14 @@
 		
    	<ImageView
    	    android:id="@+id/ui_detail_pk"
+   	    android:src="@drawable/pk" 
    	    android:layout_gravity="center"
-   	    android:layout_width="60dip"
-   	    android:layout_height="45dip"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
    	    android:layout_centerHorizontal="true"
-   	    android:layout_marginTop="96dip"
-   	    android:src="@drawable/pk" />
+   	    android:layout_alignTop="@+id/linearLayout1"
+   	    android:layout_marginTop="32dip"
+   	    />
    			
 	<ImageView 
 		android:id="@+id/ui_detail_degree"
@@ -102,8 +104,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content" 
 		android:layout_centerHorizontal="true"
-		android:layout_below="@+id/ui_detail_pk"
-		android:layout_marginTop="128dip"
+   	    android:layout_alignBottom="@+id/linearLayout1"
 		/>      	
 		
    	<TextView 
@@ -113,7 +114,9 @@
 		android:textColor="#ffff0000"
 		android:textSize="22.0dip" 
 		android:layout_gravity="center"
-		android:layout_margin="30dip"
+		android:layout_marginLeft="24dip"
+		android:layout_marginRight="24dip"
+		android:layout_marginTop="8dip"
 		android:layout_below="@+id/linearLayout1"
 		/>
 
@@ -121,10 +124,18 @@
    	    android:id="@+id/ui_detail_search"
    	    android:layout_width="wrap_content"
    	    android:layout_height="wrap_content"
-   	    android:layout_alignParentBottom="true"
-   	    android:layout_alignParentRight="true"
-   	    android:layout_margin="10dip"
-   	    android:background="@drawable/search"
+   	    android:layout_alignRight="@+id/linearLayout2"
+   	    android:layout_above="@+id/ui_detail_search_text"
+   	    android:background="@drawable/search"/>
+   	
+   	<TextView
+   	    android:id="@+id/ui_detail_search_text"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+   	    android:layout_above="@+id/adLayout"
+   	    android:layout_alignRight="@+id/ui_detail_search"
+   	    android:layout_marginRight="4dip"
+   	    android:layout_marginBottom="36dip"
    	    android:text="@string/menu_search" />
    	
    	<LinearLayout
