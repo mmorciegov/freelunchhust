@@ -133,6 +133,8 @@ public class InquireSearchPage extends GridViewBasePage {
 			// TODO Auto-generated method stub
 			TextView text = new TextView(InquireSearchPage.this);
 			text.setText(m_displayFoodList.get(position));
+			text.setTextSize(30);
+			text.setPadding(0, 3, 0, 0);
 			return text;
 		}
 
@@ -226,14 +228,15 @@ public class InquireSearchPage extends GridViewBasePage {
 	{
 		UpdateInputTextView();
 	    
-	    m_textview.setOnItemClickListener(new OnItemClickListener(){
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				// TODO Auto-generated method stub
-				GotoResultPage();
-			}
-	    });
+		// It is same as TextChanged.
+//	    m_textview.setOnItemClickListener(new OnItemClickListener(){
+//			@Override
+//			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//					long arg3) {
+//				// TODO Auto-generated method stub
+//				GotoResultPage();
+//			}
+//	    });
 	    
 	    m_textview.addTextChangedListener(new TextWatcher(){
 			@Override
@@ -241,7 +244,11 @@ public class InquireSearchPage extends GridViewBasePage {
 				// TODO Auto-generated method stub
 				String foodName = m_textview.getText().toString();
 				if (IsFoodValid(foodName))
-				{					
+				{			
+			        m_gridview.setFocusable(true);
+			        m_gridview.setFocusableInTouchMode(true);
+			        m_gridview.requestFocus();
+			        
 					GotoResultPage();
 				}
 			}
