@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class InquireResultPage extends GridViewBasePage {
 	private String m_foodname;
@@ -80,6 +82,11 @@ public class InquireResultPage extends GridViewBasePage {
         
         m_foodname = foodName;
         setTitle(getString( R.string.title_choose) +  m_foodname + getString(R.string.title_food_related));
+        ((TextView)findViewById(R.id.ui_inquire_result_cur_text)).setText(
+        		getString( R.string.with) +  m_foodname + getString(R.string.result_food));
+        
+        ((ImageView)findViewById(R.id.ui_inquire_result_cur_pic)).setImageResource(
+        		ResourceManager.GetIcon(this, getDatabaseHelper().getIconName(m_foodname)));
         
         m_dataList = new ArrayList<RelativeData>();
         Search(foodName, m_dataList);
