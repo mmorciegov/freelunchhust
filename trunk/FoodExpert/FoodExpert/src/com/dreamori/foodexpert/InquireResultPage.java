@@ -27,6 +27,11 @@ public class InquireResultPage extends GridViewBasePage {
 
 	private void Search(String curFood, List<RelativeData> dataList)
 	{
+		if( dataList != null )
+		{
+			dataList.clear();
+		}
+		
 		getDatabaseHelper().findRelatedFood(curFood, dataList);
 	}
 	

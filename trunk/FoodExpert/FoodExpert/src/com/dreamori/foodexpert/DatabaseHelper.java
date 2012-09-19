@@ -474,6 +474,17 @@ public class DatabaseHelper {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		if( tableResult == null || tableResult.rows.isEmpty() )
+		{
+			try {
+				tableResult = db.get_table("select "+DISEASE_PHOTO+" from "+TABLE_DISEASE_INFO
+						+" where "+DISEASE_NAME+"='"+iconName+"'");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 
 		String iconNameString= null;

@@ -29,6 +29,10 @@ public class DiseaseResultPage extends GridViewBasePage {
 
 	public void Search(String value, int searchType, List<RelativeData> dataList)
 	{
+		if( dataList != null )
+		{
+			dataList.clear();
+		}
 		getDatabaseHelper().findDiseaseRelatedInfo(value, searchType, dataList);
 	}
 	
