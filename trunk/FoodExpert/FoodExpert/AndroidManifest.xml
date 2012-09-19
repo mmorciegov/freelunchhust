@@ -28,6 +28,7 @@
             android:name=".Food"
             android:label="@string/title_main" >
         </activity>
+        <!--android:screenOrientation="portrait" -->            
         <activity
             android:name=".InquireSearchPage"
             android:label="@string/title_food_search" >
@@ -69,9 +70,6 @@
 		<activity android:name="com.google.ads.AdActivity"
               android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
 		
-		<!-- AdView SDK for AdWo -->  
-		<activity android:name="com.adwo.adsdk.AdwoAdBrowserActivity" />
-		
 		<!-- AdView SDK for Baidu --> 
 		<activity android:name="com.baidu.mobads.AppActivity" 
 			android:configChanges="keyboard|keyboardHidden|orientation" />
@@ -80,29 +78,7 @@
 		<!-- AdView SDK for Domob --> 
 		<activity android:name="cn.domob.android.ads.DomobActivity"
 			android:theme =  "@android:style/Theme.Translucent" />
-	
-		<!-- AdView SDK for millennialmedia -->
-    	<activity android:name="com.millennialmedia.android.MMActivity" 
-    		android:configChanges="keyboardHidden|orientation|keyboard" android:theme="@android:style/Theme.Translucent.NoTitleBar">		</activity> 
-    	<activity android:name="com.millennialmedia.android.VideoPlayer"  
-    		android:configChanges="keyboardHidden|orientation|keyboard" > </activity>
-    	
-    	<!-- AdView SDK for Wooboo -->
-    	<meta-data android:value="1" android:name="Market_ID"/>
-		<activity android:name="com.wooboo.adlib_android.AdActivity" 
-			android:configChanges="orientation|keyboardHidden" /> 
-    	<activity android:name="com.wooboo.adlib_android.FullActivity" 
-			android:configChanges="orientation|keyboardHidden" 
-			android:launchMode="singleTask" />
-
-		<service
-            android:name="com.wooboo.download.WoobooService" >
-            <intent-filter>
-                <action android:name="com.wooboo.WoobooDownloadService" >
-                </action>
-            </intent-filter>
-        </service>
-        
+    	      
     	<!-- AdView SDK for Youmi --> 
     	<activity android:name="net.youmi.android.AdActivity"
 		android:configChanges="keyboard|keyboardHidden|orientation"/>

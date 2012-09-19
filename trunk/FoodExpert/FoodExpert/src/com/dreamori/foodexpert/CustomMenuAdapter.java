@@ -55,7 +55,7 @@ public class CustomMenuAdapter extends BaseAdapter {
 		switch(position)
 		{
 		case 0:
-			holder.icon.setBackgroundResource(R.drawable.tip);
+			holder.icon.setImageResource(R.drawable.tip);
 			TitleActivity act = (TitleActivity) m_context;
 			if(ConfigData.GetSystemTip(act.GetConfigFileName()) == 0)
 			{
@@ -67,11 +67,11 @@ public class CustomMenuAdapter extends BaseAdapter {
 			}
 			break;
 		case 1:
-			holder.icon.setBackgroundResource(R.drawable.email);
+			holder.icon.setImageResource(R.drawable.email);
 			holder.name.setText(m_context.getString(R.string.menu_contact));			
 			break;
 		case 2:
-			holder.icon.setBackgroundResource(R.drawable.exit);
+			holder.icon.setImageResource(R.drawable.exit);
 			holder.name.setText(m_context.getString(R.string.menu_exit));			
 			break;
 		default:

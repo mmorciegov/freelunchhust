@@ -54,13 +54,7 @@ public class TipPage extends ContentPage {
         	m_name1 = randList.get(0);
         	m_name2 = randList.get(1);	
     	}
-        
-        m_imageView1 = (ImageView)findViewById(R.id.ui_tip_icon_1);
-        m_imageView2 = (ImageView)findViewById(R.id.ui_tip_icon_2);
-        m_textView1 = (TextView)findViewById(R.id.ui_tip_name_1);
-        m_textView2 = (TextView)findViewById(R.id.ui_tip_name_2);
-        
-        m_imageViewDegree = (ImageView)findViewById(R.id.ui_tip_degree);
+              
         m_textViewHint = (TextView)findViewById(R.id.ui_tip_hint);
         m_tip = (CheckBox)findViewById(R.id.ui_tip_check);
         
@@ -78,12 +72,17 @@ public class TipPage extends ContentPage {
 			}
         });
         
-        InitFood(m_imageView1, m_textView1, m_name1);
-        InitFood(m_imageView2, m_textView2, m_name2);
+
+        ImageView imageView1 = (ImageView)findViewById(R.id.ui_tip_icon_1);
+        ImageView imageView2 = (ImageView)findViewById(R.id.ui_tip_icon_2);
+    	TextView textView1 = (TextView)findViewById(R.id.ui_tip_name_1);
+        TextView textView2 = (TextView)findViewById(R.id.ui_tip_name_2);
+        InitFood(imageView1, textView1, m_name1);
+        InitFood(imageView2, textView2, m_name2);
         
         // Get hint and degree from database
-        // m_flag : 0 Bad Relationship
-        // m_flag : 1 Good Relationship
+        // m_flag : 0 Food Relationship
+        // m_flag : 1 Disease Relationship
         List<RelativeData> dataList = new ArrayList<RelativeData>();
         if (m_flag == FoodConst.ACTIVITY_TYPE_FOOD)
         {
@@ -97,8 +96,9 @@ public class TipPage extends ContentPage {
 		if (dataList.size() > 0) {
 			
 			DreamoriLog.LogFoodExpert("DataList has value");
-			
-			m_imageViewDegree.setBackgroundResource(ResourceManager
+
+	    	ImageView imageViewDegree = (ImageView)findViewById(R.id.ui_tip_degree);
+			imageViewDegree.setImageResource(ResourceManager
 					.GetDegreeId(dataList.get(0).degree));
 			m_textViewHint.setText(dataList.get(0).hint);
 			
