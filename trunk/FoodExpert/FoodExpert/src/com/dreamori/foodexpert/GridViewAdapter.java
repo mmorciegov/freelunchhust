@@ -82,36 +82,38 @@ public class GridViewAdapter extends BaseAdapter {
 			convertView.setTag(holder);
 			
 
-			if (m_data.get(position).icon != 0)
-			{
-				SetImageView(holder.icon, m_data.get(position).icon);
-			}
-			else
-			{
-				holder.icon.setVisibility(View.GONE);
-			}
-			
-			if (m_data.get(position).name != null && m_data.get(position).name.length() > 0)
-			{
-				holder.name.setText(m_data.get(position).name);
-			}
-			else
-			{
-				holder.name.setVisibility(View.GONE);
-			}
-			
-			if (m_data.get(position).degree != 0)
-			{
-				SetImageView(holder.degree, m_data.get(position).degree);
-			}
-			else
-			{
-				holder.degree.setVisibility(View.GONE);
-			}
 		} 
 		else 
 		{
 			holder = (GridViewHolder) convertView.getTag();
+		}
+		
+
+		if (m_data.get(position).icon != 0)
+		{
+			SetImageView(holder.icon, m_data.get(position).icon);
+		}
+		else
+		{
+			holder.icon.setVisibility(View.GONE);
+		}
+		
+		if (m_data.get(position).name != null && m_data.get(position).name.length() > 0)
+		{
+			holder.name.setText(m_data.get(position).name);
+		}
+		else
+		{
+			holder.name.setVisibility(View.GONE);
+		}
+		
+		if (m_data.get(position).degree != 0)
+		{
+			SetImageView(holder.degree, m_data.get(position).degree);
+		}
+		else
+		{
+			holder.degree.setVisibility(View.GONE);
 		}
 		
 		return convertView;
