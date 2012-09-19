@@ -49,6 +49,8 @@ public class GridViewAdapter extends BaseAdapter {
 		BitmapDrawable bd = new BitmapDrawable(m_context.getResources(), bm);
 		imageView.setBackgroundDrawable(bd);
 		
+		DreamoriLog.LogFoodExpert("new BitmapDrawable from SetImageView");
+		
 //		imageView.setBackgroundResource(resid);
 	}
 	
@@ -58,6 +60,9 @@ public class GridViewAdapter extends BaseAdapter {
 		imageView.setBackgroundResource(0);
 		bd.setCallback(null);
 		bd.getBitmap().recycle();
+		
+		
+		DreamoriLog.LogFoodExpert("new BitmapDrawable from SetImageView");
 		
 //		imageView.setBackgroundResource(0);
 	}
@@ -76,38 +81,40 @@ public class GridViewAdapter extends BaseAdapter {
 			holder.degree = (ImageView) convertView.findViewById(R.id.gridview_item_degree);
 			
 			convertView.setTag(holder);
+			
+
+			if (m_data.get(position).icon != 0)
+			{
+				SetImageView(holder.icon, m_data.get(position).icon);
+			}
+			else
+			{
+				holder.icon.setVisibility(View.GONE);
+			}
+			
+			if (m_data.get(position).name != null && m_data.get(position).name.length() > 0)
+			{
+				holder.name.setText(m_data.get(position).name);
+			}
+			else
+			{
+				holder.name.setVisibility(View.GONE);
+			}
+			
+			if (m_data.get(position).degree != 0)
+			{
+				SetImageView(holder.degree, m_data.get(position).degree);
+			}
+			else
+			{
+				holder.degree.setVisibility(View.GONE);
+			}
 		} 
 		else 
 		{
 			holder = (GridViewHolder) convertView.getTag();
 		}
 		
-		if (m_data.get(position).icon != 0)
-		{
-			SetImageView(holder.icon, m_data.get(position).icon);
-		}
-		else
-		{
-			holder.icon.setVisibility(View.GONE);
-		}
-		
-		if (m_data.get(position).name != null && m_data.get(position).name.length() > 0)
-		{
-			holder.name.setText(m_data.get(position).name);
-		}
-		else
-		{
-			holder.name.setVisibility(View.GONE);
-		}
-		
-		if (m_data.get(position).degree != 0)
-		{
-			SetImageView(holder.degree, m_data.get(position).degree);
-		}
-		else
-		{
-			holder.degree.setVisibility(View.GONE);
-		}
 		
 		return convertView;
 	}
