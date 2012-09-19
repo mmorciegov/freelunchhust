@@ -158,4 +158,16 @@ public class TipPage extends ContentPage {
     	
     	return false;
     }
+
+	@Override
+	protected void onDestroy() {
+    	if (m_timer != null)
+    	{
+    		m_timer.cancel();
+    		m_timer = null;
+    	}
+		super.onDestroy();
+	}
+    
+    
 }
