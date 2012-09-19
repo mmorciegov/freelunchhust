@@ -7,9 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,13 +19,6 @@ public class DetailInfoPage extends ContentPage {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		
-		m_imageView1 = null;
-		m_imageView2 = null;
-		m_textView1 = null;
-		m_textView2 = null;
-
-		m_imageViewDegree = null;
 		m_textViewHint = null;
 	}
 
@@ -63,22 +57,21 @@ public class DetailInfoPage extends ContentPage {
             }
         }       
                 
-        m_imageView1 = (ImageView)findViewById(R.id.ui_detail_icon_1);
-        m_imageView2 = (ImageView)findViewById(R.id.ui_detail_icon_2);
-        m_textView1 = (TextView)findViewById(R.id.ui_detail_name_1);
-        m_textView2 = (TextView)findViewById(R.id.ui_detail_name_2);
         
-        m_imageViewDegree = (ImageView)findViewById(R.id.ui_detail_degree);
         m_textViewHint = (TextView)findViewById(R.id.ui_detail_hint);
         
 
-        
-        InitFood(m_imageView1, m_textView1, m_name1);
-        InitFood(m_imageView2, m_textView2, m_name2);
+
+        ImageView imageView1 = (ImageView)findViewById(R.id.ui_detail_icon_1);
+        ImageView imageView2 = (ImageView)findViewById(R.id.ui_detail_icon_2);
+        TextView textView1 = (TextView)findViewById(R.id.ui_detail_name_1);
+        TextView textView2 = (TextView)findViewById(R.id.ui_detail_name_2);
+        InitFood(imageView1, textView1, m_name1);
+        InitFood(imageView2, textView2, m_name2);
         
         // Get hint and degree from database
-        // m_flag : 0 Bad Relationship
-        // m_flag : 1 Good Relationship
+        // m_flag : 0 Food Relationship
+        // m_flag : 1 Disease Relationship
         List<RelativeData> dataList = new ArrayList<RelativeData>();                
 
         if (m_flag == FoodConst.ACTIVITY_TYPE_FOOD)
@@ -98,7 +91,8 @@ public class DetailInfoPage extends ContentPage {
         
         if (dataList.size() > 0)
         {
-	        m_imageViewDegree.setBackgroundResource(ResourceManager.GetDegreeId(dataList.get(0).degree));
+            ImageView imageViewDegree = (ImageView)findViewById(R.id.ui_detail_degree);
+	        imageViewDegree.setImageResource(ResourceManager.GetDegreeId(dataList.get(0).degree));
 	        m_textViewHint.setText(dataList.get(0).hint);
         }
                 
@@ -119,66 +113,108 @@ public class DetailInfoPage extends ContentPage {
         	setTitle(m_name1 + getString(R.string.and) + m_name2 + getString(R.string.food_related_bad));
         	m_textViewHint.setTextColor( getResources().getColor(R.color.bad_relationship));
 		}
-        
-        
-        m_imageView1.setOnClickListener( new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {				
-				KillActivity(FoodConst.ACTIVITY_LEVEL3);				
-				Bundle bundle = new Bundle();
-		    	
-				Intent intent;
-				if (m_flag == FoodConst.ACTIVITY_TYPE_FOOD)
-				{			
-					bundle.putSerializable("FoodName", m_name1);
-					bundle.putSerializable("Relative", m_flag);
-					intent = new Intent(DetailInfoPage.this, InquireResultPage.class);
-				}
-				else
-				{
-					bundle.putSerializable(FoodConst.INTENT_DISEASE, m_name1);
-					bundle.putSerializable(FoodConst.INTENT_DISEASE_SEARCH_TYPE, FoodConst.DISEASE_RESULT_SEARCH_DISEASE);
-					intent = new Intent(DetailInfoPage.this, DiseaseResultPage.class);
-				}
-				
-				intent.putExtras(bundle);
-				
-				startActivity(intent);
-				finish();			
-			}
-		});
 
-		m_imageView2.setOnClickListener(new OnClickListener() {
+		View item1 = findViewById(R.id.linearLayout1);
+		item1.setOnTouchListener(new OnTouchListener(){
 
 			@Override
-			public void onClick(View v) {
-
-				KillActivity(FoodConst.ACTIVITY_LEVEL3);
-
-				Bundle bundle = new Bundle();
-				Intent intent;
-				if (m_flag == FoodConst.ACTIVITY_TYPE_FOOD)
-				{			
-					bundle.putSerializable("FoodName", m_name2);
-					bundle.putSerializable("Relative", m_flag);
-					intent = new Intent(DetailInfoPage.this, InquireResultPage.class);
-				}
-				else
+			public boolean onTouch(View v, MotionEvent event) {
+				switch(event.getAction())
 				{
-					bundle.putSerializable(FoodConst.INTENT_DISEASE, m_name2);
-					bundle.putSerializable(FoodConst.INTENT_DISEASE_SEARCH_TYPE, FoodConst.DISEASE_RESULT_SEARCH_FOOD);
-					intent = new Intent(DetailInfoPage.this, DiseaseResultPage.class);
+				case MotionEvent.ACTION_DOWN:
+					v.setBackgroundColor(0x7F33B6EA);
+					break;
+				case MotionEvent.ACTION_MOVE:
+					if( event.getX() < 0 || event.getY() < 0
+							|| event.getX() > v.getWidth() || event.getY() > v.getHeight())
+					{
+						v.setBackgroundColor(0);
+					}
+					break;
+				case MotionEvent.ACTION_UP:
+					v.setBackgroundColor(0);
+					if( event.getX() > 0 && event.getY() > 0
+							&& event.getX() < v.getWidth() && event.getY() < v.getHeight())
+					{
+						KillActivity(FoodConst.ACTIVITY_LEVEL3);				
+						Bundle bundle = new Bundle();
+				    	
+						Intent intent;
+						if (m_flag == FoodConst.ACTIVITY_TYPE_FOOD)
+						{			
+							bundle.putSerializable("FoodName", m_name1);
+							bundle.putSerializable("Relative", m_flag);
+							intent = new Intent(DetailInfoPage.this, InquireResultPage.class);
+						}
+						else
+						{
+							bundle.putSerializable(FoodConst.INTENT_DISEASE, m_name1);
+							bundle.putSerializable(FoodConst.INTENT_DISEASE_SEARCH_TYPE, FoodConst.DISEASE_RESULT_SEARCH_DISEASE);
+							intent = new Intent(DetailInfoPage.this, DiseaseResultPage.class);
+						}
+						
+						intent.putExtras(bundle);
+						
+						startActivity(intent);
+						finish();
+					}
+					break;
 				}
-				intent.putExtras(bundle);
+				return true;
+				}
+			});
 
-				startActivity(intent);
-				finish();
-			}
-		});
+		View item2 = findViewById(R.id.linearLayout2);
+		item2.setOnTouchListener(new OnTouchListener(){
 
-		Button search = (Button) findViewById(R.id.ui_detail_search);
-        
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				switch(event.getAction())
+				{
+				case MotionEvent.ACTION_DOWN:
+					v.setBackgroundColor(0x7F33B6EA);
+					break;
+				case MotionEvent.ACTION_MOVE:
+					if( event.getX() < 0 || event.getY() < 0
+							|| event.getX() > v.getWidth() || event.getY() > v.getHeight())
+					{
+						v.setBackgroundColor(0);
+					}
+					break;
+				case MotionEvent.ACTION_UP:
+					v.setBackgroundColor(0);
+					if( event.getX() > 0 && event.getY() > 0
+							&& event.getX() < v.getWidth() && event.getY() < v.getHeight())
+					{
+						KillActivity(FoodConst.ACTIVITY_LEVEL3);
+
+						Bundle bundle = new Bundle();
+						Intent intent;
+						if (m_flag == FoodConst.ACTIVITY_TYPE_FOOD)
+						{			
+							bundle.putSerializable("FoodName", m_name2);
+							bundle.putSerializable("Relative", m_flag);
+							intent = new Intent(DetailInfoPage.this, InquireResultPage.class);
+						}
+						else
+						{
+							bundle.putSerializable(FoodConst.INTENT_DISEASE, m_name2);
+							bundle.putSerializable(FoodConst.INTENT_DISEASE_SEARCH_TYPE, FoodConst.DISEASE_RESULT_SEARCH_FOOD);
+							intent = new Intent(DetailInfoPage.this, DiseaseResultPage.class);
+						}
+						intent.putExtras(bundle);
+
+						startActivity(intent);
+						finish();
+					}
+					break;
+				}
+				return true;
+				}
+			});
+		
+
+        View search = findViewById(R.id.ui_detail_search);
         search.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {

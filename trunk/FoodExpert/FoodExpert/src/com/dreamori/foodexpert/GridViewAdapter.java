@@ -57,7 +57,7 @@ public class GridViewAdapter extends BaseAdapter {
 	public static void ReleaseImageView(ImageView imageView)
 	{
 		BitmapDrawable bd = (BitmapDrawable) imageView.getBackground();
-		imageView.setBackgroundResource(0);
+		imageView.setImageResource(0);
 		bd.setCallback(null);
 		bd.getBitmap().recycle();
 		
@@ -114,7 +114,6 @@ public class GridViewAdapter extends BaseAdapter {
 		{
 			holder = (GridViewHolder) convertView.getTag();
 		}
-		
 		
 		return convertView;
 	}

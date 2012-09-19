@@ -124,18 +124,13 @@
    	    android:id="@+id/ui_detail_search"
    	    android:layout_width="wrap_content"
    	    android:layout_height="wrap_content"
-   	    android:layout_alignRight="@+id/linearLayout2"
-   	    android:layout_above="@+id/ui_detail_search_text"
-   	    android:background="@drawable/search"/>
-   	
-   	<TextView
-   	    android:id="@+id/ui_detail_search_text"
-   	    android:layout_width="wrap_content"
-   	    android:layout_height="wrap_content"
    	    android:layout_above="@+id/adLayout"
-   	    android:layout_alignRight="@+id/ui_detail_search"
-   	    android:layout_marginRight="4dip"
+   	    android:layout_alignRight="@+id/linearLayout2"
    	    android:layout_marginBottom="36dip"
+   	    android:background="@drawable/background_pressed_blue"
+   	    android:gravity="center"
+   	    android:drawableTop="@drawable/search"
+   	    android:orientation="vertical"
    	    android:text="@string/menu_search" />
    	
    	<LinearLayout
