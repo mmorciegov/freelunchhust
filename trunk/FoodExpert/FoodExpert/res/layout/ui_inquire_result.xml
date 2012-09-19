@@ -4,22 +4,49 @@
     android:layout_height="match_parent" 
     android:id="@+id/relativeLayout1">
     
+    <LinearLayout
+        android:id="@+id/ui_inquire_top_layout"
+        android:layout_alignParentTop="true"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:background="#7F33B6EA">
+	    
+        <!-- android:background="#FFFFA400" -->
+	    
+        <ImageView 
+			android:id="@+id/ui_inquire_result_cur_pic"
+			android:layout_gravity="center"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:layout_margin="8.0dip"
+			android:scaleType="centerInside"/>
+        
+        <TextView
+			android:id="@+id/ui_inquire_result_cur_text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:textColor="#ff000000"
+			android:textSize="22.0dip" 
+			android:layout_gravity="center"
+			/>   
+	    
+	</LinearLayout>
+    
     <GridView
         android:id="@+id/ui_inquire_result_grid" 
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content" 
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/ui_inquire_top_layout"
         
         android:paddingTop="20dip" 
         android:gravity="center" 
         android:layout_marginTop="0.0dip" 
-        android:horizontalSpacing="10.0dip" 
-        android:verticalSpacing="20.0dip" 
+        android:horizontalSpacing="4.0dip" 
+        android:verticalSpacing="8.0dip" 
         android:stretchMode="columnWidth" 
         android:columnWidth="60.0dip" 
-        android:numColumns="@string/grid_column_number" 
-        android:layout_weight="1.0" />
+        android:numColumns="@string/grid_column_number" />
     
     <LinearLayout
         android:layout_alignParentBottom="true"

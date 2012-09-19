@@ -94,7 +94,7 @@
    	    android:layout_width="wrap_content"
    	    android:layout_height="wrap_content"
    	    android:layout_centerHorizontal="true"
-   	    android:layout_alignTop="@+id/linearLayout1"
+   	    android:layout_alignTop="@id/linearLayout1"
    	    android:layout_marginTop="32dip"
    	    />
    			
@@ -104,7 +104,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content" 
 		android:layout_centerHorizontal="true"
-   	    android:layout_alignBottom="@+id/linearLayout1"
+   	    android:layout_alignBottom="@id/linearLayout1"
 		/>      	
 		
    	<TextView 
@@ -117,7 +117,7 @@
 		android:layout_marginLeft="24dip"
 		android:layout_marginRight="24dip"
 		android:layout_marginTop="8dip"
-		android:layout_below="@+id/linearLayout1"
+		android:layout_below="@id/linearLayout1"
 		/>
 
    	<Button

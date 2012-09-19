@@ -17,6 +17,9 @@
     <string name="title_choose">选择</string>
     <string name="title_food_related">相关食物</string>
     <string name="title_disease_related">相关疾病</string>
+    <string name="with">与</string>
+    <string name="result_food">相关的食物如下:</string>
+    <string name="result_disease">相关的疾病如下:</string>
     <string name="menu_search">重新查询</string>
     <string name="menu_share">分享</string>
     <string name="menu_show_on_start">启动时显示</string>
