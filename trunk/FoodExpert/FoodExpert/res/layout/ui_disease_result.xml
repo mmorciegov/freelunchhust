@@ -37,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/ui_disease_result_top_layout"
+   	    android:layout_above="@+id/adLayout"
         android:layout_margin="8.0dip"
         
         android:columnWidth="60.0dip"

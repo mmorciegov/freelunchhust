@@ -17,11 +17,13 @@ public class GridViewAdapter extends BaseAdapter {
 	private List<GridViewHolderData> m_data;
 	private LayoutInflater m_inflater;
 	private Context m_context;
+	private Boolean m_isScaleDegree;
 	
-	public GridViewAdapter(Context context, List<GridViewHolderData> data) {
+	public GridViewAdapter(Context context, List<GridViewHolderData> data, Boolean isScaleDegree) {
 		m_context = context;
 		m_inflater = LayoutInflater.from(context);
 		m_data = data;
+		m_isScaleDegree = isScaleDegree;
 	}
 	
 	@Override
@@ -46,11 +48,11 @@ public class GridViewAdapter extends BaseAdapter {
 	{
 		Bitmap bm = BitmapFactory.decodeResource(m_context.getResources(), resid);
 		BitmapDrawable bd = new BitmapDrawable(m_context.getResources(), bm);
-		imageView.setBackgroundDrawable(bd);
+		imageView.setImageDrawable(bd);
 		
 		DreamoriLog.LogFoodExpert("new BitmapDrawable from SetImageView");
 		
-//		imageView.setBackgroundResource(resid);
+//		imageView.setImageResource(resid);
 	}
 	
 	public static void ReleaseImageView(ImageView imageView)
@@ -79,8 +81,7 @@ public class GridViewAdapter extends BaseAdapter {
 			holder.name = (TextView) convertView.findViewById(R.id.gridview_item_name);
 			holder.degree = (ImageView) convertView.findViewById(R.id.gridview_item_degree);
 			
-			convertView.setTag(holder);
-			
+			convertView.setTag(holder);			
 
 		} 
 		else 
@@ -88,6 +89,14 @@ public class GridViewAdapter extends BaseAdapter {
 			holder = (GridViewHolder) convertView.getTag();
 		}
 		
+		if( m_isScaleDegree )
+		{
+			holder.degree.setScaleType(ImageView.ScaleType.FIT_XY);
+		}
+		else
+		{
+			holder.degree.setScaleType(ImageView.ScaleType.FIT_START);
+		}
 
 		if (m_data.get(position).icon != 0)
 		{
