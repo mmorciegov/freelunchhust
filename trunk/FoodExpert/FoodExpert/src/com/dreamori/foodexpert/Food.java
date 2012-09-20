@@ -71,7 +71,7 @@ public class Food extends TitleActivity {
                 
 		if( m_adapter == null )
 		{
-			m_adapter = new GridViewAdapter(this, m_dataList);
+			m_adapter = new GridViewAdapter(this, m_dataList, false);
 		}
         m_gridview.setAdapter(m_adapter);	
         m_gridview.setOnItemClickListener(new OnItemClickListener(){

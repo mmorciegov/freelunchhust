@@ -39,7 +39,7 @@ public class InquireResultPage extends GridViewBasePage {
 	
 	private void InitGrid(List<RelativeData> dataList)
 	{
-		UpdateGrid(dataList, true);
+		UpdateGrid(dataList, FoodConst.DEGREE_SHOW);
         
         m_gridview.setOnItemClickListener(new OnItemClickListener(){
 			@Override

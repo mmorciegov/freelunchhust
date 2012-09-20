@@ -19,6 +19,8 @@
 		android:layout_height="wrap_content"
 		android:layout_below="@id/gridview_item_icon"
 		android:layout_alignLeft="@id/gridview_item_icon"
+		android:layout_alignRight="@id/gridview_item_icon"
+		android:scaleType="fitStart"
 		/>     
 		    
 	<TextView 
