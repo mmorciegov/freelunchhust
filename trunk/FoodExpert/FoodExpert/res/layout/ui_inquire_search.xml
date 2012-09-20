@@ -33,10 +33,9 @@
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content" 
         android:layout_below="@+id/linearLayout1"
-        
-        android:paddingTop="20dip" 
+        android:layout_marginTop="8.0dip" 
+
         android:gravity="center" 
-        android:layout_marginTop="0.0dip" 
         android:horizontalSpacing="4.0dip" 
         android:verticalSpacing="8.0dip" 
         android:stretchMode="columnWidth" 
