@@ -91,17 +91,17 @@ public class DiseaseResultPage extends GridViewBasePage {
         if( m_searchType == FoodConst.DISEASE_RESULT_SEARCH_DISEASE )
         {        	
         	setTitle(getString(R.string.title_choose) + m_diseasePageSearchName + getString(R.string.title_food_related));
-            ((TextView)findViewById(R.id.ui_inquire_result_cur_text)).setText(
+            ((TextView)findViewById(R.id.ui_disease_result_cur_text)).setText(
             		getString(R.string.with) +  m_diseasePageSearchName + getString(R.string.result_food));
         }
         else
         {
         	setTitle(getString(R.string.title_choose) + m_diseasePageSearchName + getString(R.string.title_disease_related));
-            ((TextView)findViewById(R.id.ui_inquire_result_cur_text)).setText(
+            ((TextView)findViewById(R.id.ui_disease_result_cur_text)).setText(
             		getString(R.string.with) +  m_diseasePageSearchName + getString(R.string.result_disease));        	 
 		}
      
-        ((ImageView)findViewById(R.id.ui_inquire_result_cur_pic)).setImageResource(
+        ((ImageView)findViewById(R.id.ui_disease_result_cur_pic)).setImageResource(
         		ResourceManager.GetIcon(this, getDatabaseHelper().getIconName(m_diseasePageSearchName)));       
         
         m_dataList = new ArrayList<RelativeData>();
