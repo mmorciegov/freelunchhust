@@ -5,7 +5,7 @@
     android:id="@+id/relativeLayout1">
     
     <LinearLayout
-        android:id="@+id/ui_inquire_top_layout"
+        android:id="@+id/ui_inquire_result_top_layout"
         android:layout_alignParentTop="true"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
@@ -37,11 +37,10 @@
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content" 
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/ui_inquire_top_layout"
-        
-        android:paddingTop="20dip" 
+        android:layout_below="@id/ui_inquire_result_top_layout"
+        android:layout_margin="8.0dip"
+         
         android:gravity="center" 
-        android:layout_marginTop="0.0dip" 
         android:horizontalSpacing="4.0dip" 
         android:verticalSpacing="8.0dip" 
         android:stretchMode="columnWidth" 

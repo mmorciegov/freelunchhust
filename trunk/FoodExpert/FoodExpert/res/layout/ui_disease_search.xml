@@ -7,11 +7,9 @@
         android:id="@+id/ui_disease_search_grid" 
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content" 
-        android:layout_below="@+id/linearLayout1"
+        android:layout_marginTop="8.0dip" 
         
-        android:paddingTop="20dip" 
         android:gravity="center" 
-        android:layout_marginTop="0.0dip" 
         android:horizontalSpacing="4.0dip" 
         android:verticalSpacing="8.0dip" 
         android:numColumns="@string/grid_column_number"  />       

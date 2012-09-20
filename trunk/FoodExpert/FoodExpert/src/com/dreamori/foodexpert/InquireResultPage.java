@@ -81,7 +81,7 @@ public class InquireResultPage extends GridViewBasePage {
         foodName = (String)bind.getSerializable("FoodName");
         
         m_foodname = foodName;
-        setTitle(getString( R.string.title_choose) +  m_foodname + getString(R.string.title_food_related));
+        setTitle(getString(R.string.title_choose) +  m_foodname + getString(R.string.title_food_related));
         ((TextView)findViewById(R.id.ui_inquire_result_cur_text)).setText(
         		getString( R.string.with) +  m_foodname + getString(R.string.result_food));
         

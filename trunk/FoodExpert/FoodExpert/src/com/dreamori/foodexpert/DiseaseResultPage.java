@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class DiseaseResultPage extends GridViewBasePage {
@@ -89,12 +91,18 @@ public class DiseaseResultPage extends GridViewBasePage {
         if( m_searchType == FoodConst.DISEASE_RESULT_SEARCH_DISEASE )
         {        	
         	setTitle(getString(R.string.title_choose) + m_diseasePageSearchName + getString(R.string.title_food_related));
+            ((TextView)findViewById(R.id.ui_inquire_result_cur_text)).setText(
+            		getString(R.string.with) +  m_diseasePageSearchName + getString(R.string.result_food));
         }
         else
         {
-        	setTitle(getString(R.string.title_choose) + m_diseasePageSearchName + getString(R.string.title_disease_related));        	 
+        	setTitle(getString(R.string.title_choose) + m_diseasePageSearchName + getString(R.string.title_disease_related));
+            ((TextView)findViewById(R.id.ui_inquire_result_cur_text)).setText(
+            		getString(R.string.with) +  m_diseasePageSearchName + getString(R.string.result_disease));        	 
 		}
-               
+     
+        ((ImageView)findViewById(R.id.ui_inquire_result_cur_pic)).setImageResource(
+        		ResourceManager.GetIcon(this, getDatabaseHelper().getIconName(m_diseasePageSearchName)));       
         
         m_dataList = new ArrayList<RelativeData>();
                 

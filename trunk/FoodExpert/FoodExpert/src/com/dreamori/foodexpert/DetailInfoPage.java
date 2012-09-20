@@ -14,7 +14,12 @@ import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class DetailInfoPage extends ContentPage {		
+public class DetailInfoPage extends ContentPage {
+	
+	View mItem1 = null;
+	View mItem2 = null;
+	Boolean mIsItem1Click = false;
+	Boolean mIsItem2Click = false;
     @Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
@@ -114,8 +119,10 @@ public class DetailInfoPage extends ContentPage {
         	m_textViewHint.setTextColor( getResources().getColor(R.color.bad_relationship));
 		}
 
-		View item1 = findViewById(R.id.linearLayout1);
-		item1.setOnTouchListener(new OnTouchListener(){
+		mItem1 = findViewById(R.id.linearLayout1);
+		mItem2 = findViewById(R.id.linearLayout2);
+		
+		mItem1.setOnTouchListener(new OnTouchListener(){
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -123,17 +130,21 @@ public class DetailInfoPage extends ContentPage {
 				{
 				case MotionEvent.ACTION_DOWN:
 					v.setBackgroundColor(0x7F33B6EA);
+					mItem2.setBackgroundColor(0);
+					mIsItem1Click = true;
+					mIsItem2Click = false;
 					break;
 				case MotionEvent.ACTION_MOVE:
 					if( event.getX() < 0 || event.getY() < 0
 							|| event.getX() > v.getWidth() || event.getY() > v.getHeight())
 					{
 						v.setBackgroundColor(0);
+						mIsItem1Click = false;
 					}
 					break;
 				case MotionEvent.ACTION_UP:
 					v.setBackgroundColor(0);
-					if( event.getX() > 0 && event.getY() > 0
+					if( mIsItem1Click && event.getX() > 0 && event.getY() > 0
 							&& event.getX() < v.getWidth() && event.getY() < v.getHeight())
 					{
 						KillActivity(FoodConst.ACTIVITY_LEVEL3);				
@@ -164,8 +175,7 @@ public class DetailInfoPage extends ContentPage {
 				}
 			});
 
-		View item2 = findViewById(R.id.linearLayout2);
-		item2.setOnTouchListener(new OnTouchListener(){
+		mItem2.setOnTouchListener(new OnTouchListener(){
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -173,17 +183,21 @@ public class DetailInfoPage extends ContentPage {
 				{
 				case MotionEvent.ACTION_DOWN:
 					v.setBackgroundColor(0x7F33B6EA);
+					mItem1.setBackgroundColor(0);
+					mIsItem2Click = true;
+					mIsItem1Click = false;
 					break;
 				case MotionEvent.ACTION_MOVE:
 					if( event.getX() < 0 || event.getY() < 0
 							|| event.getX() > v.getWidth() || event.getY() > v.getHeight())
 					{
 						v.setBackgroundColor(0);
+						mIsItem2Click = false;
 					}
 					break;
 				case MotionEvent.ACTION_UP:
 					v.setBackgroundColor(0);
-					if( event.getX() > 0 && event.getY() > 0
+					if( mIsItem2Click && event.getX() > 0 && event.getY() > 0
 							&& event.getX() < v.getWidth() && event.getY() < v.getHeight())
 					{
 						KillActivity(FoodConst.ACTIVITY_LEVEL3);

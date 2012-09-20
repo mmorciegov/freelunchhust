@@ -3,19 +3,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <LinearLayout
+        android:id="@+id/ui_disease_result_top_layout"
+        android:layout_alignParentTop="true"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:background="#7F33B6EA">
+	    
+        <!-- android:background="#FFFFA400" -->
+	    
+        <ImageView 
+			android:id="@+id/ui_disease_result_cur_pic"
+			android:layout_gravity="center"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:layout_margin="8.0dip"
+			android:scaleType="centerInside"/>
+        
+        <TextView
+			android:id="@+id/ui_disease_result_cur_text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:textColor="#ff000000"
+			android:textSize="22.0dip" 
+			android:layout_gravity="center"
+			/>   
+	    
+	</LinearLayout>
+	
     <GridView
         android:id="@+id/ui_disease_result_grid"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0.0dip"
+        android:layout_below="@id/ui_disease_result_top_layout"
+        android:layout_margin="8.0dip"
+        
         android:columnWidth="60.0dip"
         android:gravity="center"
         android:horizontalSpacing="4.0dip"
         android:verticalSpacing="8.0dip"
         android:numColumns="@string/grid_column_number"
-        android:paddingTop="20dip"
         android:stretchMode="columnWidth" />
     
     <LinearLayout
