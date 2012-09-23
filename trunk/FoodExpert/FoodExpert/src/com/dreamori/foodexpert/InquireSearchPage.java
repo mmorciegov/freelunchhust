@@ -152,16 +152,14 @@ public class InquireSearchPage extends GridViewBasePage {
 	
 	private boolean IsFoodValid(String foodName)
 	{
-		for (int i=0; i<m_curFoodList.size(); i++)
+		if(m_curFoodList.contains(foodName))
 		{
-			if (foodName.equalsIgnoreCase(m_curFoodList.get(i)))
-			{
-				return true;
-			}
+			return true;
 		}
+
 		return false;
 	}
-		
+	
 	private List<String> GetFoodClassList()
 	{	
  		List<String>  foodClassList = new ArrayList<String>();    	
@@ -171,7 +169,7 @@ public class InquireSearchPage extends GridViewBasePage {
     	
     	return foodClassList;	
 	}
-	
+		
 	private List<String> GetPreferFoodList( String foodClassName )
 	{
      	if (foodClassName.equalsIgnoreCase(getString(R.string.food_class_all))) 
@@ -192,10 +190,9 @@ public class InquireSearchPage extends GridViewBasePage {
     	else
     	{		    		
     		return getDatabaseHelper().getPreferFoodList(foodClassName);
-    	}
-	    
-	}
-	
+    	}	    
+	}	
+
 	private void InitFoodClassSpin(String foodClass)
 	{
 		m_FoodClassList = GetFoodClassList();
@@ -206,38 +203,14 @@ public class InquireSearchPage extends GridViewBasePage {
 	
 	private void UpdateInputTextView()
 	{
-//		List<String> curList = new ArrayList<String>();
-//		String prefix = m_textview.getText().toString().trim().toLowerCase();
-//		
-//		for (int i = 0; i < m_curFoodList.size(); i++)
-//		{ 
-//			if (m_curFoodList.get(i).contains(prefix))
-//			{
-//				curList.add(m_curFoodList.get(i));
-//			}
-//		}
-//	    ArrayAdapter<String> textViewAdapter = new ArrayAdapter<String>(this,   
-//	            android.R.layout.simple_dropdown_item_1line, m_curFoodList);
 		SearchFoodAdapter textViewAdapter = new SearchFoodAdapter();
 	    m_textview.setAdapter(textViewAdapter);  	    
 	    m_textview.setThreshold(1); 		
 	}
 
-	
 	private void InitInputTextView()
 	{
 		UpdateInputTextView();
-	    
-		// It is same as TextChanged.
-//	    m_textview.setOnItemClickListener(new OnItemClickListener(){
-//			@Override
-//			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-//					long arg3) {
-//				// TODO Auto-generated method stub
-//				GotoResultPage();
-//			}
-//	    });
-	    
 	    m_textview.addTextChangedListener(new TextWatcher(){
 			@Override
 			public void afterTextChanged(Editable s) {
@@ -249,7 +222,7 @@ public class InquireSearchPage extends GridViewBasePage {
 			        m_gridview.setFocusableInTouchMode(true);
 			        m_gridview.requestFocus();
 			        
-					GotoResultPage();
+					GotoResultPage(foodName);
 				}
 			}
 
@@ -269,10 +242,8 @@ public class InquireSearchPage extends GridViewBasePage {
 	    });
 	}
 	
-	private void GotoResultPage()
+	private void GotoResultPage( String curFood )
 	{
-		String curFood = m_textview.getText().toString();
-		
 		Bundle bind = new Bundle();
 		bind.putSerializable("FoodClass", m_curFoodClass);
 		bind.putSerializable("FoodName", curFood);
@@ -285,7 +256,15 @@ public class InquireSearchPage extends GridViewBasePage {
 		
 	private void UpdateGrid()
 	{
-		m_dataList = new ArrayList<RelativeData>();
+		if( m_dataList != null )
+		{
+			m_dataList.clear();
+		}
+		else
+		{
+			m_dataList = new ArrayList<RelativeData>();
+		}
+		
 		for(int i = 0; i < m_curFoodList.size(); i++ )
 		{
 			m_dataList.add(new RelativeData(m_curFoodList.get(i)));
