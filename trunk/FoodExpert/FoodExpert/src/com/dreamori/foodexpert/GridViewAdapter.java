@@ -58,6 +58,10 @@ public class GridViewAdapter extends BaseAdapter {
 	public static void ReleaseImageView(ImageView imageView)
 	{
 		BitmapDrawable bd = (BitmapDrawable) imageView.getBackground();
+		if(bd == null )
+		{
+			return;
+		}
 		imageView.setImageResource(0);
 		bd.setCallback(null);
 		bd.getBitmap().recycle();

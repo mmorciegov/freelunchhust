@@ -100,6 +100,10 @@ public class DetailInfoPage extends ContentPage {
 	        imageViewDegree.setImageResource(ResourceManager.GetDegreeId(dataList.get(0).degree));
 	        m_textViewHint.setText(dataList.get(0).hint);
         }
+        else
+        {
+        	return;
+        }
                 
         if(dataList.get(0).degree > 0)
         {

@@ -2,17 +2,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
-    <LinearLayout
-        android:id="@+id/ui_disease_result_top_layout"
-        android:layout_alignParentTop="true"
+    
+	<LinearLayout
+	android:id="@+id/ui_disease_result_top_layout"
+	android:layout_alignParentTop="true"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:background="#7F33B6EA">
 	    
-        <!-- android:background="#FFFFA400" -->
+	<!-- android:background="#FFFFA400" -->
 	    
-        <ImageView 
+	<ImageView 
 			android:id="@+id/ui_disease_result_cur_pic"
 			android:layout_gravity="center"
 			android:layout_width="wrap_content"
@@ -20,7 +20,7 @@
 			android:layout_margin="8.0dip"
 			android:scaleType="centerInside"/>
         
-        <TextView
+	<TextView
 			android:id="@+id/ui_disease_result_cur_text"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
@@ -31,21 +31,46 @@
 	    
 	</LinearLayout>
 	
+   <LinearLayout
+        android:id="@+id/linearLayoutDiseaseResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/ui_disease_result_top_layout"
+        android:orientation="horizontal" >
+
+        <com.dreamori.foodexpert.ComboBox
+            android:id="@+id/ui_disease_result_food_class_selector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </com.dreamori.foodexpert.ComboBox>
+
+        <AutoCompleteTextView
+            android:id="@+id/ui_disease_result_search_food_input"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10" >
+        </AutoCompleteTextView>
+
+    </LinearLayout>
+
     <GridView
         android:id="@+id/ui_disease_result_grid"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/ui_disease_result_top_layout"
-   	    android:layout_above="@+id/adLayout"
-        android:layout_margin="8.0dip"
-        
+         android:layout_margin="8.0dip"
         android:columnWidth="60.0dip"
         android:gravity="center"
         android:horizontalSpacing="4.0dip"
         android:verticalSpacing="8.0dip"
         android:numColumns="@string/grid_column_number"
-        android:stretchMode="columnWidth" />
+        android:paddingTop="20dip"
+        android:stretchMode="columnWidth"
+        android:layout_below="@+id/linearLayoutDiseaseResult"
+	android:layout_above="@+id/adLayout"
+         />
     
     <LinearLayout
         android:layout_alignParentBottom="true"
