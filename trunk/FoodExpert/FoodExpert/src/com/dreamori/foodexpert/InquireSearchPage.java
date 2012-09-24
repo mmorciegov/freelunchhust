@@ -27,6 +27,7 @@ public class InquireSearchPage extends GridViewBasePage {
 	private String m_curFoodClass;
 	private List<String> m_curFoodList;
 	private List<String> m_FoodClassList;
+	private List<String> m_allFoodList;
 	
 	private List<String> m_displayFoodList;
 	
@@ -40,31 +41,6 @@ public class InquireSearchPage extends GridViewBasePage {
 		
 		m_textview = null;
 		m_foodClassSpin = null;
-//		
-//		if( m_curFoodList != null )
-//		{
-//			m_curFoodList.clear();
-//			m_curFoodList = null;
-//		}
-//		
-//		if( m_FoodClassList != null )
-//		{
-//			m_FoodClassList.clear();
-//			m_FoodClassList = null;
-//		}
-//		
-//		if( m_displayFoodList != null )
-//		{
-//			m_displayFoodList.clear();
-//			m_displayFoodList = null;
-//		}
-//		
-//		if( m_dataList != null )
-//		{
-//			m_dataList.clear();
-//			m_dataList = null;
-//		}
-//			
 	}
 
 	class SearchFoodFilter extends Filter
@@ -73,23 +49,23 @@ public class InquireSearchPage extends GridViewBasePage {
 		protected FilterResults performFiltering(CharSequence constraint) {
 			// TODO Auto-generated method stub
 			FilterResults results = new FilterResults(); 
-			if (m_curFoodList == null) 
+			if (m_allFoodList == null) 
 			{  
 				return null;
 			} 
 
 			if (constraint == null || constraint.length() == 0) 
 			{  
-				results.values = m_curFoodList;  
-				results.count = m_curFoodList.size();  
+				results.values = m_allFoodList;  
+				results.count = m_allFoodList.size();  
 			} 
 			else { 
 				List<String> curList = new ArrayList<String>();
 	
-				for (int i = 0; i < m_curFoodList.size(); i++) { 
-					if (m_curFoodList.get(i).contains(constraint.toString().toLowerCase()))
+				for (int i = 0; i < m_allFoodList.size(); i++) { 
+					if (m_allFoodList.get(i).contains(constraint.toString().toLowerCase()))
 					{
-						curList.add(m_curFoodList.get(i));
+						curList.add(m_allFoodList.get(i));
 					}
 				}
 				results.values = curList;  
@@ -152,7 +128,7 @@ public class InquireSearchPage extends GridViewBasePage {
 	
 	private boolean IsFoodValid(String foodName)
 	{
-		if(m_curFoodList.contains(foodName))
+		if(m_allFoodList.contains(foodName))
 		{
 			return true;
 		}
@@ -199,6 +175,12 @@ public class InquireSearchPage extends GridViewBasePage {
 		m_foodClassSpin.setData(m_FoodClassList);
 		m_curFoodClass = m_FoodClassList.get(0);
 		m_curFoodList = GetPreferFoodList(m_curFoodClass);
+		
+		if( m_allFoodList == null )
+		{
+			m_allFoodList = getDatabaseHelper().getAllFoodList();
+		}
+		
 	}
 	
 	private void UpdateInputTextView()
@@ -218,6 +200,7 @@ public class InquireSearchPage extends GridViewBasePage {
 				String foodName = m_textview.getText().toString();
 				if (IsFoodValid(foodName))
 				{			
+					m_textview.setText(null);
 			        m_gridview.setFocusable(true);
 			        m_gridview.setFocusableInTouchMode(true);
 			        m_gridview.requestFocus();
