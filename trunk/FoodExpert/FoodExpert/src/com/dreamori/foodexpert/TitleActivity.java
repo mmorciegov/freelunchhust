@@ -122,7 +122,7 @@ public class TitleActivity extends Activity implements AdViewInterface {
 		        	}					
 					break;
 				case 1:
-					String addr = "mailto:freelunch@gmail.com";
+					String addr = "mailto:dreamorisoft@gmail.com";
 					Intent intent = new Intent(Intent.ACTION_SENDTO);
 					intent.setData(Uri.parse(addr));
 					intent.putExtra(Intent.EXTRA_SUBJECT, "");
