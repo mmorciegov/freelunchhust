@@ -163,19 +163,6 @@ public class TitleActivity extends Activity implements AdViewInterface {
         
         m_popWnd.setBackgroundDrawable(new ColorDrawable(0));
         
-//        m_popWnd.setTouchInterceptor(new OnTouchListener(){
-//			@Override
-//			public boolean onTouch(View v, MotionEvent event) {
-//				// TODO Auto-generated method stub
-//				if (event.getAction() == MotionEvent.ACTION_OUTSIDE)
-//				{
-//					m_popWnd.dismiss();
-//					return true;
-//				}
-//				return false;
-//			}
-//        });
-        
         m_menuGrid.setFocusableInTouchMode(true);
         m_menuGrid.setOnKeyListener(new OnKeyListener(){
 			@Override
@@ -233,92 +220,14 @@ public class TitleActivity extends Activity implements AdViewInterface {
 		broadIntent.putExtras(broadbind);
 		sendBroadcast(broadIntent);
 	} 
-	
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem mi)
-//    {
-//    	switch(mi.getItemId())
-//    	{
-//    	case R.id.menu_showtip:
-//        	String filename = GetConfigFileName();
-//        	ConfigData configData = new ConfigData();
-//        	
-//        	if(ConfigData.GetSystemTip(GetConfigFileName()) == 0)
-//        	{
-//        		configData.tip = 1;
-//        	}
-//        	else
-//        	{
-//        		configData.tip = 0;
-//        	}
-//        	XmlOperation.WriteXml(filename, configData);  
-//        	
-//        	if(ConfigData.GetSystemTip(GetConfigFileName()) == 0)
-//        	{
-//        		mi.setTitle(getString(R.string.menu_show_tip));
-//        	}
-//        	else
-//        	{
-//        		mi.setTitle(getString(R.string.menu_hide_tip));
-//        	}
-//    		break;
-//    	case R.id.menu_contact:
-//			String addr = "mailto:freelunch@gmail.com";
-//			Intent intent = new Intent(Intent.ACTION_SENDTO);
-//			intent.setData(Uri.parse(addr));
-//			intent.putExtra(Intent.EXTRA_SUBJECT, "");
-//			intent.putExtra(Intent.EXTRA_TEXT, "");
-//			startActivity(intent);
-//    		break;
-//    	case R.id.menu_exit:
-//    		Builder b = new AlertDialog.Builder(this);
-//    		b.setIcon(getResources().getDrawable(R.drawable.exit));
-//    		b.setTitle(getString(R.string.menu_exit));
-//    		b.setMessage(getString(R.string.menu_exit_sure));
-//    		b.setPositiveButton(getString(R.string.menu_ok), new DialogInterface.OnClickListener(){
-//				@Override
-//				public void onClick(DialogInterface dialog, int which) {
-//					// TODO Auto-generated method stub
-//					KillActivity(0);
-//					finish();
-//				}
-//    		});
-//    		
-//    		b.setNegativeButton(getString(R.string.menu_cancel), null);
-//    		
-//    		b.create().show();
-//
-//    		break;
-//		default:
-//			break;
-//    	}
-//    	return true;
-//    }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 //        getMenuInflater().inflate(R.menu.main_menu, menu);
     	menu.add("setting");
         return true;
     }
-    
-//    @Override
-//    public boolean onPrepareOptionsMenu(Menu menu)
-//    {
-//    	super.onPrepareOptionsMenu(menu);
-//    	
-//    	MenuItem showtip = menu.getItem(0);
-//    	if(ConfigData.GetSystemTip(GetConfigFileName()) == 0)
-//    	{
-//    		showtip.setTitle(getString(R.string.menu_show_tip));
-//    	}
-//    	else
-//    	{
-//    		showtip.setTitle(getString(R.string.menu_hide_tip));
-//    	}
-//    	
-//    	return true;
-//    }
+
 
 	@Override
 	public boolean onMenuOpened(int featureId, Menu menu) {

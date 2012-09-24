@@ -31,24 +31,7 @@ public class DetailInfoPage extends ContentPage {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ui_detail_info);
-
-//        View titleView = getWindow().getDecorView();
-//        final TextView titleViewTxt = (TextView) titleView.findViewById(R.id.ui_title_text);
-//        titleViewTxt.setTextColor(Color.WHITE);
-//        ImageView shareView = (ImageView) titleView.findViewById(R.id.ui_title_share);
-//        shareView.setOnClickListener(new OnClickListener(){
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//				Intent intent = new Intent(Intent.ACTION_SEND);
-//				intent.setType("text/plain");
-//				intent.putExtra(Intent.EXTRA_SUBJECT, titleViewTxt.getText());
-//				intent.putExtra(Intent.EXTRA_TEXT, m_textViewHint.getText());
-//				startActivity(Intent.createChooser(intent, "Share"));
-//			}
-//        });
-        
+        setContentView(R.layout.ui_detail_info);        
         m_level = 4;
         
         Intent intent = getIntent();
@@ -72,8 +55,8 @@ public class DetailInfoPage extends ContentPage {
         ImageView imageView2 = (ImageView)findViewById(R.id.ui_detail_icon_2);
         TextView textView1 = (TextView)findViewById(R.id.ui_detail_name_1);
         TextView textView2 = (TextView)findViewById(R.id.ui_detail_name_2);
-        InitFood(imageView1, textView1, m_name1);
-        InitFood(imageView2, textView2, m_name2);
+        InitLeftValue(imageView1, textView1, m_name1);
+        InitRightValue(imageView2, textView2, m_name2);
         
         // Get hint and degree from database
         // m_flag : 0 Food Relationship
@@ -96,9 +79,9 @@ public class DetailInfoPage extends ContentPage {
         getDatabaseHelper().AddFoodSearchFrequency(m_name2);
         
         if (dataList.size() > 0)
-        {
+        {	
             ImageView imageViewDegree = (ImageView)findViewById(R.id.ui_detail_degree);
-	        imageViewDegree.setImageDrawable(ResourceManager.GetBitmapDrawable(this, ResourceManager.GetDegreeIconName(dataList.get(0).degree)));
+            InitDegreeInfo(imageViewDegree, dataList.get(0).degree);
 	        m_textViewHint.setText(dataList.get(0).hint);
         }
         else
