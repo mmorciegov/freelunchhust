@@ -110,6 +110,9 @@
    	    android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-   	    android:text="@string/menu_show_on_start" />
+   	    android:text="@string/menu_show_on_start" 
+   	    android:textSize="22.0dip" 
+	    android:layout_marginBottom="12dip"
+   	    />
 
 </RelativeLayout>
