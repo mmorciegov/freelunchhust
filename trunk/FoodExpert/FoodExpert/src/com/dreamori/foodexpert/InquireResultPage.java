@@ -85,7 +85,11 @@ public class InquireResultPage extends GridViewBasePage {
         ((TextView)findViewById(R.id.ui_inquire_result_cur_text)).setText(
         		getString( R.string.with) +  m_foodname + getString(R.string.result_food));
         
-        InitSearchIcon((ImageView)findViewById(R.id.ui_disease_result_cur_pic), m_foodname);
+        ImageView imageViewSearchIcon = (ImageView)findViewById(R.id.ui_disease_result_cur_pic);
+        if( imageViewSearchIcon != null )
+        {
+        	InitSearchIcon(imageViewSearchIcon, m_foodname);
+        }
         
         m_dataList = new ArrayList<RelativeData>();
         Search(foodName, m_dataList);
