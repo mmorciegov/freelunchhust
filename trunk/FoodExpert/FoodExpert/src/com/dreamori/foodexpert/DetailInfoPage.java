@@ -115,10 +115,10 @@ public class DetailInfoPage extends ContentPage {
             //For disease page, if the relationship is good, we should tell user how to eat 
             if(m_flag == FoodConst.ACTIVITY_TYPE_DISEASE) 
             {    
-            	String howToEat=getResources().getString(R.string.text_how_to_eat) + getDatabaseHelper().getFoodEatMethod(m_name1, m_name2);
+            	String howToEat=getDatabaseHelper().getFoodEatMethod(m_name1, m_name2);
             	if( howToEat != null && howToEat != "")
             	{
-                	textViewHowToEat.setText(howToEat);
+                	textViewHowToEat.setText(getResources().getString(R.string.text_how_to_eat) + howToEat);
                 	textViewHowToEat.setTextColor( getResources().getColor(R.color.good_relationship));
             	}
             	else
