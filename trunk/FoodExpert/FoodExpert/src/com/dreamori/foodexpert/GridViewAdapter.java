@@ -43,32 +43,6 @@ public class GridViewAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		return position;
 	}
-	
-	private void SetImageView(ImageView imageView, int resid)
-	{
-		Bitmap bm = BitmapFactory.decodeResource(m_context.getResources(), resid);
-		BitmapDrawable bd = new BitmapDrawable(m_context.getResources(), bm);
-		imageView.setImageDrawable(bd);
-		
-		DreamoriLog.LogFoodExpert("new BitmapDrawable from SetImageView");
-		
-//		imageView.setImageResource(resid);
-	}
-	
-	public static void ReleaseImageView(ImageView imageView)
-	{
-		BitmapDrawable bd = (BitmapDrawable) imageView.getDrawable();
-		imageView.setImageResource(0);
-		if(bd == null)
-			return;
-		bd.setCallback(null);
-		bd.getBitmap().recycle();
-		
-		
-		DreamoriLog.LogFoodExpert("new BitmapDrawable from SetImageView");
-		
-//		imageView.setBackgroundResource(0);
-	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -103,10 +77,11 @@ public class GridViewAdapter extends BaseAdapter {
 			break;
 		}
 
-		if (m_data.get(position).icon != 0)
+		if (m_data.get(position).icon != null)
 		{
-			SetImageView(holder.icon, m_data.get(position).icon);
+			holder.icon.setImageDrawable(m_data.get(position).icon);
 		}
+
 		else
 		{
 			holder.icon.setVisibility(View.GONE);
@@ -121,9 +96,9 @@ public class GridViewAdapter extends BaseAdapter {
 			holder.name.setVisibility(View.GONE);
 		}
 		
-		if (m_data.get(position).degree != 0)
+		if (m_data.get(position).degree != null)
 		{
-			SetImageView(holder.degree, m_data.get(position).degree);
+			holder.degree.setImageDrawable(m_data.get(position).degree);
 		}
 		else
 		{

@@ -31,8 +31,8 @@ public class DiseaseSearchPage extends GridViewBasePage {
 		{
 	        GridViewHolderData data = new GridViewHolderData();
 	        data.name = diseaseList.get(i);
-	        data.icon = ResourceManager.GetIcon(this,  getDatabaseHelper().getIconName(data.name));
-	        data.degree = 0;
+	        data.icon = ResourceManager.GetBitmapDrawable(this,  getDatabaseHelper().getIconName(data.name));
+	        data.degree = null;
 	        dataList.add(data);		
 		}       
         

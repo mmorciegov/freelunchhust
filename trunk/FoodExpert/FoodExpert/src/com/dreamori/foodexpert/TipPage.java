@@ -98,8 +98,7 @@ public class TipPage extends ContentPage {
 			DreamoriLog.LogFoodExpert("DataList has value");
 
 	    	ImageView imageViewDegree = (ImageView)findViewById(R.id.ui_tip_degree);
-			imageViewDegree.setImageResource(ResourceManager
-					.GetDegreeId(dataList.get(0).degree));
+			imageViewDegree.setImageDrawable(ResourceManager.GetBitmapDrawable(this, ResourceManager.GetDegreeIconName(dataList.get(0).degree)));
 			m_textViewHint.setText(dataList.get(0).hint);
 			
 			if (dataList.get(0).degree > 0) {
