@@ -19,7 +19,7 @@ public class TipPage extends ContentPage {
 	private CheckBox m_tip;
 	private Intent m_intent;
 	private Timer m_timer;
-	
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,8 +77,8 @@ public class TipPage extends ContentPage {
         ImageView imageView2 = (ImageView)findViewById(R.id.ui_tip_icon_2);
     	TextView textView1 = (TextView)findViewById(R.id.ui_tip_name_1);
         TextView textView2 = (TextView)findViewById(R.id.ui_tip_name_2);
-        InitFood(imageView1, textView1, m_name1);
-        InitFood(imageView2, textView2, m_name2);
+        InitLeftValue(imageView1, textView1, m_name1);
+        InitRightValue(imageView2, textView2, m_name2);
         
         // Get hint and degree from database
         // m_flag : 0 Food Relationship
@@ -98,7 +98,9 @@ public class TipPage extends ContentPage {
 			DreamoriLog.LogFoodExpert("DataList has value");
 
 	    	ImageView imageViewDegree = (ImageView)findViewById(R.id.ui_tip_degree);
-			imageViewDegree.setImageDrawable(ResourceManager.GetBitmapDrawable(this, ResourceManager.GetDegreeIconName(dataList.get(0).degree)));
+	    	
+	    	InitDegreeInfo(imageViewDegree, dataList.get(0).degree);
+
 			m_textViewHint.setText(dataList.get(0).hint);
 			
 			if (dataList.get(0).degree > 0) {

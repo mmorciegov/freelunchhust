@@ -20,10 +20,9 @@ public class GridViewBasePage extends TitleActivity {
 	{
 		if( m_gridDataList != null )
 		{
-			DreamoriLog.LogFoodExpert("Release Icon Res in GridViewBasePage");
-
 			for (int i = 0; i < m_gridDataList.size(); i++) 
 			{
+				DreamoriLog.LogFoodExpert("Release Icon Res in GridViewBasePage " + i );
 				if( m_gridDataList.get(i).icon != null )
 				{
 					m_gridDataList.get(i).icon.setCallback(null);
