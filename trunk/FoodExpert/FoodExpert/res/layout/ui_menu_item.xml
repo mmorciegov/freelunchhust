@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" 
-        android:layout_marginTop="15dip"
+        android:layout_marginTop="16dip"
         />
 
     <TextView
@@ -17,6 +17,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="10dip" />
+        android:layout_marginBottom="8dip" />
 
 </LinearLayout>
