@@ -85,8 +85,7 @@ public class InquireResultPage extends GridViewBasePage {
         ((TextView)findViewById(R.id.ui_inquire_result_cur_text)).setText(
         		getString( R.string.with) +  m_foodname + getString(R.string.result_food));
         
-        ((ImageView)findViewById(R.id.ui_inquire_result_cur_pic)).setImageResource(
-        		ResourceManager.GetIcon(this, getDatabaseHelper().getIconName(m_foodname)));
+        InitSearchIcon((ImageView)findViewById(R.id.ui_disease_result_cur_pic), m_foodname);
         
         m_dataList = new ArrayList<RelativeData>();
         Search(foodName, m_dataList);

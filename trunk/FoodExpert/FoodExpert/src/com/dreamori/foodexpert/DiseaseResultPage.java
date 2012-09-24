@@ -30,6 +30,8 @@ public class DiseaseResultPage extends GridViewBasePage {
 	private ComboBox m_foodClassSpin;
 	private AutoCompleteTextView m_textView;
 	
+	
+	
 
 	@Override
 	protected void onDestroy() {
@@ -321,9 +323,7 @@ public class DiseaseResultPage extends GridViewBasePage {
             		getString(R.string.with) +  m_diseasePageSearchName + getString(R.string.result_disease));        	 
 		}               
     
-        ((ImageView)findViewById(R.id.ui_disease_result_cur_pic)).setImageResource(
-        		ResourceManager.GetIcon(this, getDatabaseHelper().getIconName(m_diseasePageSearchName)));       
-  
+        InitSearchIcon((ImageView)findViewById(R.id.ui_disease_result_cur_pic), m_diseasePageSearchName);
         
 		if( m_dataList != null )
 		{

@@ -2,18 +2,37 @@ package com.dreamori.foodexpert;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import android.graphics.drawable.BitmapDrawable;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 
 public class GridViewBasePage extends TitleActivity {		
 	private List<GridViewHolderData> m_gridDataList = null;
 	private ListAdapter m_adapter = null;
-		
+	
+	private BitmapDrawable bDrawable = null;
+	
+	public void InitSearchIcon(ImageView image,  String name)
+	{
+		bDrawable = ResourceManager.GetBitmapDrawable(this,  getDatabaseHelper().getIconName(name) );
+		image.setImageDrawable(bDrawable);
+	}
+	
+	
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 
 		ReleaseIconRes();
 		m_adapter = null;
+		
+		if( bDrawable != null )
+		{
+			bDrawable.setCallback(null);
+			bDrawable.getBitmap().recycle();
+			bDrawable = null;
+		}
 	}
 	
 	private void ReleaseIconRes()
