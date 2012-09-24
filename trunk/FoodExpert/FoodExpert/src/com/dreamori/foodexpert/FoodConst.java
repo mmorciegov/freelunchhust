@@ -10,9 +10,10 @@ public final class FoodConst
 	static final int ACTIVITY_LEVEL2 = 2;
 	static final int ACTIVITY_LEVEL3 = 3;
 
-	static final int DEGREE_HIDE = 0;
-	static final int DEGREE_SHOW = 1;
-	static final int DEGREE_BOOL = 2;
+	static final int GRID_DEFAULT = 0;
+	static final int GRID_MAIN = 1;
+	static final int GRID_FOOD_RESULT = 2;
+	static final int GRID_DISEASE_RESULT = 3;
 	
 	static final int ACTIVITY_TYPE_FOOD = 0;
 	static final int ACTIVITY_TYPE_DISEASE = 1;

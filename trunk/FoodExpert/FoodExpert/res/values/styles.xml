@@ -1,8 +1,8 @@
 <resources>
 
     <style name="AppTheme" parent="android:Theme.Light" />
-    <color name="search_backgroud">#EFE4EF</color>
-    <color name="bad_relationship">#F01010</color>
-    <color name="good_relationship">#10F030</color>
+    <color name="search_backgroud">#FFEFE4EF</color>
+    <color name="bad_relationship">#FFF01010</color>
+    <color name="good_relationship">#FF00C800</color>
 
 </resources>

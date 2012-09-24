@@ -60,25 +60,22 @@ public class GridViewBasePage extends TitleActivity {
 		}
 	}
 
-	public void UpdateGrid(List<RelativeData> dataList, int showDegree )
+	public void UpdateGrid(List<RelativeData> dataList, int gridType )
 	{
 //		ReleaseIconRes();
 		ReleaseGridBitmap();
-		Boolean isScaleDegree = false;
         m_gridDataList = new ArrayList<GridViewHolderData>();
 		for (int i=0; i<dataList.size(); i++)
 		{
 	        GridViewHolderData data = new GridViewHolderData();
 	        data.name = dataList.get(i).name;
 	        data.icon = ResourceManager.GetIcon(this,  getDatabaseHelper().getIconName(data.name) );
-	        switch(showDegree)
+	        switch(gridType)
 	        {
-	        case FoodConst.DEGREE_BOOL:
-	        	isScaleDegree = true;
-	        case FoodConst.DEGREE_SHOW:
+	        case FoodConst.GRID_DISEASE_RESULT:
+	        case FoodConst.GRID_FOOD_RESULT:
 	        	data.degree = ResourceManager.GetDegreeId(dataList.get(i).degree);
 	        	break;
-	        case FoodConst.DEGREE_HIDE:
 	        default:
 	        	data.degree = 0;
 	        	break;
@@ -87,7 +84,7 @@ public class GridViewBasePage extends TitleActivity {
 	        m_gridDataList.add(data);		
 		}
         
-		m_adapter = new GridViewAdapter(this, m_gridDataList, isScaleDegree);
+		m_adapter = new GridViewAdapter(this, m_gridDataList, gridType);
         m_gridview.setAdapter(m_adapter);		
 	}
 }

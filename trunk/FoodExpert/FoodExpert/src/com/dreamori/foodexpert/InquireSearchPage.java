@@ -270,7 +270,7 @@ public class InquireSearchPage extends GridViewBasePage {
 			m_dataList.add(new RelativeData(m_curFoodList.get(i)));
 		}
 		
-		UpdateGrid( m_dataList, FoodConst.DEGREE_HIDE );			
+		UpdateGrid( m_dataList, FoodConst.GRID_DEFAULT );			
 	}
 	
 	private void InitGrid()

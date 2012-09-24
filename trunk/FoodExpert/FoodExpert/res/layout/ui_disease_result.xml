@@ -60,16 +60,15 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-         android:layout_margin="8.0dip"
+        android:layout_margin="8.0dip"
         android:columnWidth="60.0dip"
         android:gravity="center"
         android:horizontalSpacing="4.0dip"
         android:verticalSpacing="8.0dip"
         android:numColumns="@string/grid_column_number"
-        android:paddingTop="20dip"
         android:stretchMode="columnWidth"
         android:layout_below="@+id/linearLayoutDiseaseResult"
-	android:layout_above="@+id/adLayout"
+		android:layout_above="@+id/adLayout"
          />
     
     <LinearLayout

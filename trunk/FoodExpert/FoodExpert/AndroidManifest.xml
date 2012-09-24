@@ -26,44 +26,42 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".Food"
-            android:label="@string/title_main" >
-        </activity>
-        <!--android:screenOrientation="portrait" -->            
+            android:label="@string/title_main"
+            android:screenOrientation="portrait" >
+        </activity>         
         <activity
             android:name=".InquireSearchPage"
-            android:label="@string/title_food_search" >
+            android:label="@string/title_food_search"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".InquireResultPage"
-            android:label="@string/title_activity_food" >
-        </activity>
-        <activity
-            android:name=".InquireResultListPage"
-            android:label="@string/title_activity_food" >
+            android:label="@string/title_activity_food"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".DiseaseSearchPage"
-            android:label="@string/title_disease_search" >
+            android:label="@string/title_disease_search"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".DiseaseSearchListPage"
-            android:label="@string/title_activity_food" >
+            android:name=".DiseaseResultPage"
+            android:label="@string/title_disease_search"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".DetailInfoPage"
-            android:label="@string/title_activity_food" >
+            android:label="@string/title_activity_food"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".TipPage" >
+            android:name=".TipPage"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".DiseaseResultPage"
-            android:label="@string/title_disease_search" >
         </activity>
         
         <!-- AdView SDK for AdMob -->
