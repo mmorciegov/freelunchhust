@@ -323,8 +323,12 @@ public class DiseaseResultPage extends GridViewBasePage {
             		getString(R.string.with) +  m_diseasePageSearchName + getString(R.string.result_disease));        	 
 		}               
     
-        InitSearchIcon((ImageView)findViewById(R.id.ui_disease_result_cur_pic), m_diseasePageSearchName);
-        
+        ImageView imageViewSearchIcon = (ImageView)findViewById(R.id.ui_disease_result_cur_pic);
+        if( imageViewSearchIcon != null )
+        {
+        	InitSearchIcon(imageViewSearchIcon, m_diseasePageSearchName);
+        }
+                
 		if( m_dataList != null )
 		{
 			m_dataList.clear();
