@@ -263,6 +263,7 @@ public class DiseaseResultPage extends GridViewBasePage {
 				String foodName = m_textView.getText().toString();
 				if (IsFoodValid(foodName))
 				{			
+					m_textView.setText(null);
 			        m_gridview.setFocusable(true);
 			        m_gridview.setFocusableInTouchMode(true);
 			        m_gridview.requestFocus();
