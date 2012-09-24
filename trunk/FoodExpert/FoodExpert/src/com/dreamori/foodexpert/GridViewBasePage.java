@@ -58,7 +58,7 @@ public class GridViewBasePage extends TitleActivity {
 	        {
 	        case FoodConst.GRID_DISEASE_RESULT:
 	        case FoodConst.GRID_FOOD_RESULT:
-	        	data.degree = ResourceManager.GetBitmapDrawable(this, ResourceManager.GetDegreeIconName(dataList.get(0).degree));
+	        	data.degree = ResourceManager.GetBitmapDrawable(this, ResourceManager.GetDegreeIconName(dataList.get(i).degree));
 	        	break;
 	        default:
 	        	data.degree = null;
