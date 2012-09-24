@@ -40,5 +40,6 @@
     <string name="menu_contact">联系我们</string>
     
     <string name="grid_column_number">4</string>
+    <string name="text_how_to_eat">每次宜食用：</string>
     
 </resources>

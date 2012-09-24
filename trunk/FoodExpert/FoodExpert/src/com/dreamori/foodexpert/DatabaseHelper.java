@@ -51,6 +51,8 @@ public class DatabaseHelper {
     
     public final static String TABLE_DISEASE_FOOD_INFO = "swjb";
     
+    public final static String DISEASE_FOOD_EAT = "swcf";
+    
     
     //private static List<PriData> foodConflictData = null;
     private static ArrayList<String> foodList = null;
@@ -428,6 +430,34 @@ public class DatabaseHelper {
     	}
 		
     	return diseaseList;
+    }
+    
+    public String getFoodEatMethod( String diseaseName, String foodName )
+    {
+    	String foodEatMethod = null;
+    	
+    	TableResult tableResult = null;
+		try {
+			String sqlStr = "select distinct "+ DISEASE_FOOD_EAT +" from " + TABLE_DISEASE_FOOD_INFO
+					+" where "+  "(" +  DISEASE_NAME+"='"+diseaseName+"' and "+ DISEASE_RELATED_FOOD_NAME+"='"+foodName+"'" + ")" 
+					+ " or " + "(" +  DISEASE_NAME+"='"+foodName+"' and "+ DISEASE_RELATED_FOOD_NAME+"='"+diseaseName+"'" + ")" 
+					+" order by "+LEVEL+" desc";
+			tableResult = db.get_table(sqlStr);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+
+		for (String[] rowData : tableResult.rows) {
+			foodEatMethod = rowData[0];
+		}
+		
+		if (tableResult != null) {
+    		tableResult.clear();
+    		tableResult = null;
+    	}
+    	
+    	return foodEatMethod;
     }
     
     

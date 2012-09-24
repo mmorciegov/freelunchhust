@@ -21,6 +21,7 @@ public class DetailInfoPage extends ContentPage {
 	View mItem2 = null;
 	Boolean mIsItem1Click = false;
 	Boolean mIsItem2Click = false;
+	
     @Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
@@ -55,13 +56,16 @@ public class DetailInfoPage extends ContentPage {
         ImageView imageView2 = (ImageView)findViewById(R.id.ui_detail_icon_2);
         TextView textView1 = (TextView)findViewById(R.id.ui_detail_name_1);
         TextView textView2 = (TextView)findViewById(R.id.ui_detail_name_2);
+        
+        TextView textViewHowToEat= (TextView)findViewById(R.id.ui_detail_how_to_eat);  
+        
         InitLeftValue(imageView1, textView1, m_name1);
         InitRightValue(imageView2, textView2, m_name2);
         
         // Get hint and degree from database
         // m_flag : 0 Food Relationship
         // m_flag : 1 Disease Relationship
-        List<RelativeData> dataList = new ArrayList<RelativeData>();                
+        List<RelativeData> dataList = new ArrayList<RelativeData>();   
 
         if (m_flag == FoodConst.ACTIVITY_TYPE_FOOD)
         {
@@ -73,7 +77,7 @@ public class DetailInfoPage extends ContentPage {
         {
         	getDatabaseHelper().findDetailInfoInDisease(m_name1, m_name2, dataList);
         	//Update disease query frequency        	
-        	getDatabaseHelper().AddDiseaseSearchFrequency(m_name1);
+        	getDatabaseHelper().AddDiseaseSearchFrequency(m_name1);   
         }
         
         getDatabaseHelper().AddFoodSearchFrequency(m_name2);
@@ -88,7 +92,17 @@ public class DetailInfoPage extends ContentPage {
         {
         	return;
         }
-                
+        
+      //For disease page, if the relationship is good, we should tell user how to eat 
+        if( (m_flag == FoodConst.ACTIVITY_TYPE_DISEASE) && (dataList.get(0).degree > 0) )
+        {        	
+        	textViewHowToEat.setText(getDatabaseHelper().getFoodEatMethod(m_name1, m_name2));
+        }
+        else
+        {
+        	textViewHowToEat.setVisibility(View.GONE);
+        }
+                        
         if(dataList.get(0).degree > 0)
         {
         	
@@ -97,6 +111,25 @@ public class DetailInfoPage extends ContentPage {
 //        	titleViewTxt.setText(m_name1 + getString(R.string.and) + m_name2 + getString(R.string.food_related_good));
         	setTitle(m_name1 + getString(R.string.and) + m_name2 + getString(R.string.food_related_good));
         	m_textViewHint.setTextColor( getResources().getColor(R.color.good_relationship));
+        	
+            //For disease page, if the relationship is good, we should tell user how to eat 
+            if(m_flag == FoodConst.ACTIVITY_TYPE_DISEASE) 
+            {    
+            	String howToEat=getResources().getString(R.string.text_how_to_eat) + getDatabaseHelper().getFoodEatMethod(m_name1, m_name2);
+            	if( howToEat != null && howToEat != "")
+            	{
+                	textViewHowToEat.setText(howToEat);
+                	textViewHowToEat.setTextColor( getResources().getColor(R.color.good_relationship));
+            	}
+            	else
+            	{
+            		textViewHowToEat.setVisibility(View.GONE);
+            	}
+            }
+            else
+            {
+            	textViewHowToEat.setVisibility(View.GONE);
+            }
         }
         else if(dataList.get(0).degree < 0)
         {
