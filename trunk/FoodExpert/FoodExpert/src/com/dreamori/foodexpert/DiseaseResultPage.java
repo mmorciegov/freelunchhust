@@ -82,8 +82,16 @@ public class DiseaseResultPage extends GridViewBasePage {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
-				GridViewHolder holder = (GridViewHolder) arg1.getTag();			
-				m_textView.setText(holder.name.getText());	
+				GridViewHolder holder = (GridViewHolder) arg1.getTag();		
+				if(m_textView.getVisibility() == View.GONE)
+				{
+					GotoResultPage(holder.name.getText().toString());
+				}
+				else {
+					m_textView.setText(holder.name.getText());	
+				}
+				
+
 			}
         });        
 	}
@@ -226,7 +234,7 @@ public class DiseaseResultPage extends GridViewBasePage {
 		}
 		
 	}
-		
+	
 	private void UpdateInputTextView()
 	{
 		SearchFoodAdapter textViewAdapter = new SearchFoodAdapter();
@@ -236,7 +244,7 @@ public class DiseaseResultPage extends GridViewBasePage {
 	
 	private boolean IsFoodValid(String foodName)
 	{
-		if( m_relatedDeseaseFoodList.contains(foodName))
+		if( m_relatedDeseaseFoodList.contains(foodName) )
 		{
 			return true;
 		}		
