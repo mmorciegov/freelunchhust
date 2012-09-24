@@ -65,9 +65,6 @@ public class GridViewAdapter extends BaseAdapter {
 		case FoodConst.GRID_MAIN:
 			holder.icon.setPadding(0, 0, 0, 2);
 			break;
-		case FoodConst.GRID_DISEASE_RESULT:
-			holder.degree.setScaleType(ImageView.ScaleType.FIT_XY);
-			break;
 		default:
 			break;
 		}
