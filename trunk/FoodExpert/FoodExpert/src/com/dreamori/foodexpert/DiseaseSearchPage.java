@@ -8,11 +8,27 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class DiseaseSearchPage extends GridViewBasePage {
+	
+	private List<RelativeData> m_dataList;
+		
     @Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		
+		if( m_dataList != null )
+		{
+			m_dataList.clear();
+			m_dataList = null;
+		}
+	}
+
+
+
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ui_disease_search);
@@ -21,24 +37,20 @@ public class DiseaseSearchPage extends GridViewBasePage {
         
     	//Get Database  
         m_gridview = (GridView)findViewById(R.id.ui_disease_search_grid);   
-
-        
-        List<GridViewHolderData> dataList =  new ArrayList<GridViewHolderData>();
         
         List<String> diseaseList = getDatabaseHelper().GetDiseaseList();
         
-		for (int i=0; i<diseaseList.size(); i++)
-		{
-	        GridViewHolderData data = new GridViewHolderData();
-	        data.name = diseaseList.get(i);
-	        data.icon = ResourceManager.GetBitmapDrawable(this,  getDatabaseHelper().getIconName(data.name));
-	        data.degree = null;
-	        dataList.add(data);		
-		}       
+        if( m_dataList == null )
+        {
+        	m_dataList = new ArrayList<RelativeData>();
+    		for (int i=0; i<diseaseList.size(); i++)
+    		{
+    			m_dataList.add(new RelativeData(diseaseList.get(i)));
+    		}       
+        }
         
-        ListAdapter adapter = new GridViewAdapter(this, dataList, FoodConst.GRID_DEFAULT);
-        m_gridview.setAdapter(adapter);	
-		        
+        UpdateGrid(m_dataList, FoodConst.GRID_DEFAULT);
+			
         m_gridview.setFocusable(true);
         m_gridview.setFocusableInTouchMode(true);
         m_gridview.requestFocus();     
