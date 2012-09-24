@@ -36,7 +36,7 @@ public class DiseaseSearchPage extends GridViewBasePage {
 	        dataList.add(data);		
 		}       
         
-        ListAdapter adapter = new GridViewAdapter(this, dataList, true);
+        ListAdapter adapter = new GridViewAdapter(this, dataList, FoodConst.GRID_DEFAULT);
         m_gridview.setAdapter(adapter);	
 		        
         m_gridview.setFocusable(true);

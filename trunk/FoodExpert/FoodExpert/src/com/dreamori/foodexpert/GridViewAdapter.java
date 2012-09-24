@@ -17,13 +17,13 @@ public class GridViewAdapter extends BaseAdapter {
 	private List<GridViewHolderData> m_data;
 	private LayoutInflater m_inflater;
 	private Context m_context;
-	private Boolean m_isScaleDegree;
+	private int m_gridType;
 	
-	public GridViewAdapter(Context context, List<GridViewHolderData> data, Boolean isScaleDegree) {
+	public GridViewAdapter(Context context, List<GridViewHolderData> data, int gridType) {
 		m_context = context;
 		m_inflater = LayoutInflater.from(context);
 		m_data = data;
-		m_isScaleDegree = isScaleDegree;
+		m_gridType = gridType;
 	}
 	
 	@Override
@@ -57,12 +57,10 @@ public class GridViewAdapter extends BaseAdapter {
 	
 	public static void ReleaseImageView(ImageView imageView)
 	{
-		BitmapDrawable bd = (BitmapDrawable) imageView.getBackground();
-		if(bd == null )
-		{
-			return;
-		}
+		BitmapDrawable bd = (BitmapDrawable) imageView.getDrawable();
 		imageView.setImageResource(0);
+		if(bd == null)
+			return;
 		bd.setCallback(null);
 		bd.getBitmap().recycle();
 		
@@ -93,13 +91,16 @@ public class GridViewAdapter extends BaseAdapter {
 			holder = (GridViewHolder) convertView.getTag();
 		}
 		
-		if( m_isScaleDegree )
+		switch(m_gridType)
 		{
+		case FoodConst.GRID_MAIN:
+			holder.icon.setPadding(0, 0, 0, 2);
+			break;
+		case FoodConst.GRID_DISEASE_RESULT:
 			holder.degree.setScaleType(ImageView.ScaleType.FIT_XY);
-		}
-		else
-		{
-			holder.degree.setScaleType(ImageView.ScaleType.FIT_START);
+			break;
+		default:
+			break;
 		}
 
 		if (m_data.get(position).icon != 0)

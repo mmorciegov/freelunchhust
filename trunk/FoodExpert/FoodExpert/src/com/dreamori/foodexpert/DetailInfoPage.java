@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -64,7 +65,7 @@ public class DetailInfoPage extends ContentPage {
                 
         
         m_textViewHint = (TextView)findViewById(R.id.ui_detail_hint);
-        
+        m_textViewHint.setMovementMethod(new ScrollingMovementMethod());
 
 
         ImageView imageView1 = (ImageView)findViewById(R.id.ui_detail_icon_1);

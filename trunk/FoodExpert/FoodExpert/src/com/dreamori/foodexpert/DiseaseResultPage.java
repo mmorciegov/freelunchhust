@@ -75,7 +75,7 @@ public class DiseaseResultPage extends GridViewBasePage {
 	
 	private void UpdateGrid(List<RelativeData> dataList)
 	{
-		UpdateGrid(dataList, FoodConst.DEGREE_SHOW);
+		UpdateGrid(dataList, FoodConst.GRID_DISEASE_RESULT);
         
         m_gridview.setOnItemClickListener(new OnItemClickListener(){
 			@Override

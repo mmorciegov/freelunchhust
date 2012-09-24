@@ -102,6 +102,7 @@
 		android:layout_marginLeft="24dip"
 		android:layout_marginRight="24dip"
 		android:layout_marginTop="8dip"
+		android:layout_marginBottom="8dip"
 		android:layout_below="@id/linearLayout1"
    	    android:layout_above="@+id/adLayout"
 		android:textColor="#ffff0000"
