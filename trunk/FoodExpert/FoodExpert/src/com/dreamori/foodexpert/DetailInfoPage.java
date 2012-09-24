@@ -98,7 +98,7 @@ public class DetailInfoPage extends ContentPage {
         if (dataList.size() > 0)
         {
             ImageView imageViewDegree = (ImageView)findViewById(R.id.ui_detail_degree);
-	        imageViewDegree.setImageResource(ResourceManager.GetDegreeId(dataList.get(0).degree));
+	        imageViewDegree.setImageDrawable(ResourceManager.GetBitmapDrawable(this, ResourceManager.GetDegreeIconName(dataList.get(0).degree)));
 	        m_textViewHint.setText(dataList.get(0).hint);
         }
         else

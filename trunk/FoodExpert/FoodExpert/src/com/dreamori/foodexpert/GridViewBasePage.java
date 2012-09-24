@@ -3,7 +3,9 @@ package com.dreamori.foodexpert;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.view.View;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 
@@ -15,69 +17,56 @@ public class GridViewBasePage extends TitleActivity {
 	protected void onDestroy() {
 		super.onDestroy();
 
-//		ReleaseIconRes();
+		ReleaseIconRes();
 		m_adapter = null;
 	}
-//	
-//	private void ReleaseIconRes()
-//	{
-//		if( m_gridDataList != null )
-//		{
-//			DreamoriLog.LogFoodExpert("Release Icon Res in GridViewBasePage");
-//			int iconId = 0;
-//			for (int i = 0; i < m_gridDataList.size(); i++) 
-//			{
-//				iconId = m_gridDataList.get(i).icon;
-//				Bitmap icon = BitmapFactory.decodeResource(getResources(), iconId);
-//				if( icon != null && !icon.isRecycled())
-//				{
-//					icon.recycle();
-//					icon = null;
-//				}
-//			}
-//			
-//			
-//			m_gridDataList.clear();
-//			m_gridDataList = null;
-//		}	
-//	}
 	
-	
-	private void ReleaseGridBitmap()
+	private void ReleaseIconRes()
 	{
-		if (m_gridview.getChildCount() <= 0)
+		if( m_gridDataList != null )
 		{
-			return;
-		}
-		
-		for (int i=0; i<m_gridview.getChildCount(); i++)
-		{
-			View convertView = m_gridview.getChildAt(i);
-			GridViewHolder holder = (GridViewHolder) convertView.getTag();
-			ImageView imgView = holder.icon;
+			DreamoriLog.LogFoodExpert("Release Icon Res in GridViewBasePage");
+
+			for (int i = 0; i < m_gridDataList.size(); i++) 
+			{
+				if( m_gridDataList.get(i).icon != null )
+				{
+					m_gridDataList.get(i).icon.setCallback(null);
+					m_gridDataList.get(i).icon.getBitmap().recycle();	
+					m_gridDataList.get(i).icon = null;
+				}
+				
+				if( m_gridDataList.get(i).degree != null )
+				{
+					m_gridDataList.get(i).degree.setCallback(null);
+					m_gridDataList.get(i).degree.getBitmap().recycle();	
+					m_gridDataList.get(i).degree = null;
+				}		
+			}			
 			
-			GridViewAdapter.ReleaseImageView(imgView);
-		}
+			m_gridDataList.clear();
+			m_gridDataList = null;
+		}	
 	}
 
 	public void UpdateGrid(List<RelativeData> dataList, int gridType )
 	{
-//		ReleaseIconRes();
-		ReleaseGridBitmap();
+		ReleaseIconRes();
+
         m_gridDataList = new ArrayList<GridViewHolderData>();
 		for (int i=0; i<dataList.size(); i++)
 		{
 	        GridViewHolderData data = new GridViewHolderData();
 	        data.name = dataList.get(i).name;
-	        data.icon = ResourceManager.GetIcon(this,  getDatabaseHelper().getIconName(data.name) );
+	        data.icon = ResourceManager.GetBitmapDrawable(this,  getDatabaseHelper().getIconName(data.name) );
 	        switch(gridType)
 	        {
 	        case FoodConst.GRID_DISEASE_RESULT:
 	        case FoodConst.GRID_FOOD_RESULT:
-	        	data.degree = ResourceManager.GetDegreeId(dataList.get(i).degree);
+	        	data.degree = ResourceManager.GetBitmapDrawable(this, ResourceManager.GetDegreeIconName(dataList.get(0).degree));
 	        	break;
 	        default:
-	        	data.degree = 0;
+	        	data.degree = null;
 	        	break;
 	        }
 	        

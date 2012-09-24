@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -18,25 +21,6 @@ public class Food extends TitleActivity {
 	private List<GridViewHolderData> m_dataList = null;
 	private ListAdapter m_adapter = null;
 	
-	public Food() {
-		// TODO Auto-generated constructor stub
-		if( m_dataList == null )
-		{
-			DreamoriLog.LogFoodExpert("Init Food Class and Pitures here. It should be touched once.");
-			m_dataList = new ArrayList<GridViewHolderData>();
-	        GridViewHolderData inq_data = new GridViewHolderData();
-	        inq_data.icon = R.drawable.foodrelationship;
-	        inq_data.name = null;
-	        inq_data.degree = 0;
-	        m_dataList.add(inq_data);
-	        
-	        GridViewHolderData disease_data = new GridViewHolderData();
-	        disease_data.icon = R.drawable.foodanddisease;
-	        disease_data.name = null;
-	        disease_data.degree = 0;       
-	        m_dataList.add(disease_data);
-		}	
-	}
 	
 	@Override
 	protected void onDestroy() {
@@ -65,7 +49,24 @@ public class Food extends TitleActivity {
         m_level = 1;
         
         
-        DreamoriLog.LogFoodExpert("Food Activyt, onCreate");    
+        DreamoriLog.LogFoodExpert("Food Activity, onCreate");    
+        
+		if( m_dataList == null )
+		{
+			DreamoriLog.LogFoodExpert("Init Food Class and Pitures here. It should be touched once.");
+			m_dataList = new ArrayList<GridViewHolderData>();
+	        GridViewHolderData inq_data = new GridViewHolderData();
+	        inq_data.icon =new BitmapDrawable( this.getResources(), BitmapFactory.decodeResource( this.getResources(), R.drawable.foodrelationship ) );
+	        //inq_data.name = getString(R.string.menu_food_search);
+	        inq_data.degree = null;
+	        m_dataList.add(inq_data);
+	        
+	        GridViewHolderData disease_data = new GridViewHolderData();
+	        disease_data.icon = new BitmapDrawable( this.getResources(), BitmapFactory.decodeResource( this.getResources(), R.drawable.foodanddisease ) );
+	        //disease_data.name = getString(R.string.menu_food_disease);
+	        disease_data.degree = null;       
+	        m_dataList.add(disease_data);
+		}	
 		
         m_gridview = (GridView)findViewById(R.id.ui_main_grid);
                 

@@ -1,36 +1,59 @@
 package com.dreamori.foodexpert;
 
+import java.util.ArrayList;
+
+import com.dreamori.foodexpert.R.string;
+
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 
 public class ResourceManager {
-	public static int GetDegreeId(int degree)
+	
+	public static String GetDegreeIconName( int degree )
 	{
-		int id = 0;
-		switch(degree)
-		{
+		String degreeIconName = "g1";
+		switch ( degree ) {
 		case 1:
-			id = R.drawable.good_1;
+			degreeIconName = "g1";			
 			break;
+
 		case 2:
-			id = R.drawable.good_2;
+			degreeIconName = "g2";			
 			break;
+			
 		case 3:
-			id = R.drawable.good_3;
+			degreeIconName = "g3";			
 			break;
+			
+			
 		case -1:
-			id = R.drawable.bad_1;
+			degreeIconName = "b1";			
 			break;
+
 		case -2:
-			id = R.drawable.bad_2;
-			break;			
-		case -3:
-			id = R.drawable.bad_3;
+			degreeIconName = "b2";			
 			break;
+			
+		case -3:
+			degreeIconName = "b3";		
+			
 		default:
 			break;
-		}
+		}		
 		
-		return id;
+		return degreeIconName;
+	}
+	
+	public static BitmapDrawable GetBitmapDrawable(Context context, String name)
+	{
+		Bitmap bm = BitmapFactory.decodeResource(context.getResources(), GetIcon(context, name));
+		BitmapDrawable bd = new BitmapDrawable(context.getResources(),bm);
+		
+		DreamoriLog.LogFoodExpert("new BitmapDrawable in Resource Management");
+		
+		return bd;		
 	}
 	
 	public static int GetIcon(Context context, String name)
