@@ -1,8 +1,5 @@
 package com.dreamori.foodexpert;
 
-import java.util.ArrayList;
-
-import com.dreamori.foodexpert.R.string;
 
 import android.content.Context;
 import android.graphics.Bitmap;

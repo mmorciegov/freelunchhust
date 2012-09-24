@@ -3,9 +3,6 @@ package com.dreamori.foodexpert;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +13,9 @@ import android.widget.TextView;
 public class GridViewAdapter extends BaseAdapter {
 	private List<GridViewHolderData> m_data;
 	private LayoutInflater m_inflater;
-	private Context m_context;
 	private int m_gridType;
 	
 	public GridViewAdapter(Context context, List<GridViewHolderData> data, int gridType) {
-		m_context = context;
 		m_inflater = LayoutInflater.from(context);
 		m_data = data;
 		m_gridType = gridType;
