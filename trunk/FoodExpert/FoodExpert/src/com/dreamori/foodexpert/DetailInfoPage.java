@@ -119,7 +119,6 @@ public class DetailInfoPage extends ContentPage {
             	if( howToEat != null && howToEat != "")
             	{
                 	textViewHowToEat.setText(getResources().getString(R.string.text_how_to_eat) + howToEat);
-                	textViewHowToEat.setTextColor( getResources().getColor(R.color.how_to_eat_color));
             	}
             	else
             	{

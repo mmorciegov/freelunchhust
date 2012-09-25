@@ -103,11 +103,9 @@
 		android:layout_marginLeft="24dip"
 		android:layout_marginRight="24dip"
 		android:layout_marginTop="8dip"
-		android:layout_marginBottom="8dip"
 		android:layout_below="@id/linearLayout1"
-		android:textColor="#ffff0000"
+		android:textColor="#FF1010F0"
 		android:textSize="22.0dip"
-		android:scrollbars="vertical"
 		/>
 	
    	<TextView 
@@ -121,7 +119,6 @@
 		android:layout_marginBottom="8dip"
 		android:layout_below="@id/ui_detail_how_to_eat"
    	    android:layout_above="@+id/adLayout"
-		android:textColor="#ffff0000"
 		android:textSize="22.0dip"
 		android:scrollbars="vertical"
 		/>
