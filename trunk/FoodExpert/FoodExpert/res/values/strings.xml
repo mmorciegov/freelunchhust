@@ -1,7 +1,6 @@
 <resources>
 
     <string name="app_name">饮食专家</string>
-    <string name="hello_world">Hello world!</string>
     <string name="menu_settings">设置</string>
     <string name="title_activity_food">饮食专家</string>
     <string name="menu_exit">退出</string>
@@ -25,21 +24,24 @@
     <string name="menu_show_on_start">启动时显示</string>
     <string name="checkbox_hint">选择类别</string>
     <string name="and">与</string>
-    
     <string name="title_food_search">选择/搜寻食物</string>
     <string name="title_tip">每日小常识</string>
     <string name="title_main">欢迎使用饮食专家</string>
-    <string name="title_disease_search">疾病食物查询</string>    
-    
+    <string name="title_disease_search">疾病食物查询</string>
     <string name="menu_show_tip">显示启动常识</string>
     <string name="menu_hide_tip">隐藏启动常识</string>
-    <string name="menu_exit_sure">确定要退出吗？</string>      
-    
+    <string name="menu_about">关于饮食专家</string>
+    <string name="menu_exit_sure">确定要退出吗？</string>
     <string name="menu_ok">确定</string>
-    <string name="menu_cancel">取消</string>     
+    <string name="menu_cancel">取消</string>
     <string name="menu_contact">联系我们</string>
-    
     <string name="grid_column_number">4</string>
     <string name="text_how_to_eat">每次宜食用：</string>
+    <string name="title_activity_about">关于饮食专家</string>
+    <string name="disclaimer">免责声明</string>   
     
+    <string name="about">        本应用内容均收集于网络，经过专业营养师校对处理，但难免有所纰漏、误传之处。所有提供信息仅供参考，不可替代面对面的专业诊疗意见或健康咨询。</string>
+    <string name="copyright">Copyright © 憧憬元. All Rights Reserved.</string>
+    
+
 </resources>

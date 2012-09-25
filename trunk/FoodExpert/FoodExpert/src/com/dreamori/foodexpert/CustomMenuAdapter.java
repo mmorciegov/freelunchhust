@@ -18,7 +18,7 @@ public class CustomMenuAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return 3;
+		return 4;
 	}
 
 	@Override
@@ -71,6 +71,10 @@ public class CustomMenuAdapter extends BaseAdapter {
 			holder.name.setText(m_context.getString(R.string.menu_contact));			
 			break;
 		case 2:
+			holder.icon.setImageResource(R.drawable.about);
+			holder.name.setText(m_context.getString(R.string.menu_about));			
+			break;
+		case 3:
 			holder.icon.setImageResource(R.drawable.exit);
 			holder.name.setText(m_context.getString(R.string.menu_exit));			
 			break;

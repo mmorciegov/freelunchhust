@@ -8,17 +8,17 @@
         android:targetSdkVersion="15" />
 
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
-    
+
     <!-- AdView SDK mandatory or important permissions -->
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.GET_TASKS" /><!--momark --> 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_TASKS" /> <!-- momark -->
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -28,7 +28,7 @@
             android:name=".Food"
             android:label="@string/title_main"
             android:screenOrientation="portrait" >
-        </activity>         
+        </activity>
         <activity
             android:name=".InquireSearchPage"
             android:label="@string/title_food_search"
@@ -55,6 +55,11 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".About"
+            android:label="@string/title_activity_about"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".TipPage"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -63,32 +68,40 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <!-- AdView SDK for AdMob -->
-		<activity android:name="com.google.ads.AdActivity"
-              android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
-		
-		<!-- AdView SDK for Baidu --> 
-		<activity android:name="com.baidu.mobads.AppActivity" 
-			android:configChanges="keyboard|keyboardHidden|orientation" />
-			<meta-data android:name="BaiduMobAd_DEBUG_TOKEN" android:value="adview" />    
 
-		<!-- AdView SDK for Domob --> 
-		<activity android:name="cn.domob.android.ads.DomobActivity"
-			android:theme =  "@android:style/Theme.Translucent" />
-    	      
-    	<!-- AdView SDK for Youmi --> 
-    	<activity android:name="net.youmi.android.AdActivity"
-		android:configChanges="keyboard|keyboardHidden|orientation"/>
-				  
-		<!-- AdView SDK for InMobi -->	
-		<activity android:name="com.inmobi.androidsdk.IMBrowserActivity"
-		android:configChanges="keyboardHidden|orientation|keyboard" />
-		
-		<!--   AdView SDK for Momark -->
-		<activity android:name="com.donson.momark.activity.AdActivity"
-			android:launchMode="singleTop" />
-    	
+        <!-- AdView SDK for AdMob -->
+        <activity
+            android:name="com.google.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+
+        <!-- AdView SDK for Baidu -->
+        <activity
+            android:name="com.baidu.mobads.AppActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation" />
+
+        <meta-data
+            android:name="BaiduMobAd_DEBUG_TOKEN"
+            android:value="adview" />
+
+        <!-- AdView SDK for Domob -->
+        <activity
+            android:name="cn.domob.android.ads.DomobActivity"
+            android:theme="@android:style/Theme.Translucent" />
+
+        <!-- AdView SDK for Youmi -->
+        <activity
+            android:name="net.youmi.android.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation" />
+
+        <!-- AdView SDK for InMobi -->
+        <activity
+            android:name="com.inmobi.androidsdk.IMBrowserActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard" />
+
+        <!-- AdView SDK for Momark -->
+        <activity
+            android:name="com.donson.momark.activity.AdActivity"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

@@ -128,8 +128,12 @@ public class TitleActivity extends Activity implements AdViewInterface {
 					intent.putExtra(Intent.EXTRA_SUBJECT, "");
 					intent.putExtra(Intent.EXTRA_TEXT, "");
 					startActivity(intent);
-		    		break;	
+		    		break;
 				case 2:
+					Intent intentAbout = new Intent(getApplicationContext(),About.class);
+					startActivity(intentAbout);
+					break;
+				case 3:
 		    		Builder b = new AlertDialog.Builder(TitleActivity.this);
 		    		b.setIcon(getResources().getDrawable(R.drawable.exit));
 		    		b.setTitle(getString(R.string.menu_exit));
