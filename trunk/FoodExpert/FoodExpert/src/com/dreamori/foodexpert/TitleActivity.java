@@ -32,7 +32,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout.LayoutParams;
 
 public class TitleActivity extends Activity implements AdViewInterface {
-	public static final int SETTING_DIALOG = 0x113;
 	public static final String CONFIG_FILENAME = "/config.xml";
 	
 	private DatabaseHelper m_dbHelper = null;

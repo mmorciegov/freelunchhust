@@ -30,7 +30,7 @@
 		android:layout_below="@id/gridview_item_degree"
 		android:layout_centerHorizontal="true"
 		android:textColor="#ff000000"
-		android:textSize="16.0dip" 
+		android:textSize="20.0dip" 
 		android:layout_gravity="center"
 		/>    	       
 

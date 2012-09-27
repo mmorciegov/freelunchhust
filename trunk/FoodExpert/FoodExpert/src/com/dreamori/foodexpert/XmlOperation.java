@@ -65,7 +65,6 @@ public class XmlOperation {
     		
     		serializer.startTag("","Data");
     		serializer.attribute("","tip", String.valueOf(data.tip));
-//    		serializer.attribute("","display", String.valueOf(data.display));
     		serializer.endTag("","Data");
 
     		serializer.endTag("","Food");	
