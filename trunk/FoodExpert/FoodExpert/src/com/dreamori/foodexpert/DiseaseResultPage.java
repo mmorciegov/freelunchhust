@@ -150,7 +150,7 @@ public class DiseaseResultPage extends GridViewBasePage {
 		InitInputTextView();
 	}
 
-	private List<String> m_relatedDeseaseFoodList;
+	private List<String> m_relatedDiseaseFoodList;
 
 	private List<String> m_displayFoodList;
 	
@@ -160,23 +160,23 @@ public class DiseaseResultPage extends GridViewBasePage {
 		protected FilterResults performFiltering(CharSequence constraint) {
 			// TODO Auto-generated method stub
 			FilterResults results = new FilterResults(); 
-			if (m_relatedDeseaseFoodList == null) 
+			if (m_relatedDiseaseFoodList == null) 
 			{  
 				return null;
 			} 
 
 			if (constraint == null || constraint.length() == 0) 
 			{  
-				results.values = m_relatedDeseaseFoodList;  
-				results.count = m_relatedDeseaseFoodList.size();  
+				results.values = m_relatedDiseaseFoodList;  
+				results.count = m_relatedDiseaseFoodList.size();  
 			} 
 			else { 
 				List<String> curList = new ArrayList<String>();
 	
-				for (int i = 0; i < m_relatedDeseaseFoodList.size(); i++) { 
-					if (m_relatedDeseaseFoodList.get(i).contains(constraint.toString().toLowerCase()))
+				for (int i = 0; i < m_relatedDiseaseFoodList.size(); i++) { 
+					if (m_relatedDiseaseFoodList.get(i).contains(constraint.toString().toLowerCase()))
 					{
-						curList.add(m_relatedDeseaseFoodList.get(i));
+						curList.add(m_relatedDiseaseFoodList.get(i));
 					}
 				}
 				results.values = curList;  
@@ -246,28 +246,33 @@ public class DiseaseResultPage extends GridViewBasePage {
 	
 	private boolean IsFoodValid(String foodName)
 	{
-		if( m_relatedDeseaseFoodList.contains(foodName) )
+		if( m_relatedDiseaseFoodList.contains(foodName) )
 		{
 			return true;
 		}		
 		
 		return false;
 	}
-	
-	private void InitInputTextView()
-	{
-		m_relatedDeseaseFoodList = getDatabaseHelper().getFoodListFromDisease(m_diseasePageSearchName);
+
+	private void InitInputTextView() {
+		if (m_relatedDiseaseFoodList != null) {
+			m_relatedDiseaseFoodList.clear();
+			m_relatedDiseaseFoodList = null;
+		}
+
+		m_relatedDiseaseFoodList = getDatabaseHelper().getFoodListFromDisease(
+				m_diseasePageSearchName);
+
 		UpdateInputTextView();
-	    m_textView.addTextChangedListener(new TextWatcher(){
+		m_textView.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void afterTextChanged(Editable s) {
 				// TODO Auto-generated method stub
 				String foodName = m_textView.getText().toString();
-				if (IsFoodValid(foodName))
-				{			
+				if (IsFoodValid(foodName)) {
 					m_textView.setText(null);
-			        m_gridview.setFocusable(true);
-			        m_gridview.setFocusableInTouchMode(true);
+					m_gridview.setFocusable(true);
+					m_gridview.setFocusableInTouchMode(true);
 			        m_gridview.requestFocus();
 			        
 					GotoResultPage(foodName);
@@ -308,7 +313,7 @@ public class DiseaseResultPage extends GridViewBasePage {
         
         m_searchType = bundle.getInt(FoodConst.INTENT_DISEASE_SEARCH_TYPE);
         
-        if( m_searchType == FoodConst.DISEASE_RESULT_SEARCH_DISEASE )
+        if( ( m_searchType == FoodConst.DISEASE_RESULT_SEARCH_DISEASE ) && (getDatabaseHelper().getFoodListCountFromDisease(m_diseasePageSearchName) > FoodConst.SIZE_SHOW_SEARCH ) )
         {        	
         	setTitle(getString(R.string.title_choose) + m_diseasePageSearchName + getString(R.string.title_food_related));
             InitFoodClassAndSearchData();

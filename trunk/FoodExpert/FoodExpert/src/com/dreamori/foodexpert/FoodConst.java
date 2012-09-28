@@ -28,6 +28,8 @@ public final class FoodConst
 	
 	static final String BROADCAST_EXIT = "FoodExit";
 	
+	static final int SIZE_SHOW_SEARCH = 35;
+	
 	static final boolean ICON_DEFAULT_MODE = true;
 
 }

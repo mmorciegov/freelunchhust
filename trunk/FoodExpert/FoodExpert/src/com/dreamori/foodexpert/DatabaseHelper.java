@@ -436,6 +436,35 @@ public class DatabaseHelper {
     }
     
 
+    public int getFoodListCountFromDisease(String diseaseName)
+    {
+    	int count = 0;
+		TableResult tableResult = null;
+		try {
+				String sql = "select count(*) from "
+						+ TABLE_DISEASE_FOOD_INFO + " where " + DISEASE_NAME + "='"
+						+ diseaseName + "'";
+				tableResult = db.get_table(sql);
+				
+				if( tableResult != null && !tableResult.rows.isEmpty() )
+				{
+					count = Integer.parseInt(tableResult.rows.get(0)[0]) ;
+				}
+				
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		if (tableResult != null) {				
+    		tableResult.clear();
+    		tableResult = null;
+    	}
+		
+    	return count;
+    }
+    
+
     public List<String> getFoodListFromDisease(String diseaseName)
     {
 		TableResult tableResult = null;
