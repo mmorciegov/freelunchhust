@@ -1,5 +1,7 @@
 package com.dreamori.foodexpert;
 
+import com.lenovo.lps.sus.SUS;
+
 import android.os.Bundle;
 import android.app.ActivityManager;
 import android.content.Context;
@@ -7,6 +9,8 @@ import android.content.Intent;
 import android.view.View;
 
 public class Food extends TitleActivity {
+	
+	static boolean isStartVersionUpdateFlag = false;
 	
 	@Override
 	protected void onDestroy() {
@@ -33,6 +37,15 @@ public class Food extends TitleActivity {
         setContentView(R.layout.ui_main);
         
         m_level = 1;
+        
+        if (!isStartVersionUpdateFlag) {
+        	isStartVersionUpdateFlag = true;
+        	
+        	if (!SUS.isVersionUpdateStarted()) {
+        		SUS.AsyncStartVersionUpdate(this);
+        	}
+        }
+
            
     }
 	
