@@ -69,9 +69,9 @@ public class GridViewAdapter extends BaseAdapter {
 			break;
 		}
 
-		if (m_data.get(position).icon != null)
+		if (m_data.get(position).icon != 0)
 		{
-			holder.icon.setImageDrawable(m_data.get(position).icon);
+			holder.icon.setImageResource(m_data.get(position).icon);
 		}
 
 		else
@@ -88,9 +88,9 @@ public class GridViewAdapter extends BaseAdapter {
 			holder.name.setVisibility(View.GONE);
 		}
 		
-		if (m_data.get(position).degree != null)
+		if (m_data.get(position).degree != 0)
 		{
-			holder.degree.setImageDrawable(m_data.get(position).degree);
+			holder.degree.setImageResource(m_data.get(position).degree);
 		}
 		else
 		{

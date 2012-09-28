@@ -59,8 +59,8 @@ public class DetailInfoPage extends ContentPage {
         
         TextView textViewHowToEat= (TextView)findViewById(R.id.ui_detail_how_to_eat);  
         
-        InitLeftValue(imageView1, textView1, m_name1);
-        InitRightValue(imageView2, textView2, m_name2);
+        InitImageAndTextIcon(imageView1, textView1, m_name1);
+        InitImageAndTextIcon(imageView2, textView2, m_name2);
         
         // Get hint and degree from database
         // m_flag : 0 Food Relationship
@@ -85,7 +85,8 @@ public class DetailInfoPage extends ContentPage {
         if (dataList.size() > 0)
         {	
             ImageView imageViewDegree = (ImageView)findViewById(R.id.ui_detail_degree);
-            InitDegreeInfo(imageViewDegree, dataList.get(0).degree);
+           
+            InitDegreeIcon(imageViewDegree, ResourceManager.GetDegreeIconName(dataList.get(0).degree));
 	        m_textViewHint.setText(dataList.get(0).hint);
         }
         else
