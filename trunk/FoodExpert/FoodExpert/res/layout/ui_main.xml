@@ -4,23 +4,48 @@
     android:layout_height="match_parent"
     android:id="@+id/relativeLayout1" >
 
-    <GridView
-        android:id="@+id/ui_main_grid" 
-        android:layout_width="fill_parent" 
+    <ImageView 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:src="@drawable/main_background"
+	    android:scaleType="centerCrop"
+	    />
+    
+ 	<Button
+ 	    android:id="@+id/ui_main_button1"
+        android:layout_width="wrap_content" 
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dip"
         android:layout_alignParentTop="true"
-   	    android:layout_above="@+id/adLayout" 
-        android:layout_marginTop="8.0dip"
-        
-        android:gravity="center"
-        android:stretchMode="columnWidth" 
-        android:columnWidth="60.0dip" 
-        android:numColumns="1" />    
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/foodrelationship"
+        android:onClick="startFood"
+ 	    />
+ 	
+ 	<Button
+ 	    android:id="@+id/ui_main_button2"
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dip"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/foodanddisease"
+        android:layout_below="@+id/ui_main_button1"
+        android:onClick="startDisease"
+ 	    />
+ 	
+ 	<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dip"
+        android:text="@string/copyright"
+        tools:context=".About" />
  
     <LinearLayout
         android:layout_alignParentBottom="true"
 	    android:id="@+id/adLayout"
-	    android:layout_width="fill_parent"
+	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	   />
 </RelativeLayout>

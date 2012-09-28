@@ -62,9 +62,9 @@ public class GridViewAdapter extends BaseAdapter {
 		
 		switch(m_gridType)
 		{
-		case FoodConst.GRID_MAIN:
-			holder.icon.setPadding(0, 0, 0, 2);
-			break;
+//		case FoodConst.GRID_MAIN:
+//			holder.icon.setPadding(0, 0, 0, 2);
+//			break;
 		default:
 			break;
 		}
