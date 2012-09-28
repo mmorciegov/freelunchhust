@@ -16,6 +16,23 @@ import SQLite3.Exception;
 import SQLite3.TableResult;
 import android.content.Context;
 
+//Before we publish our database, we should run below sql to get redundancy data
+
+//update swxx set swlx = 1;
+//update swxx set swlx = 0
+//where swmz in
+//(
+//select swmz from swxx
+//where swmz not in
+//(
+//select distinct sw1 from xsxk
+//) and swmz not in
+//(
+//select distinct sw2 from xsxk
+//)
+//)
+
+
 public class DatabaseHelper {
 
 	private static DatabaseHelper mInstance = null;
@@ -39,6 +56,8 @@ public class DatabaseHelper {
     public final static String FOOD_TYPE = "swfl";
     public final static String FOOD_PHOTO = "swtp";
     public final static String FOOD_SEARCH_NUMBER = "cxcs";
+    //Some food doesn't have related food, we should hide them in the first page.
+    public final static String FOOD_HAS_RELATED = "swlx";
     
     public final static String TABLE_FOOD_CLASS_INFO = "swfl";
     public final static String FOOD_CLASS_NAME = "swfl";
@@ -154,7 +173,11 @@ public class DatabaseHelper {
     		
 			TableResult tableResult = null;
 			try {
-				tableResult = db.get_table("select "+FOOD_NAME+" from "+TABLE_FOOD_INFO+" order by "+FOOD_SEARCH_NUMBER+" desc");
+				tableResult = db.get_table(
+						"select "+FOOD_NAME+" from "+TABLE_FOOD_INFO
+						+" where "+ FOOD_HAS_RELATED+"=1"
+						+" order by "+FOOD_SEARCH_NUMBER+" desc"
+						);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -251,7 +274,9 @@ public class DatabaseHelper {
     	TableResult tableResult = null;
 		try {
 			tableResult = db.get_table("select "+FOOD_NAME+" from "+TABLE_FOOD_INFO
-					+" where "+FOOD_CLASS_NAME+"='"+foodClassName+"' order by "+FOOD_SEARCH_NUMBER+" desc");
+					+" where "+FOOD_CLASS_NAME+"='"+foodClassName
+					+ " and "+FOOD_HAS_RELATED+"=1"
+					+" order by "+FOOD_SEARCH_NUMBER+" desc");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -674,22 +699,22 @@ public class DatabaseHelper {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    	}
-    } 
-	
+		}
+	}
 
-   static private void copyBigDataBase(Context context, String databaseFileNameString ) throws IOException {  
-        InputStream myInput;  
-        OutputStream myOutput = new FileOutputStream(databaseFileNameString);  
+	static private void copyBigDataBase(Context context,
+			String databaseFileNameString) throws IOException {
+		InputStream myInput;
+		OutputStream myOutput = new FileOutputStream(databaseFileNameString);
 
-        myInput = context.getAssets().open(srcDBName);  
-        byte[] buffer = new byte[1024];  
-        int length;  
-        while ((length = myInput.read(buffer)) > 0) {  
-            myOutput.write(buffer, 0, length);  
-        }  
-        myOutput.flush();  
-        myOutput.close();
+		myInput = context.getAssets().open(srcDBName);
+		byte[] buffer = new byte[1024];
+		int length;
+		while ((length = myInput.read(buffer)) > 0) {
+			myOutput.write(buffer, 0, length);
+		}
+		myOutput.flush();
+		myOutput.close();
         myInput.close();  
     }  
    
