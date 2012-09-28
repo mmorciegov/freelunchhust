@@ -2,9 +2,6 @@ package com.dreamori.foodexpert;
 
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 
 public class ResourceManager {
 	
@@ -41,16 +38,6 @@ public class ResourceManager {
 		}		
 		
 		return degreeIconName;
-	}
-	
-	public static BitmapDrawable GetBitmapDrawable(Context context, String name)
-	{
-		Bitmap bm = BitmapFactory.decodeResource(context.getResources(), GetIcon(context, name));
-		BitmapDrawable bd = new BitmapDrawable(context.getResources(),bm);
-		
-		DreamoriLog.LogFoodExpert("new BitmapDrawable in Resource Management");
-		
-		return bd;		
 	}
 	
 	public static int GetIcon(Context context, String name)

@@ -25,9 +25,11 @@ import android.view.View;
 import android.view.View.OnKeyListener;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout.LayoutParams;
 
@@ -231,7 +233,6 @@ public class TitleActivity extends Activity implements AdViewInterface {
         return true;
     }
 
-
 	@Override
 	public boolean onMenuOpened(int featureId, Menu menu) {
 		// TODO Auto-generated method stub
@@ -244,6 +245,23 @@ public class TitleActivity extends Activity implements AdViewInterface {
 		}
 		return false;
 	}
+	
+	public void InitImageIcon(ImageView image,  String name)
+	{
+		image.setImageResource(ResourceManager.GetIcon(this, getDatabaseHelper().getIconName(name)));
+	}	
+	
+	public void InitDegreeIcon(ImageView image,  String name)
+	{
+		image.setImageResource(ResourceManager.GetIcon(this, name));
+	}	
+	
+	public void InitImageAndTextIcon(ImageView image, TextView text, String name)
+	{
+		image.setImageResource(ResourceManager.GetIcon(this, getDatabaseHelper().getIconName(name)));
+		text.setText(name);
+	}
+	
 
 	@Override
 	public void onClickAd() {

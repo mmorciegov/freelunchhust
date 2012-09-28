@@ -27,5 +27,7 @@ public final class FoodConst
 	static final String LOG_CAT = "FoodExpert";
 	
 	static final String BROADCAST_EXIT = "FoodExit";
+	
+	static final boolean ICON_DEFAULT_MODE = true;
 
 }

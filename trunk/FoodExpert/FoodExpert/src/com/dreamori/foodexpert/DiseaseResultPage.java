@@ -326,7 +326,7 @@ public class DiseaseResultPage extends GridViewBasePage {
         ImageView imageViewSearchIcon = (ImageView)findViewById(R.id.ui_disease_result_cur_pic);
         if( imageViewSearchIcon != null )
         {
-        	InitSearchIcon(imageViewSearchIcon, m_diseasePageSearchName);
+        	InitImageIcon(imageViewSearchIcon, m_diseasePageSearchName);
         }
                 
 		if( m_dataList != null )

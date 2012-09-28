@@ -77,8 +77,8 @@ public class TipPage extends ContentPage {
         ImageView imageView2 = (ImageView)findViewById(R.id.ui_tip_icon_2);
     	TextView textView1 = (TextView)findViewById(R.id.ui_tip_name_1);
         TextView textView2 = (TextView)findViewById(R.id.ui_tip_name_2);
-        InitLeftValue(imageView1, textView1, m_name1);
-        InitRightValue(imageView2, textView2, m_name2);
+        InitImageAndTextIcon(imageView1, textView1, m_name1);
+        InitImageAndTextIcon(imageView2, textView2, m_name2);
         
         // Get hint and degree from database
         // m_flag : 0 Food Relationship
@@ -99,7 +99,7 @@ public class TipPage extends ContentPage {
 
 	    	ImageView imageViewDegree = (ImageView)findViewById(R.id.ui_tip_degree);
 	    	
-	    	InitDegreeInfo(imageViewDegree, dataList.get(0).degree);
+	    	InitDegreeIcon(imageViewDegree, ResourceManager.GetDegreeIconName(dataList.get(0).degree));
 
 			m_textViewHint.setText(dataList.get(0).hint);
 			
