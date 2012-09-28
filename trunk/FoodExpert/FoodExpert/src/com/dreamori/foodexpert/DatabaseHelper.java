@@ -115,7 +115,12 @@ public class DatabaseHelper {
         	
 			TableResult tableResult = null;
 			try {
-				tableResult = db.get_table("select "+DISEASE_NAME+" from "+TABLE_DISEASE_INFO+" order by "+DISEASE_SEARCH_NUMBER+" desc");
+				String sql = "select "+DISEASE_NAME+", count(*) as number"
+						+" from "+TABLE_DISEASE_FOOD_INFO
+						+" group by "+ DISEASE_NAME
+						+" order by number desc";
+				tableResult = db.get_table(sql
+						);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
