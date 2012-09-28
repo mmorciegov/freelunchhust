@@ -19,6 +19,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.GET_TASKS" /> <!-- momark -->
+    
+	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -102,6 +105,16 @@
         <activity
             android:name="com.donson.momark.activity.AdActivity"
             android:launchMode="singleTop" />
+        
+        <activity android:name="com.lenovo.lps.sus.control.SUSPromptActivity"
+            android:theme="@*android:style/Theme.Translucent">
+        </activity>
+        <receiver android:name="com.lenovo.lps.sus.control.SUSReceiver">
+            <intent-filter>
+                <action android:name="com.lenovo.lps.sus.ACTION_UPDATE" /> 
+            </intent-filter>
+        </receiver>
+        
     </application>
 
 </manifest>

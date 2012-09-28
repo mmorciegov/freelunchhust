@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="SUS_MSG_FAIL_NOWLANCONNECTED">Please open the WLAN!</string>
+	<string name="SUS_MSG_LATESTVERSION">The version is latest!</string>
+	<string name="SUS_MSG_NOTFOUND">Not found!</string>
+	<string name="SUS_MSG_FAIL_NETWORKUNAVAILABLE">Network unavailable!</string>
+	<string name="SUS_MSG_WARNING_PENDING">Update pengding!</string>
+    <string name="SUS_MSG_DOWNLOADCOMPLETE">Download complete!</string>
+    <string name="SUS_MSG_UPDATE_EXCEPTION">Update exception,please retry!</string>    
+	<string name="SUS_SETTINGS_NEVERPROMPT">Never prompt</string>
+	<string name="SUS_MSG_INSUFFICIENTSTORAGESPACE">Insufficient storage space!</string>
+	<string name="SUS_VERSIONUPDATE">Find the new version!</string>
+    <string name="SUS_UPDATEDESC">Describe:</string>
+	<string name="SUS_UPDATEVERPROMPT_VERNAME">Name:</string>
+	<string name="SUS_UPDATEVERPROMPT_VERSIZE">Size:</string>
+	<string name="SUS_UPDATESIZEPROMPT_WLAN">recommend download with WLAN!</string>
+	<string name="SUS_UPDATE">Update</string>
+	<string name="SUS_CANCEL">Cancel</string>
+	<string name="SUS_DOWNLOAD_TITLE">SUS downloading</string>
+</resources>
