@@ -280,7 +280,7 @@ public class DatabaseHelper {
 		try {
 			tableResult = db.get_table("select "+FOOD_NAME+" from "+TABLE_FOOD_INFO
 					+" where "+FOOD_CLASS_NAME+"='"+foodClassName
-					+ " and "+FOOD_HAS_RELATED+"=1"
+					+ "' and "+FOOD_HAS_RELATED+"=1"
 					+" order by "+FOOD_SEARCH_NUMBER+" desc");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
