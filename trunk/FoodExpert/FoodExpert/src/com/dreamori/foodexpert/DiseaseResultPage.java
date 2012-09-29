@@ -30,9 +30,6 @@ public class DiseaseResultPage extends GridViewBasePage {
 	private ComboBox m_foodClassSpin;
 	private AutoCompleteTextView m_textView;
 	
-	
-	
-
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
@@ -59,6 +56,9 @@ public class DiseaseResultPage extends GridViewBasePage {
 		if( m_searchType == FoodConst.DISEASE_RESULT_SEARCH_DISEASE )
 		{
 			bundle.putSerializable("Name1", m_diseasePageSearchName);
+			
+			curChoice = getDatabaseHelper().GetRealFoodName(curChoice);
+			
 			bundle.putSerializable("Name2", curChoice);
 		}
 		else
@@ -260,7 +260,7 @@ public class DiseaseResultPage extends GridViewBasePage {
 			m_relatedDiseaseFoodList = null;
 		}
 
-		m_relatedDiseaseFoodList = getDatabaseHelper().getFoodListFromDisease(
+		m_relatedDiseaseFoodList = getDatabaseHelper().getFoodAndAliasNameListFromDisease(
 				m_diseasePageSearchName);
 
 		UpdateInputTextView();
@@ -357,9 +357,6 @@ public class DiseaseResultPage extends GridViewBasePage {
         
         m_gridview.setFocusable(true);
         m_gridview.setFocusableInTouchMode(true);
-        m_gridview.requestFocus();   
-        
+        m_gridview.requestFocus();          
     }
-
-
 }
