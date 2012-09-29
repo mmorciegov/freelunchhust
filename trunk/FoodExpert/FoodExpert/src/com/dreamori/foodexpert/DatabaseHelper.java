@@ -522,6 +522,42 @@ public class DatabaseHelper {
     }
     
 
+    public List<String> getFoodAndAliasNameListFromDisease(String diseaseName)
+    {
+		TableResult tableResult = null;
+		try {
+			String sql = "select distinct swjb.swmc,swxx.swbm" +
+					" from swjb inner join swxx on swjb.swmc = swxx.swmz " +
+					" where jbmc = '" + diseaseName
+					+"' order by jb ";		
+//				tableResult = db.get_table("select distinct "+DISEASE_RELATED_FOOD_NAME+" from "
+//						+ TABLE_DISEASE_FOOD_INFO + " where " + DISEASE_NAME + "='"
+//						+ diseaseName + "'" + " order by " + LEVEL + " desc");
+			
+			tableResult =db.get_table(sql);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		List<String> diseaseList = new ArrayList<String>();
+
+		for (String[] rowData : tableResult.rows) {
+			diseaseList.add(rowData[0]);
+			if(rowData[1] != null && rowData[1]!= "" && rowData[1].length() > 0 )
+			{
+				diseaseList.add(rowData[1]);
+			}
+		}
+
+		if (tableResult != null) {
+    		tableResult.clear();
+    		tableResult = null;
+    	}
+		
+    	return diseaseList;
+    }
+
     public List<String> getFoodListFromDisease(String diseaseName)
     {
 		TableResult tableResult = null;
