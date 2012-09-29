@@ -75,12 +75,10 @@ public class InquireResultPage extends GridViewBasePage {
         Bundle bind = intent.getExtras();
         
 //        String foodClass;
-        String foodName;
-
 //        foodClass = (String)bind.getSerializable("FoodClass");
-        foodName = (String)bind.getSerializable("FoodName");
-        
-        m_foodname = foodName;
+        m_foodname = (String)bind.getSerializable("FoodName");        
+        m_foodname = getDatabaseHelper().GetRealFoodName(m_foodname);
+
         setTitle(getString(R.string.title_choose) +  m_foodname + getString(R.string.title_food_related));
         ((TextView)findViewById(R.id.ui_inquire_result_cur_text)).setText(
         		getString( R.string.with) +  m_foodname + getString(R.string.result_food));
@@ -92,7 +90,7 @@ public class InquireResultPage extends GridViewBasePage {
         }
         
         m_dataList = new ArrayList<RelativeData>();
-        Search(foodName, m_dataList);
+        Search(m_foodname, m_dataList);
         
         InitGrid(m_dataList);
         

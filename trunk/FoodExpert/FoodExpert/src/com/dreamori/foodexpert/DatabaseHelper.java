@@ -53,6 +53,7 @@ public class DatabaseHelper {
 
     public final static String TABLE_FOOD_INFO = "swxx";
     public final static String FOOD_NAME = "swmz";
+    public final static String FOOD_OTHER_NAME = "swbm";
     public final static String FOOD_TYPE = "swfl";
     public final static String FOOD_PHOTO = "swtp";
     public final static String FOOD_SEARCH_NUMBER = "cxcs";
@@ -75,6 +76,7 @@ public class DatabaseHelper {
     
     //private static List<PriData> foodConflictData = null;
     private static ArrayList<String> foodList = null;
+    private static ArrayList<String> foodListWithOtherName = null;
     private static ArrayList<String> diseaseList = null;
     private static ArrayList<String> foodClassList = null;	
     
@@ -174,6 +176,37 @@ public class DatabaseHelper {
     	return foodClassList;	
 	}
 	
+
+    public List<String> getAllFoodListWithAliasName()
+    {
+     	if( foodListWithOtherName == null )
+    	{
+     		foodListWithOtherName = new ArrayList<String>();
+    		
+			TableResult tableResult = null;
+			try {
+				tableResult = db.get_table(
+						"select "+FOOD_NAME+","+ FOOD_OTHER_NAME +" from "+TABLE_FOOD_INFO
+						+" where "+ FOOD_HAS_RELATED+"=1"
+						+" order by "+FOOD_SEARCH_NUMBER+" desc"
+						);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			for (String[] rowData : tableResult.rows) {
+				foodListWithOtherName.add(rowData[0]);
+				if(rowData[1] != null && rowData[1]!= "" && rowData[1].length() > 0 )
+				{
+					foodListWithOtherName.add(rowData[1]);
+				}
+			}
+    	}
+    	
+    	return foodListWithOtherName;
+    }
+    
     
     public List<String> getAllFoodList()
     {
@@ -361,13 +394,32 @@ public class DatabaseHelper {
     	return true;    	
     }
     
+    public String GetRealFoodName(String foodName)
+    {
+    	String realName = foodName;
+    	TableResult tableResult = null;
+		try {
+			tableResult = db.get_table("select distinct "+FOOD_NAME+" from "+TABLE_FOOD_INFO
+					+" where "+FOOD_NAME+"='"+foodName+"' or "+FOOD_OTHER_NAME+"='"+foodName+"'");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		if( tableResult != null && !tableResult.rows.isEmpty() )
+		{
+			realName = tableResult.rows.get(0)[0];
+		}		
+		
+		return realName;
+    }
+    
     /***
      * 
      * @param foodName
      * @param dataList
      * @return
      */
-
     public boolean findRelatedFood(String foodName, List<RelativeData> dataList )
     {
     	TableResult tableResult = null;
