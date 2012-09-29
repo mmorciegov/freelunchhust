@@ -117,7 +117,7 @@ public class DetailInfoPage extends ContentPage {
             if(m_flag == FoodConst.ACTIVITY_TYPE_DISEASE) 
             {    
             	String howToEat=getDatabaseHelper().getFoodEatMethod(m_name1, m_name2);
-            	if( howToEat != null && howToEat != "")
+            	if( howToEat != null && howToEat != "" && howToEat.length() > 0)
             	{
                 	textViewHowToEat.setText(getResources().getString(R.string.text_how_to_eat) + howToEat);
             	}
