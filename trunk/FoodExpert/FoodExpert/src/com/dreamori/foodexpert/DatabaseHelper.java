@@ -115,10 +115,15 @@ public class DatabaseHelper {
         	
 			TableResult tableResult = null;
 			try {
-				String sql = "select "+DISEASE_NAME+", count(*) as number"
-						+" from "+TABLE_DISEASE_FOOD_INFO
-						+" group by "+ DISEASE_NAME
-						+" order by number desc";
+//				String sql = "select "+DISEASE_NAME+", count(*) as number"
+//						+" from "+TABLE_DISEASE_FOOD_INFO
+//						+" group by "+ DISEASE_NAME
+//						+" order by number desc";
+				//Sort by cxcs first, then by data number.
+				String sql = "select swjb.jbmc, cxcs, count(*) as number "+
+				" from swjb inner join jbxx  on jbxx.jbmc = swjb.jbmc "+
+				" group by swjb.jbmc "+
+				" order by cxcs desc, number desc";
 				tableResult = db.get_table(sql
 						);
 			} catch (Exception e) {
