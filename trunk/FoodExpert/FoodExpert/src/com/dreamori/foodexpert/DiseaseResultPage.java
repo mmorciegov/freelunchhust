@@ -313,10 +313,18 @@ public class DiseaseResultPage extends GridViewBasePage {
         
         m_searchType = bundle.getInt(FoodConst.INTENT_DISEASE_SEARCH_TYPE);
         
-        if( ( m_searchType == FoodConst.DISEASE_RESULT_SEARCH_DISEASE ) && (getDatabaseHelper().getFoodListCountFromDisease(m_diseasePageSearchName) > FoodConst.SIZE_SHOW_SEARCH ) )
+        if( ( m_searchType == FoodConst.DISEASE_RESULT_SEARCH_DISEASE ) )
         {        	
         	setTitle(getString(R.string.title_choose) + m_diseasePageSearchName + getString(R.string.title_food_related));
-            InitFoodClassAndSearchData();
+        	
+        	if(getDatabaseHelper().getFoodListCountFromDisease(m_diseasePageSearchName) > FoodConst.SIZE_SHOW_SEARCH )
+        	{
+        		InitFoodClassAndSearchData();
+        	}
+        	else
+        	{
+        		HideFoodClassAndSearchData();
+        	}
             ((TextView)findViewById(R.id.ui_disease_result_cur_text)).setText(
             		getString(R.string.with) +  m_diseasePageSearchName + getString(R.string.result_food));
         }
