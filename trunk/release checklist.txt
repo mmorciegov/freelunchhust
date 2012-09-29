@@ -1,4 +1,4 @@
-数据库加密方法：
+1.数据库加密：
 
 将db文件copy到DatabaseBuilder\assets
 
@@ -14,4 +14,14 @@
 去掉getInstance函数中String uri = (String) db.getdb()+"SQLITE_OPEN_READWRITE";这一行的注释
 去掉getInstance函数中db.key(uri);这一行的注释
 
-编译，运行即可
+2.下载adview离线配置文件
+
+3.改广告状态
+
+4.去掉log信息
+
+5.签名导出
+
+6.反编译检查混淆代码
+
+7.上机测试
