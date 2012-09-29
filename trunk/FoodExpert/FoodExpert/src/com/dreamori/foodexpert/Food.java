@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.View;
 
 public class Food extends TitleActivity {
@@ -60,4 +62,15 @@ public class Food extends TitleActivity {
 		Intent intent = new Intent(Food.this, DiseaseSearchPage.class);
 		startActivity(intent);
 	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+		{
+			ShowExitMessage();
+		}
+		return false;
+	}
+	
+	
 }

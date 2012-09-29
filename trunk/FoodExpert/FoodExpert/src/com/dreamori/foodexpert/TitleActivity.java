@@ -80,6 +80,26 @@ public class TitleActivity extends Activity implements AdViewInterface {
 		
 		registerReceiver(m_recv, filter);
 	}
+	
+	public void ShowExitMessage()
+	{
+		Builder b = new AlertDialog.Builder(TitleActivity.this);
+		b.setIcon(getResources().getDrawable(R.drawable.exit));
+		b.setTitle(getString(R.string.menu_exit));
+		b.setMessage(getString(R.string.menu_exit_sure));
+		b.setPositiveButton(getString(R.string.menu_ok), new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				KillActivity(0);
+				finish();
+			}
+		});
+		
+		b.setNegativeButton(getString(R.string.menu_cancel), null);
+		
+		b.create().show();
+	}
 		
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,22 +155,7 @@ public class TitleActivity extends Activity implements AdViewInterface {
 					startActivity(intentAbout);
 					break;
 				case 3:
-		    		Builder b = new AlertDialog.Builder(TitleActivity.this);
-		    		b.setIcon(getResources().getDrawable(R.drawable.exit));
-		    		b.setTitle(getString(R.string.menu_exit));
-		    		b.setMessage(getString(R.string.menu_exit_sure));
-		    		b.setPositiveButton(getString(R.string.menu_ok), new DialogInterface.OnClickListener(){
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							// TODO Auto-generated method stub
-							KillActivity(0);
-							finish();
-						}
-		    		});
-		    		
-		    		b.setNegativeButton(getString(R.string.menu_cancel), null);
-		    		
-		    		b.create().show();					
+					ShowExitMessage();
 					break;
 				default:
 					break;
