@@ -178,7 +178,7 @@ public class InquireSearchPage extends GridViewBasePage {
 		
 		if( m_allFoodList == null )
 		{
-			m_allFoodList = getDatabaseHelper().getAllFoodList();
+			m_allFoodList = getDatabaseHelper().getAllFoodListWithAliasName();
 		}
 		
 	}
