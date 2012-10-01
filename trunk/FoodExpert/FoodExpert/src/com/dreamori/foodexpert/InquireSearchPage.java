@@ -138,10 +138,10 @@ public class InquireSearchPage extends GridViewBasePage {
 	
 	private List<String> GetFoodClassList()
 	{	
- 		List<String>  foodClassList = new ArrayList<String>();    	
- 		foodClassList.add(getString(R.string.food_class_usual));
- 		foodClassList.addAll(getDatabaseHelper().GetFoodClassList());	
- 		foodClassList.add(getString(R.string.food_class_all));
+ 		List<String>  foodClassList = new ArrayList<String>();	
+ 		//foodClassList.add(getString(R.string.food_class_usual));	
+ 		foodClassList.add(getString(R.string.food_class_all));    
+ 		foodClassList.addAll(getDatabaseHelper().GetFoodClassList());
     	
     	return foodClassList;	
 	}
@@ -152,17 +152,17 @@ public class InquireSearchPage extends GridViewBasePage {
     	{
     		return getDatabaseHelper().getAllFoodList();
     	}
-    	else if (foodClassName.equalsIgnoreCase(getString( R.string.food_class_usual)))
-    	{
-    		List<String> dataList = new ArrayList<String>();
-   			List<String> foodList = getDatabaseHelper().getAllFoodList();
-    		int count = foodList.size() < FoodConst.COMMON_FOOD_INIT_COUNT ? foodList.size() : FoodConst.COMMON_FOOD_INIT_COUNT;
-    		for (int i=0; i<count; i++)
-    		{
-    			dataList.add(foodList.get(i));
-    		}
-    		return dataList;
-    	}
+//    	else if (foodClassName.equalsIgnoreCase(getString( R.string.food_class_usual)))
+//    	{
+//    		List<String> dataList = new ArrayList<String>();
+//   			List<String> foodList = getDatabaseHelper().getAllFoodList();
+//    		int count = foodList.size() < FoodConst.COMMON_FOOD_INIT_COUNT ? foodList.size() : FoodConst.COMMON_FOOD_INIT_COUNT;
+//    		for (int i=0; i<count; i++)
+//    		{
+//    			dataList.add(foodList.get(i));
+//    		}
+//    		return dataList;
+//    	}
     	else
     	{		    		
     		return getDatabaseHelper().getPreferFoodList(foodClassName);
