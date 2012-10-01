@@ -30,7 +30,7 @@
  	    android:id="@+id/ui_main_button1"
         android:layout_width="wrap_content" 
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dip"
+        android:layout_marginTop="48dip"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/foodrelationship"
@@ -41,7 +41,7 @@
  	    android:id="@+id/ui_main_button2"
         android:layout_width="wrap_content" 
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dip"
+        android:layout_marginTop="24dip"
         android:layout_centerHorizontal="true"
         android:background="@drawable/foodanddisease"
         android:layout_below="@+id/ui_main_button1"
@@ -56,7 +56,7 @@
         android:layout_margin="16dip"
         android:text="@string/copyright"
         tools:context=".About" />
- 
+
     <LinearLayout
         android:layout_alignParentBottom="true"
 	    android:id="@+id/adLayout"
