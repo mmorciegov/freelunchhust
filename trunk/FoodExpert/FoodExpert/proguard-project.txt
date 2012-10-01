@@ -26,10 +26,5 @@
 -keep public class com.adview.** {*;}
 
 -keep class cn.domob.** { *;}
--keep class com.baidu.** { *;}
--keep class com.donson.** { *;}
 -keep class com.google.** { *;}
 -keep class com.inmobi.** { *;}
--keep class net.youmi.** { *;}
-
--keep public class com.lenovo.lps.sus

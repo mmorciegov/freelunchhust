@@ -1,7 +1,6 @@
 package com.dreamori.foodexpert;
 
-import com.lenovo.lps.sus.SUS;
-
+import cn.domob.android.ads.DomobUpdater;
 import android.os.Bundle;
 import android.app.ActivityManager;
 import android.content.Context;
@@ -42,9 +41,7 @@ public class Food extends TitleActivity {
 		if (!isStartVersionUpdateFlag) {
 			isStartVersionUpdateFlag = true;
 
-			if (!SUS.isVersionUpdateStarted()) {
-				SUS.AsyncStartVersionUpdate(this);
-			}
+			DomobUpdater.checkUpdate(this, "56OJznHIuMm0L4Zdwd");
 		}
 	}
 

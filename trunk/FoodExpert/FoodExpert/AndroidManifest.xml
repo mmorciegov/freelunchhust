@@ -18,9 +18,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.GET_TASKS" /> <!-- momark -->
-    
-	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+
 	<uses-permission android:name="android.permission.CALL_PHONE"/>
     
 
@@ -78,51 +76,17 @@
             android:name="com.google.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
 
-        <!-- AdView SDK for Baidu -->
-        <activity
-            android:name="com.baidu.mobads.AppActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation" />
-
-        <meta-data
-            android:name="BaiduMobAd_DEBUG_TOKEN"
-            android:value="adview" />
 
         <!-- AdView SDK for Domob -->
         <activity
             android:name="cn.domob.android.ads.DomobActivity"
             android:theme="@android:style/Theme.Translucent" />
 
-        <!-- AdView SDK for Youmi -->
-        <activity
-            android:name="net.youmi.android.AdActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation" />
-        <receiver android:name="net.youmi.android.YoumiReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED"/>
-                <action android:name="android.intent.action.PACKAGE_INSTALL"/>
-                <data android:scheme="package"/> 
-            </intent-filter>
-        </receiver>
-
         <!-- AdView SDK for InMobi -->
         <activity
             android:name="com.inmobi.androidsdk.IMBrowserActivity"
             android:configChanges="keyboardHidden|orientation|keyboard" />
 
-        <!-- AdView SDK for Momark -->
-        <activity
-            android:name="com.donson.momark.activity.AdActivity"
-            android:launchMode="singleTop" />
-        
-        <activity android:name="com.lenovo.lps.sus.control.SUSPromptActivity"
-            android:theme="@*android:style/Theme.Translucent">
-        </activity>
-        <receiver android:name="com.lenovo.lps.sus.control.SUSReceiver">
-            <intent-filter>
-                <action android:name="com.lenovo.lps.sus.ACTION_UPDATE" /> 
-            </intent-filter>
-        </receiver>
-        
     </application>
 
 </manifest>
