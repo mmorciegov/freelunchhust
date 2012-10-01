@@ -18,6 +18,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -199,13 +200,22 @@ public class TitleActivity extends Activity implements AdViewInterface {
         if (layout == null) 
             return;
 
-        AdViewTargeting.setUpdateMode(UpdateMode.EVERYTIME);  //Must delete before release!!!!!
-        AdViewTargeting.setRunMode(RunMode.TEST);        //Must delete before release!!!!!
-
-        AdViewLayout adViewLayout = new AdViewLayout(this, "SDK20120912090935ahwlxnjz3q9r67q");
-        adViewLayout.setAdViewInterface(this);
-        layout.addView(adViewLayout);
-        layout.invalidate(); 
+        if(getDatabaseHelper().showAds())
+	    {
+	        AdViewTargeting.setUpdateMode(UpdateMode.EVERYTIME);  //Must delete before release!!!!!
+	        AdViewTargeting.setRunMode(RunMode.TEST);        //Must delete before release!!!!!
+	
+	        AdViewLayout adViewLayout = new AdViewLayout(this, "SDK20120912090935ahwlxnjz3q9r67q");
+	        adViewLayout.setAdViewInterface(this);
+	        layout.addView(adViewLayout);
+	        layout.invalidate(); 
+        }
+        else
+        {
+        	View view = findViewById(R.id.ui_main_remove_ads);
+        	if(view != null)
+        		view.setVisibility(View.GONE);
+        }
     }
 		
 	@Override
@@ -271,7 +281,10 @@ public class TitleActivity extends Activity implements AdViewInterface {
 	@Override
 	public void onClickAd() {
 		// TODO Auto-generated method stub
-		
+		Time time = new Time("GMT+8");
+		time.setToNow();
+		String date = time.format3339(true);
+		getDatabaseHelper().addClickTimes(date);
 	}
 
 	@Override

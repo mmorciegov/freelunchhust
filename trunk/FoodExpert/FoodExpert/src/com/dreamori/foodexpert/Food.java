@@ -49,13 +49,18 @@ public class Food extends TitleActivity {
 	}
 
 	public void startFood(View v) {
-		Intent intent = new Intent(Food.this, InquireSearchPage.class);
+		Intent intent = new Intent(getApplicationContext(), InquireSearchPage.class);
 		startActivity(intent);
 	}
 
 	public void startDisease(View v) {
-		Intent intent = new Intent(Food.this, DiseaseSearchPage.class);
+		Intent intent = new Intent(getApplicationContext(), DiseaseSearchPage.class);
 		startActivity(intent);
+	}
+	
+	public void removeAds(View v){
+		Intent intentAbout = new Intent(getApplicationContext(),About.class);
+		startActivity(intentAbout);
 	}
 
 	@Override

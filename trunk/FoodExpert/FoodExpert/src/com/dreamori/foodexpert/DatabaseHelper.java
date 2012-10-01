@@ -70,6 +70,7 @@ public class DatabaseHelper {
     public final static String DISEASE_SEARCH_NUMBER = "cxcs";
     
     public final static String TABLE_DISEASE_FOOD_INFO = "swjb";
+    public final static String TABLE_CONFIG = "config";
     
     public final static String DISEASE_FOOD_EAT = "swcf";
     
@@ -783,6 +784,86 @@ public class DatabaseHelper {
 
     	
     	return true;
+    }
+    
+    public Boolean showAds()
+    {
+    	TableResult tableResult = null;
+		try {
+			tableResult = db.get_table("select value from "+TABLE_CONFIG
+					+" where key='djcs'");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		if( tableResult == null || tableResult.rows.isEmpty() )
+			return true;
+
+		Boolean ret = Integer.parseInt(tableResult.rows.get(0)[0]) < 100;
+
+   		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}
+   		
+   		return ret;
+    }
+    
+    public void addClickTimes( String date )
+    {
+    	TableResult tableResult = null;
+		try {
+			tableResult = db.get_table("select value from "+TABLE_CONFIG
+					+" where key='djrq'");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		if( tableResult == null || tableResult.rows.isEmpty() )
+			return;
+		
+		if( date.compareToIgnoreCase(tableResult.rows.get(0)[0]) > 0 )
+		{
+			tableResult.clear();
+			try {
+				String sqlStr = "select value from "+TABLE_CONFIG
+						+" where key='djcs'";
+				tableResult = db.get_table(sqlStr);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if( tableResult == null || tableResult.rows.isEmpty() )
+				return;
+			
+			int clickTimes = Integer.parseInt(tableResult.rows.get(0)[0]);
+   		
+	   		if( clickTimes >= 0 )
+	   		{
+	   			clickTimes++;
+	   		}
+		
+			try {
+				db.exec("update "+TABLE_CONFIG+" set value='"+date
+						+"' where key='djrq'", null);
+				db.exec("update "+TABLE_CONFIG+" set value='"+clickTimes
+						+"' where key='djcs'", null);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+   		
+   		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}
     }
 	
 	public boolean deleteDatabase(Context context) {
