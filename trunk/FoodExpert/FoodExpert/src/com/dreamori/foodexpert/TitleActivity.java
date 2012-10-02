@@ -1,5 +1,7 @@
 package com.dreamori.foodexpert;
 
+import java.util.List;
+
 import com.adview.AdViewInterface;
 import com.adview.AdViewLayout;
 import com.adview.AdViewTargeting;
@@ -14,6 +16,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -33,6 +37,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.Toast;
 
 public class TitleActivity extends Activity implements AdViewInterface {
 	public static final String CONFIG_FILENAME = "/config.xml";
@@ -149,14 +154,27 @@ public class TitleActivity extends Activity implements AdViewInterface {
 					intent.setData(Uri.parse(addr));
 					intent.putExtra(Intent.EXTRA_SUBJECT, "");
 					intent.putExtra(Intent.EXTRA_TEXT, "");
-					startActivity(intent);
+					PackageManager packageManager = getPackageManager();
+					List<ResolveInfo> activities = packageManager.queryIntentActivities(intent, 0);
+					if( activities.size() > 0 )
+					{
+						startActivity(intent);
+					}
+					else
+					{
+						Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.warn_noemail), Toast.LENGTH_SHORT);
+			            toast.show();
+					}
+					m_popWnd.dismiss();
 		    		break;
 				case 2:
 					Intent intentAbout = new Intent(getApplicationContext(),About.class);
 					startActivity(intentAbout);
+					m_popWnd.dismiss();
 					break;
 				case 3:
 					ShowExitMessage();
+					m_popWnd.dismiss();
 					break;
 				default:
 					break;
