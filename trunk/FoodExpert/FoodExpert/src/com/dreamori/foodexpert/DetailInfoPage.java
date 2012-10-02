@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
@@ -14,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DetailInfoPage extends ContentPage {
 	
@@ -288,7 +291,20 @@ public class DetailInfoPage extends ContentPage {
 			intent.setType("text/plain");
 			intent.putExtra(Intent.EXTRA_SUBJECT, getTitle());
 			intent.putExtra(Intent.EXTRA_TEXT, m_textViewHint.getText());
-			startActivity(Intent.createChooser(intent, "Share"));    		
+			
+			Intent chooser = Intent.createChooser(intent, "Share");
+			PackageManager packageManager = getPackageManager();
+			List<ResolveInfo> activities = packageManager.queryIntentActivities(chooser, 0);
+			if( activities.size() > 0 )
+			{
+				startActivity(chooser);    
+			}
+			else
+			{
+				Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.warn_noshare), Toast.LENGTH_SHORT);
+	            toast.show();
+			}
+					
     		break;
     	default:
     		break;
