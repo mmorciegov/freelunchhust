@@ -800,7 +800,7 @@ public class DatabaseHelper {
 		if( tableResult == null || tableResult.rows.isEmpty() )
 			return true;
 
-		Boolean ret = Integer.parseInt(tableResult.rows.get(0)[0]) < 100;
+		Boolean ret = Integer.parseInt(tableResult.rows.get(0)[0]) < 30;
 
    		if( tableResult != null )
     	{
