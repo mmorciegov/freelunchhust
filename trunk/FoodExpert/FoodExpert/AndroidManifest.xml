@@ -87,6 +87,35 @@
             android:name="com.inmobi.androidsdk.IMBrowserActivity"
             android:configChanges="keyboardHidden|orientation|keyboard" />
 
+        <!--   Channel id for app markets -->
+		<meta-data android:name="AdView_CHANNEL" android:value="GOOGLEMARKET"></meta-data>
+		<!--  supported markets are as follows:
+			EOE(优亿市场)
+			GOOGLEMARKET(谷歌电子市场)
+			APPCHINA(应用汇)
+			HIAPK(安卓市场)
+			GFAN(机锋)
+			GOAPK(安智)
+			NDUOA(N多网)
+			91Store(手机91)
+			LIQUCN(历趣)
+			WAPTW(天网)
+			ANDROIDCN(安卓中国)
+			GGDWON(G友网)
+			ANDROIDAI(安卓之家)
+			STARANDROID(安卓星空)
+			ANDROIDD(安致)
+			YINGYONGSO(应用搜)
+			IMOBILE(手机之家)
+			SOUAPP(搜应用)
+			MUMAYI(木蚂蚁)
+			MOBIOMNI(欧米)
+			PAOJIAO(泡椒网)
+			AIBALA(爱扒拉市场)
+			COOLAPK(酷安网)
+			ANFONE(安丰)
+			APKOK(乐致网) 
+		-->
     </application>
 
 </manifest>
