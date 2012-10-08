@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <GridView
+        android:id="@+id/popup_dlg_grid" 
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content" 
+        
+        android:paddingTop="20dip" 
+        android:gravity="center" 
+        android:layout_marginTop="0.0dip" 
+        android:horizontalSpacing="10.0dip" 
+        android:verticalSpacing="20.0dip" 
+        android:stretchMode="columnWidth" 
+        android:columnWidth="60.0dip" 
+        android:numColumns="2" 
+        android:layout_weight="1.0" />       
+        
+</LinearLayout>
