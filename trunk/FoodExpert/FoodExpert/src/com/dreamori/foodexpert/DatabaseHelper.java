@@ -786,7 +786,7 @@ public class DatabaseHelper {
     	return true;
     }
     
-    public Boolean showAds()
+    public int getClickTimes()
     {
     	TableResult tableResult = null;
 		try {
@@ -798,9 +798,9 @@ public class DatabaseHelper {
 		}
 
 		if( tableResult == null || tableResult.rows.isEmpty() )
-			return true;
+			return 0;
 
-		Boolean ret = Integer.parseInt(tableResult.rows.get(0)[0]) < 30;
+		int ret = Integer.parseInt(tableResult.rows.get(0)[0]);
 
    		if( tableResult != null )
     	{
@@ -811,59 +811,15 @@ public class DatabaseHelper {
    		return ret;
     }
     
-    public void addClickTimes( String date )
+    public void setClickTimes(int n)
     {
-    	TableResult tableResult = null;
 		try {
-			tableResult = db.get_table("select value from "+TABLE_CONFIG
-					+" where key='djrq'");
+			db.exec("update "+TABLE_CONFIG+" set value='"+n
+					+"' where key='djcs'", null);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		if( tableResult == null || tableResult.rows.isEmpty() )
-			return;
-		
-		if( date.compareToIgnoreCase(tableResult.rows.get(0)[0]) > 0 )
-		{
-			tableResult.clear();
-			try {
-				String sqlStr = "select value from "+TABLE_CONFIG
-						+" where key='djcs'";
-				tableResult = db.get_table(sqlStr);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			if( tableResult == null || tableResult.rows.isEmpty() )
-				return;
-			
-			int clickTimes = Integer.parseInt(tableResult.rows.get(0)[0]);
-   		
-	   		if( clickTimes >= 0 )
-	   		{
-	   			clickTimes++;
-	   		}
-		
-			try {
-				db.exec("update "+TABLE_CONFIG+" set value='"+date
-						+"' where key='djrq'", null);
-				db.exec("update "+TABLE_CONFIG+" set value='"+clickTimes
-						+"' where key='djcs'", null);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-   		
-   		if( tableResult != null )
-    	{
-    		tableResult.clear();
-    		tableResult = null;
-    	}
     }
 	
 	public boolean deleteDatabase(Context context) {

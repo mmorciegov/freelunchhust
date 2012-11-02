@@ -1,16 +1,33 @@
 package com.dreamori.foodexpert;
 
+import com.waps.AppConnect;
+import com.waps.UpdatePointsNotifier;
+
 import cn.domob.android.ads.DomobUpdater;
 import android.os.Bundle;
+import android.os.Handler;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.TextView;
 
-public class Food extends TitleActivity {
+public class Food extends TitleActivity implements UpdatePointsNotifier {
 
 	static boolean isStartVersionUpdateFlag = false;
+	
+	TextView m_pointTV1;
+	String m_pointText1="";
+	final Handler m_Handler = new Handler();
+	final Runnable mUpdateResults = new Runnable() {
+		public void run() {
+			if (m_pointTV1 != null) 
+			{
+				m_pointTV1.setText(m_pointText1);
+			}
+		}
+	};
 
 	@Override
 	protected void onDestroy() {
@@ -28,6 +45,8 @@ public class Food extends TitleActivity {
 		activityManager.killBackgroundProcesses(getPackageName());
 		System.exit(0);
 
+		AppConnect.getInstance(this).finalize();
+		
 		super.onDestroy();
 	}
 
@@ -36,6 +55,10 @@ public class Food extends TitleActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ui_main);
 
+		m_pointTV1 = (TextView)findViewById(R.id.ui_main_points2);
+		TextView tv = (TextView)findViewById(R.id.ui_main_points);
+		tv.setText(getString(R.string.point_prompt2)+MAX_POINT+getString(R.string.point_prompt3));
+		
 		m_level = 1;
 
 		if (!isStartVersionUpdateFlag) {
@@ -43,6 +66,15 @@ public class Food extends TitleActivity {
 
 			DomobUpdater.checkUpdate(this, "56OJznHIuMm0L4Zdwd");
 		}
+		
+		AppConnect.getInstance("4efc262d53252f8ab598f2d38a7861fe","WAPS",this);
+		AppConnect.getInstance(this).setAdViewClassName("com.dreamori.foodexpert.Point");
+		AppConnect.getInstance(this).setCrashReport(false);
+    	m_points = getDatabaseHelper().getClickTimes();
+    	AppConnect.getInstance(this).awardPoints(m_points, this);
+    	getDatabaseHelper().setClickTimes(0);
+    	AppConnect.getInstance(this).getPoints(this);   	
+
 	}
 
 	public void startFood(View v) {
@@ -56,8 +88,7 @@ public class Food extends TitleActivity {
 	}
 	
 	public void removeAds(View v){
-		Intent intentAbout = new Intent(getApplicationContext(),About.class);
-		startActivity(intentAbout);
+		AppConnect.getInstance(this).showOffers(this);
 	}
 
 	@Override
@@ -66,6 +97,19 @@ public class Food extends TitleActivity {
 			ShowExitMessage();
 		}
 		return false;
+	}
+
+	@Override
+	public void getUpdatePoints(String currencyName, int pointTotal) {
+		// TODO Auto-generated method stub
+		m_points = pointTotal;
+		m_pointText1 = getString(R.string.point_prompt)+pointTotal;
+		m_Handler.post(mUpdateResults);
+	}
+
+	@Override
+	public void getUpdatePointsFailed(String error) {
+		// TODO Auto-generated method stub
 	}
 
 }

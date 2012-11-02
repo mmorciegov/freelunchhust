@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dreamori.foodexpert"
-    android:versionCode="3"
-    android:versionName="1.1.5" >
+    android:versionCode="4"
+    android:versionName="1.2" >
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -17,7 +17,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />    
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -73,7 +74,6 @@
             android:name="com.google.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
 
-
         <!-- AdView SDK for Domob -->
         <activity
             android:name="cn.domob.android.ads.DomobActivity"
@@ -84,9 +84,14 @@
             android:name="com.inmobi.androidsdk.IMBrowserActivity"
             android:configChanges="keyboardHidden|orientation|keyboard" />
 
-        <!--   Channel id for app markets -->
-		<meta-data android:name="AdView_CHANNEL" android:value="GOOGLEMARKET"></meta-data>
-		<!--  supported markets are as follows:
+        <activity 
+            android:name=".Point" 
+            android:configChanges="keyboardHidden|orientation" />
+
+        <!-- Channel id for app markets -->
+        <!-- meta-data android:name="AdView_CHANNEL" android:value="NDUOA"></meta-data -->
+        <!--
+              supported markets are as follows:
 			EOE(优亿市场)
 			GOOGLEMARKET(谷歌电子市场)
 			APPCHINA(应用汇)
@@ -111,8 +116,8 @@
 			AIBALA(爱扒拉市场)
 			COOLAPK(酷安网)
 			ANFONE(安丰)
-			APKOK(乐致网) 
-		-->
+			APKOK(乐致网) 
+        -->
     </application>
 
 </manifest>

@@ -23,27 +23,6 @@
         android:text="@string/about"
         tools:context=".About" />
     
-    
-	<TextView
-	    android:id="@+id/text_remove_ads"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/text_about"
-        android:layout_marginTop="20dip"
-        android:textSize="20dip"
-        android:text="@string/remove_ads"
-        tools:context=".About" />
-	
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dip"
-        android:textSize="16dip"
-        android:layout_below="@+id/text_remove_ads"
-        android:text="@string/remove_ads_detail"
-        tools:context=".About" />
-    
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

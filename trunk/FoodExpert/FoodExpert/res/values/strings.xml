@@ -40,11 +40,14 @@
     <string name="warn_noemail">该设备上找不到发送email的应用</string>
     <string name="warn_noshare">该设备上找不到分享信息的应用</string>
     <string name="title_activity_about">关于饮食专家</string>
-    <string name="disclaimer">免责声明</string>   
-    <string name="about">        本应用内容均收集于网络，经过专业营养师校对整理，但难免有所纰漏、误传之处。所有提供信息仅供参考，不可替代面对面的专业诊疗意见或健康咨询。</string>   
+    <string name="disclaimer">免责声明</string>
+    <string name="about">        本应用内容均收集于网络，经过专业营养师校对整理，但难免有所纰漏、误传之处。所有提供信息仅供参考，不可替代面对面的专业诊疗意见或健康咨询。</string>
     <string name="remove_ads">去除广告</string>
-    <string name="remove_ads_detail">        我们很希望能跟大家提供免费的无广告的软件。但程序员也是人，也要吃饭，请珍惜我们的劳动成果，理解广告的存在。去除广告的方式很简单，我们不会收取任何费用，只要您经常使用本软件，并不时关注下广告的信息，到了一定的天数，广告自然就消失了。</string>
     <string name="copyright">Copyright © 憧憬元. All Rights Reserved.</string>
+    <string name="app_offer">精品推荐</string>
+    <string name="point_prompt">当前积分</string>
+    <string name="point_prompt2">满</string>
+    <string name="point_prompt3">去广告</string>
     
 
 </resources>

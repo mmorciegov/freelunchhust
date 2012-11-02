@@ -4,9 +4,6 @@ import java.util.List;
 
 import com.adview.AdViewInterface;
 import com.adview.AdViewLayout;
-import com.adview.AdViewTargeting;
-import com.adview.AdViewTargeting.RunMode;
-import com.adview.AdViewTargeting.UpdateMode;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -22,13 +19,13 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.format.Time;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,9 +36,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.Toast;
 
-public class TitleActivity extends Activity implements AdViewInterface {
+public class TitleActivity extends Activity implements AdViewInterface{
 	public static final String CONFIG_FILENAME = "/config.xml";
-	
+	public static final int MAX_POINT = 30;
+	public static int m_points = 0;
 	private DatabaseHelper m_dbHelper = null;
 	public DatabaseHelper getDatabaseHelper()
 	{
@@ -218,21 +216,29 @@ public class TitleActivity extends Activity implements AdViewInterface {
         if (layout == null) 
             return;
 
-        if(getDatabaseHelper().showAds())
+        if(m_points < MAX_POINT)
 	    {
-	        AdViewTargeting.setUpdateMode(UpdateMode.EVERYTIME);  //Must delete before release!!!!!
-	        AdViewTargeting.setRunMode(RunMode.TEST);        //Must delete before release!!!!!
-	
 	        AdViewLayout adViewLayout = new AdViewLayout(this, "SDK20120912090935ahwlxnjz3q9r67q");
 	        adViewLayout.setAdViewInterface(this);
 	        layout.addView(adViewLayout);
 	        layout.invalidate(); 
-        }
-        else
-        {
-        	View view = findViewById(R.id.ui_main_remove_ads);
+	        
+	        Button btn = (Button)findViewById(R.id.ui_main_remove_ads);
+        	if(btn != null)
+        	{
+        		btn.setText(R.string.remove_ads);
+        	}
+        	
+        	View view = findViewById(R.id.ui_main_points);
         	if(view != null)
-        		view.setVisibility(View.GONE);
+        	{
+        		view.setVisibility(View.VISIBLE);
+        	}
+        	view = findViewById(R.id.ui_main_points2);
+        	if(view != null)
+        	{
+        		view.setVisibility(View.VISIBLE);
+        	}
         }
     }
 		
@@ -299,15 +305,10 @@ public class TitleActivity extends Activity implements AdViewInterface {
 	@Override
 	public void onClickAd() {
 		// TODO Auto-generated method stub
-		Time time = new Time("GMT+8");
-		time.setToNow();
-		String date = time.format3339(true);
-		getDatabaseHelper().addClickTimes(date);
 	}
 
 	@Override
 	public void onDisplayAd() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 }
