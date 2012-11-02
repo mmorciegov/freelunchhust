@@ -28,3 +28,5 @@
 -keep class cn.domob.** { *;}
 -keep class com.google.** { *;}
 -keep class com.inmobi.** { *;}
+-keep public class com.waps.** {*;} 
+-keep public interface com.waps.** {*;}

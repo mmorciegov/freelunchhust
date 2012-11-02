@@ -20,11 +20,34 @@
         android:paddingRight="2.0dip"
         android:drawableTop="@drawable/removeads"
         android:background="#00000000"
-        android:text="@string/remove_ads"
+        android:text="@string/app_offer"
         android:textColor="#88000000"
         android:textSize="12.0dip"
         android:onClick="removeAds"
         />
+    
+    <TextView   
+        android:id="@+id/ui_main_points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ui_main_remove_ads"
+        android:layout_alignParentRight="true"
+        android:textSize="12.0dip"
+        android:layout_marginTop="8.0dip"
+        android:paddingRight="8.0dip"
+        android:visibility="invisible"
+        android:textColor="#88000000"/>
+    
+    <TextView   
+        android:id="@+id/ui_main_points2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ui_main_points"
+        android:layout_alignParentRight="true"
+        android:textSize="12.0dip"
+        android:paddingRight="8.0dip"
+        android:visibility="invisible"
+        android:textColor="#88000000"/>
     
  	<Button
  	    android:id="@+id/ui_main_button1"
@@ -54,8 +77,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="16dip"
-        android:text="@string/copyright"
-        tools:context=".About" />
+        android:text="@string/copyright" />
 
     <LinearLayout
         android:layout_alignParentBottom="true"
