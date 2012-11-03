@@ -786,21 +786,21 @@ public class DatabaseHelper {
     	return true;
     }
     
-    public int getClickTimes()
+    public String getConfig(String key)
     {
     	TableResult tableResult = null;
 		try {
 			tableResult = db.get_table("select value from "+TABLE_CONFIG
-					+" where key='djcs'");
+					+" where key='"+key+"'");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		if( tableResult == null || tableResult.rows.isEmpty() )
-			return 0;
+			return null;
 
-		int ret = Integer.parseInt(tableResult.rows.get(0)[0]);
+		String ret = tableResult.rows.get(0)[0];
 
    		if( tableResult != null )
     	{
@@ -811,14 +811,36 @@ public class DatabaseHelper {
    		return ret;
     }
     
-    public void setClickTimes(int n)
+    public void setConfig(String key, String value)
     {
+    	TableResult tableResult = null;
 		try {
-			db.exec("update "+TABLE_CONFIG+" set value='"+n
-					+"' where key='djcs'", null);
+			tableResult = db.get_table("select value from "+TABLE_CONFIG
+					+" where key='"+key+"'");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+
+		if( tableResult == null || tableResult.rows.isEmpty() )
+		{
+			try {
+				tableResult = db.get_table("insert into "+TABLE_CONFIG
+						+" values ('"+key+"','"+value+"')");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else
+		{		
+			try {
+				db.exec("update "+TABLE_CONFIG+" set value='"+value
+						+"' where key='"+key+"'", null);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
     }
 	

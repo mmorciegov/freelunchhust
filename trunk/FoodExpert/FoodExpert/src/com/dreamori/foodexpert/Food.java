@@ -70,9 +70,19 @@ public class Food extends TitleActivity implements UpdatePointsNotifier {
 		AppConnect.getInstance("4efc262d53252f8ab598f2d38a7861fe","WAPS",this);
 		AppConnect.getInstance(this).setAdViewClassName("com.dreamori.foodexpert.Point");
 		AppConnect.getInstance(this).setCrashReport(false);
-    	m_points = getDatabaseHelper().getClickTimes();
-    	AppConnect.getInstance(this).awardPoints(m_points, this);
-    	getDatabaseHelper().setClickTimes(0);
+		
+		int oldPoints=0;
+    	String value = getDatabaseHelper().getConfig("djcs");
+    	try{
+    		oldPoints = Integer.parseInt(value);
+    	}
+    	 catch (NumberFormatException e) {
+ 			e.printStackTrace();
+ 			oldPoints = 0;
+ 		}
+    	AppConnect.getInstance(this).awardPoints(oldPoints, this);
+    	
+    	getDatabaseHelper().setConfig("djcs","0");
     	AppConnect.getInstance(this).getPoints(this);   	
 
 	}
@@ -102,7 +112,10 @@ public class Food extends TitleActivity implements UpdatePointsNotifier {
 	@Override
 	public void getUpdatePoints(String currencyName, int pointTotal) {
 		// TODO Auto-generated method stub
-		m_points = pointTotal;
+		if(pointTotal>=30)
+		{
+			getDatabaseHelper().setConfig("showAds","0");
+		}
 		m_pointText1 = getString(R.string.point_prompt)+pointTotal;
 		m_Handler.post(mUpdateResults);
 	}
