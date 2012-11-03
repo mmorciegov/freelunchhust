@@ -39,7 +39,6 @@ import android.widget.Toast;
 public class TitleActivity extends Activity implements AdViewInterface{
 	public static final String CONFIG_FILENAME = "/config.xml";
 	public static final int MAX_POINT = 30;
-	public static int m_points = 0;
 	private DatabaseHelper m_dbHelper = null;
 	public DatabaseHelper getDatabaseHelper()
 	{
@@ -216,7 +215,16 @@ public class TitleActivity extends Activity implements AdViewInterface{
         if (layout == null) 
             return;
 
-        if(m_points < MAX_POINT)
+        int showAds=1;
+    	String value = getDatabaseHelper().getConfig("showAds");
+    	try{
+    		showAds = Integer.parseInt(value);
+    	}
+    	 catch (NumberFormatException e) {
+ 			e.printStackTrace();
+ 			showAds = 1;
+ 		}
+        if(showAds !=0)
 	    {
 	        AdViewLayout adViewLayout = new AdViewLayout(this, "SDK20120912090935ahwlxnjz3q9r67q");
 	        adViewLayout.setAdViewInterface(this);

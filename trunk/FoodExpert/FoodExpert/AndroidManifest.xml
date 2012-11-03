@@ -89,7 +89,7 @@
             android:configChanges="keyboardHidden|orientation" />
 
         <!-- Channel id for app markets -->
-        <!-- meta-data android:name="AdView_CHANNEL" android:value="NDUOA"></meta-data -->
+        <!-- meta-data android:name="AdView_CHANNEL" android:value="GOOGLEMARKET"></meta-data-->
         <!--
               supported markets are as follows:
 			EOE(优亿市场)
