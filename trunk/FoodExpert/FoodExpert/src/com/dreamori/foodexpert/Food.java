@@ -6,6 +6,7 @@ import com.waps.UpdatePointsNotifier;
 import cn.domob.android.ads.DomobUpdater;
 import android.os.Bundle;
 import android.os.Handler;
+import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +30,7 @@ public class Food extends TitleActivity implements UpdatePointsNotifier {
 		}
 	};
 
+	@TargetApi(8)
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
@@ -67,7 +69,7 @@ public class Food extends TitleActivity implements UpdatePointsNotifier {
 			DomobUpdater.checkUpdate(this, "56OJznHIuMm0L4Zdwd");
 		}
 		
-		AppConnect.getInstance("4efc262d53252f8ab598f2d38a7861fe","WAPS",this);
+		AppConnect.getInstance("4efc262d53252f8ab598f2d38a7861fe","CJY",this);
 		AppConnect.getInstance(this).setAdViewClassName("com.dreamori.foodexpert.Point");
 		AppConnect.getInstance(this).setCrashReport(false);
 		
@@ -80,9 +82,9 @@ public class Food extends TitleActivity implements UpdatePointsNotifier {
  			e.printStackTrace();
  			oldPoints = 0;
  		}
-    	AppConnect.getInstance(this).awardPoints(oldPoints, this);
-    	
+    	AppConnect.getInstance(this).awardPoints(oldPoints, this);  	
     	getDatabaseHelper().setConfig("djcs","0");
+    	
     	AppConnect.getInstance(this).getPoints(this);   	
 
 	}
