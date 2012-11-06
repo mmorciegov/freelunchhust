@@ -17,6 +17,7 @@ import android.widget.TextView;
 public class Food extends TitleActivity implements UpdatePointsNotifier {
 
 	static boolean isStartVersionUpdateFlag = false;
+	public static final int MAX_POINT = 10;
 	
 	TextView m_pointTV1;
 	String m_pointText1="";
@@ -71,20 +72,7 @@ public class Food extends TitleActivity implements UpdatePointsNotifier {
 		
 		AppConnect.getInstance("4efc262d53252f8ab598f2d38a7861fe","CJY",this);
 		AppConnect.getInstance(this).setAdViewClassName("com.dreamori.foodexpert.Point");
-		AppConnect.getInstance(this).setCrashReport(false);
-		
-		int oldPoints=0;
-    	String value = getDatabaseHelper().getConfig("djcs");
-    	try{
-    		oldPoints = Integer.parseInt(value);
-    	}
-    	 catch (NumberFormatException e) {
- 			e.printStackTrace();
- 			oldPoints = 0;
- 		}
-    	AppConnect.getInstance(this).awardPoints(oldPoints, this);  	
-    	getDatabaseHelper().setConfig("djcs","0");
-    	
+		AppConnect.getInstance(this).setCrashReport(false);    	
     	AppConnect.getInstance(this).getPoints(this);   	
 
 	}
@@ -113,8 +101,21 @@ public class Food extends TitleActivity implements UpdatePointsNotifier {
 
 	@Override
 	public void getUpdatePoints(String currencyName, int pointTotal) {
-		// TODO Auto-generated method stub
-		if(pointTotal>=30)
+		// TODO Auto-generated method stub	
+		int oldPoints=0;
+    	String value = getDatabaseHelper().getConfig("djcs");
+    	try{
+    		oldPoints = Integer.parseInt(value)/3;
+    	}
+    	 catch (NumberFormatException e) {
+ 			e.printStackTrace();
+ 			oldPoints = 0;
+ 		}
+    	if(oldPoints < 0)
+    		oldPoints = 0;
+    	pointTotal += oldPoints;
+    	
+		if(pointTotal >= MAX_POINT)
 		{
 			getDatabaseHelper().setConfig("showAds","0");
 		}
