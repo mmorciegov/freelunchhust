@@ -38,7 +38,6 @@ import android.widget.Toast;
 
 public class TitleActivity extends Activity implements AdViewInterface{
 	public static final String CONFIG_FILENAME = "/config.xml";
-	public static final int MAX_POINT = 30;
 	private DatabaseHelper m_dbHelper = null;
 	public DatabaseHelper getDatabaseHelper()
 	{
