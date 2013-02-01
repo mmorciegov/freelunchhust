@@ -21,9 +21,11 @@
 
 -keep class SQLite3.** { *;}
 
--dontwarn com.adview.**
+-dontwarn com.google.ads.**
+-dontwarn com.kyview.**
 -libraryjars /libs/AdViewSDK_Android.jar
--keep public class com.adview.** {*;}
+-libraryjars /libs/GoogleAdMobAdsSdk-6.2.1.jar
+-keep public class com.kyview.** {*;}
 
 -keep class cn.domob.** { *;}
 -keep class com.google.** { *;}

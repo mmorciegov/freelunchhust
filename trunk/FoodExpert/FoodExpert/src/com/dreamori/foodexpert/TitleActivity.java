@@ -1,9 +1,11 @@
 package com.dreamori.foodexpert;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import com.adview.AdViewInterface;
-import com.adview.AdViewLayout;
+import com.kyview.AdViewInterface;
+import com.kyview.AdViewLayout;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -39,6 +41,13 @@ import android.widget.Toast;
 public class TitleActivity extends Activity implements AdViewInterface{
 	public static final String CONFIG_FILENAME = "/config.xml";
 	private DatabaseHelper m_dbHelper = null;
+	
+	private Timer m_adTimer = null;
+	private static boolean m_showAd = true;
+	private boolean m_adClicked1s = false;
+	private boolean m_adClicked5s = false;
+	private LinearLayout m_adLayout = null;
+	
 	public DatabaseHelper getDatabaseHelper()
 	{
 		if( m_dbHelper == null )
@@ -210,8 +219,8 @@ public class TitleActivity extends Activity implements AdViewInterface{
     protected void onStart()
     {
     	super.onStart();
-    	LinearLayout layout = (LinearLayout)findViewById(R.id.adLayout);
-        if (layout == null) 
+    	m_adLayout = (LinearLayout)findViewById(R.id.adLayout);
+        if (m_adLayout == null) 
             return;
 
         int showAds=1;
@@ -223,12 +232,12 @@ public class TitleActivity extends Activity implements AdViewInterface{
  			e.printStackTrace();
  			showAds = 1;
  		}
-        if(showAds !=0)
+        if(showAds !=0 && m_showAd)
 	    {
 	        AdViewLayout adViewLayout = new AdViewLayout(this, "SDK20120912090935ahwlxnjz3q9r67q");
 	        adViewLayout.setAdViewInterface(this);
-	        layout.addView(adViewLayout);
-	        layout.invalidate(); 
+	        m_adLayout.addView(adViewLayout);
+	        m_adLayout.invalidate(); 
 	        
 	        Button btn = (Button)findViewById(R.id.ui_main_remove_ads);
         	if(btn != null)
@@ -247,6 +256,10 @@ public class TitleActivity extends Activity implements AdViewInterface{
         		view.setVisibility(View.VISIBLE);
         	}
         }
+        else
+        {
+        	m_adLayout.removeAllViews();
+        }
     }
 		
 	@Override
@@ -256,6 +269,19 @@ public class TitleActivity extends Activity implements AdViewInterface{
 		
 		DreamoriLog.LogFoodExpert("Destory Activity");	
 		
+	}
+	
+	@Override
+	protected void onPause(){
+		super.onPause();
+		if(m_adClicked1s)
+		{
+        	if(m_adLayout!=null)
+			{
+				m_adLayout.removeAllViews();
+				m_showAd = false;
+			}
+		}
 	}
 
 	public String GetConfigFileName()
@@ -311,7 +337,41 @@ public class TitleActivity extends Activity implements AdViewInterface{
 
 	@Override
 	public void onClickAd() {
-		// TODO Auto-generated method stub
+		DreamoriLog.LogFoodExpert("onClickAd");
+		
+		if(m_adClicked5s)
+		{
+			/*m_adLayout.postDelayed(new Runnable() {
+		        public void run() {
+		        	if(m_adLayout!=null)
+					{
+						DreamoriLog.LogFoodExpert("removeAllViews");
+						m_adLayout.removeAllViews();
+					}
+		        	DreamoriLog.LogFoodExpert("1s end");
+		        }
+		    }, 1000);*/
+			m_adLayout.setVisibility(View.GONE);
+			m_showAd = false;
+		}
+		
+		m_adClicked1s = true;
+		m_adClicked5s = true;
+		m_adTimer = new Timer();
+		TimerTask task1s = new TimerTask() {
+			@Override
+			public void run() {
+				m_adClicked1s = false;
+			}
+		};
+		TimerTask task5s = new TimerTask() {
+			@Override
+			public void run() {
+				m_adClicked5s = false;
+			}
+		};
+		m_adTimer.schedule(task1s, 1000);
+		m_adTimer.schedule(task5s, 5000);
 	}
 
 	@Override

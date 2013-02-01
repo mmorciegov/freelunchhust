@@ -71,6 +71,9 @@ public class Food extends TitleActivity implements UpdatePointsNotifier {
 		}
 		
 		AppConnect.getInstance("4efc262d53252f8ab598f2d38a7861fe","CJY",this);
+		//WAPS google 91 hiapk gfan goapk appChina mumayi eoe nduo 
+		//huawei QQ 3G 360 baidu sohu 163 UC dangle samsung moto xiaomi lenovo nearme
+
 		AppConnect.getInstance(this).setAdViewClassName("com.dreamori.foodexpert.Point");
 		AppConnect.getInstance(this).setCrashReport(false);    	
     	AppConnect.getInstance(this).getPoints(this);   	
