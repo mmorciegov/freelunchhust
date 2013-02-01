@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dreamori.foodexpert"
-    android:versionCode="6"
-    android:versionName="1.2.2" >
+    android:versionCode="7"
+    android:versionName="1.2.3" >
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -69,6 +69,11 @@
             </intent-filter>
         </activity>
 
+           
+		<!--   Must declare it for Adivew SDK-->
+		<service android:name="com.kyview.DownloadService" />
+		<activity android:name="com.kyview.AdviewWebView" />   
+	
         <!-- AdView SDK for AdMob -->
         <activity
             android:name="com.google.ads.AdActivity"
