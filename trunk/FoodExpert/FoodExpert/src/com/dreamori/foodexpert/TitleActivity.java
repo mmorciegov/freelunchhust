@@ -41,12 +41,7 @@ import android.widget.Toast;
 public class TitleActivity extends Activity implements AdViewInterface{
 	public static final String CONFIG_FILENAME = "/config.xml";
 	private DatabaseHelper m_dbHelper = null;
-	
-	private Timer m_adTimer = null;
-	private static boolean m_showAd = true;
-	private boolean m_adClicked1s = false;
-	private boolean m_adClicked5s = false;
-	private LinearLayout m_adLayout = null;
+	private boolean m_adShowed = false;
 	
 	public DatabaseHelper getDatabaseHelper()
 	{
@@ -219,8 +214,8 @@ public class TitleActivity extends Activity implements AdViewInterface{
     protected void onStart()
     {
     	super.onStart();
-    	m_adLayout = (LinearLayout)findViewById(R.id.adLayout);
-        if (m_adLayout == null) 
+    	LinearLayout adLayout = (LinearLayout)findViewById(R.id.adLayout);
+        if (adLayout == null) 
             return;
 
         int showAds=1;
@@ -229,37 +224,35 @@ public class TitleActivity extends Activity implements AdViewInterface{
     		showAds = Integer.parseInt(value);
     	}
     	 catch (NumberFormatException e) {
- 			e.printStackTrace();
- 			showAds = 1;
- 		}
-        if(showAds !=0 && m_showAd)
-	    {
-	        AdViewLayout adViewLayout = new AdViewLayout(this, "SDK20120912090935ahwlxnjz3q9r67q");
-	        adViewLayout.setAdViewInterface(this);
-	        m_adLayout.addView(adViewLayout);
-	        m_adLayout.invalidate(); 
-	        
-	        Button btn = (Button)findViewById(R.id.ui_main_remove_ads);
-        	if(btn != null)
-        	{
-        		btn.setText(R.string.remove_ads);
-        	}
-        	
-        	View view = findViewById(R.id.ui_main_points);
-        	if(view != null)
-        	{
-        		view.setVisibility(View.VISIBLE);
-        	}
-        	view = findViewById(R.id.ui_main_points2);
-        	if(view != null)
-        	{
-        		view.setVisibility(View.VISIBLE);
-        	}
-        }
-        else
-        {
-        	m_adLayout.removeAllViews();
-        }
+			e.printStackTrace();
+			showAds = 1;
+		}
+		if (showAds != 0) {
+			if (!m_adShowed) {
+				AdViewLayout adViewLayout = new AdViewLayout(this,
+						"SDK20120912090935ahwlxnjz3q9r67q");
+				adViewLayout.setAdViewInterface(this);
+				adLayout.addView(adViewLayout);
+				adLayout.invalidate();
+				m_adShowed = true;
+
+				Button btn = (Button) findViewById(R.id.ui_main_remove_ads);
+				if (btn != null) {
+					btn.setText(R.string.remove_ads);
+				}
+
+				View view = findViewById(R.id.ui_main_points);
+				if (view != null) {
+					view.setVisibility(View.VISIBLE);
+				}
+				view = findViewById(R.id.ui_main_points2);
+				if (view != null) {
+					view.setVisibility(View.VISIBLE);
+				}
+			}
+		} else {
+			adLayout.removeAllViews();
+		}
     }
 		
 	@Override
@@ -269,19 +262,6 @@ public class TitleActivity extends Activity implements AdViewInterface{
 		
 		DreamoriLog.LogFoodExpert("Destory Activity");	
 		
-	}
-	
-	@Override
-	protected void onPause(){
-		super.onPause();
-		if(m_adClicked1s)
-		{
-        	if(m_adLayout!=null)
-			{
-				m_adLayout.removeAllViews();
-				m_showAd = false;
-			}
-		}
 	}
 
 	public String GetConfigFileName()
@@ -337,41 +317,6 @@ public class TitleActivity extends Activity implements AdViewInterface{
 
 	@Override
 	public void onClickAd() {
-		DreamoriLog.LogFoodExpert("onClickAd");
-		
-		if(m_adClicked5s)
-		{
-			/*m_adLayout.postDelayed(new Runnable() {
-		        public void run() {
-		        	if(m_adLayout!=null)
-					{
-						DreamoriLog.LogFoodExpert("removeAllViews");
-						m_adLayout.removeAllViews();
-					}
-		        	DreamoriLog.LogFoodExpert("1s end");
-		        }
-		    }, 1000);*/
-			m_adLayout.setVisibility(View.GONE);
-			m_showAd = false;
-		}
-		
-		m_adClicked1s = true;
-		m_adClicked5s = true;
-		m_adTimer = new Timer();
-		TimerTask task1s = new TimerTask() {
-			@Override
-			public void run() {
-				m_adClicked1s = false;
-			}
-		};
-		TimerTask task5s = new TimerTask() {
-			@Override
-			public void run() {
-				m_adClicked5s = false;
-			}
-		};
-		m_adTimer.schedule(task1s, 1000);
-		m_adTimer.schedule(task5s, 5000);
 	}
 
 	@Override
