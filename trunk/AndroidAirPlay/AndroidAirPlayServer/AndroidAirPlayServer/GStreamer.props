@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <ExecutablePath>$(SolutionDir)$(ProjectName)\Poco\bin;$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(GSTREAMER_SDK_ROOT_X86)include\atk-1.0;$(GSTREAMER_SDK_ROOT_X86)include\pango-1.0\;$(GSTREAMER_SDK_ROOT_X86)include\gtk-2.0\;$(GSTREAMER_SDK_ROOT_X86)include\cairo;$(GSTREAMER_SDK_ROOT_X86)include\libxml2\;$(GSTREAMER_SDK_ROOT_X86)include\gstreamer-0.10\;$(GSTREAMER_SDK_ROOT_X86)include\gdk-pixbuf-2.0\;$(GSTREAMER_SDK_ROOT_X86)include;$(GSTREAMER_SDK_ROOT_X86)include\glib-2.0;$(GSTREAMER_SDK_ROOT_X86)include\lib\glib-2.0\include;F:\gstreamer-sdk\0.10\x86\lib\gtk-2.0\include;F:\gstreamer-sdk\0.10\x86\lib\glib-2.0\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(GSTREAMER_SDK_ROOT_X86)lib;$(SolutionDir)$(ProjectName)\Poco\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>gstreamer-0.10.lib;glib-2.0.lib;OpenGL32.Lib;GlU32.Lib;gobject-2.0.lib;gstapp-0.10.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>
