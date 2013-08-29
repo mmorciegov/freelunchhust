@@ -76,7 +76,7 @@ public class DatabaseHelper {
 			db = null;
 			mInstance = null;
 			
-			DreamoriLog.LogFoodExpert("Close Data Base success.");
+			DreamoriLog.LogDaoDeJing("Close Data Base success.");
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -102,7 +102,7 @@ public class DatabaseHelper {
 			try {
 				targetFile.createNewFile();
 				copyBigDataBase(context,databaseFileName);
-				DreamoriLog.LogFoodExpert("copyBigDataBase");
+				DreamoriLog.LogDaoDeJing("copyBigDataBase");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
