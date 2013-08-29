@@ -152,7 +152,8 @@ public class ContentView extends View {
 				// canvas.drawCircle(m_data.get(i).pt.x, m_data.get(i).pt.y, 5,
 				// paint);
 				RectF rectf = new RectF(hotspots.get(i).posUiRect);
-				canvas.drawOval(rectf, paint);
+				//canvas.drawOval(rectf, paint);
+				canvas.drawLine(rectf.left, rectf.bottom + 4,  rectf.right, rectf.bottom + 4,  paint);
 			}
 		}		
 		
