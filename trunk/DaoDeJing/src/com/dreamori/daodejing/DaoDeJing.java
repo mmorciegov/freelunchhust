@@ -11,6 +11,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.graphics.Bitmap;
@@ -47,6 +48,8 @@ public class DaoDeJing extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         
         contentView =(ContentView)findViewById(R.id.img_content);
