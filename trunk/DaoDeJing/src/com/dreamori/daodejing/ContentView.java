@@ -109,23 +109,42 @@ public class ContentView extends View {
 		return -1;
 	}
 	
+	private boolean cancleToast = false;
+	
 	@Override
-	public boolean onTouchEvent(MotionEvent event)
-	{
+	public boolean onTouchEvent(MotionEvent event) {
 		float x = event.getX();
 		float y = event.getY();
-		switch (event.getAction())
-		{
-			case MotionEvent.ACTION_DOWN:
-				int index = IsHit(x,y);
-				if (index != -1)
+		switch (event.getAction()) {
+		
+		case MotionEvent.ACTION_DOWN:
+			 {
+				int index = IsHit(x, y);
+				if (index != -1) {
+					DreamoriToast.killToast();
+					// Toast toast = Toast.makeText(getContext(),
+					// hotspots.get(index).contentString, Toast.LENGTH_LONG);
+					// toast.show();
+					//if (!cancleToast) {
+						DreamoriToast.invokeLongTimeToast(getContext(),
+								hotspots.get(index).contentString);
+						
+						DreamoriLog.LogDaoDeJing("Toast Show");
+					//	cancleToast = true;
+					//}
+				}
+				else 
 				{
-					Toast toast =  Toast.makeText(getContext(), hotspots.get(index).contentString, Toast.LENGTH_LONG);
-					toast.show();
-				}				
-				break;
-			default:
-				break;
+					//if (cancleToast) {
+						DreamoriToast.killToast();
+						DreamoriLog.LogDaoDeJing("Toast Killed");
+					//	cancleToast = false;
+					//} 					
+				}
+			}
+			break;
+		default:
+			break;
 		}
 		
 		return true;
