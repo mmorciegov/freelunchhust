@@ -166,6 +166,42 @@ public class DatabaseHelper {
     public final static String CONTENT_LAST_IMAGE_INDEX = "sctp";
     public final static String CONTENT_CONFIG_IMAGE_WIDTH = "tpkd";
     public final static String CONTENT_CONFIG_IMAGE_HEIGHT = "tpcd";
+    public final static String CONTENT_CONFIG_SHOW_TOUCH_TIP = "xsbj";
+    
+    public boolean NeedShowTouchTips( )
+    {
+    	boolean showTouchTips = true;
+ 	   	TableResult tableResult = null;
+
+    	try {
+			//String sql = "select HEX("+ CONTENT + ") from wztp where " +  CONTENT_ID + " = " + index;
+			String sql = "select "+ CONTENT_CONFIG_SHOW_TOUCH_TIP + " from "+TABLE_HISTORY;
+			tableResult = db.get_table(sql);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
+		if( tableResult == null || tableResult.rows.isEmpty() )
+			return showTouchTips;
+		
+		String result = tableResult.rows.get(0)[0];
+		if (result.compareTo("1") == 0)
+		{
+			showTouchTips = true;
+		}
+		else {
+			showTouchTips = false;
+		}
+
+		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}   		
+		return showTouchTips;
+    }
+    
 
     public int GetLastImageIndex( )
     {
@@ -208,7 +244,7 @@ public class DatabaseHelper {
     } 
        
 
-    public void GeImageWidthAndHeight( ObjectParameter.Size size  )
+    public void GeImageWidthAndHeight( ParameterObject.Size size  )
     {
     	size.width = 0;
     	size.height = 0;
@@ -255,7 +291,7 @@ public class DatabaseHelper {
     	{
     		initHotspot = true;
     		
-    		ObjectParameter.Size size = new ObjectParameter.Size();
+    		ParameterObject.Size size = new ParameterObject.Size();
     		GeImageWidthAndHeight( size );
     		
     		Hotspot.InitOrignalImageSize( size.width, size.height );
