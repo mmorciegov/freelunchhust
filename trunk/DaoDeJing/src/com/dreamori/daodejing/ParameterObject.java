@@ -1,6 +1,6 @@
 package com.dreamori.daodejing;
 
-public class ObjectParameter {
+public class ParameterObject {
 	
 	static public class Size
 	{
