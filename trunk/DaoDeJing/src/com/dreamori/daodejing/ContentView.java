@@ -28,10 +28,14 @@ import android.widget.Toast;
 
 public class ContentView extends View   implements OnGestureListener{
 	
+	private boolean m_bInit = false;
 	private DatabaseHelper m_dbHelper = null;	
 	private ArrayList<Hotspot> hotspots = new ArrayList<Hotspot>();
-	Rect   m_srcRect = null;
-	Rect   m_dstRect = null;
+	Rect   m_srcRect = new Rect();
+	Rect   m_dstRect = new Rect();
+	
+	private float srcRatio = 0;
+	private float dstRatio = 0;
 	
 	Bitmap m_bitmap = null;
 	
@@ -56,32 +60,35 @@ public class ContentView extends View   implements OnGestureListener{
 
 	private void InitRect()
 	{
-		hotspots.clear();
-		m_bitmap = BitmapFactory.decodeResource( getContext().getResources(),  ResourceManager.GetIcon(getContext(), m_dbHelper.GetImageContentName(DaoDeJing.m_currentImageIndex)));
-		
-		m_srcRect = new Rect();
-		m_srcRect.left = m_srcRect.top = 0;
-		m_srcRect.right = m_bitmap.getWidth(); 
-		m_srcRect.bottom = m_bitmap.getHeight();
-		
-		m_dstRect = new Rect();
 		m_dstRect.left = m_dstRect.top = 0;
 		m_dstRect.right = getWidth(); 
 		m_dstRect.bottom = getHeight();	
 		
-		Hotspot.IniUiImageSize(m_dstRect);   	
+		dstRatio =  (float)m_dstRect.width() / (float)m_dstRect.height();
 		
-		m_dbHelper.GetImageHotSpot( DaoDeJing.m_currentImageIndex, hotspots);
-		for (Hotspot hotspot : hotspots) {
-			hotspot.GetHotspotUiPosition();
-		}
+		Hotspot.IniUiImageSize(m_dstRect);  
+		
+		UpdateImageAndHotspot();		
 	}
 			
 	public void UpdateImageAndHotspot()
 	{
 		hotspots.clear();
 		m_bitmap = BitmapFactory.decodeResource( getContext().getResources(),  ResourceManager.GetIcon(getContext(), m_dbHelper.GetImageContentName(DaoDeJing.m_currentImageIndex)));
-
+		m_srcRect.left = m_srcRect.top = 0;
+		m_srcRect.right = m_bitmap.getWidth(); 
+		m_srcRect.bottom = m_bitmap.getHeight();
+						
+		//Recalc destRect.
+		if( ( srcRatio - dstRatio ) > 0 )
+		{
+			float newHeight = ((float)m_dstRect.width() / srcRatio);
+			m_dstRect.top = (int)( (m_dstRect.height() - newHeight)/2 );
+			m_dstRect.bottom = m_dstRect.top + (int) newHeight;
+			
+			Hotspot.IniUiImageSize(m_dstRect);  
+		}
+		
 		m_dbHelper.GetImageHotSpot( DaoDeJing.m_currentImageIndex, hotspots);
 		for (Hotspot hotspot : hotspots) {
 			hotspot.GetHotspotUiPosition();
@@ -194,9 +201,10 @@ public class ContentView extends View   implements OnGestureListener{
 	@Override
 	protected void onDraw(Canvas canvas)
 	{
-		if (m_dstRect == null)
+		if (!m_bInit)
 		{
 			InitRect();
+			m_bInit = true;
 		}
 		canvas.drawBitmap(m_bitmap, m_srcRect, m_dstRect, null);
 		
