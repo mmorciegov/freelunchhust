@@ -37,12 +37,12 @@ public class DaoDeJing extends Activity {
 		
 	public void ShowNextImage(View v)
 	{
-		contentView.ShowNextImage(v);
+		contentView.ShowNextImage();
 	}
 		
 	public void ShowPreviosImage(View v)
 	{	
-		contentView.ShowPreviosImage(v);
+		contentView.ShowPreviosImage();
 	}
 
 	@Override

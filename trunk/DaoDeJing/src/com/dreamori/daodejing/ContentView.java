@@ -14,12 +14,14 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.GestureDetector.OnGestureListener;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class ContentView extends View {
+public class ContentView extends View   implements OnGestureListener{
 	
 	private DatabaseHelper m_dbHelper = null;	
 	private ArrayList<Hotspot> hotspots = new ArrayList<Hotspot>();
@@ -29,6 +31,8 @@ public class ContentView extends View {
 	Bitmap m_bitmap = null;
 	
 	boolean m_needShowTouchTips = true;
+	
+	 private GestureDetector detector;
 
 	public ContentView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -40,6 +44,8 @@ public class ContentView extends View {
 		}
 		
 		m_needShowTouchTips = m_dbHelper.NeedShowTouchTips();
+		
+		detector = new GestureDetector(this);
 	}
 	
 
@@ -78,7 +84,7 @@ public class ContentView extends View {
 		}			
 	}
 	
-	public void ShowNextImage(View v)
+	public void ShowNextImage()
 	{
 		DaoDeJing.m_currentImageIndex++;
 		if( DaoDeJing.m_currentImageIndex > Const.m_maxImageIndex )
@@ -91,7 +97,7 @@ public class ContentView extends View {
 	}
 	
 	
-	public void ShowPreviosImage(View v)
+	public void ShowPreviosImage()
 	{	
 		DaoDeJing.m_currentImageIndex--;
 		if( DaoDeJing.m_currentImageIndex < Const.m_minImageIndex )
@@ -118,8 +124,15 @@ public class ContentView extends View {
 	
 	private boolean cancleToast = false;
 	
+	
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+		
+		if( this.detector.onTouchEvent(event) )
+		{
+			return true;
+		}
+		
 		float x = event.getX();
 		float y = event.getY();
 		switch (event.getAction()) {
@@ -193,6 +206,53 @@ public class ContentView extends View {
 		}		
 		
 		invalidate();
+	}
+
+	 
+    @Override
+    public boolean onDown(MotionEvent e) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+	@Override
+	public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+			float velocityY) {
+		// TODO Auto-generated method stub
+		if( e1.getX() - e2.getX() > 120 )
+		{
+			ShowNextImage();
+		}
+		else if( e1.getX() - e2.getX() < -120 ) {
+			ShowPreviosImage();
+		}
+		
+		return true;
+	}
+
+	@Override
+	public void onLongPress(MotionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+			float distanceY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void onShowPress(MotionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean onSingleTapUp(MotionEvent e) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
 
