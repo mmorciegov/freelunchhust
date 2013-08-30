@@ -65,10 +65,24 @@ public class DaoDeJing extends Activity {
     @Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
+    	//Kill Toast if needed
+    	contentView.killToast();
 		super.onDestroy();
 		m_dbHelper.SetLastImageIndex(m_currentImageIndex);
+		
 	}
     
+    @Override
+	protected void onPause() {
+    	contentView.killToast();
+    	super.onPause();
+    }
     
+    @Override
+	protected void onStop() {
+    	contentView.killToast();    
+    	super.onStop();
+    }
+	
 	
 }
