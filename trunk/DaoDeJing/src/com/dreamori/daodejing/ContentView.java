@@ -150,6 +150,11 @@ public class ContentView extends View {
 		return true;
 	}
 	
+
+	public void killToast() {
+		DreamoriToast.killToast();
+		DreamoriLog.LogDaoDeJing("Toast Killed");
+	}
 	
 	@Override
 	protected void onDraw(Canvas canvas)
