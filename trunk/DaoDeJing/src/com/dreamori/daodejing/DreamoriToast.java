@@ -25,11 +25,7 @@ public class DreamoriToast {
 	}
 
 	static private void initToast(int cnt) {
-//		if( cnt > 2 )
-//		{
-//			return;
-//		}		
-//		
+
 		if( !m_continue )
 		{
 			return;

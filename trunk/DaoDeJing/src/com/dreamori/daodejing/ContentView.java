@@ -193,14 +193,8 @@ public class ContentView extends View   implements OnGestureListener{
 
 		if (m_needShowTouchTips) {
 			for (int i = 0; i < hotspots.size(); i++) {				
-				
-				// canvas.drawCircle(m_data.get(i).pt.x, m_data.get(i).pt.y, 5,
-				// paint);
-				RectF rectf = new RectF(hotspots.get(i).posUiRect);
-
-				
-				DreamoriLog.LogDaoDeJing("Draw hotspots." +  "left: "+  rectf.left + "right: " + rectf.bottom + 4 + "" +  rectf.right + "" + rectf.bottom + 4);
-				
+				RectF rectf = new RectF(hotspots.get(i).posUiRect);				
+				//DreamoriLog.LogDaoDeJing("Draw hotspots." +  "left: "+  rectf.left + "right: " + rectf.bottom + 4 + "" +  rectf.right + "" + rectf.bottom + 4);				
 				canvas.drawLine(rectf.left, rectf.bottom + 4,  rectf.right, rectf.bottom + 4,  paint);
 			}
 		}		
