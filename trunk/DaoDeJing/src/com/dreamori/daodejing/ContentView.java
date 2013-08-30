@@ -68,6 +68,7 @@ public class ContentView extends View {
 			
 	public void UpdateImageAndHotspot()
 	{
+		killToast();
 		hotspots.clear();
 		m_bitmap = BitmapFactory.decodeResource( getContext().getResources(),  ResourceManager.GetIcon(getContext(), m_dbHelper.GetImageContentName(DaoDeJing.m_currentImageIndex)));
 
