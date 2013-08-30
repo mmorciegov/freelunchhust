@@ -45,7 +45,8 @@ public class ContentView extends View {
 
 	private void InitRect()
 	{
-		UpdateImageAndHotspot();
+		hotspots.clear();
+		m_bitmap = BitmapFactory.decodeResource( getContext().getResources(),  ResourceManager.GetIcon(getContext(), m_dbHelper.GetImageContentName(DaoDeJing.m_currentImageIndex)));
 		
 		m_srcRect = new Rect();
 		m_srcRect.left = m_srcRect.top = 0;
@@ -57,7 +58,12 @@ public class ContentView extends View {
 		m_dstRect.right = getWidth(); 
 		m_dstRect.bottom = getHeight();	
 		
-		Hotspot.IniUiImageSize(m_dstRect);   		
+		Hotspot.IniUiImageSize(m_dstRect);   	
+		
+		m_dbHelper.GetImageHotSpot( DaoDeJing.m_currentImageIndex, hotspots);
+		for (Hotspot hotspot : hotspots) {
+			hotspot.GetHotspotUiPosition();
+		}
 	}
 			
 	public void UpdateImageAndHotspot()
@@ -172,11 +178,15 @@ public class ContentView extends View {
 		paint.setStyle(Paint.Style.STROKE);
 
 		if (m_needShowTouchTips) {
-			for (int i = 0; i < hotspots.size(); i++) {
+			for (int i = 0; i < hotspots.size(); i++) {				
+				
 				// canvas.drawCircle(m_data.get(i).pt.x, m_data.get(i).pt.y, 5,
 				// paint);
 				RectF rectf = new RectF(hotspots.get(i).posUiRect);
-				//canvas.drawOval(rectf, paint);
+
+				
+				DreamoriLog.LogDaoDeJing("Draw hotspots." +  "left: "+  rectf.left + "right: " + rectf.bottom + 4 + "" +  rectf.right + "" + rectf.bottom + 4);
+				
 				canvas.drawLine(rectf.left, rectf.bottom + 4,  rectf.right, rectf.bottom + 4,  paint);
 			}
 		}		
