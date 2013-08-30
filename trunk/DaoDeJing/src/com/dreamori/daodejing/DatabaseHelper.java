@@ -25,6 +25,7 @@ import SQLite3.TableResult;
 import android.R.string;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Rect;
 
 public class DatabaseHelper {
 
@@ -283,19 +284,16 @@ public class DatabaseHelper {
     public final static String CONTENT_HOTSPOT_RIGHT_BOTTOM_Y = "yxy";
     public final static String CONTENT_HOTSPOT_CONTENT = "jsnr";
     
-    private boolean initHotspot = false;
+
     
     public void GetImageHotSpot( int imageIndex, ArrayList<Hotspot> hotspots)
     {
-    	if( !initHotspot )
-    	{
-    		initHotspot = true;
+    	//TODO:Add width/height for every picture.
+    	ParameterObject.Size size = new ParameterObject.Size();
+    	GeImageWidthAndHeight( size );
     		
-    		ParameterObject.Size size = new ParameterObject.Size();
-    		GeImageWidthAndHeight( size );
-    		
-    		Hotspot.InitOrignalImageSize( size.width, size.height );
-    	}   	
+    	Hotspot.SetOrignalImageSize( new Rect(0, 0, size.width, size.height) );
+	
     	
  	   	TableResult tableResult = null;
 

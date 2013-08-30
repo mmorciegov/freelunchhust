@@ -16,16 +16,20 @@ public class Hotspot {
 	static Rect imgUiRect = new Rect();	
 	Rect posUiRect = new Rect();
 	
-	static void InitOrignalImageSize( int imgOriginalWidth, int imgOriginalHeight )
+	static void SetOrignalImageSize( Rect originalImgSize )
 	{
-		imgOriginalRect.left = imgOriginalRect.top = 0;
-		imgOriginalRect.right = imgOriginalWidth;
-		imgOriginalRect.bottom = imgOriginalHeight;
+		imgOriginalRect.left = originalImgSize.left;
+		imgOriginalRect.top = originalImgSize.top;
+		imgOriginalRect.right = originalImgSize.right;
+		imgOriginalRect.bottom = originalImgSize.bottom;
 	}
 	
-	static void IniUiImageSize( Rect uiImgSize )
+	static void SetUiImageSize( Rect uiImgSize )
 	{
-		imgUiRect = uiImgSize;
+		imgUiRect.left = uiImgSize.left;
+		imgUiRect.top = uiImgSize.top;
+		imgUiRect.right = uiImgSize.right;
+		imgUiRect.bottom = uiImgSize.bottom;
 	}
 	
 	void GetHotspotUiPosition()

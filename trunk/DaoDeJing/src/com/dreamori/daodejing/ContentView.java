@@ -32,7 +32,8 @@ public class ContentView extends View   implements OnGestureListener{
 	private DatabaseHelper m_dbHelper = null;	
 	private ArrayList<Hotspot> hotspots = new ArrayList<Hotspot>();
 	Rect   m_srcRect = new Rect();
-	Rect   m_dstRect = new Rect();
+	Rect   m_orignalDstRect = new Rect();
+	Rect   m_finalDst = new Rect();
 	
 	private float srcRatio = 0;
 	private float dstRatio = 0;
@@ -60,13 +61,13 @@ public class ContentView extends View   implements OnGestureListener{
 
 	private void InitRect()
 	{
-		m_dstRect.left = m_dstRect.top = 0;
-		m_dstRect.right = getWidth(); 
-		m_dstRect.bottom = getHeight();	
+		m_orignalDstRect.left = m_orignalDstRect.top = 0;
+		m_orignalDstRect.right = getWidth(); 
+		m_orignalDstRect.bottom = getHeight();	
 		
-		dstRatio =  (float)m_dstRect.width() / (float)m_dstRect.height();
+		dstRatio =  (float)m_orignalDstRect.width() / (float)m_orignalDstRect.height();
 		
-		Hotspot.IniUiImageSize(m_dstRect);  
+		Hotspot.SetUiImageSize(m_orignalDstRect);  
 		
 		UpdateImageAndHotspot();		
 	}
@@ -78,16 +79,25 @@ public class ContentView extends View   implements OnGestureListener{
 		m_srcRect.left = m_srcRect.top = 0;
 		m_srcRect.right = m_bitmap.getWidth(); 
 		m_srcRect.bottom = m_bitmap.getHeight();
-						
+		srcRatio =  (float)m_srcRect.width() / (float)m_srcRect.height();
+								
+		m_finalDst = new Rect(m_orignalDstRect);
+		
 		//Recalc destRect.
 		if( ( srcRatio - dstRatio ) > 0 )
 		{
-			float newHeight = ((float)m_dstRect.width() / srcRatio);
-			m_dstRect.top = (int)( (m_dstRect.height() - newHeight)/2 );
-			m_dstRect.bottom = m_dstRect.top + (int) newHeight;
-			
-			Hotspot.IniUiImageSize(m_dstRect);  
+			float newHeight = ((float)m_orignalDstRect.width() / srcRatio);
+			m_finalDst.top = (int)( (m_orignalDstRect.height() - newHeight)/2 );
+			m_finalDst.bottom = m_finalDst.top + (int) newHeight;
 		}
+		else
+		{
+			float newWidth = ((float)m_orignalDstRect.height() * srcRatio);
+			m_finalDst.left = (int)( (m_orignalDstRect.width() - newWidth)/2 );
+			m_finalDst.right = m_finalDst.left + (int)newWidth;
+		}
+		
+		Hotspot.SetUiImageSize(m_finalDst);  
 		
 		m_dbHelper.GetImageHotSpot( DaoDeJing.m_currentImageIndex, hotspots);
 		for (Hotspot hotspot : hotspots) {
@@ -206,7 +216,7 @@ public class ContentView extends View   implements OnGestureListener{
 			InitRect();
 			m_bInit = true;
 		}
-		canvas.drawBitmap(m_bitmap, m_srcRect, m_dstRect, null);
+		canvas.drawBitmap(m_bitmap, m_srcRect, m_finalDst, null);
 		
 		Paint paint = new Paint();
 		paint.setAntiAlias(true);
