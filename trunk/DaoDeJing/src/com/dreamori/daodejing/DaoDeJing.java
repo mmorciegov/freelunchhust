@@ -1,22 +1,11 @@
 package com.dreamori.daodejing;
 
-import java.util.ArrayList;
 import com.dreamori.daodejing.DatabaseHelper;
 import android.os.Bundle;
 import android.app.Activity;
-import android.graphics.BitmapFactory;
-import android.graphics.Point;
-import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.widget.ImageView;
-import android.widget.Toast;
-import android.graphics.Bitmap;
-import android.view.ViewGroup.MarginLayoutParams; 
-import android.widget.RelativeLayout; 
+import android.view.Window; 
 
 public class DaoDeJing extends Activity {
 	private DatabaseHelper m_dbHelper = null;	
@@ -49,40 +38,19 @@ public class DaoDeJing extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         
         contentView =(ContentView)findViewById(R.id.img_content);
         m_currentImageIndex = getDatabaseHelper().GetLastImageIndex();                    
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
-    }
     
     @Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
-    	//Kill Toast if needed
-    	contentView.killToast();
 		super.onDestroy();
 		m_dbHelper.SetLastImageIndex(m_currentImageIndex);
-		
 	}
     
-    @Override
-	protected void onPause() {
-    	contentView.killToast();
-    	super.onPause();
-    }
     
-    @Override
-	protected void onStop() {
-    	contentView.killToast();    
-    	super.onStop();
-    }
-	
 	
 }

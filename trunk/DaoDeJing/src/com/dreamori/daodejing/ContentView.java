@@ -3,7 +3,10 @@ package com.dreamori.daodejing;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -15,10 +18,12 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.GestureDetector.OnGestureListener;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ContentView extends View   implements OnGestureListener{
@@ -74,7 +79,6 @@ public class ContentView extends View   implements OnGestureListener{
 			
 	public void UpdateImageAndHotspot()
 	{
-		killToast();
 		hotspots.clear();
 		m_bitmap = BitmapFactory.decodeResource( getContext().getResources(),  ResourceManager.GetIcon(getContext(), m_dbHelper.GetImageContentName(DaoDeJing.m_currentImageIndex)));
 
@@ -141,26 +145,43 @@ public class ContentView extends View   implements OnGestureListener{
 			 {
 				int index = IsHit(x, y);
 				if (index != -1) {
-					DreamoriToast.killToast();
-					// Toast toast = Toast.makeText(getContext(),
-					// hotspots.get(index).contentString, Toast.LENGTH_LONG);
-					// toast.show();
-					//if (!cancleToast) {
-						DreamoriToast.invokeLongTimeToast(getContext(),
-								hotspots.get(index).contentString);
+					//DreamoriToast.killToast();
+					AlertDialog.Builder builder = new Builder(getContext());
+					
+					LayoutInflater inflater = LayoutInflater.from(getContext());
+					View rootView = inflater.inflate(R.layout.explain_dialog, null);
+					TextView orgTV = (TextView)rootView.findViewById(R.id.original_text);
+					orgTV.setText("test");
+					TextView expTV = (TextView)rootView.findViewById(R.id.explain_text);
+					expTV.setText(hotspots.get(index).contentString);
+					
+				    builder.setView(rootView);
+				    builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+						}});
+
+					builder.create().show();
+					
+//
+//					
+//						DreamoriToast.invokeLongTimeToast(getContext(),
+//								hotspots.get(index).contentString);
+//						
+//						DreamoriLog.LogDaoDeJing("Toast Show");
+//						
 						
-						DreamoriLog.LogDaoDeJing("Toast Show");
-					//	cancleToast = true;
-					//}
 				}
-				else 
-				{
-					//if (cancleToast) {
-						DreamoriToast.killToast();
-						DreamoriLog.LogDaoDeJing("Toast Killed");
-					//	cancleToast = false;
-					//} 					
-				}
+//				else 
+//				{
+//					//if (cancleToast) {
+//						DreamoriToast.killToast();
+//						DreamoriLog.LogDaoDeJing("Toast Killed");
+//					//	cancleToast = false;
+//					//} 					
+//				}
 			}
 			break;
 		default:
@@ -168,12 +189,6 @@ public class ContentView extends View   implements OnGestureListener{
 		}
 		
 		return true;
-	}
-	
-
-	public void killToast() {
-		DreamoriToast.killToast();
-		DreamoriLog.LogDaoDeJing("Toast Killed");
 	}
 	
 	@Override
