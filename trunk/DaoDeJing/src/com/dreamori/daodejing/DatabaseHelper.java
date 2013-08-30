@@ -133,15 +133,47 @@ public class DatabaseHelper {
     public final static String CONTENT_ID = "bh";
     public final static String CONTENT = "tp";
     public final static String CONTENT_NAME = "tpmc";
+    public final static String CONTENT_IMAGE_WIDTH = "tpkd";
+    public final static String CONTENT_IMAGE_HEIGHT = "tpgd";
     public final static String CONTENT_COMMENT = "bz";
 
+    public void GeImageWidthAndHeight( int index, ParameterObject.Size size  )
+    {
+    	size.width = 0;
+    	size.height = 0;
+ 	   	TableResult tableResult = null; 	   	
+
+ 	   	try {
+			//String sql = "select HEX("+ CONTENT + ") from wztp where " +  CONTENT_ID + " = " + index;
+			String sql = "select "+ CONTENT_IMAGE_WIDTH + "," + CONTENT_IMAGE_HEIGHT + " from "+TABLE_PIC_CONTENT  +" where " +  CONTENT_ID + " = " + index;
+			tableResult = db.get_table(sql);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
+    	if( tableResult == null || tableResult.rows.isEmpty() )
+			return ;
+		
+		size.width = Integer.parseInt(tableResult.rows.get(0)[0]);
+		size.height = Integer.parseInt(tableResult.rows.get(0)[1]);
+		
+		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}   		
+    	   		
+		return;
+    }
+    
     public String GetImageContentName( int index )
     {
  	   	TableResult tableResult = null;
 
     	try {
 			//String sql = "select HEX("+ CONTENT + ") from wztp where " +  CONTENT_ID + " = " + index;
-			String sql = "select "+ CONTENT_NAME + " from wztp where " +  CONTENT_ID + " = " + index;
+			String sql = "select "+ CONTENT_NAME + " from "+ TABLE_PIC_CONTENT +" where " +  CONTENT_ID + " = " + index;
 			tableResult = db.get_table(sql);
 
 		} catch (Exception e) {
@@ -163,11 +195,11 @@ public class DatabaseHelper {
 		return result;
     }
     
+    
+    
     public final static String TABLE_HISTORY = "config";
-    public final static String CONTENT_LAST_IMAGE_INDEX = "sctp";
-    public final static String CONTENT_CONFIG_IMAGE_WIDTH = "tpkd";
-    public final static String CONTENT_CONFIG_IMAGE_HEIGHT = "tpcd";
-    public final static String CONTENT_CONFIG_SHOW_TOUCH_TIP = "xsbj";
+    public final static String HISTORY_LAST_IMAGE_INDEX = "sctp";
+    public final static String HISTORY_CONFIG_SHOW_TOUCH_TIP = "xsbj";
     
     public boolean NeedShowTouchTips( )
     {
@@ -176,7 +208,7 @@ public class DatabaseHelper {
 
     	try {
 			//String sql = "select HEX("+ CONTENT + ") from wztp where " +  CONTENT_ID + " = " + index;
-			String sql = "select "+ CONTENT_CONFIG_SHOW_TOUCH_TIP + " from "+TABLE_HISTORY;
+			String sql = "select "+ HISTORY_CONFIG_SHOW_TOUCH_TIP + " from "+TABLE_HISTORY;
 			tableResult = db.get_table(sql);
 
 		} catch (Exception e) {
@@ -211,7 +243,7 @@ public class DatabaseHelper {
 
     	try {
 			//String sql = "select HEX("+ CONTENT + ") from wztp where " +  CONTENT_ID + " = " + index;
-			String sql = "select "+ CONTENT_LAST_IMAGE_INDEX + " from "+TABLE_HISTORY;
+			String sql = "select "+ HISTORY_LAST_IMAGE_INDEX + " from "+TABLE_HISTORY;
 			tableResult = db.get_table(sql);
 
 		} catch (Exception e) {
@@ -237,73 +269,40 @@ public class DatabaseHelper {
     {
 		//Update food frequency
 		try {
-			db.exec("update "+TABLE_HISTORY+" set "+CONTENT_LAST_IMAGE_INDEX+"="+index, null);
+			db.exec("update "+TABLE_HISTORY+" set "+HISTORY_LAST_IMAGE_INDEX+"="+index, null);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
-    } 
-       
-
-    public void GeImageWidthAndHeight( ParameterObject.Size size  )
-    {
-    	size.width = 0;
-    	size.height = 0;
- 	   	TableResult tableResult = null;
-
-    	try {
-			//String sql = "select HEX("+ CONTENT + ") from wztp where " +  CONTENT_ID + " = " + index;
-			String sql = "select "+ CONTENT_CONFIG_IMAGE_WIDTH + "," + CONTENT_CONFIG_IMAGE_HEIGHT + " from "+TABLE_HISTORY;
-			tableResult = db.get_table(sql);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
-		if( tableResult == null || tableResult.rows.isEmpty() )
-			return ;
-		
-		size.width = Integer.parseInt(tableResult.rows.get(0)[0]);
-		size.height = Integer.parseInt(tableResult.rows.get(0)[1]);
-		
-		if( tableResult != null )
-    	{
-    		tableResult.clear();
-    		tableResult = null;
-    	}   		
-    	   		
-		return;
-    }
+    }        
     
     public final static String TABLE_HOTSPOT = "cmqy";
-    public final static String CONTENT_IMAGE_INDEX = "tpbh";
-    public final static String CONTENT_HOTSPOT_INDEX = "qybh";
-    public final static String CONTENT_HOTSPOT_LEFT_TOP_X = "zsx";
-    public final static String CONTENT_HOTSPOT_LEFT_TOP_Y = "zsy";
-    public final static String CONTENT_HOTSPOT_RIGHT_BOTTOM_X = "yxx";
-    public final static String CONTENT_HOTSPOT_RIGHT_BOTTOM_Y = "yxy";
-    public final static String CONTENT_HOTSPOT_CONTENT = "jsnr";
-    
-
-    
+    public final static String HOTSPOT_IMAGE_INDEX = "tpbh";
+    public final static String HOTSPOT_HOTSPOT_INDEX = "qybh";
+    public final static String HOTSPOT_HOTSPOT_LEFT_TOP_X = "zsx";
+    public final static String HOTSPOT_HOTSPOT_LEFT_TOP_Y = "zsy";
+    public final static String HOTSPOT_HOTSPOT_RIGHT_BOTTOM_X = "yxx";
+    public final static String HOTSPOT_HOTSPOT_RIGHT_BOTTOM_Y = "yxy";
+    public final static String HOTSPOT_HOTSPOT_CONTENT = "jsnr";
+        
     public void GetImageHotSpot( int imageIndex, ArrayList<Hotspot> hotspots)
     {
     	//TODO:Add width/height for every picture.
     	ParameterObject.Size size = new ParameterObject.Size();
-    	GeImageWidthAndHeight( size );
-    		
+    	GeImageWidthAndHeight( imageIndex, size );
+    	
     	Hotspot.SetOrignalImageSize( new Rect(0, 0, size.width, size.height) );
 	
     	
  	   	TableResult tableResult = null;
 
     	try {
-			String sql = "select "+ CONTENT_HOTSPOT_INDEX + " , " + CONTENT_HOTSPOT_LEFT_TOP_X +
-					" , " + CONTENT_HOTSPOT_LEFT_TOP_Y +
-					" , " + CONTENT_HOTSPOT_RIGHT_BOTTOM_X +
-					" , " + CONTENT_HOTSPOT_RIGHT_BOTTOM_Y +	
-					" , " + CONTENT_HOTSPOT_CONTENT +	
-					" from "+ TABLE_HOTSPOT + " where " +  CONTENT_IMAGE_INDEX + " = " + imageIndex;
+			String sql = "select "+ HOTSPOT_HOTSPOT_INDEX + " , " + HOTSPOT_HOTSPOT_LEFT_TOP_X +
+					" , " + HOTSPOT_HOTSPOT_LEFT_TOP_Y +
+					" , " + HOTSPOT_HOTSPOT_RIGHT_BOTTOM_X +
+					" , " + HOTSPOT_HOTSPOT_RIGHT_BOTTOM_Y +	
+					" , " + HOTSPOT_HOTSPOT_CONTENT +	
+					" from "+ TABLE_HOTSPOT + " where " +  HOTSPOT_IMAGE_INDEX + " = " + imageIndex;
 			tableResult = db.get_table(sql);
 
 		} catch (Exception e) {
