@@ -110,8 +110,7 @@ public class ContentView extends View   implements OnGestureListener{
 		DaoDeJing.m_currentImageIndex++;
 		if( DaoDeJing.m_currentImageIndex > Const.m_maxImageIndex )
 		{
-			DaoDeJing.m_currentImageIndex = Const.m_maxImageIndex;
-			return;
+			DaoDeJing.m_currentImageIndex = Const.m_minImageIndex;
 		}
 
 		UpdateImageAndHotspot();
@@ -123,8 +122,7 @@ public class ContentView extends View   implements OnGestureListener{
 		DaoDeJing.m_currentImageIndex--;
 		if( DaoDeJing.m_currentImageIndex < Const.m_minImageIndex )
 		{
-			DaoDeJing.m_currentImageIndex = Const.m_minImageIndex;
-			return;
+			DaoDeJing.m_currentImageIndex = Const.m_maxImageIndex;
 		}
 		
 		UpdateImageAndHotspot();
