@@ -14,7 +14,7 @@ public class DaoDeJing extends Activity {
 	
     static int m_currentImageIndex = Const.m_minImageIndex;
 	
-	public DatabaseHelper getDatabaseHelper()
+    public DatabaseHelper getDatabaseHelper()
 	{
 		if( m_dbHelper == null )
 		{
@@ -23,12 +23,12 @@ public class DaoDeJing extends Activity {
 		
 		return m_dbHelper;
 	}
-		
+	
 	public void ShowNextImage(View v)
 	{
 		contentView.ShowNextImage();
 	}
-		
+	
 	public void ShowPreviosImage(View v)
 	{	
 		contentView.ShowPreviosImage();
