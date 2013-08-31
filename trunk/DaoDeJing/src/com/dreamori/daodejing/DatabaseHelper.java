@@ -283,7 +283,6 @@ public class DatabaseHelper {
     public final static String HOTSPOT_HOTSPOT_LEFT_TOP_Y = "zsy";
     public final static String HOTSPOT_HOTSPOT_RIGHT_BOTTOM_X = "yxx";
     public final static String HOTSPOT_HOTSPOT_RIGHT_BOTTOM_Y = "yxy";
-    public final static String HOTSPOT_HOTSPOT_CONTENT = "jsnr";
         
     public void GetImageHotSpot( int imageIndex, ArrayList<Hotspot> hotspots)
     {
@@ -301,7 +300,6 @@ public class DatabaseHelper {
 					" , " + HOTSPOT_HOTSPOT_LEFT_TOP_Y +
 					" , " + HOTSPOT_HOTSPOT_RIGHT_BOTTOM_X +
 					" , " + HOTSPOT_HOTSPOT_RIGHT_BOTTOM_Y +	
-					" , " + HOTSPOT_HOTSPOT_CONTENT +	
 					" from "+ TABLE_HOTSPOT + " where " +  HOTSPOT_IMAGE_INDEX + " = " + imageIndex;
 			tableResult = db.get_table(sql);
 
@@ -319,14 +317,13 @@ public class DatabaseHelper {
 			Hotspot hotspot = new Hotspot();							
 			hotspot.hotspotIndex = Integer.parseInt(tableRow[0]);
 			hotspot.posRect.left = Integer.parseInt(tableRow[1]);
-			hotspot.posRect.top = Integer.parseInt(tableRow[2]);
+			hotspot.posRect.top = Integer.parseInt(tableRow[2]); 
 			hotspot.posRect.right = Integer.parseInt(tableRow[3]);
 			hotspot.posRect.bottom = Integer.parseInt(tableRow[4]);
-			hotspot.contentString = tableRow[5];
+			hotspot.contentString = GetHotspotExplanation(imageIndex, hotspot.hotspotIndex);
 			
 			hotspots.add(hotspot);			
 		}
-
 		
    		if( tableResult != null )
     	{
@@ -335,5 +332,43 @@ public class DatabaseHelper {
     	}   		
     	
 		return;
+    }
+    
+
+    public final static String TABLE_HOTSPOT_CONTENT = "cmnr";
+    public final static String HOTSPOT_CONTENT_IMAGE_INDEX = "tpbh";
+    public final static String HOTSPOT_CONTENT_HOTSPOT_INDEX = "qybh";
+    public final static String HOTSPOT_CONTENT_TITLE = "jsbt";
+    public final static String HOTSPOT_CONTENT_EXPLANAITION= "jsnr";
+    
+    public String GetHotspotExplanation( int imageIndex, int hotspotIndex )
+    {
+    	String hotspotExplanation = "";    	
+
+ 	   	TableResult tableResult = null;
+
+    	try {
+			String sql = "select "+ HOTSPOT_CONTENT_EXPLANAITION + 
+					" from "+ TABLE_HOTSPOT_CONTENT + " where " +  HOTSPOT_CONTENT_IMAGE_INDEX + " = " + imageIndex 
+					+ " and " + HOTSPOT_CONTENT_HOTSPOT_INDEX + " = " + hotspotIndex ;
+			tableResult = db.get_table(sql);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
+		if( tableResult == null || tableResult.rows.isEmpty() )
+			return hotspotExplanation;
+		
+		hotspotExplanation = tableResult.rows.get(0)[0];
+		
+   		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}   	
+   		
+   		return hotspotExplanation;
+    	
     }
 }
