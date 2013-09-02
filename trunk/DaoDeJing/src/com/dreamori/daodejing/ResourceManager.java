@@ -15,4 +15,15 @@ public class ResourceManager {
 		
 		return id;
 	}
+	
+	public static int GetBackgroundIcon(Context context, String name)
+	{
+		int id = context.getResources().getIdentifier(name, "drawable", context.getPackageName());
+		if( id == 0 )
+		{
+			id = R.drawable.background;
+		}		
+		
+		return id;
+	}
 }

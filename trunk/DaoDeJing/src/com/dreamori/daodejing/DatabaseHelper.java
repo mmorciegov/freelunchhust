@@ -371,4 +371,69 @@ public class DatabaseHelper {
    		return hotspotExplanation;
     	
     }
+    
+
+    public final static String TABLE_BACKGROUND_CONTENT = "bjtp";
+    public final static String BACKGROUND_IMAGE_INDEX = "tpbh";
+    public final static String BACKGROUND_IMAGE_NAME = "tpmc";
+
+    public String GetBackgroundImageContentName( int index )
+    {
+ 	   	TableResult tableResult = null;
+
+    	try {
+			//String sql = "select HEX("+ CONTENT + ") from wztp where " +  CONTENT_ID + " = " + index;
+			String sql = "select "+ BACKGROUND_IMAGE_NAME + " from "+ TABLE_BACKGROUND_CONTENT +" where " +  BACKGROUND_IMAGE_INDEX + " = " + index;
+			tableResult = db.get_table(sql);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
+		if( tableResult == null || tableResult.rows.isEmpty() )
+			return null;
+		
+		String result = tableResult.rows.get(0)[0];
+		//byte[] data =  getBytes( charData );;
+		
+   		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}   		
+    	
+		return result;
+    }
+    
+
+    public int GetBackgroundImageCount( )
+    {
+    	int backgroundImageCount = 0;
+ 	   	TableResult tableResult = null;
+
+    	try {
+			//String sql = "select HEX("+ CONTENT + ") from wztp where " +  CONTENT_ID + " = " + index;
+			String sql = "select count(*) from "+ TABLE_BACKGROUND_CONTENT;
+			tableResult = db.get_table(sql);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
+		if( tableResult == null || tableResult.rows.isEmpty() )
+			return 0;
+		
+		backgroundImageCount = Integer.parseInt(tableResult.rows.get(0)[0]);
+		//byte[] data =  getBytes( charData );;
+		
+   		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}   		
+    	
+		return backgroundImageCount;
+    }
+    
+    
 }
