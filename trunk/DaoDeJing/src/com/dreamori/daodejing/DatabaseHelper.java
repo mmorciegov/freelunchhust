@@ -372,7 +372,6 @@ public class DatabaseHelper {
     	
     }
     
-
     public final static String TABLE_BACKGROUND_CONTENT = "bjtp";
     public final static String BACKGROUND_IMAGE_INDEX = "tpbh";
     public final static String BACKGROUND_IMAGE_NAME = "tpmc";
