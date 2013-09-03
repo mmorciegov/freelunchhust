@@ -11,6 +11,7 @@ public class Hotspot {
 	int hotspotIndex;
 	Rect posRect = new Rect();
 	String contentString;
+	String titleString;
 	
 	//From UI
 	static Rect imgUiRect = new Rect();	

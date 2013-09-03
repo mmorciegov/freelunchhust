@@ -7,5 +7,11 @@ public class ParameterObject {
 		int width;
 		int height;
 	}
+	
+	static public class TitleContent
+	{
+		String title;
+		String content;
+	}
 
 }
