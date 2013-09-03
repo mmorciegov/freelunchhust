@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.dreamori.daodejing.ParameterObject.TitleContent;
+
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
@@ -124,8 +126,7 @@ public class ContentView extends View   implements OnGestureListener{
 		
 		((View) this.getParent()).setBackgroundResource(ResourceManager.GetBackgroundIcon(getContext(), m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));
 	}
-	
-	
+		
 	public void ShowPreviosImage()
 	{	
 		DaoDeJing.m_currentImageIndex--;
@@ -137,6 +138,15 @@ public class ContentView extends View   implements OnGestureListener{
 		UpdateImageAndHotspot();
 		
 		((View) this.getParent()).setBackgroundResource(ResourceManager.GetBackgroundIcon(getContext(), m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));
+	}
+	
+	public void ShowWholeExplanation()
+	{
+		TitleContent titleContent = new TitleContent();
+		if( m_dbHelper.GetExplanationContent(DaoDeJing.m_currentImageIndex, titleContent))
+		{
+			ShowExplanationDialog(titleContent.title, titleContent.content );		
+		}
 	}
 	
 	public int IsHit(float x, float y)
@@ -152,7 +162,31 @@ public class ContentView extends View   implements OnGestureListener{
 		return -1;
 	}
 	
-	private boolean cancleToast = false;
+	//private boolean cancleToast = false;
+	
+	public void ShowExplanationDialog( String title, String contentString )
+	{
+		AlertDialog.Builder builder = new Builder(getContext());
+		
+		LayoutInflater inflater = LayoutInflater.from(getContext());
+		View rootView = inflater.inflate(R.layout.explain_dialog, null);
+		rootView.setBackgroundResource(ResourceManager.GetBackgroundIcon(getContext(), m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));
+		
+		TextView orgTV = (TextView)rootView.findViewById(R.id.original_text);
+		orgTV.setText(title);
+		TextView expTV = (TextView)rootView.findViewById(R.id.explain_text);
+		expTV.setText(contentString);
+		
+	    builder.setView(rootView);
+	    builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}});
+
+		builder.create().show();
+	}
 	
 	
 	@Override
@@ -171,27 +205,8 @@ public class ContentView extends View   implements OnGestureListener{
 			 {
 				int index = IsHit(x, y);
 				if (index != -1) {
-					//DreamoriToast.killToast();
-					AlertDialog.Builder builder = new Builder(getContext());
 					
-					LayoutInflater inflater = LayoutInflater.from(getContext());
-					View rootView = inflater.inflate(R.layout.explain_dialog, null);
-					rootView.setBackgroundResource(ResourceManager.GetBackgroundIcon(getContext(), m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));
-					
-					TextView orgTV = (TextView)rootView.findViewById(R.id.original_text);
-					orgTV.setText(hotspots.get(index).titleString);
-					TextView expTV = (TextView)rootView.findViewById(R.id.explain_text);
-					expTV.setText(hotspots.get(index).contentString);
-					
-				    builder.setView(rootView);
-				    builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
-
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-						}});
-
-					builder.create().show();
+					ShowExplanationDialog(hotspots.get(index).titleString, hotspots.get(index).contentString );				
 					
 //
 //					

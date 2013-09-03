@@ -36,6 +36,11 @@ public class DaoDeJing extends Activity {
 	{	
 		contentView.ShowPreviosImage();		
 	}
+	
+	public void ShowWholeExplanation(View v)
+	{
+		contentView.ShowWholeExplanation();
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
