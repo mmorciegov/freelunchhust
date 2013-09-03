@@ -166,7 +166,7 @@ public class ContentView extends View   implements OnGestureListener{
 					LayoutInflater inflater = LayoutInflater.from(getContext());
 					View rootView = inflater.inflate(R.layout.explain_dialog, null);
 					TextView orgTV = (TextView)rootView.findViewById(R.id.original_text);
-					orgTV.setText("test");
+					orgTV.setText(hotspots.get(index).titleString);
 					TextView expTV = (TextView)rootView.findViewById(R.id.explain_text);
 					expTV.setText(hotspots.get(index).contentString);
 					

@@ -12,8 +12,9 @@ import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import org.xml.sax.Parser;
+import com.dreamori.daodejing.ParameterObject.TitleContent;
+
 
 
 import SQLite3.Blob;
@@ -311,6 +312,7 @@ public class DatabaseHelper {
 			return ;
 		
 		Hotspot.imgIndex = imageIndex;
+		TitleContent titleContent = new TitleContent();
 		
 		for (String[] tableRow : tableResult.rows) {
 			
@@ -320,7 +322,12 @@ public class DatabaseHelper {
 			hotspot.posRect.top = Integer.parseInt(tableRow[2]); 
 			hotspot.posRect.right = Integer.parseInt(tableRow[3]);
 			hotspot.posRect.bottom = Integer.parseInt(tableRow[4]);
-			hotspot.contentString = GetHotspotExplanation(imageIndex, hotspot.hotspotIndex);
+			if( GetHotspotExplanation(imageIndex, hotspot.hotspotIndex, titleContent) )
+			{
+				hotspot.contentString = titleContent.content;
+				hotspot.titleString = titleContent.title;
+			}
+			
 			
 			hotspots.add(hotspot);			
 		}
@@ -332,8 +339,7 @@ public class DatabaseHelper {
     	}   		
     	
 		return;
-    }
-    
+    }    
 
     public final static String TABLE_HOTSPOT_CONTENT = "cmnr";
     public final static String HOTSPOT_CONTENT_IMAGE_INDEX = "tpbh";
@@ -341,14 +347,12 @@ public class DatabaseHelper {
     public final static String HOTSPOT_CONTENT_TITLE = "jsbt";
     public final static String HOTSPOT_CONTENT_EXPLANAITION= "jsnr";
     
-    public String GetHotspotExplanation( int imageIndex, int hotspotIndex )
-    {
-    	String hotspotExplanation = "";    	
-
+    public boolean GetHotspotExplanation( int imageIndex, int hotspotIndex, TitleContent titleContent)
+    {   	
  	   	TableResult tableResult = null;
 
     	try {
-			String sql = "select "+ HOTSPOT_CONTENT_EXPLANAITION + 
+			String sql = "select "+ HOTSPOT_CONTENT_TITLE + " , " +HOTSPOT_CONTENT_EXPLANAITION + 
 					" from "+ TABLE_HOTSPOT_CONTENT + " where " +  HOTSPOT_CONTENT_IMAGE_INDEX + " = " + imageIndex 
 					+ " and " + HOTSPOT_CONTENT_HOTSPOT_INDEX + " = " + hotspotIndex ;
 			tableResult = db.get_table(sql);
@@ -358,9 +362,10 @@ public class DatabaseHelper {
 		}
     	
 		if( tableResult == null || tableResult.rows.isEmpty() )
-			return hotspotExplanation;
+			return false;
 		
-		hotspotExplanation = tableResult.rows.get(0)[0];
+		titleContent.title = tableResult.rows.get(0)[0];
+		titleContent.content = tableResult.rows.get(0)[1];
 		
    		if( tableResult != null )
     	{
@@ -368,7 +373,7 @@ public class DatabaseHelper {
     		tableResult = null;
     	}   	
    		
-   		return hotspotExplanation;
+   		return true;
     	
     }
     
