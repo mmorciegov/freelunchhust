@@ -439,5 +439,39 @@ public class DatabaseHelper {
 		return backgroundImageCount;
     }
     
+    public final static String TABLE_EXPLANATION = "qwsy";
+    public final static String EXPLANATION_IMAGE_INDEX = "tpbh";
+    public final static String EXPLANATION_TITLE = "bt";
+    public final static String EXPLANATION_CONTENT = "qwsy";
+
+    public boolean GetExplanationContent( int index, TitleContent titleContent )
+    {
+ 	   	TableResult tableResult = null;
+
+    	try {
+			//String sql = "select HEX("+ CONTENT + ") from wztp where " +  CONTENT_ID + " = " + index;
+			String sql = "select "+ EXPLANATION_TITLE + " , " + EXPLANATION_CONTENT + " from "+ TABLE_EXPLANATION +" where " +  EXPLANATION_IMAGE_INDEX + " = " + index;
+			tableResult = db.get_table(sql);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
+		if( tableResult == null || tableResult.rows.isEmpty() )
+			return false;
+		
+		titleContent.title = tableResult.rows.get(0)[0];
+		titleContent.content = tableResult.rows.get(0)[1];
+		//byte[] data =  getBytes( charData );;
+		
+   		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}   		
+    	
+		return true;
+    }
+    
     
 }

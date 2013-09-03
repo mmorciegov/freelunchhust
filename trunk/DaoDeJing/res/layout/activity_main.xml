@@ -41,7 +41,7 @@
             android:layout_marginTop="2dip" 
             android:layout_marginBottom ="10dip" 
             android:layout_centerInParent="true"
-            android:onClick="ShowNextImage"
+            android:onClick="ShowWholeExplanation"
             android:background="@drawable/exp"
             android:gravity="center"
              />
