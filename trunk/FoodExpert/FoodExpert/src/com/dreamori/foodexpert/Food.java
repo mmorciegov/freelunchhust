@@ -1,7 +1,8 @@
 package com.dreamori.foodexpert;
 
-import com.waps.AppConnect;
-import com.waps.UpdatePointsNotifier;
+import com.tapjoy.TapjoyConnect;
+import com.tapjoy.TapjoyEarnedPointsNotifier;
+import com.tapjoy.TapjoyNotifier;
 
 import cn.domob.android.ads.DomobUpdater;
 import android.os.Bundle;
@@ -10,32 +11,26 @@ import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class Food extends TitleActivity implements UpdatePointsNotifier {
+public class Food extends TitleActivity {
 
 	static boolean isStartVersionUpdateFlag = false;
-	public static final int MAX_POINT = 10;
+	public static final int MAX_POINT = 20;
+	private static int m_curPoint = 0;
+	private long m_exitTime = 0;
+
 	
 	TextView m_pointTV1;
-	String m_pointText1="";
 	final Handler m_Handler = new Handler();
-	final Runnable mUpdateResults = new Runnable() {
-		public void run() {
-			if (m_pointTV1 != null) 
-			{
-				m_pointTV1.setText(m_pointText1);
-			}
-		}
-	};
 
 	@TargetApi(8)
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
-
+		super.onDestroy();
+		
 		DreamoriLog.LogFoodExpert("Food Activity onDestroy");
 
 		DatabaseHelper dbHelper = getDatabaseHelper();
@@ -47,10 +42,7 @@ public class Food extends TitleActivity implements UpdatePointsNotifier {
 				.getSystemService(Context.ACTIVITY_SERVICE);
 		activityManager.killBackgroundProcesses(getPackageName());
 		System.exit(0);
-
-		AppConnect.getInstance(this).finalize();
 		
-		super.onDestroy();
 	}
 
 	@Override
@@ -70,14 +62,73 @@ public class Food extends TitleActivity implements UpdatePointsNotifier {
 			DomobUpdater.checkUpdate(this, "56OJznHIuMm0L4Zdwd");
 		}
 		
-		AppConnect.getInstance("4efc262d53252f8ab598f2d38a7861fe","CJY",this);
-		//WAPS google 91 hiapk gfan goapk appChina mumayi eoe nduo 
-		//huawei QQ 3G 360 baidu sohu 163 UC dangle samsung moto xiaomi lenovo nearme
+		TapjoyConnect.requestTapjoyConnect(getApplicationContext(), "7473ae7f-6f58-4d5d-9471-12ce5ff32623", "gmMSXipEaXWvNZeVWCcL");
+		TapjoyConnect.getTapjoyConnectInstance().setEarnedPointsNotifier(new TapjoyEarnedPointsNotifier()
+		{
+			@Override
+			public void earnedTapPoints(int amount)
+			{
+				m_curPoint += amount;
+				final String pointText = getString(R.string.point_prompt)+m_curPoint;
+				m_Handler.post(new Runnable(){
+					
+					@Override
+					public void run() {
+						if (m_pointTV1 != null) 
+						{
+							m_pointTV1.setText(pointText);
+						}
+					}}
+				);
+			}
+		});
+		TapjoyConnect.getTapjoyConnectInstance().getTapPoints(new TapjoyNotifier()
+		{
+			@Override
+			public void getUpdatePointsFailed(String error)
+			{
+				DreamoriLog.LogFoodExpert("getTapPoints error: " + error);
+			}
+			
+			@Override
+			public void getUpdatePoints(String currencyName, int pointTotal)
+			{
+				m_curPoint = pointTotal;
+				if(m_curPoint >= MAX_POINT)
+				{
+					getDatabaseHelper().setConfig("showAds","0");
+				}
+				final String pointText = getString(R.string.point_prompt)+m_curPoint;
+				m_Handler.post(new Runnable(){
+					@Override
+					public void run() {
+						if (m_pointTV1 != null) 
+						{
+							m_pointTV1.setText(pointText);
+						}
+					}}
+				);
+			}
+		});
+	}
+	
 
-		AppConnect.getInstance(this).setAdViewClassName("com.dreamori.foodexpert.Point");
-		AppConnect.getInstance(this).setCrashReport(false);    	
-    	AppConnect.getInstance(this).getPoints(this);   	
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
 
+		TapjoyConnect.getTapjoyConnectInstance().enableDisplayAdAutoRefresh(true);
+		TapjoyConnect.getTapjoyConnectInstance().appResume();
+	}
+	
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+		
+		TapjoyConnect.getTapjoyConnectInstance().enableDisplayAdAutoRefresh(false);
+		TapjoyConnect.getTapjoyConnectInstance().appPause();
 	}
 
 	public void startFood(View v) {
@@ -91,44 +142,20 @@ public class Food extends TitleActivity implements UpdatePointsNotifier {
 	}
 	
 	public void removeAds(View v){
-		AppConnect.getInstance(this).showOffers(this);
+		TapjoyConnect.getTapjoyConnectInstance().showOffers(); 
 	}
 
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-			ShowExitMessage();
-		}
-		return false;
-	}
-
-	@Override
-	public void getUpdatePoints(String currencyName, int pointTotal) {
-		// TODO Auto-generated method stub	
-		int oldPoints=0;
-    	String value = getDatabaseHelper().getConfig("djcs");
-    	try{
-    		oldPoints = Integer.parseInt(value)/3;
-    	}
-    	 catch (NumberFormatException e) {
- 			e.printStackTrace();
- 			oldPoints = 0;
- 		}
-    	if(oldPoints < 0)
-    		oldPoints = 0;
-    	pointTotal += oldPoints;
-    	
-		if(pointTotal >= MAX_POINT)
+	public void onBackPressed() {
+		if ((System.currentTimeMillis() - m_exitTime) > 3500)
 		{
-			getDatabaseHelper().setConfig("showAds","0");
+			Toast.makeText(getApplicationContext(), getString(R.string.exit),Toast.LENGTH_LONG).show();
+			m_exitTime = System.currentTimeMillis();
+		} else {
+			KillActivity(0);
+			finish();
 		}
-		m_pointText1 = getString(R.string.point_prompt)+pointTotal;
-		m_Handler.post(mUpdateResults);
-	}
 
-	@Override
-	public void getUpdatePointsFailed(String error) {
-		// TODO Auto-generated method stub
 	}
 
 }

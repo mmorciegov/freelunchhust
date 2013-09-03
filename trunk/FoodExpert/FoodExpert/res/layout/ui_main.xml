@@ -17,11 +17,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:paddingRight="2.0dip"
+        android:layout_marginTop="8dip"
         android:drawableTop="@drawable/removeads"
         android:background="#00000000"
-        android:text="@string/remove_ads"
-        android:textColor="#88000000"
+        android:text="@string/app_offer"
         android:textSize="12.0dip"
         android:onClick="removeAds"
         />
@@ -35,8 +34,7 @@
         android:textSize="12.0dip"
         android:layout_marginTop="8.0dip"
         android:paddingRight="8.0dip"
-        android:visibility="invisible"
-        android:textColor="#88000000" />
+        android:visibility="invisible"/>
     
     <TextView   
         android:id="@+id/ui_main_points2"
@@ -46,8 +44,7 @@
         android:layout_alignParentRight="true"
         android:textSize="12.0dip"
         android:paddingRight="8.0dip"
-        android:visibility="invisible"
-        android:textColor="#88000000" />
+        android:visibility="invisible" />
     
  	<Button
  	    android:id="@+id/ui_main_button1"
