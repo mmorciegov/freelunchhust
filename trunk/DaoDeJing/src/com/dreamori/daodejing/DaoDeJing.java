@@ -14,9 +14,6 @@ public class DaoDeJing extends Activity {
 	private DatabaseHelper m_dbHelper = null;	
 	
 	private ContentView contentView = null;
-	private int backgroundImageCount = 0;
-	
-	private Random rand = new Random(5);
 	
     static int m_currentImageIndex = Const.m_minImageIndex;
 	
@@ -32,15 +29,12 @@ public class DaoDeJing extends Activity {
 	
 	public void ShowNextImage(View v)
 	{
-		contentView.ShowNextImage();
-
-		((View) v.getParent().getParent()).setBackgroundResource(ResourceManager.GetBackgroundIcon(getApplicationContext(), m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));
+		contentView.ShowNextImage();		
 	}
 	
 	public void ShowPreviosImage(View v)
 	{	
-		contentView.ShowPreviosImage();
-		((View) v.getParent().getParent()).setBackgroundResource(ResourceManager.GetBackgroundIcon(getApplicationContext(), m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));
+		contentView.ShowPreviosImage();		
 	}
 
 	@Override
@@ -50,9 +44,7 @@ public class DaoDeJing extends Activity {
         setContentView(R.layout.activity_main);
         
         contentView =(ContentView)findViewById(R.id.img_content);
-        m_currentImageIndex = getDatabaseHelper().GetLastImageIndex();     
-        
-        backgroundImageCount = m_dbHelper.GetBackgroundImageCount();
+        m_currentImageIndex = getDatabaseHelper().GetLastImageIndex();    
     }
     
     @Override

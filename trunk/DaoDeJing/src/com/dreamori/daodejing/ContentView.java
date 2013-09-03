@@ -2,6 +2,7 @@ package com.dreamori.daodejing;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -31,6 +32,10 @@ public class ContentView extends View   implements OnGestureListener{
 	private boolean m_bInit = false;
 	private DatabaseHelper m_dbHelper = null;	
 	private ArrayList<Hotspot> hotspots = new ArrayList<Hotspot>();
+	
+	private int backgroundImageCount = 0;	
+	private Random rand = new Random(5);
+	
 	Rect   m_srcRect = new Rect();
 	Rect   m_orignalDstRect = new Rect();
 	Rect   m_finalDst = new Rect();
@@ -56,6 +61,8 @@ public class ContentView extends View   implements OnGestureListener{
 		m_needShowTouchTips = m_dbHelper.NeedShowTouchTips();
 		
 		detector = new GestureDetector(this);
+		
+		backgroundImageCount = m_dbHelper.GetBackgroundImageCount();
 	}
 	
 
@@ -105,7 +112,7 @@ public class ContentView extends View   implements OnGestureListener{
 		}			
 	}
 	
-	public void ShowNextImage()
+	public void ShowNextImage() 
 	{
 		DaoDeJing.m_currentImageIndex++;
 		if( DaoDeJing.m_currentImageIndex > Const.m_maxImageIndex )
@@ -114,6 +121,8 @@ public class ContentView extends View   implements OnGestureListener{
 		}
 
 		UpdateImageAndHotspot();
+		
+		((View) this.getParent()).setBackgroundResource(ResourceManager.GetBackgroundIcon(getContext(), m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));
 	}
 	
 	
@@ -126,6 +135,8 @@ public class ContentView extends View   implements OnGestureListener{
 		}
 		
 		UpdateImageAndHotspot();
+		
+		((View) this.getParent()).setBackgroundResource(ResourceManager.GetBackgroundIcon(getContext(), m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));
 	}
 	
 	public int IsHit(float x, float y)
@@ -165,6 +176,8 @@ public class ContentView extends View   implements OnGestureListener{
 					
 					LayoutInflater inflater = LayoutInflater.from(getContext());
 					View rootView = inflater.inflate(R.layout.explain_dialog, null);
+					rootView.setBackgroundResource(ResourceManager.GetBackgroundIcon(getContext(), m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));
+					
 					TextView orgTV = (TextView)rootView.findViewById(R.id.original_text);
 					orgTV.setText(hotspots.get(index).titleString);
 					TextView expTV = (TextView)rootView.findViewById(R.id.explain_text);
