@@ -1,8 +1,12 @@
 package com.dreamori.daodejing;
 
+import java.io.IOException;
 import java.util.Random;
 
 import com.dreamori.daodejing.DatabaseHelper;
+
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
@@ -41,6 +45,11 @@ public class DaoDeJing extends Activity {
 	{
 		contentView.ShowWholeExplanation();
 	}
+	
+	public void PlayMp3(View v)
+	{
+		contentView.PlayMp3();		
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +66,7 @@ public class DaoDeJing extends Activity {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		m_dbHelper.SetLastImageIndex(m_currentImageIndex);
+		contentView.StopMp3();
 	}
     
     

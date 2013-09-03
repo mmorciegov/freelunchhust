@@ -37,15 +37,27 @@
             android:layout_width="50dip"
             android:layout_height="40dip"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="2dip" 
             android:layout_marginBottom ="10dip" 
-            android:layout_centerInParent="true"
+            android:layout_marginLeft="20dip" 
             android:onClick="ShowWholeExplanation"
+            android:background="@drawable/exp"
+            android:layout_toRightOf="@+id/btn_previos"
+            android:gravity="center"
+             />
+           <Button
+            android:id="@+id/btn_music"
+            android:layout_width="50dip"
+            android:layout_height="40dip"
+            android:layout_toRightOf="@+id/btn_exp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="2dip" 
+            android:layout_marginLeft="20dip" 
+            android:layout_marginBottom ="10dip" 
+            android:onClick="PlayMp3"
             android:background="@drawable/exp"
             android:gravity="center"
              />
-        
         <Button
             android:id="@+id/btn_next"
             android:layout_width="60dip"
