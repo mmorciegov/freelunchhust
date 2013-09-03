@@ -168,6 +168,7 @@ public class ContentView extends View   implements OnGestureListener{
 			m_bPlaying = false;
 			mp.stop();	
 			mp.release();
+			mp = null;
 		}
 		
 		if( musicBtn != null )
@@ -192,7 +193,6 @@ public class ContentView extends View   implements OnGestureListener{
 		m_imageIndexInPlaying = DaoDeJing.m_currentImageIndex;
 		m_bPlaying = true;
 		mp = MediaPlayer.create(getContext(), ResourceManager.GetMusicId(getContext(), m_dbHelper.GetMusicName(m_imageIndexInPlaying)));
-		mp.seekTo(0);
 		mp.start();
 		
 		musicBtn = (Button) v;
