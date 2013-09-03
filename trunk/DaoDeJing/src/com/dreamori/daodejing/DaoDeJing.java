@@ -48,7 +48,7 @@ public class DaoDeJing extends Activity {
 	
 	public void PlayMp3(View v)
 	{
-		contentView.PlayMp3();		
+		contentView.PlayMp3(v);		
 	}
 
 	@Override

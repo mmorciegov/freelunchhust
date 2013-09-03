@@ -26,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.GestureDetector.OnGestureListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +57,7 @@ public class ContentView extends View   implements OnGestureListener{
     private static MediaPlayer mp = null;
     private boolean m_bPlaying = false;
     private int m_imageIndexInPlaying = DaoDeJing.m_currentImageIndex;
+	private Button musicBtn = null;
 
 	public ContentView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -158,8 +160,8 @@ public class ContentView extends View   implements OnGestureListener{
 			ShowExplanationDialog(titleContent.title, titleContent.content );		
 		}
 	}
-	
-	public void StopMp3()
+
+	public void StopMp3( )
 	{
 		if( mp != null )
 		{
@@ -167,16 +169,21 @@ public class ContentView extends View   implements OnGestureListener{
 			mp.stop();	
 			mp.release();
 		}
+		
+		if( musicBtn != null )
+		{
+			musicBtn.setBackgroundResource(R.drawable.music);
+		}		
 	}
 	
-	public void PlayMp3()
+	public void PlayMp3( View v)
 	{
 		if( m_bPlaying && m_imageIndexInPlaying == DaoDeJing.m_currentImageIndex )
 		{
 			StopMp3();
 			return;
 		}
-
+		
 		if( mp != null )
 		{
 			mp.release();
@@ -187,6 +194,9 @@ public class ContentView extends View   implements OnGestureListener{
 		mp = MediaPlayer.create(getContext(), ResourceManager.GetMusicId(getContext(), m_dbHelper.GetMusicName(m_imageIndexInPlaying)));
 		mp.seekTo(0);
 		mp.start();
+		
+		musicBtn = (Button) v;
+		musicBtn.setBackgroundResource(R.drawable.music2);
 	}
 	
 	public int IsHit(float x, float y)
