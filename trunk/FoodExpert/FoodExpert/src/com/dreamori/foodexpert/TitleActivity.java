@@ -8,11 +8,8 @@ import com.kyview.AdViewInterface;
 import com.kyview.AdViewLayout;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -41,6 +38,11 @@ import android.widget.Toast;
 public class TitleActivity extends Activity implements AdViewInterface{
 	public static final String CONFIG_FILENAME = "/config.xml";
 	private DatabaseHelper m_dbHelper = null;
+	private Timer m_adTimer = null;
+	private static boolean m_showAd = true;
+	private boolean m_adClicked1s = false;
+	private boolean m_adClicked5s = false;
+	private LinearLayout m_adLayout = null;
 	private boolean m_adShowed = false;
 	
 	public DatabaseHelper getDatabaseHelper()
@@ -85,26 +87,6 @@ public class TitleActivity extends Activity implements AdViewInterface{
 		filter.addAction(FoodConst.BROADCAST_EXIT);
 		
 		registerReceiver(m_recv, filter);
-	}
-	
-	public void ShowExitMessage()
-	{
-		Builder b = new AlertDialog.Builder(TitleActivity.this);
-		b.setIcon(getResources().getDrawable(R.drawable.exit));
-		b.setTitle(getString(R.string.menu_exit));
-		b.setMessage(getString(R.string.menu_exit_sure));
-		b.setPositiveButton(getString(R.string.menu_ok), new DialogInterface.OnClickListener(){
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				KillActivity(0);
-				finish();
-			}
-		});
-		
-		b.setNegativeButton(getString(R.string.menu_cancel), null);
-		
-		b.create().show();
 	}
 		
     public void onCreate(Bundle savedInstanceState) {
@@ -173,7 +155,8 @@ public class TitleActivity extends Activity implements AdViewInterface{
 					m_popWnd.dismiss();
 					break;
 				case 3:
-					ShowExitMessage();
+					KillActivity(0);
+					finish();
 					m_popWnd.dismiss();
 					break;
 				default:
@@ -214,8 +197,8 @@ public class TitleActivity extends Activity implements AdViewInterface{
     protected void onStart()
     {
     	super.onStart();
-    	LinearLayout adLayout = (LinearLayout)findViewById(R.id.adLayout);
-        if (adLayout == null) 
+    	m_adLayout = (LinearLayout)findViewById(R.id.adLayout);
+        if (m_adLayout == null) 
             return;
 
         int showAds=1;
@@ -227,31 +210,37 @@ public class TitleActivity extends Activity implements AdViewInterface{
 			e.printStackTrace();
 			showAds = 1;
 		}
-		if (showAds != 0) {
+        if(showAds !=0 && m_showAd)
+        {
 			if (!m_adShowed) {
-				AdViewLayout adViewLayout = new AdViewLayout(this,
-						"SDK20120912090935ahwlxnjz3q9r67q");
+				AdViewLayout adViewLayout = new AdViewLayout(this,"SDK20120912090935ahwlxnjz3q9r67q");
 				adViewLayout.setAdViewInterface(this);
-				adLayout.addView(adViewLayout);
-				adLayout.invalidate();
+				m_adLayout.addView(adViewLayout);
+				m_adLayout.invalidate();
 				m_adShowed = true;
 
 				Button btn = (Button) findViewById(R.id.ui_main_remove_ads);
-				if (btn != null) {
+				if (btn != null) 
+				{
 					btn.setText(R.string.remove_ads);
+					btn.setBackgroundColor(Color.TRANSPARENT);
 				}
 
 				View view = findViewById(R.id.ui_main_points);
-				if (view != null) {
+				if (view != null) 
+				{
 					view.setVisibility(View.VISIBLE);
 				}
 				view = findViewById(R.id.ui_main_points2);
-				if (view != null) {
+				if (view != null) 
+				{
 					view.setVisibility(View.VISIBLE);
 				}
 			}
-		} else {
-			adLayout.removeAllViews();
+        }
+		else 
+		{
+			m_adLayout.removeAllViews();
 		}
     }
 		
@@ -262,6 +251,19 @@ public class TitleActivity extends Activity implements AdViewInterface{
 		
 		DreamoriLog.LogFoodExpert("Destory Activity");	
 		
+	}
+	
+	@Override
+	protected void onPause(){
+		super.onPause();
+		if(m_adClicked1s)
+		{
+        	if(m_adLayout!=null)
+			{
+				m_adLayout.removeAllViews();
+				m_showAd = false;
+			}
+		}
 	}
 
 	public String GetConfigFileName()
@@ -317,6 +319,31 @@ public class TitleActivity extends Activity implements AdViewInterface{
 
 	@Override
 	public void onClickAd() {
+		DreamoriLog.LogFoodExpert("onClickAd");
+		
+		if(m_adClicked5s)
+		{
+			m_adLayout.setVisibility(View.GONE);
+			m_showAd = false;
+		}
+		
+		m_adClicked1s = true;
+		m_adClicked5s = true;
+		m_adTimer = new Timer();
+		TimerTask task1s = new TimerTask() {
+			@Override
+			public void run() {
+				m_adClicked1s = false;
+			}
+		};
+		TimerTask task5s = new TimerTask() {
+			@Override
+			public void run() {
+				m_adClicked5s = false;
+			}
+		};
+		m_adTimer.schedule(task1s, 1000);
+		m_adTimer.schedule(task5s, 5000);
 	}
 
 	@Override

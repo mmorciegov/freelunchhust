@@ -23,12 +23,13 @@
 
 -dontwarn com.google.ads.**
 -dontwarn com.kyview.**
+-dontwarn com.tapjoy.**
 -libraryjars /libs/AdViewSDK_Android.jar
--libraryjars /libs/GoogleAdMobAdsSdk-6.2.1.jar
+-libraryjars /libs/GoogleAdMobAdsSdk-6.4.1.jar
 -keep public class com.kyview.** {*;}
 
 -keep class cn.domob.** { *;}
 -keep class com.google.** { *;}
 -keep class com.inmobi.** { *;}
--keep public class com.waps.** {*;} 
--keep public interface com.waps.** {*;}
+-keep class com.tapjoy.** { *; }
+-keepattributes JavascriptInterface 

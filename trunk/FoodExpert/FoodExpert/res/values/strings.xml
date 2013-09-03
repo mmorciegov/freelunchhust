@@ -48,6 +48,7 @@
     <string name="point_prompt">当前积分</string>
     <string name="point_prompt2">满</string>
     <string name="point_prompt3">去广告</string>
+    <string name="exit">再按一次退出程序</string>
     
 
 </resources>
