@@ -19,6 +19,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.MediaPlayer;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -49,7 +50,12 @@ public class ContentView extends View   implements OnGestureListener{
 	
 	boolean m_needShowTouchTips = true;
 	
-	 private GestureDetector detector;
+	private GestureDetector detector;
+	
+    
+    private static MediaPlayer mp = null;
+    private boolean m_bPlaying = false;
+    private int m_imageIndexInPlaying = DaoDeJing.m_currentImageIndex;
 
 	public ContentView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -125,6 +131,8 @@ public class ContentView extends View   implements OnGestureListener{
 		UpdateImageAndHotspot();
 		
 		((View) this.getParent()).setBackgroundResource(ResourceManager.GetBackgroundIcon(getContext(), m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));
+		
+		StopMp3();
 	}
 		
 	public void ShowPreviosImage()
@@ -138,6 +146,8 @@ public class ContentView extends View   implements OnGestureListener{
 		UpdateImageAndHotspot();
 		
 		((View) this.getParent()).setBackgroundResource(ResourceManager.GetBackgroundIcon(getContext(), m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));
+		
+		StopMp3();
 	}
 	
 	public void ShowWholeExplanation()
@@ -147,6 +157,36 @@ public class ContentView extends View   implements OnGestureListener{
 		{
 			ShowExplanationDialog(titleContent.title, titleContent.content );		
 		}
+	}
+	
+	public void StopMp3()
+	{
+		if( mp != null )
+		{
+			m_bPlaying = false;
+			mp.stop();	
+			mp.release();
+		}
+	}
+	
+	public void PlayMp3()
+	{
+		if( m_bPlaying && m_imageIndexInPlaying == DaoDeJing.m_currentImageIndex )
+		{
+			StopMp3();
+			return;
+		}
+
+		if( mp != null )
+		{
+			mp.release();
+		}
+		
+		m_imageIndexInPlaying = DaoDeJing.m_currentImageIndex;
+		m_bPlaying = true;
+		mp = MediaPlayer.create(getContext(), ResourceManager.GetMusicId(getContext(), m_dbHelper.GetMusicName(m_imageIndexInPlaying)));
+		mp.seekTo(0);
+		mp.start();
 	}
 	
 	public int IsHit(float x, float y)
