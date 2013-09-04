@@ -7,7 +7,7 @@ import android.graphics.Rect;
 
 public class Hotspot {
 	
-	private int [] colorTable = {Color.BLUE, Color.CYAN,  Color.GREEN,  Color.MAGENTA, Color.RED, Color.YELLOW };
+	private int [] colorTable = {Color.BLUE, Color.CYAN,  Color.GREEN,  Color.MAGENTA, Color.RED };
 	private Random colorRandom = new Random();
 	
 	static int imgIndex;
@@ -47,9 +47,17 @@ public class Hotspot {
 		
 		posUiRect.right = imgUiRect.left + (int)((double)((double)posRect.right/(double)imgOriginalRect.width()) * imgUiRect.width());
 		posUiRect.bottom = imgUiRect.top + (int)((double)((double)posRect.bottom/(double)imgOriginalRect.height()) * imgUiRect.height());	
-		
+	}
+	
+	void SetRandomColor()
+	{		
 		//Set Color here
 		color = colorTable[colorRandom.nextInt(colorTable.length)];
+	}
+	
+	void SetColor( int newColor )
+	{
+		color = newColor;
 	}
 }
 

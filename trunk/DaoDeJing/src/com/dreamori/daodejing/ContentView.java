@@ -117,8 +117,17 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 		Hotspot.SetUiImageSize(m_finalDst);  
 		
 		m_dbHelper.GetImageHotSpot( DaoDeJing.m_currentImageIndex, hotspots);
-		for (Hotspot hotspot : hotspots) {
-			hotspot.GetHotspotUiPosition();
+		for ( int i = 0; i < hotspots.size(); i++) {
+			hotspots.get(i).GetHotspotUiPosition();
+			
+			hotspots.get(i).SetRandomColor();
+			if( i>0 )
+			{
+				if( hotspots.get(i).hotspotIndex == hotspots.get(i-1).hotspotIndex)
+				{
+					hotspots.get(i).SetColor(hotspots.get(i-1).color);
+				}
+			}		
 		}			
 	}
 	
@@ -130,11 +139,7 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 			DaoDeJing.m_currentImageIndex = Const.m_minImageIndex;
 		}
 
-		UpdateImageAndHotspot();
-		
-		((View) this.getParent()).setBackgroundResource(ResourceManager.GetBackgroundIcon(getContext(), m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));
-		
-		StopMp3();
+		UpdateImageAndStopPlaying();
 	}
 		
 	public void ShowPreviosImage()
@@ -145,6 +150,11 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 			DaoDeJing.m_currentImageIndex = Const.m_maxImageIndex;
 		}
 		
+		UpdateImageAndStopPlaying();
+	}
+	
+	private void UpdateImageAndStopPlaying()
+	{
 		UpdateImageAndHotspot();
 		
 		((View) this.getParent()).setBackgroundResource(ResourceManager.GetBackgroundIcon(getContext(), m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));
@@ -193,16 +203,18 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 		m_imageIndexInPlaying = DaoDeJing.m_currentImageIndex;
 		m_bPlaying = true;
 		mp = MediaPlayer.create(getContext(), ResourceManager.GetMusicId(getContext(), m_dbHelper.GetMusicName(m_imageIndexInPlaying)));
-		mp.setOnCompletionListener(this);
-		mp.start();
-		
-		musicBtn = (Button) v;
-		musicBtn.setBackgroundResource(R.drawable.music2);
+		if( mp!= null )
+		{
+			mp.setOnCompletionListener(this);
+			mp.start();
+			
+			musicBtn = (Button) v;
+			musicBtn.setBackgroundResource(R.drawable.music2);
+		}
 	}
 	
 	public int IsHit(float x, float y)
-	{				
-		
+	{			
 		for (int i=0; i< hotspots.size(); i++)
 		{
 			if( hotspots.get(i).posUiRect.contains((int)x, (int)y))
