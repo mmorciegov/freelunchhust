@@ -284,7 +284,7 @@ public class DatabaseHelper {
     public final static String HOTSPOT_HOTSPOT_LEFT_TOP_Y = "zsy";
     public final static String HOTSPOT_HOTSPOT_RIGHT_BOTTOM_X = "yxx";
     public final static String HOTSPOT_HOTSPOT_RIGHT_BOTTOM_Y = "yxy";
-        
+    
     public void GetImageHotSpot( int imageIndex, ArrayList<Hotspot> hotspots)
     {
     	//TODO:Add width/height for every picture.
@@ -398,7 +398,6 @@ public class DatabaseHelper {
 			return null;
 		
 		String result = tableResult.rows.get(0)[0];
-		//byte[] data =  getBytes( charData );;
 		
    		if( tableResult != null )
     	{
@@ -416,7 +415,6 @@ public class DatabaseHelper {
  	   	TableResult tableResult = null;
 
     	try {
-			//String sql = "select HEX("+ CONTENT + ") from wztp where " +  CONTENT_ID + " = " + index;
 			String sql = "select count(*) from "+ TABLE_BACKGROUND_CONTENT;
 			tableResult = db.get_table(sql);
 
@@ -428,7 +426,6 @@ public class DatabaseHelper {
 			return 0;
 		
 		backgroundImageCount = Integer.parseInt(tableResult.rows.get(0)[0]);
-		//byte[] data =  getBytes( charData );;
 		
    		if( tableResult != null )
     	{
@@ -449,7 +446,6 @@ public class DatabaseHelper {
  	   	TableResult tableResult = null;
 
     	try {
-			//String sql = "select HEX("+ CONTENT + ") from wztp where " +  CONTENT_ID + " = " + index;
 			String sql = "select "+ EXPLANATION_TITLE + " , " + EXPLANATION_CONTENT + " from "+ TABLE_EXPLANATION +" where " +  EXPLANATION_IMAGE_INDEX + " = " + index;
 			tableResult = db.get_table(sql);
 
@@ -462,7 +458,6 @@ public class DatabaseHelper {
 		
 		titleContent.title = tableResult.rows.get(0)[0];
 		titleContent.content = tableResult.rows.get(0)[1];
-		//byte[] data =  getBytes( charData );;
 		
    		if( tableResult != null )
     	{
@@ -483,7 +478,6 @@ public class DatabaseHelper {
  	   	TableResult tableResult = null;
 
     	try {
-			//String sql = "select HEX("+ CONTENT + ") from wztp where " +  CONTENT_ID + " = " + index;
 			String sql = "select "+ MUSIC_NAME + " from "+ TABLE_MUSIC +" where " +  MUSIC_IMAGE_INDEX + " = " + index;
 			tableResult = db.get_table(sql);
 
