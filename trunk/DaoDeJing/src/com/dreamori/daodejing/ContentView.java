@@ -31,7 +31,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ContentView extends View   implements OnGestureListener{
+public class ContentView extends View   implements OnGestureListener, MediaPlayer.OnCompletionListener{
 	
 	private boolean m_bInit = false;
 	private DatabaseHelper m_dbHelper = null;	
@@ -193,6 +193,7 @@ public class ContentView extends View   implements OnGestureListener{
 		m_imageIndexInPlaying = DaoDeJing.m_currentImageIndex;
 		m_bPlaying = true;
 		mp = MediaPlayer.create(getContext(), ResourceManager.GetMusicId(getContext(), m_dbHelper.GetMusicName(m_imageIndexInPlaying)));
+		mp.setOnCompletionListener(this);
 		mp.start();
 		
 		musicBtn = (Button) v;
@@ -297,14 +298,16 @@ public class ContentView extends View   implements OnGestureListener{
 		Paint paint = new Paint();
 		paint.setAntiAlias(true);
 		paint.setColor(Color.GREEN);
-		paint.setStrokeWidth(2);
+
+		paint.setStrokeWidth(3);
 		paint.setStyle(Paint.Style.STROKE);
 
 		if (m_needShowTouchTips) {
-			for (int i = 0; i < hotspots.size(); i++) {				
+			for (int i = 0; i < hotspots.size(); i++) {			
+				paint.setColor(hotspots.get(i).color);
 				RectF rectf = new RectF(hotspots.get(i).posUiRect);				
 				//DreamoriLog.LogDaoDeJing("Draw hotspots." +  "left: "+  rectf.left + "right: " + rectf.bottom + 4 + "" +  rectf.right + "" + rectf.bottom + 4);				
-				canvas.drawLine(rectf.left, rectf.bottom + 4,  rectf.right, rectf.bottom + 4,  paint);
+				canvas.drawLine(rectf.left-2, rectf.bottom + 4,  rectf.right - 2, rectf.bottom + 4,  paint);
 			}
 		}		
 		
@@ -356,6 +359,13 @@ public class ContentView extends View   implements OnGestureListener{
 	public boolean onSingleTapUp(MotionEvent e) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+
+	@Override
+	public void onCompletion(MediaPlayer mp) {
+		// TODO Auto-generated method stub
+		StopMp3();
 	}
 }
 
