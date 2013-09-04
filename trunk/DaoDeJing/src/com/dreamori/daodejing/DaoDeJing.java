@@ -68,7 +68,17 @@ public class DaoDeJing extends Activity {
 		m_dbHelper.SetLastImageIndex(m_currentImageIndex);
 		contentView.StopMp3();
 	}
+        
+    @Override
+	protected void onPause() {
+    	super.onPause();
+    	contentView.StopMp3();
+    }
     
-    
+    @Override
+	protected void onStop() {
+    	super.onStop();
+    	contentView.StopMp3();
+    }
 	
 }
