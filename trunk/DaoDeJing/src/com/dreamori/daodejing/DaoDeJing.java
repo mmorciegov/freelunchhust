@@ -1,23 +1,26 @@
 package com.dreamori.daodejing;
 
-import java.io.IOException;
-import java.util.Random;
-
 import com.dreamori.daodejing.DatabaseHelper;
+import com.kyview.AdViewInterface;
+import com.kyview.AdViewLayout;
 
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
-import android.view.Menu;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.view.View;
-import android.view.Window; 
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
-public class DaoDeJing extends Activity {
+public class DaoDeJing extends Activity implements AdViewInterface {
 	private DatabaseHelper m_dbHelper = null;	
 	
 	private ContentView contentView = null;
+	private long m_exitTime = 0;
+	private long m_adClickTime = 0;
+	private LinearLayout m_adLayout = null;
+	private static boolean m_showAdThisTime = true;
+	private boolean m_adLoaded = false;
 	
     static int m_currentImageIndex = Const.m_minImageIndex;
 	
@@ -58,21 +61,77 @@ public class DaoDeJing extends Activity {
         setContentView(R.layout.activity_main);
         
         contentView =(ContentView)findViewById(R.id.img_content);
-        m_currentImageIndex = getDatabaseHelper().GetLastImageIndex();    
-    }
-    
-    @Override
+		m_currentImageIndex = getDatabaseHelper().GetLastImageIndex();
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+
+		m_adLayout = (LinearLayout) findViewById(R.id.adLayout);
+		if (m_adLayout == null)
+		{
+			return;
+		}
+
+		int showAds = 1;
+		String value = getDatabaseHelper().getConfig("showAds");
+		try 
+		{
+			showAds = Integer.parseInt(value);
+		} 
+		catch (Exception e) 
+		{
+			e.toString();
+			showAds = 1;
+		}
+		
+		if (showAds != 0 && m_showAdThisTime) 
+		{
+			if (!m_adLoaded) 
+			{
+				AdViewLayout adViewLayout = new AdViewLayout(this, "SDK20131505030937atzn8f4t77r42lk");
+				adViewLayout.setAdViewInterface(this);
+				m_adLayout.addView(adViewLayout);
+				m_adLayout.invalidate();
+				m_adLoaded = true;
+			}
+		} 
+		else 
+		{
+			m_adLayout.removeAllViews();
+		}
+	}
+
+	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		m_dbHelper.SetLastImageIndex(m_currentImageIndex);
 		contentView.StopMp3();
+
+		if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.FROYO)
+		{
+		ActivityManager activityManager = (ActivityManager) this
+				.getSystemService(Context.ACTIVITY_SERVICE);
+		activityManager.killBackgroundProcesses(getPackageName());
+		}
+		System.exit(0);
 	}
         
     @Override
 	protected void onPause() {
     	super.onPause();
     	contentView.StopMp3();
+
+		if(System.currentTimeMillis() - m_adClickTime < 1000)
+		{
+        	if(m_adLayout!=null)
+			{
+				m_adLayout.removeAllViews();
+				m_showAdThisTime = false;
+			}
+		}
     }
     
     @Override
@@ -80,5 +139,34 @@ public class DaoDeJing extends Activity {
     	super.onStop();
     	contentView.StopMp3();
     }
+
+	@Override
+	public void onClickAd() {
+
+		long thisTime = System.currentTimeMillis();
+		
+		if(thisTime - m_adClickTime < 5000)
+		{
+			m_adLayout.setVisibility(View.GONE);
+			m_showAdThisTime = false;
+		}
+		
+		m_adClickTime = thisTime;
+	}
+
+	@Override
+	public void onDisplayAd() {
+	}
+	
+	@Override
+	public void onBackPressed() {
+		if ((System.currentTimeMillis() - m_exitTime) > 3500)
+		{
+			Toast.makeText(getApplicationContext(), getString(R.string.exit),Toast.LENGTH_LONG).show();
+			m_exitTime = System.currentTimeMillis();
+		} else {
+			finish();
+		}
+	}
 	
 }

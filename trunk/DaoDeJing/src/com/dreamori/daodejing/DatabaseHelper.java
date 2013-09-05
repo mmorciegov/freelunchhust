@@ -196,72 +196,99 @@ public class DatabaseHelper {
 		return result;
     }
     
-    
-    
-    public final static String TABLE_HISTORY = "config";
-    public final static String HISTORY_LAST_IMAGE_INDEX = "sctp";
-    public final static String HISTORY_CONFIG_SHOW_TOUCH_TIP = "xsbj";
-    
-    public boolean NeedShowTouchTips( )
+
+    public final static String TABLE_CONFIG = "config";
+    public final static String CONFIG_LAST_IMAGE_INDEX = "sctp";
+    public final static String CONFIG_SHOW_TOUCH_TIP = "xsbj";
+    public String getConfig(String key)
     {
-    	boolean showTouchTips = true;
- 	   	TableResult tableResult = null;
-
-    	try {
-			//String sql = "select HEX("+ CONTENT + ") from wztp where " +  CONTENT_ID + " = " + index;
-			String sql = "select "+ HISTORY_CONFIG_SHOW_TOUCH_TIP + " from "+TABLE_HISTORY;
-			tableResult = db.get_table(sql);
-
+    	TableResult tableResult = null;
+		try {
+			tableResult = db.get_table("select value from "+TABLE_CONFIG
+					+" where key='"+key+"'");
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
-		if( tableResult == null || tableResult.rows.isEmpty() )
-			return showTouchTips;
-		
-		String result = tableResult.rows.get(0)[0];
-		if (result.compareTo("1") == 0)
-		{
-			showTouchTips = true;
-		}
-		else {
-			showTouchTips = false;
-		}
 
-		if( tableResult != null )
+		if( tableResult == null || tableResult.rows.isEmpty() )
+			return null;
+
+		String ret = tableResult.rows.get(0)[0];
+
+   		if( tableResult != null )
     	{
     		tableResult.clear();
     		tableResult = null;
-    	}   		
-		return showTouchTips;
+    	}
+   		
+   		return ret;
+    }
+    
+    public void setConfig(String key, String value)
+    {
+    	TableResult tableResult = null;
+		try {
+			tableResult = db.get_table("select value from "+TABLE_CONFIG
+					+" where key='"+key+"'");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		if( tableResult == null || tableResult.rows.isEmpty() )
+		{
+			try {
+				tableResult = db.get_table("insert into "+TABLE_CONFIG
+						+" values ('"+key+"','"+value+"')");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else
+		{		
+			try {
+				db.exec("update "+TABLE_CONFIG+" set value='"+value
+						+"' where key='"+key+"'", null);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+    }
+    
+	public boolean NeedShowTouchTips() 
+	{
+		int res = 1;
+		try 
+		{
+			res = Integer.parseInt(getConfig(CONFIG_SHOW_TOUCH_TIP));
+		} 
+		catch (java.lang.Exception e) 
+		{
+			e.toString();
+		}
+		if (res == 0) {
+    		return false;
+    	}
+    	
+		return true;
     }
     
 
     public int GetLastImageIndex( )
     {
     	int lastImageIndex = Const.m_minImageIndex;
- 	   	TableResult tableResult = null;
-
-    	try {
-			//String sql = "select HEX("+ CONTENT + ") from wztp where " +  CONTENT_ID + " = " + index;
-			String sql = "select "+ HISTORY_LAST_IMAGE_INDEX + " from "+TABLE_HISTORY;
-			tableResult = db.get_table(sql);
-
-		} catch (Exception e) {
-			e.printStackTrace();
+    	try 
+    	{
+    		lastImageIndex = Integer.parseInt(getConfig(CONFIG_LAST_IMAGE_INDEX));
+		} 
+    	catch (java.lang.Exception e) 
+    	{
+			e.toString();
 		}
     	
-		if( tableResult == null || tableResult.rows.isEmpty() )
-			return lastImageIndex;
-		
-		String result = tableResult.rows.get(0)[0];
-   		lastImageIndex = Integer.parseInt(result);
-		
-		if( tableResult != null )
-    	{
-    		tableResult.clear();
-    		tableResult = null;
-    	}   		
 		return lastImageIndex;
     }
     
@@ -269,12 +296,7 @@ public class DatabaseHelper {
     public void SetLastImageIndex( int index )
     {
 		//Update food frequency
-		try {
-			db.exec("update "+TABLE_HISTORY+" set "+HISTORY_LAST_IMAGE_INDEX+"="+index, null);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+		setConfig(CONFIG_LAST_IMAGE_INDEX, ""+index);
     }        
     
     public final static String TABLE_HOTSPOT = "cmqy";

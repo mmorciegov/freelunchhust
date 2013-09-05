@@ -16,7 +16,8 @@
         android:id="@+id/layout_control"
         android:layout_width="match_parent"
         android:layout_height="50dip"
-        android:layout_alignParentBottom="true" >
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_above="@+id/adLayout" >
                 
         <Button
             android:id="@+id/btn_previos"
@@ -45,7 +46,7 @@
             android:layout_toRightOf="@+id/btn_previos"
             android:gravity="center"
              />
-           <Button
+        <Button
             android:id="@+id/btn_music"
             android:layout_width="50dip"
             android:layout_height="50dip"
@@ -73,5 +74,13 @@
              />
         
     </RelativeLayout>
+    
+    <LinearLayout
+	    android:id="@+id/adLayout"
+        android:layout_alignParentBottom="true"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_centerHorizontal="true"
+	   />
 
 </RelativeLayout>
