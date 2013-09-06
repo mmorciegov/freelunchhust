@@ -264,7 +264,7 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 		float y = event.getY();
 		switch (event.getAction()) {
 		
-		case MotionEvent.ACTION_DOWN:
+		case MotionEvent.ACTION_UP:
 			 {
 				int index = IsHit(x, y);
 				if (index != -1) {

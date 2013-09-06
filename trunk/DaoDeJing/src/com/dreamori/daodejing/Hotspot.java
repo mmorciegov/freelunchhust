@@ -7,7 +7,8 @@ import android.graphics.Rect;
 
 public class Hotspot {
 	
-	private int [] colorTable = {Color.BLUE, Color.CYAN,  Color.GREEN,  Color.MAGENTA, Color.RED };
+	//TODO: Add more color and make every line different
+	private int [] colorTable = {Color.BLUE, Color.CYAN,  Color.GREEN,  Color.MAGENTA, Color.RED};
 	private Random colorRandom = new Random();
 	
 	static int imgIndex;
@@ -52,7 +53,7 @@ public class Hotspot {
 	void SetRandomColor()
 	{		
 		//Set Color here
-		color = colorTable[colorRandom.nextInt(colorTable.length)];
+		color = colorTable[hotspotIndex%colorTable.length];
 	}
 	
 	void SetColor( int newColor )

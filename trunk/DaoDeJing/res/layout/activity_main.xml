@@ -32,7 +32,7 @@
             android:background="@drawable/previous"
             android:gravity="center"
              />
-        
+        <!-- 
          <Button
             android:id="@+id/btn_exp"
             android:layout_width="50dip"
@@ -46,6 +46,7 @@
             android:layout_toRightOf="@+id/btn_previos"
             android:gravity="center"
              />
+              -->
         <Button
             android:id="@+id/btn_music"
             android:layout_width="50dip"
@@ -56,7 +57,7 @@
             android:layout_marginBottom ="10dip" 
             android:onClick="PlayMp3"
             android:background="@drawable/music"
-            android:layout_toLeftOf="@+id/btn_next"
+            android:layout_centerHorizontal="true"
             android:gravity="center"
              />
         <Button
