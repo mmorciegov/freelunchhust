@@ -269,7 +269,8 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 				int index = IsHit(x, y);
 				if (index != -1) {
 					
-					ShowExplanationDialog(hotspots.get(index).titleString, hotspots.get(index).contentString );				
+					//ShowExplanationDialog(hotspots.get(index).titleString, hotspots.get(index).contentString );	
+					ShowExplanationDialog(null, hotspots.get(index).contentString );			
 					
 //
 //					
