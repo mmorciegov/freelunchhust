@@ -2,31 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
-    <TextView
-        android:id="@+id/original_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="25sp" />
-    
-    <View
-        android:id="@+id/split_line"
-        android:layout_below="@+id/original_text"
-        android:layout_width="match_parent"
-		android:layout_height="1dp" 
-		android:background="?android:attr/listDivider" />
-    
+   
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-	    android:layout_below="@+id/split_line" >
+	   >
 	    
     	<TextView
 	        android:id="@+id/explain_text"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
+	        android:lineSpacingExtra="1dip"
 			android:scrollbars="vertical"
-	        android:textSize="18sp" />
+	        android:textSize="18sp"
+	        android:layout_margin="5dip"
+	        android:padding="2dip" />
     </ScrollView>
 
 </RelativeLayout>
