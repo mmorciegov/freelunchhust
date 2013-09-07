@@ -101,6 +101,8 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 		{
 			m_adLayout.removeAllViews();
 		}
+		
+		contentView.InitRect();
 	}
 
 	@Override
@@ -156,6 +158,7 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 
 	@Override
 	public void onDisplayAd() {
+		contentView.InitRect();
 	}
 	
 	@Override

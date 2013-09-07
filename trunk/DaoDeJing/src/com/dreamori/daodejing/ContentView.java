@@ -35,7 +35,7 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 	
 	private boolean m_bInit = false;
 	private DatabaseHelper m_dbHelper = null;	
-	private ArrayList<Hotspot> hotspots = new ArrayList<Hotspot>();
+//	private ArrayList<Hotspot> hotspots = new ArrayList<Hotspot>();
 	
 	private int backgroundImageCount = 0;	
 	private Random rand = new Random(5);
@@ -76,7 +76,7 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 	}
 	
 
-	private void InitRect()
+	public void InitRect()
 	{
 		m_orignalDstRect.left = m_orignalDstRect.top = 0;
 		m_orignalDstRect.right = getWidth(); 
@@ -84,14 +84,14 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 		
 		dstRatio =  (float)m_orignalDstRect.width() / (float)m_orignalDstRect.height();
 		
-		Hotspot.SetUiImageSize(m_orignalDstRect);  
+//		Hotspot.SetUiImageSize(m_orignalDstRect);  
 		
 		UpdateImageAndHotspot();		
 	}
 			
 	public void UpdateImageAndHotspot()
 	{
-		hotspots.clear();
+//		hotspots.clear();
 		m_bitmap = BitmapFactory.decodeResource( getContext().getResources(),  ResourceManager.GetIcon(getContext(), m_dbHelper.GetImageContentName(DaoDeJing.m_currentImageIndex)));
 		m_srcRect.left = m_srcRect.top = 0;
 		m_srcRect.right = m_bitmap.getWidth(); 
@@ -114,36 +114,38 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 			m_finalDst.right = m_finalDst.left + (int)newWidth;
 		}
 		
-		Hotspot.SetUiImageSize(m_finalDst);  
-		
-		m_dbHelper.GetImageHotSpot( DaoDeJing.m_currentImageIndex, hotspots);
-		for ( int i = 0; i < hotspots.size(); i++) {
-			hotspots.get(i).GetHotspotUiPosition();
-			
-			hotspots.get(i).SetRandomColor();
-			if( i>0 )
-			{
-				if( hotspots.get(i).hotspotIndex == hotspots.get(i-1).hotspotIndex)
-				{
-					hotspots.get(i).SetColor(hotspots.get(i-1).color);
-				}
-			}		
-		}			
+//		Hotspot.SetUiImageSize(m_finalDst);  
+//		
+//		m_dbHelper.GetImageHotSpot( DaoDeJing.m_currentImageIndex, hotspots);
+//		for ( int i = 0; i < hotspots.size(); i++) {
+//			hotspots.get(i).GetHotspotUiPosition();
+//			
+//			hotspots.get(i).SetRandomColor();
+//			if( i>0 )
+//			{
+//				if( hotspots.get(i).hotspotIndex == hotspots.get(i-1).hotspotIndex)
+//				{
+//					hotspots.get(i).SetColor(hotspots.get(i-1).color);
+//				}
+//			}		
+//		}			
 	}
 	
 	public void ShowNextImage() 
 	{
+		InitRect();
 		DaoDeJing.m_currentImageIndex++;
 		if( DaoDeJing.m_currentImageIndex > Const.m_maxImageIndex )
 		{
 			DaoDeJing.m_currentImageIndex = Const.m_minImageIndex;
 		}
 
-		UpdateImageAndStopPlaying();
+		UpdateImageAndStopPlaying();		
 	}
 		
 	public void ShowPreviosImage()
 	{	
+		InitRect();
 		DaoDeJing.m_currentImageIndex--;
 		if( DaoDeJing.m_currentImageIndex < Const.m_minImageIndex )
 		{
@@ -212,18 +214,18 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 			musicBtn.setBackgroundResource(R.drawable.music2);
 		}
 	}
-	
-	public int IsHit(float x, float y)
-	{			
-		for (int i=0; i< hotspots.size(); i++)
-		{
-			if( hotspots.get(i).posUiRect.contains((int)x, (int)y))
-			{
-				return i;
-			}
-		}
-		return -1;
-	}
+//	
+//	public int IsHit(float x, float y)
+//	{			
+//		for (int i=0; i< hotspots.size(); i++)
+//		{
+//			if( hotspots.get(i).posUiRect.contains((int)x, (int)y))
+//			{
+//				return i;
+//			}
+//		}
+//		return -1;
+//	}
 	
 	//private boolean cancleToast = false;
 	
@@ -235,8 +237,8 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 		View rootView = inflater.inflate(R.layout.explain_dialog, null);
 		rootView.setBackgroundResource(ResourceManager.GetBackgroundIcon(getContext(), m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));
 		
-		TextView orgTV = (TextView)rootView.findViewById(R.id.original_text);
-		orgTV.setText(title);
+		//TextView orgTV = (TextView)rootView.findViewById(R.id.original_text);
+		//orgTV.setText(title);
 		TextView expTV = (TextView)rootView.findViewById(R.id.explain_text);
 		expTV.setText(contentString);
 		
@@ -259,41 +261,24 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 		{
 			return true;
 		}
-		
-		float x = event.getX();
-		float y = event.getY();
-		switch (event.getAction()) {
-		
-		case MotionEvent.ACTION_UP:
-			 {
-				int index = IsHit(x, y);
-				if (index != -1) {
-					
-					//ShowExplanationDialog(hotspots.get(index).titleString, hotspots.get(index).contentString );	
-					ShowExplanationDialog(null, hotspots.get(index).contentString );			
-					
-//
+//		
+//		float x = event.getX();
+//		float y = event.getY();
+//		switch (event.getAction()) {
+//		
+//		case MotionEvent.ACTION_UP:
+//			 {
+//				int index = IsHit(x, y);
+//				if (index != -1) {
 //					
-//						DreamoriToast.invokeLongTimeToast(getContext(),
-//								hotspots.get(index).contentString);
-//						
-//						DreamoriLog.LogDaoDeJing("Toast Show");
-//						
-						
-				}
-//				else 
-//				{
-//					//if (cancleToast) {
-//						DreamoriToast.killToast();
-//						DreamoriLog.LogDaoDeJing("Toast Killed");
-//					//	cancleToast = false;
-//					//} 					
+//					//ShowExplanationDialog(hotspots.get(index).titleString, hotspots.get(index).contentString );	
+//					ShowExplanationDialog(null, hotspots.get(index).contentString );								
 //				}
-			}
-			break;
-		default:
-			break;
-		}
+//			}
+//			break;
+//		default:
+//			break;
+//		}
 		
 		return true;
 	}
@@ -302,28 +287,28 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 	protected void onDraw(Canvas canvas)
 	{
 		if (!m_bInit)
-		{
+		{			
 			InitRect();
 			m_bInit = true;
 		}
 		canvas.drawBitmap(m_bitmap, m_srcRect, m_finalDst, null);
-		
-		Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		paint.setColor(Color.GREEN);
-
-		paint.setStrokeWidth(3);
-		paint.setStyle(Paint.Style.STROKE);
-
-		if (m_needShowTouchTips) {
-			for (int i = 0; i < hotspots.size(); i++) {			
-				paint.setColor(hotspots.get(i).color);
-				RectF rectf = new RectF(hotspots.get(i).posUiRect);				
-				//DreamoriLog.LogDaoDeJing("Draw hotspots." +  "left: "+  rectf.left + "right: " + rectf.bottom + 4 + "" +  rectf.right + "" + rectf.bottom + 4);				
-				canvas.drawLine(rectf.left-2, rectf.bottom + 4,  rectf.right - 2, rectf.bottom + 4,  paint);
-			}
-		}		
-		
+//		
+//		Paint paint = new Paint();
+//		paint.setAntiAlias(true);
+//		paint.setColor(Color.GREEN);
+//
+//		paint.setStrokeWidth(3);
+//		paint.setStyle(Paint.Style.STROKE);
+//
+//		if (m_needShowTouchTips) {
+//			for (int i = 0; i < hotspots.size(); i++) {			
+//				paint.setColor(hotspots.get(i).color);
+//				RectF rectf = new RectF(hotspots.get(i).posUiRect);				
+//				//DreamoriLog.LogDaoDeJing("Draw hotspots." +  "left: "+  rectf.left + "right: " + rectf.bottom + 4 + "" +  rectf.right + "" + rectf.bottom + 4);				
+//				canvas.drawLine(rectf.left-2, rectf.bottom + 4,  rectf.right - 2, rectf.bottom + 4,  paint);
+//			}
+//		}		
+//		
 		invalidate();
 	}
 
