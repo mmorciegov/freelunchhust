@@ -1,6 +1,8 @@
 <resources>
 
     <string name="app_name">道德经</string>
-    <string name="exit">再按一次退出</string>
+    <string name="exit">再次点击退出道德经</string>
+    <string name="setting">设置</string>
+    <string name="show_explain">显示注释下划线</string>
 
 </resources>

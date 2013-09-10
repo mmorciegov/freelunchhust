@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -53,6 +54,11 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 	{
 		contentView.PlayMp3(v);		
 	}
+	
+	public void Setting(View v)
+	{
+		startActivity(new Intent(getApplicationContext(), SettingActivity.class));	
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +73,8 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 	@Override
 	protected void onStart() {
 		super.onStart();
+		
+		contentView.InitRect();
 
 		m_adLayout = (LinearLayout) findViewById(R.id.adLayout);
 		if (m_adLayout == null)
@@ -101,15 +109,13 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 		{
 			m_adLayout.removeAllViews();
 		}
-		
-		contentView.InitRect();
 	}
 
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		m_dbHelper.SetLastImageIndex(m_currentImageIndex);
+		getDatabaseHelper().SetLastImageIndex(m_currentImageIndex);
 		contentView.StopMp3();
 
 		if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.FROYO)
@@ -135,12 +141,6 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 			}
 		}
     }
-    
-    @Override
-	protected void onStop() {
-    	super.onStop();
-    	contentView.StopMp3();
-    }
 
 	@Override
 	public void onClickAd() {
@@ -158,7 +158,12 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 
 	@Override
 	public void onDisplayAd() {
-		contentView.InitRect();
+		
+		contentView.postDelayed(new Runnable(){
+			@Override
+			public void run() {
+				contentView.InitRect();
+			}}, 500);
 	}
 	
 	@Override

@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingActivity" >
+
+    <TextView
+        android:id="@+id/text_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="16.0dip"
+        android:textSize="20sp"
+        android:text="@string/setting" />
+    
+    
+    
+    <RelativeLayout
+        android:id="@+id/layout_show_explain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+	    android:layout_below="@+id/text_setting"
+	    android:layout_marginLeft="12dip"
+	    android:layout_marginRight="12dip"
+	    android:padding="4dip" >
+        
+	    <TextView
+	        android:id="@+id/text_show_explain"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_centerVertical="true"
+	        android:textSize="16sp"
+	        android:text="@string/show_explain" />
+	    
+	    <CheckBox
+	        android:id="@+id/checkbox_show_explain"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_centerVertical="true"
+	        android:onClick="showExplain"
+	        />
+
+    </RelativeLayout>
+
+</RelativeLayout>

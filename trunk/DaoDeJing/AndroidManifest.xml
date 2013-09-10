@@ -24,19 +24,22 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".DaoDeJing"
+            android:name="com.dreamori.daodejing.DaoDeJing"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <!--   Must declare it for Adivew SDK-->
-		<service android:name="com.kyview.DownloadService" />
-		<activity android:name="com.kyview.AdviewWebView" />   
-	
+        <activity
+            android:name="com.dreamori.daodejing.SettingActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <!-- Must declare it for Adivew SDK -->
+        <service android:name="com.kyview.DownloadService" />
+        <activity android:name="com.kyview.AdviewWebView" />
+
         <!-- AdView SDK for AdMob -->
         <activity
             android:name="com.google.ads.AdActivity"
@@ -51,7 +54,6 @@
         <activity
             android:name="com.inmobi.androidsdk.IMBrowserActivity"
             android:configChanges="keyboardHidden|orientation|keyboard" />
-        
         <activity
             android:name="com.tapjoy.TJCOffersWebView"
             android:configChanges="orientation|keyboardHidden|screenSize" />
@@ -77,8 +79,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize" />
 
         <!-- Channel id for app markets -->
-        <meta-data android:name="AdView_CHANNEL" android:value="CJY"></meta-data>       
-        
+        <meta-data android:name="AdView_CHANNEL" android:value="CJY"></meta-data>
     </application>
 
 </manifest>
