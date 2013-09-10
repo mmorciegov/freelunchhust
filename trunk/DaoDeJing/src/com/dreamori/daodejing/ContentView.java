@@ -68,7 +68,6 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 			m_dbHelper = DatabaseHelper.getInstance(context);
 		}
 		
-		m_needShowTouchTips = m_dbHelper.NeedShowTouchTips();
 		
 		detector = new GestureDetector(this);
 		
@@ -78,6 +77,8 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 
 	public void InitRect()
 	{
+		m_needShowTouchTips = m_dbHelper.NeedShowTouchTips();
+		
 		m_orignalDstRect.left = m_orignalDstRect.top = 0;
 		m_orignalDstRect.right = getWidth(); 
 		m_orignalDstRect.bottom = getHeight();	

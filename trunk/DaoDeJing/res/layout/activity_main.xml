@@ -11,88 +11,73 @@
         android:layout_above="@+id/layout_control"
         android:layout_alignParentTop="true" />
 
-    <RelativeLayout
+    <TableLayout
         android:id="@+id/layout_control"
         android:layout_width="match_parent"
-        android:layout_height="50dip"
+        android:layout_height="wrap_content"
+        android:layout_alignWithParentIfMissing="true"
         android:layout_above="@+id/adLayout"
-        android:layout_alignWithParentIfMissing="true" >
-
-        <Button
-            android:id="@+id/btn_previos"
-            android:layout_width="50dip"
-            android:layout_height="50dip"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="10dip"
-            android:layout_marginLeft="15dip"
-            android:layout_marginTop="2dip"
-            android:background="@drawable/previous"
-            android:gravity="center"
-            android:onClick="ShowPreviosImage" />
-
-        <Button
-            android:id="@+id/btn_fake"
-            android:layout_width="0dip"
-            android:layout_height="0dip"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:gravity="center" />
-
-        <Button
-            android:id="@+id/btn_next"
-            android:layout_width="50dip"
-            android:layout_height="50dip"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="10dip"
-            android:layout_marginRight="15dip"
-            android:layout_marginTop="2dip"
-            android:background="@drawable/next"
-            android:gravity="center"
-            android:onClick="ShowNextImage" />
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_toLeftOf="@+id/btn_fake"
-            android:layout_toRightOf="@+id/btn_previos" >
-
-            <Button
-                android:id="@+id/btn_exp"
-                android:layout_width="50dip"
-                android:layout_height="50dip"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="10dip"
-                android:layout_marginLeft="30dip"
-                android:layout_marginTop="2dip"
-                android:background="@drawable/exp"
-                android:gravity="center"
-                android:onClick="ShowWholeExplanation" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_toLeftOf="@+id/btn_next"
-            android:layout_toRightOf="@+id/btn_fake" >
-
-            <Button
-                android:id="@+id/btn_music"
-                android:layout_width="50dip"
-                android:layout_height="50dip"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="10dip"
-                android:layout_marginRight="30dip"
-                android:layout_marginTop="2dip"
-                android:background="@drawable/music"
-                android:gravity="center"
-                android:onClick="PlayMp3" />
-        </RelativeLayout>
-    </RelativeLayout>
-
+        android:stretchColumns="0,1,2,3"
+        >
+        
+        <TableRow>
+            <RelativeLayout >
+	        <Button
+	            android:id="@+id/btn_previos"
+	            android:layout_width="48dip"
+	            android:layout_height="48dip"
+	            android:layout_margin="12dip"
+	            android:layout_centerInParent="true"
+	            android:background="@drawable/previous"
+	            android:onClick="ShowPreviosImage" />
+	        </RelativeLayout>
+	
+            <RelativeLayout >
+	        <Button
+	            android:id="@+id/btn_exp"
+	            android:layout_width="48dip"
+	            android:layout_height="48dip"
+	            android:layout_margin="12dip"
+	            android:layout_centerInParent="true"
+	            android:background="@drawable/exp"
+	            android:onClick="ShowWholeExplanation" />
+	        </RelativeLayout>
+	
+            <RelativeLayout >
+	        <Button
+	            android:id="@+id/btn_music"
+	            android:layout_width="48dip"
+	            android:layout_height="48dip"
+	            android:layout_margin="12dip"
+	            android:layout_centerInParent="true"
+	            android:background="@drawable/music"
+	            android:onClick="PlayMp3" />
+	        </RelativeLayout>
+	        
+            <RelativeLayout >
+			<Button
+	            android:id="@+id/btn_next"
+	            android:layout_width="48dip"
+	            android:layout_height="48dip"
+	            android:layout_margin="12dip"
+	            android:layout_centerInParent="true"
+	            android:background="@drawable/next"
+	            android:onClick="ShowNextImage" />
+	        </RelativeLayout>
+		</TableRow>
+        
+    </TableLayout>
+    
+    <Button 
+        android:id="@+id/btn_setting"
+        android:layout_width="48dip"
+        android:layout_height="48dip"
+        android:layout_margin="8dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/setting"
+        android:onClick="Setting" />
+       
     <LinearLayout
         android:id="@+id/adLayout"
         android:layout_width="wrap_content"
