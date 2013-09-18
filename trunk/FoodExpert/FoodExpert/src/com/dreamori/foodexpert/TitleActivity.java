@@ -38,12 +38,11 @@ import android.widget.Toast;
 public class TitleActivity extends Activity implements AdViewInterface{
 	public static final String CONFIG_FILENAME = "/config.xml";
 	private DatabaseHelper m_dbHelper = null;
-	private Timer m_adTimer = null;
-	private static boolean m_showAd = true;
-	private boolean m_adClicked1s = false;
-	private boolean m_adClicked5s = false;
+	private long m_exitTime = 0;
+	private long m_adClickTime = 0;
 	private LinearLayout m_adLayout = null;
-	private boolean m_adShowed = false;
+	private static boolean m_showAdThisTime = true;
+	private boolean m_adLoaded = false;
 	
 	public DatabaseHelper getDatabaseHelper()
 	{
@@ -210,14 +209,14 @@ public class TitleActivity extends Activity implements AdViewInterface{
 			e.printStackTrace();
 			showAds = 1;
 		}
-        if(showAds !=0 && m_showAd)
+        if(showAds !=0 && m_showAdThisTime)
         {
-			if (!m_adShowed) {
+			if (!m_adLoaded) {
 				AdViewLayout adViewLayout = new AdViewLayout(this,"SDK20120912090935ahwlxnjz3q9r67q");
 				adViewLayout.setAdViewInterface(this);
 				m_adLayout.addView(adViewLayout);
 				m_adLayout.invalidate();
-				m_adShowed = true;
+				m_adLoaded = true;
 
 				Button btn = (Button) findViewById(R.id.ui_main_remove_ads);
 				if (btn != null) 
@@ -254,14 +253,14 @@ public class TitleActivity extends Activity implements AdViewInterface{
 	}
 	
 	@Override
-	protected void onPause(){
-		super.onPause();
-		if(m_adClicked1s)
+	protected void onStop(){
+		super.onStop();
+		if(System.currentTimeMillis() - m_adClickTime < 1000)
 		{
         	if(m_adLayout!=null)
 			{
 				m_adLayout.removeAllViews();
-				m_showAd = false;
+				m_showAdThisTime = false;
 			}
 		}
 	}
@@ -321,29 +320,15 @@ public class TitleActivity extends Activity implements AdViewInterface{
 	public void onClickAd() {
 		DreamoriLog.LogFoodExpert("onClickAd");
 		
-		if(m_adClicked5s)
+		long thisTime = System.currentTimeMillis();
+		
+		if(thisTime - m_adClickTime < 5000)
 		{
 			m_adLayout.setVisibility(View.GONE);
-			m_showAd = false;
+			m_showAdThisTime = false;
 		}
 		
-		m_adClicked1s = true;
-		m_adClicked5s = true;
-		m_adTimer = new Timer();
-		TimerTask task1s = new TimerTask() {
-			@Override
-			public void run() {
-				m_adClicked1s = false;
-			}
-		};
-		TimerTask task5s = new TimerTask() {
-			@Override
-			public void run() {
-				m_adClicked5s = false;
-			}
-		};
-		m_adTimer.schedule(task1s, 1000);
-		m_adTimer.schedule(task5s, 5000);
+		m_adClickTime = thisTime;
 	}
 
 	@Override

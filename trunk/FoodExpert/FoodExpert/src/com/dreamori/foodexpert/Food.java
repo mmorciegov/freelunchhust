@@ -38,9 +38,12 @@ public class Food extends TitleActivity {
 			dbHelper.closeDatabase();
 		}
 
+		if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.FROYO)
+		{
 		ActivityManager activityManager = (ActivityManager) this
 				.getSystemService(Context.ACTIVITY_SERVICE);
 		activityManager.killBackgroundProcesses(getPackageName());
+		}
 		System.exit(0);
 		
 	}
