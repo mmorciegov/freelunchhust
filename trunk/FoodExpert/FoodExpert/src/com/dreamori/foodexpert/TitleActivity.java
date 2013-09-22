@@ -38,11 +38,11 @@ import android.widget.Toast;
 public class TitleActivity extends Activity implements AdViewInterface{
 	public static final String CONFIG_FILENAME = "/config.xml";
 	private DatabaseHelper m_dbHelper = null;
-	private long m_exitTime = 0;
 	private long m_adClickTime = 0;
 	private LinearLayout m_adLayout = null;
 	private static boolean m_showAdThisTime = true;
 	private boolean m_adLoaded = false;
+	private boolean m_adClickAndPaused = false;
 	
 	public DatabaseHelper getDatabaseHelper()
 	{
@@ -252,10 +252,28 @@ public class TitleActivity extends Activity implements AdViewInterface{
 		
 	}
 	
+
+    @Override
+	protected void onPause() {
+    	super.onPause();
+
+		if(System.currentTimeMillis() - m_adClickTime < 1000)
+		{
+			m_adClickAndPaused = true;
+		}
+    }
+    
+    @Override
+	protected void onResume() {
+    	super.onResume();
+    	
+    	m_adClickAndPaused = false;
+    }
+	
 	@Override
 	protected void onStop(){
 		super.onStop();
-		if(System.currentTimeMillis() - m_adClickTime < 1000)
+		if(m_adClickAndPaused)
 		{
         	if(m_adLayout!=null)
 			{
