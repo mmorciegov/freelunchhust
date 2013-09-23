@@ -209,6 +209,8 @@ public class TitleActivity extends Activity implements AdViewInterface{
 			e.printStackTrace();
 			showAds = 1;
 		}
+    	
+
         if(showAds !=0 && m_showAdThisTime)
         {
 			if (!m_adLoaded) {
@@ -222,7 +224,6 @@ public class TitleActivity extends Activity implements AdViewInterface{
 				if (btn != null) 
 				{
 					btn.setText(R.string.remove_ads);
-					btn.setBackgroundColor(Color.TRANSPARENT);
 				}
 
 				View view = findViewById(R.id.ui_main_points);
@@ -240,6 +241,23 @@ public class TitleActivity extends Activity implements AdViewInterface{
 		else 
 		{
 			m_adLayout.removeAllViews();
+
+			Button btn = (Button) findViewById(R.id.ui_main_remove_ads);
+			if (btn != null) 
+			{
+				btn.setText(R.string.app_offer);
+			}
+			
+			View view = findViewById(R.id.ui_main_points);
+			if (view != null) 
+			{
+				view.setVisibility(View.INVISIBLE);
+			}
+			view = findViewById(R.id.ui_main_points2);
+			if (view != null) 
+			{
+				view.setVisibility(View.INVISIBLE);
+			}
 		}
     }
 		

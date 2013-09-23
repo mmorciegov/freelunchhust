@@ -40,9 +40,8 @@ public class Food extends TitleActivity {
 
 		if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.FROYO)
 		{
-		ActivityManager activityManager = (ActivityManager) this
-				.getSystemService(Context.ACTIVITY_SERVICE);
-		activityManager.killBackgroundProcesses(getPackageName());
+			ActivityManager activityManager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+			activityManager.killBackgroundProcesses(getPackageName());
 		}
 		System.exit(0);
 		
@@ -66,25 +65,10 @@ public class Food extends TitleActivity {
 		}
 		
 		TapjoyConnect.requestTapjoyConnect(getApplicationContext(), "7473ae7f-6f58-4d5d-9471-12ce5ff32623", "gmMSXipEaXWvNZeVWCcL");
-		TapjoyConnect.getTapjoyConnectInstance().setEarnedPointsNotifier(new TapjoyEarnedPointsNotifier()
-		{
-			@Override
-			public void earnedTapPoints(int amount)
-			{
-				m_curPoint += amount;
-				final String pointText = getString(R.string.point_prompt)+m_curPoint;
-				m_Handler.post(new Runnable(){
-					
-					@Override
-					public void run() {
-						if (m_pointTV1 != null) 
-						{
-							m_pointTV1.setText(pointText);
-						}
-					}}
-				);
-			}
-		});
+	}
+	
+	@Override protected void onStart()
+	{
 		TapjoyConnect.getTapjoyConnectInstance().getTapPoints(new TapjoyNotifier()
 		{
 			@Override
@@ -109,10 +93,12 @@ public class Food extends TitleActivity {
 						{
 							m_pointTV1.setText(pointText);
 						}
-					}}
-				);
+					}
+				});
 			}
 		});
+		
+		super.onStart();
 	}
 	
 
