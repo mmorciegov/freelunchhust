@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -20,6 +21,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -192,6 +194,10 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 	
 	public void PlayMp3( View v)
 	{
+//		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+//		String playMode = sharedPref.getString(getContext().getString(R.string.pref_key_mode_list), "");
+		//TODO: deal with play mode
+		
 		if( m_bPlaying && m_imageIndexInPlaying == DaoDeJing.m_currentImageIndex )
 		{
 			StopMp3();

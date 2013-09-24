@@ -33,7 +33,9 @@
         </activity>
         <activity
             android:name="com.dreamori.daodejing.SettingActivity"
-            android:screenOrientation="portrait" >
+            android:label="@string/setting"
+            android:screenOrientation="portrait"
+            android:theme="@style/SettingTheme" >
         </activity>
 
         <!-- Must declare it for Adivew SDK -->
@@ -79,7 +81,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize" />
 
         <!-- Channel id for app markets -->
-        <meta-data android:name="AdView_CHANNEL" android:value="CJY"></meta-data>
+        <meta-data android:name="AdView_CHANNEL" android:value="CJY" />
     </application>
 
 </manifest>
