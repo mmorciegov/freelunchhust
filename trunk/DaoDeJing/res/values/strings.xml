@@ -1,8 +1,42 @@
 <resources>
 
     <string name="app_name">道德经</string>
-    <string name="exit">再次点击退出道德经</string>
+    <string name="exit">再按一次退出道德经</string>
     <string name="setting">设置</string>
     <string name="show_explain">显示注释下划线</string>
+    <string name="general_setting">常用选项</string>
+    <string name="play_mode">朗读模式</string>
+    <string name="mode_single">单章朗读</string>
+    <string name="mode_single_cycle">单章循环</string>
+    <string name="mode_all">全书朗读</string>
+    <string name="mode_all_cycle">全书循环</string>
+    <string name="remove_ads">去除广告</string>
+    <string name="show_ads">显示广告</string>
+    <string name="show_ads_on">显示</string>
+    <string name="show_ads_off">不显示</string>
+    <string name="max_point1">满</string>
+    <string name="max_point2">积分可不显示广告</string>
+    <string name="current_point">，当前积分:</string>
+    <string name="get_point">获取积分</string>
+    
+    
+    <string name="pref_key_mode_list">pref_key_mode_list</string>
+    <string name="pref_key_show_ads">pref_key_show_ads</string>
+    <string name="pref_key_get_point">pref_key_get_point</string>
+    
+    <string-array name="list_mode_array">
+        <item>单章朗读</item>
+        <item>单章循环</item>
+        <item>全书朗读</item>
+        <item>全书循环</item>
+    </string-array>
+
+    <string-array name="list_mode_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    
 
 </resources>

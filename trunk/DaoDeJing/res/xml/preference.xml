@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    
+	<PreferenceCategory android:title="@string/general_setting" >
+	    <ListPreference
+	        android:key="@string/pref_key_mode_list"
+	        android:entries="@array/list_mode_array"
+	        android:entryValues="@array/list_mode_values"
+	        android:title="@string/play_mode"
+	        android:defaultValue="@string/mode_single"
+	        android:enabled="false"
+	         />
+    </PreferenceCategory>
+    
+	<PreferenceCategory android:title="@string/remove_ads" >
+	    <CheckBoxPreference
+        	android:key="@string/pref_key_show_ads"
+        	android:title="@string/show_ads"
+	        android:summaryOn="@string/show_ads_on"
+	        android:summaryOff="@string/show_ads_off"
+	        android:defaultValue="true"
+	        android:enabled="false"
+	        />"
+	        
+	    <Preference 
+            android:key="@string/pref_key_get_point"
+            android:title="@string/get_point"
+            />
+    </PreferenceCategory>
+
+</PreferenceScreen>

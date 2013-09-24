@@ -5,10 +5,12 @@ import com.kyview.AdViewInterface;
 import com.kyview.AdViewLayout;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 	private LinearLayout m_adLayout = null;
 	private static boolean m_showAdThisTime = true;
 	private boolean m_adLoaded = false;
+	private boolean m_adClickAndPaused = false;
 	
     static int m_currentImageIndex = Const.m_minImageIndex;
 	
@@ -68,6 +71,8 @@ public class DaoDeJing extends Activity implements AdViewInterface {
         
         contentView =(ContentView)findViewById(R.id.img_content);
 		m_currentImageIndex = getDatabaseHelper().GetLastImageIndex();
+		
+		PreferenceManager.setDefaultValues(this, R.xml.preference, false); 
 	}
 
 	@Override
@@ -76,6 +81,9 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 		
 		contentView.InitRect();
 
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean showAdsChecked = sharedPref.getBoolean(getString(R.string.pref_key_show_ads), true);
+		
 		m_adLayout = (LinearLayout) findViewById(R.id.adLayout);
 		if (m_adLayout == null)
 		{
@@ -94,7 +102,7 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 			showAds = 1;
 		}
 		
-		if (showAds != 0 && m_showAdThisTime) 
+		if ( showAdsChecked || (showAds != 0 && m_showAdThisTime) ) 
 		{
 			if (!m_adLoaded) 
 			{
@@ -134,14 +142,27 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 
 		if(System.currentTimeMillis() - m_adClickTime < 1000)
 		{
-        	if(m_adLayout!=null)
-			{
-				m_adLayout.removeAllViews();
-				m_showAdThisTime = false;
-			}
+			m_adClickAndPaused = true;
 		}
     }
+    
+    @Override
+	protected void onResume() {
+    	super.onResume();
+    	
+    	m_adClickAndPaused = false;
+    }
 
+	@Override
+	protected void onStop(){
+		super.onStop();
+		if(m_adClickAndPaused && m_adLayout!=null)
+		{
+        	m_adLayout.removeAllViews();
+			m_showAdThisTime = false;
+		}
+	}
+	
 	@Override
 	public void onClickAd() {
 
