@@ -8,14 +8,24 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class DaoDeJing extends Activity implements AdViewInterface {
+
+	public final static String ACTION_UPDATE_PAGE = "com.dreamori.daodejing.update_page";
+	public final static String ACTION_UPDATE_PLAY_STATE = "com.dreamori.daodejing.update_play_state";
+	public final static String IS_PLAYING = "is_playing";
+
+    public static int m_currentImageIndex = Const.m_minImageIndex;
+    
 	private DatabaseHelper m_dbHelper = null;	
 	
 	private ContentView contentView = null;
@@ -26,7 +36,23 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 	private boolean m_adLoaded = false;
 	private boolean m_adClickAndPaused = false;
 	
-    static int m_currentImageIndex = Const.m_minImageIndex;
+    
+	private BroadcastReceiver m_recv = new BroadcastReceiver()
+	{
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String action = intent.getAction();
+
+			if(action.equalsIgnoreCase(ACTION_UPDATE_PAGE))
+			{
+				contentView.UpdateImageAndHotspot();
+			}
+			else if(action.equalsIgnoreCase(ACTION_UPDATE_PLAY_STATE))
+			{
+				updatePlayButton();
+			}
+		}
+	};
 	
     public DatabaseHelper getDatabaseHelper()
 	{
@@ -40,12 +66,26 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 	
 	public void ShowNextImage(View v)
 	{
-		contentView.ShowNextImage();		
+		contentView.ShowNextImage();
+		
+		if( PlayerService.isPlaying )
+		{
+			Intent intent = new Intent();  
+	        intent.setAction(PlayerService.ACTION_UPDATE_PLAYING);
+	        sendBroadcast(intent);
+		}
 	}
 	
 	public void ShowPreviosImage(View v)
 	{	
-		contentView.ShowPreviosImage();		
+		contentView.ShowPreviosImage();
+		
+		if( PlayerService.isPlaying )
+		{
+			Intent intent = new Intent();  
+	        intent.setAction(PlayerService.ACTION_UPDATE_PLAYING);
+	        sendBroadcast(intent);
+		}
 	}
 	
 	public void ShowWholeExplanation(View v)
@@ -55,7 +95,18 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 	
 	public void PlayMp3(View v)
 	{
-		contentView.PlayMp3(v);		
+		if( PlayerService.isPlaying  )
+		{
+			((Button)v).setBackgroundResource(R.drawable.music);
+			stopService(new Intent(this, PlayerService.class));
+			return;
+		}
+		else
+		{
+			((Button)v).setBackgroundResource(R.drawable.music2);
+			Intent intent = new Intent(this, PlayerService.class);
+			startService(intent);
+		}
 	}
 	
 	public void Setting(View v)
@@ -72,7 +123,15 @@ public class DaoDeJing extends Activity implements AdViewInterface {
         contentView =(ContentView)findViewById(R.id.img_content);
 		m_currentImageIndex = getDatabaseHelper().GetLastImageIndex();
 		
-		PreferenceManager.setDefaultValues(this, R.xml.preference, false); 
+		PreferenceManager.setDefaultValues(this, R.xml.preference, false);
+
+        IntentFilter filter = new IntentFilter();  
+        filter.addAction(ACTION_UPDATE_PAGE);
+        filter.addAction(ACTION_UPDATE_PLAY_STATE);
+        registerReceiver(m_recv, filter);  
+		
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+		PlayerService.CurrentPlayMode = sharedPref.getString(getString(R.string.pref_key_mode_list), getString(R.string.mode_single));
 	}
 
 	@Override
@@ -80,6 +139,7 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 		super.onStart();
 		
 		contentView.InitRect();
+		updatePlayButton();
 
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean showAdsChecked = sharedPref.getBoolean(getString(R.string.pref_key_show_ads), true);
@@ -123,22 +183,24 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		getDatabaseHelper().SetLastImageIndex(m_currentImageIndex);
-		contentView.StopMp3();
 
-		if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.FROYO)
+		unregisterReceiver(m_recv);
+
+		if(!PlayerService.isPlaying)
 		{
-		ActivityManager activityManager = (ActivityManager) this
-				.getSystemService(Context.ACTIVITY_SERVICE);
-		activityManager.killBackgroundProcesses(getPackageName());
+			if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.FROYO)
+			{
+			ActivityManager activityManager = (ActivityManager) this
+					.getSystemService(Context.ACTIVITY_SERVICE);
+			activityManager.killBackgroundProcesses(getPackageName());
+			}
+			System.exit(0);
 		}
-		System.exit(0);
 	}
         
     @Override
 	protected void onPause() {
     	super.onPause();
-    	contentView.StopMp3();
 
 		if(System.currentTimeMillis() - m_adClickTime < 1000)
 		{
@@ -189,12 +251,29 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 	
 	@Override
 	public void onBackPressed() {
-		if ((System.currentTimeMillis() - m_exitTime) > 3500)
+		if ((System.currentTimeMillis() - m_exitTime) > 3500 && !PlayerService.isPlaying)
 		{
 			Toast.makeText(getApplicationContext(), getString(R.string.exit),Toast.LENGTH_LONG).show();
 			m_exitTime = System.currentTimeMillis();
 		} else {
 			finish();
+		}
+	}
+	
+
+	
+	public void updatePlayButton()
+	{
+		Button musicBtn = (Button)findViewById(R.id.btn_music);
+		if(musicBtn == null) return;
+		
+		if(PlayerService.isPlaying)
+		{
+			musicBtn.setBackgroundResource(R.drawable.music2);
+		}
+		else
+		{
+			musicBtn.setBackgroundResource(R.drawable.music);
 		}
 	}
 	

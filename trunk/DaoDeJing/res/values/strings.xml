@@ -18,6 +18,9 @@
     <string name="max_point2">积分可不显示广告</string>
     <string name="current_point">，当前积分:</string>
     <string name="get_point">获取积分</string>
+    <string name="player_service_msg">《道德经》开始朗读</string>
+    <string name="player_service_title">《道德经》</string>
+    <string name="player_service_detail">正在朗读</string>
     
     
     <string name="pref_key_mode_list">pref_key_mode_list</string>
@@ -32,10 +35,10 @@
     </string-array>
 
     <string-array name="list_mode_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
+        <item>单章朗读</item>
+        <item>单章循环</item>
+        <item>全书朗读</item>
+        <item>全书循环</item>
     </string-array>
     
 

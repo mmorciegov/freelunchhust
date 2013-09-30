@@ -9,7 +9,6 @@
 	        android:entryValues="@array/list_mode_values"
 	        android:title="@string/play_mode"
 	        android:defaultValue="@string/mode_single"
-	        android:enabled="false"
 	         />
     </PreferenceCategory>
     
