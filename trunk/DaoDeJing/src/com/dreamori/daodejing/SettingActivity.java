@@ -122,8 +122,7 @@ public class SettingActivity extends PreferenceActivity implements OnSharedPrefe
 					public void run() {
 						if (m_getPointPref != null) 
 						{
-							CharSequence org = m_getPointPref.getSummary();
-							m_getPointPref.setSummary(org.toString() + curPointText);
+							m_getPointPref.setSummary(getString(R.string.max_point1) + MAX_POINT + getString(R.string.max_point2) + curPointText);
 						}
 						
 						if(m_curPoint >= MAX_POINT && m_showAdsCheckboxPref != null)
