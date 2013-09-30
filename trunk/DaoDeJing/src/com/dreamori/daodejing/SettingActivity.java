@@ -173,7 +173,9 @@ public class SettingActivity extends PreferenceActivity implements OnSharedPrefe
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 		
 		if (key.equals(getString(R.string.pref_key_mode_list))) {
-			m_playModePref.setSummary(m_playModePref.getEntry().toString()); 
+			m_playModePref.setSummary(m_playModePref.getEntry().toString());
+			
+			PlayerService.CurrentPlayMode = m_playModePref.getEntry().toString();
         }
 	}
 

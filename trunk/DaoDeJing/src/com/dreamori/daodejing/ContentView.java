@@ -1,7 +1,5 @@
 package com.dreamori.daodejing;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import com.dreamori.daodejing.ParameterObject.TitleContent;
@@ -10,30 +8,19 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.RectF;
-import android.graphics.drawable.BitmapDrawable;
-import android.media.MediaPlayer;
-import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.GestureDetector.OnGestureListener;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class ContentView extends View   implements OnGestureListener, MediaPlayer.OnCompletionListener{
+public class ContentView extends View implements OnGestureListener{
 	
 	private boolean m_bInit = false;
 	private DatabaseHelper m_dbHelper = null;	
@@ -54,12 +41,6 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 	boolean m_needShowTouchTips = true;
 	
 	private GestureDetector detector;
-	
-    
-    private static MediaPlayer mp = null;
-    private boolean m_bPlaying = false;
-    private int m_imageIndexInPlaying = DaoDeJing.m_currentImageIndex;
-	private Button musicBtn = null;
 
 	public ContentView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -69,7 +50,6 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 		{
 			m_dbHelper = DatabaseHelper.getInstance(context);
 		}
-		
 		
 		detector = new GestureDetector(this);
 		
@@ -143,7 +123,7 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 			DaoDeJing.m_currentImageIndex = Const.m_minImageIndex;
 		}
 
-		UpdateImageAndStopPlaying();		
+		UpdateImage();		
 	}
 		
 	public void ShowPreviosImage()
@@ -155,16 +135,16 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 			DaoDeJing.m_currentImageIndex = Const.m_maxImageIndex;
 		}
 		
-		UpdateImageAndStopPlaying();
+		UpdateImage();
 	}
 	
-	private void UpdateImageAndStopPlaying()
+	private void UpdateImage()
 	{
 		UpdateImageAndHotspot();
 		
 		((View) this.getParent()).setBackgroundResource(ResourceManager.GetBackgroundIcon(getContext(), m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));
 		
-		StopMp3();
+		m_dbHelper.SetLastImageIndex(DaoDeJing.m_currentImageIndex);
 	}
 	
 	public void ShowWholeExplanation()
@@ -173,52 +153,6 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 		if( m_dbHelper.GetExplanationContent(DaoDeJing.m_currentImageIndex, titleContent))
 		{
 			ShowExplanationDialog(titleContent.title, titleContent.content );		
-		}
-	}
-
-	public void StopMp3( )
-	{
-		if( mp != null )
-		{
-			m_bPlaying = false;
-			mp.stop();	
-			mp.release();
-			mp = null;
-		}
-		
-		if( musicBtn != null )
-		{
-			musicBtn.setBackgroundResource(R.drawable.music);
-		}		
-	}
-	
-	public void PlayMp3( View v)
-	{
-//		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
-//		String playMode = sharedPref.getString(getContext().getString(R.string.pref_key_mode_list), "");
-		//TODO: deal with play mode
-		
-		if( m_bPlaying && m_imageIndexInPlaying == DaoDeJing.m_currentImageIndex )
-		{
-			StopMp3();
-			return;
-		}
-		
-		if( mp != null )
-		{
-			mp.release();
-		}
-		
-		m_imageIndexInPlaying = DaoDeJing.m_currentImageIndex;
-		m_bPlaying = true;
-		mp = MediaPlayer.create(getContext(), ResourceManager.GetMusicId(getContext(), m_dbHelper.GetMusicName(m_imageIndexInPlaying)));
-		if( mp!= null )
-		{
-			mp.setOnCompletionListener(this);
-			mp.start();
-			
-			musicBtn = (Button) v;
-			musicBtn.setBackgroundResource(R.drawable.music2);
 		}
 	}
 //	
@@ -364,13 +298,6 @@ public class ContentView extends View   implements OnGestureListener, MediaPlaye
 	public boolean onSingleTapUp(MotionEvent e) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-
-	@Override
-	public void onCompletion(MediaPlayer mp) {
-		// TODO Auto-generated method stub
-		StopMp3();
 	}
 }
 

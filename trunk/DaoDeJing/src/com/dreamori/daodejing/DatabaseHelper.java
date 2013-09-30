@@ -5,27 +5,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.charset.Charset;
-import java.sql.Ref;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import org.xml.sax.Parser;
 import com.dreamori.daodejing.ParameterObject.TitleContent;
 
-
-
-import SQLite3.Blob;
 import SQLite3.Constants;
 import SQLite3.Database;
 import SQLite3.Exception;
 import SQLite3.TableResult;
 
-import android.R.string;
 import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Rect;
 
 public class DatabaseHelper {
@@ -288,7 +276,7 @@ public class DatabaseHelper {
     	{
 			e.toString();
 		}
-    	
+
 		return lastImageIndex;
     }
     
