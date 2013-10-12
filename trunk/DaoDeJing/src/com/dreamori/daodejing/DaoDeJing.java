@@ -67,25 +67,11 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 	public void ShowNextImage(View v)
 	{
 		contentView.ShowNextImage();
-		
-		if( PlayerService.isPlaying )
-		{
-			Intent intent = new Intent();  
-	        intent.setAction(PlayerService.ACTION_UPDATE_PLAYING);
-	        sendBroadcast(intent);
-		}
 	}
 	
 	public void ShowPreviosImage(View v)
 	{	
 		contentView.ShowPreviosImage();
-		
-		if( PlayerService.isPlaying )
-		{
-			Intent intent = new Intent();  
-	        intent.setAction(PlayerService.ACTION_UPDATE_PLAYING);
-	        sendBroadcast(intent);
-		}
 	}
 	
 	public void ShowWholeExplanation(View v)

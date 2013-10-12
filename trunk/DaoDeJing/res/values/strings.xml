@@ -21,6 +21,7 @@
     <string name="player_service_msg">《道德经》开始朗读</string>
     <string name="player_service_title">《道德经》</string>
     <string name="player_service_detail">正在朗读</string>
+    <string name="OK">确定</string>
     
     
     <string name="pref_key_mode_list">pref_key_mode_list</string>
