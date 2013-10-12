@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -123,7 +124,14 @@ public class ContentView extends View implements OnGestureListener{
 			DaoDeJing.m_currentImageIndex = Const.m_minImageIndex;
 		}
 
-		UpdateImage();		
+		UpdateImage();
+		
+		if( PlayerService.isPlaying )
+		{
+			Intent intent = new Intent();  
+	        intent.setAction(PlayerService.ACTION_UPDATE_PLAYING);
+	        getContext().sendBroadcast(intent);
+		}
 	}
 		
 	public void ShowPreviosImage()
@@ -136,6 +144,13 @@ public class ContentView extends View implements OnGestureListener{
 		}
 		
 		UpdateImage();
+		
+		if( PlayerService.isPlaying )
+		{
+			Intent intent = new Intent();  
+	        intent.setAction(PlayerService.ACTION_UPDATE_PLAYING);
+	        getContext().sendBroadcast(intent);
+		}
 	}
 	
 	private void UpdateImage()
@@ -170,8 +185,14 @@ public class ContentView extends View implements OnGestureListener{
 	
 	//private boolean cancleToast = false;
 	
+	private static boolean dlgShowed = false;
 	public void ShowExplanationDialog( String title, String contentString )
 	{
+		if(dlgShowed)
+			return;
+		
+		dlgShowed = true;
+		
 		AlertDialog.Builder builder = new Builder(getContext());
 		
 		LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -184,11 +205,11 @@ public class ContentView extends View implements OnGestureListener{
 		expTV.setText(contentString);
 		
 	    builder.setView(rootView);
-	    builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
-
+	    builder.setPositiveButton(getContext().getString(R.string.OK), new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
+				dlgShowed = false;
 			}});
 
 		builder.create().show();
