@@ -184,15 +184,8 @@ public class ContentView extends View implements OnGestureListener{
 //	}
 	
 	//private boolean cancleToast = false;
-	
-	private static boolean dlgShowed = false;
 	public void ShowExplanationDialog( String title, String contentString )
 	{
-		if(dlgShowed)
-			return;
-		
-		dlgShowed = true;
-		
 		AlertDialog.Builder builder = new Builder(getContext());
 		
 		LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -209,7 +202,6 @@ public class ContentView extends View implements OnGestureListener{
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
-				dlgShowed = false;
 			}});
 
 		builder.create().show();
