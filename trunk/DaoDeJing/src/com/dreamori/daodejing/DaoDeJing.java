@@ -31,11 +31,8 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 	
 	private ContentView contentView = null;
 	private long m_exitTime = 0;
-	private long m_adClickTime = 0;
 	private LinearLayout m_adLayout = null;
-	private static boolean m_showAdThisTime = true;
 	private boolean m_adLoaded = false;
-	private boolean m_adClickAndPaused = false;
 	
     
 	private BroadcastReceiver m_recv = new BroadcastReceiver()
@@ -149,7 +146,7 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 			showAds = 1;
 		}
 		
-		if ( showAdsChecked || (showAds != 0 && m_showAdThisTime) ) 
+		if ( showAdsChecked || showAds != 0 ) 
 		{
 			if (!m_adLoaded) 
 			{
@@ -184,22 +181,10 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 			System.exit(0);
 		}
 	}
-        
-    @Override
-	protected void onPause() {
-    	super.onPause();
-
-		if(System.currentTimeMillis() - m_adClickTime < 1000)
-		{
-			m_adClickAndPaused = true;
-		}
-    }
     
     @Override
 	protected void onResume() {
     	super.onResume();
-    	
-    	m_adClickAndPaused = false;
     	
     	if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.pref_key_keep_screen), false))
     	{
@@ -210,29 +195,9 @@ public class DaoDeJing extends Activity implements AdViewInterface {
     		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     	}
     }
-
-	@Override
-	protected void onStop(){
-		super.onStop();
-		if(m_adClickAndPaused && m_adLayout!=null)
-		{
-        	m_adLayout.removeAllViews();
-			m_showAdThisTime = false;
-		}
-	}
 	
 	@Override
 	public void onClickAd() {
-
-		long thisTime = System.currentTimeMillis();
-		
-		if(thisTime - m_adClickTime < 5000)
-		{
-			m_adLayout.setVisibility(View.GONE);
-			m_showAdThisTime = false;
-		}
-		
-		m_adClickTime = thisTime;
 	}
 
 	@Override
