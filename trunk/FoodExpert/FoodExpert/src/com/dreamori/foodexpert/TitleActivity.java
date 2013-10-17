@@ -38,11 +38,8 @@ import android.widget.Toast;
 public class TitleActivity extends Activity implements AdViewInterface{
 	public static final String CONFIG_FILENAME = "/config.xml";
 	private DatabaseHelper m_dbHelper = null;
-	private long m_adClickTime = 0;
 	private LinearLayout m_adLayout = null;
-	private static boolean m_showAdThisTime = true;
 	private boolean m_adLoaded = false;
-	private boolean m_adClickAndPaused = false;
 	
 	public DatabaseHelper getDatabaseHelper()
 	{
@@ -211,7 +208,7 @@ public class TitleActivity extends Activity implements AdViewInterface{
 		}
     	
 
-        if(showAds !=0 && m_showAdThisTime)
+        if(showAds !=0)
         {
 			if (!m_adLoaded) {
 				AdViewLayout adViewLayout = new AdViewLayout(this,"SDK20120912090935ahwlxnjz3q9r67q");
@@ -269,37 +266,6 @@ public class TitleActivity extends Activity implements AdViewInterface{
 		DreamoriLog.LogFoodExpert("Destory Activity");	
 		
 	}
-	
-
-    @Override
-	protected void onPause() {
-    	super.onPause();
-
-		if(System.currentTimeMillis() - m_adClickTime < 1000)
-		{
-			m_adClickAndPaused = true;
-		}
-    }
-    
-    @Override
-	protected void onResume() {
-    	super.onResume();
-    	
-    	m_adClickAndPaused = false;
-    }
-	
-	@Override
-	protected void onStop(){
-		super.onStop();
-		if(m_adClickAndPaused)
-		{
-        	if(m_adLayout!=null)
-			{
-				m_adLayout.removeAllViews();
-				m_showAdThisTime = false;
-			}
-		}
-	}
 
 	public String GetConfigFileName()
 	{
@@ -354,17 +320,6 @@ public class TitleActivity extends Activity implements AdViewInterface{
 
 	@Override
 	public void onClickAd() {
-		DreamoriLog.LogFoodExpert("onClickAd");
-		
-		long thisTime = System.currentTimeMillis();
-		
-		if(thisTime - m_adClickTime < 5000)
-		{
-			m_adLayout.setVisibility(View.GONE);
-			m_showAdThisTime = false;
-		}
-		
-		m_adClickTime = thisTime;
 	}
 
 	@Override
