@@ -1,5 +1,7 @@
 package com.dreamori.daodejing;
 
+import cn.domob.android.ads.DomobUpdater;
+
 import com.dreamori.daodejing.DatabaseHelper;
 import com.kyview.AdViewInterface;
 import com.kyview.AdViewLayout;
@@ -26,7 +28,9 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 	public final static String IS_PLAYING = "is_playing";
 
     public static int m_currentImageIndex = Const.m_minImageIndex;
-    
+
+	static boolean isStartVersionUpdateFlag = false;
+	
 	private DatabaseHelper m_dbHelper = null;	
 	
 	private ContentView contentView = null;
@@ -116,6 +120,13 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 		
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 		PlayerService.CurrentPlayMode = sharedPref.getString(getString(R.string.pref_key_mode_list), getString(R.string.mode_single));
+		
+
+		if (!isStartVersionUpdateFlag) {
+			isStartVersionUpdateFlag = true;
+
+			DomobUpdater.checkUpdate(this, "56OJznHIuNMr+C+6F6");
+		}
 	}
 
 	@Override
