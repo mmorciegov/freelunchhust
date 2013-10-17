@@ -22,6 +22,9 @@
     <string name="player_service_title">《道德經》</string>
     <string name="player_service_detail">正在朗讀</string>
     <string name="OK">確定</string>
+    <string name="keep_screen">保持屏幕開啟</string>
+    <string name="on">開</string>
+    <string name="off">關</string>
     
     <string-array name="list_mode_array">
         <item>單章朗讀</item>

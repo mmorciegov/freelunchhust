@@ -10,6 +10,14 @@
 	        android:title="@string/play_mode"
 	        android:defaultValue="@string/mode_single"
 	         />
+	    
+	    <CheckBoxPreference
+        	android:key="@string/pref_key_keep_screen"
+        	android:title="@string/keep_screen"
+	        android:summaryOn="@string/on"
+	        android:summaryOff="@string/off"
+	        android:defaultValue="false"
+	        />
     </PreferenceCategory>
     
 	<PreferenceCategory android:title="@string/remove_ads" >
@@ -20,7 +28,7 @@
 	        android:summaryOff="@string/show_ads_off"
 	        android:defaultValue="true"
 	        android:enabled="false"
-	        />"
+	        />
 	        
 	    <Preference 
             android:key="@string/pref_key_get_point"
