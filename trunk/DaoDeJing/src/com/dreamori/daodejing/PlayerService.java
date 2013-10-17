@@ -12,6 +12,7 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import android.os.IBinder;
+import android.os.PowerManager;
 
 public class PlayerService extends Service {
 	
@@ -113,6 +114,7 @@ public class PlayerService extends Service {
 				}
 			});
 
+			mp.setWakeMode(this, PowerManager.PARTIAL_WAKE_LOCK);
 			mp.start();
 			isPlaying = true;
 		}
