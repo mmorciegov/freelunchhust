@@ -1,0 +1,60 @@
+# view AndroidManifest.xml #generated:54
+-keep class cn.domob.android.ads.DomobActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:42
+-keep class com.dreamori.sanzijing.PlayerService { <init>(...); }
+
+# view AndroidManifest.xml #generated:27
+-keep class com.dreamori.sanzijing.SanZiJing { <init>(...); }
+
+# view AndroidManifest.xml #generated:35
+-keep class com.dreamori.sanzijing.SettingActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:49
+-keep class com.google.ads.AdActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:59
+-keep class com.inmobi.androidsdk.IMBrowserActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:46
+-keep class com.kyview.AdviewWebView { <init>(...); }
+
+# view AndroidManifest.xml #generated:45
+-keep class com.kyview.DownloadService { <init>(...); }
+
+# view AndroidManifest.xml #generated:74
+-keep class com.tapjoy.TJAdUnitView { <init>(...); }
+
+# view AndroidManifest.xml #generated:62
+-keep class com.tapjoy.TJCOffersWebView { <init>(...); }
+
+# view AndroidManifest.xml #generated:68
+-keep class com.tapjoy.TapjoyDailyRewardAdWebView { <init>(...); }
+
+# view AndroidManifest.xml #generated:65
+-keep class com.tapjoy.TapjoyFullScreenAdWebView { <init>(...); }
+
+# view AndroidManifest.xml #generated:71
+-keep class com.tapjoy.TapjoyVideoView { <init>(...); }
+
+# view AndroidManifest.xml #generated:79
+-keep class com.tapjoy.mraid.view.ActionHandler { <init>(...); }
+
+# view AndroidManifest.xml #generated:82
+-keep class com.tapjoy.mraid.view.Browser { <init>(...); }
+
+# onClick res/layout/activity_main.xml #generated:62
+-keepclassmembers class * { *** PlayMp3(...); }
+
+# onClick res/layout/activity_main.xml #generated:86
+-keepclassmembers class * { *** Setting(...); }
+
+# onClick res/layout/activity_main.xml #generated:73
+-keepclassmembers class * { *** ShowNextImage(...); }
+
+# onClick res/layout/activity_main.xml #generated:40
+-keepclassmembers class * { *** ShowPreviosImage(...); }
+
+# onClick res/layout/activity_main.xml #generated:51
+-keepclassmembers class * { *** ShowWholeExplanation(...); }
+
