@@ -43,18 +43,18 @@
 # view AndroidManifest.xml #generated:82
 -keep class com.tapjoy.mraid.view.Browser { <init>(...); }
 
-# onClick res/layout/activity_main.xml #generated:62
+# onClick res/layout/activity_main.xml #generated:435
 -keepclassmembers class * { *** PlayMp3(...); }
 
-# onClick res/layout/activity_main.xml #generated:86
+# onClick res/layout/activity_main.xml #generated:7
 -keepclassmembers class * { *** Setting(...); }
 
-# onClick res/layout/activity_main.xml #generated:73
+# onClick res/layout/activity_main.xml #generated:446
 -keepclassmembers class * { *** ShowNextImage(...); }
 
-# onClick res/layout/activity_main.xml #generated:40
+# onClick res/layout/activity_main.xml #generated:413
 -keepclassmembers class * { *** ShowPreviosImage(...); }
 
-# onClick res/layout/activity_main.xml #generated:51
+# onClick res/layout/activity_main.xml #generated:424
 -keepclassmembers class * { *** ShowWholeExplanation(...); }
 

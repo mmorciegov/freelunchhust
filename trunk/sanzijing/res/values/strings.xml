@@ -45,6 +45,75 @@
         <item>全书循环</item>
     </string-array>
         
-    <string name="content_01"> rén zhī chū    xìng běn shàn \n 人    之   初 ,   性   本   善。\n xìng xiāng jìn    xí xiāng yuǎn\n 性    相   近 ,   习   相   远。 </string>
+    <string name="content_title">三字经(%1$s)</string>
+    
+    <string name="s11">rén</string>
+    <string name="s12">zhī</string>
+    <string name="s13">chū</string>
+    <string name="s14"> </string>
+    <string name="s15">xìng</string>
+    <string name="s16">běn</string>
+    <string name="s17">shàn</string>
+    <string name="s21">人</string>
+    <string name="s22">之</string>
+    <string name="s23">初</string>
+    <string name="s24">,</string>
+    <string name="s25">性</string>
+    <string name="s26">本</string>
+    <string name="s27">善。\n</string>
+       
+    <string name="s31">xìng</string>
+    <string name="s32">xiāng</string>
+    <string name="s33">jìn</string>
+    <string name="s34"> </string>
+    <string name="s35">xí</string>
+    <string name="s36">xiāng</string>
+    <string name="s37">yuǎn</string>
+    <string name="s41">性</string>
+    <string name="s42">相</string>
+    <string name="s43">近</string>
+    <string name="s44">,</string>
+    <string name="s45">习</string>
+    <string name="s46">相</string>
+    <string name="s47">远。\n</string>    
+    
+    <string name="s51">gǒu</string>
+    <string name="s52">bú</string>
+    <string name="s53">jiào</string>
+    <string name="s54"> </string>
+    <string name="s55">xìng</string>
+    <string name="s56">nǎi</string>
+    <string name="s57">qiān</string>
+    <string name="s61">苟</string>
+    <string name="s62">不</string>
+    <string name="s63">教</string>
+    <string name="s64">,</string>
+    <string name="s65">性 </string>
+    <string name="s66">乃</string>
+    <string name="s67">迁。\n</string>
+    
+    <string name="s71">jiào</string>
+    <string name="s72">zhī</string>
+    <string name="s73">dào</string>
+    <string name="s74"> </string>
+    <string name="s75">guì</string>
+    <string name="s76">yǐ</string>
+    <string name="s77">zhuān</string>
+    <string name="s81">教</string>
+    <string name="s82">之</string>
+    <string name="s83">道</string>
+    <string name="s84">,</string>
+    <string name="s85">贵</string>
+    <string name="s86">以</string>
+    <string name="s87">专。\n</string>
+    
+    
+    <string name="content_01" >
+        <table border="1" cellspaceing="10">
+<tr><td>rén</td><td>zhī</td><td>chū</td><td>xìng</td><td>běn</td><td>shàn</td>\n</tr>
+<tr><td>人</td><td>之</td><td>初, </td><td>性</td><td>本</td><td>善.</td>\n\n</tr>
+</table>
+
+ </string>
 
 </resources>
