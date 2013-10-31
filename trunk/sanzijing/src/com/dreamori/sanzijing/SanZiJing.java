@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Random;
 
@@ -38,7 +39,7 @@ public class SanZiJing extends Activity implements AdViewInterface {
 	private Random rand = new Random(5);
 //	private ContentView contentView = null;
 	
-	private EditText editTextContent = null;
+	private TextView editTextContent = null;
 	private long m_exitTime = 0;
 	private LinearLayout m_adLayout = null;
 	private boolean m_adLoaded = false;
@@ -74,7 +75,7 @@ public class SanZiJing extends Activity implements AdViewInterface {
     
     private void ChangeBackgroud()
     {
-		((View) editTextContent.getParent()).setBackgroundResource(ResourceManager.GetBackgroundIcon(this, m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));  	
+		((View) editTextContent.getParent().getParent()).setBackgroundResource(ResourceManager.GetBackgroundIcon(this, m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));  	
     }
 	
 	public void ShowNextImage(View v)
@@ -119,7 +120,7 @@ public class SanZiJing extends Activity implements AdViewInterface {
         
         setContentView(R.layout.activity_main);
         
-        editTextContent = (EditText)findViewById(R.id.editText_content);
+        editTextContent = (TextView)findViewById(R.id.text11);
    //     contentView =(ContentView)findViewById(R.id.img_content);
 		m_currentImageIndex = getDatabaseHelper().GetLastImageIndex();
 		backgroundImageCount = m_dbHelper.GetBackgroundImageCount();

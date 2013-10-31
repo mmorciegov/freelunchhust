@@ -3,28 +3,401 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background" >
-
     
-    <EditText
-        android:id="@+id/editText_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_setting"
-        android:layout_marginTop="73dp"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:text="@string/content_01"
-        android:layout_above="@+id/layout_control"
+    <Button 
+        android:id="@+id/btn_setting"
+        android:layout_width="48dip"
+        android:layout_height="48dip"
+        android:layout_margin="8dip"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-         >
-    </EditText>
+        android:background="@drawable/setting"
+        android:onClick="Setting" />
     
-    <!--com.dreamori.sanzijing.ContentView
-        android:id="@+id/img_content"
+    <TextView 
+        	android:id="@+id/textTitle"
+        	android:layout_alignParentTop="true"
+        	android:layout_width="wrap_content"
+        	android:layout_height="48dip" 
+        	android:layout_centerHorizontal="true"
+        	android:textSize="36sp"
+        	android:text="@string/content_title"
+        	android:layout_marginTop="15dip"
+        />
+   <TableLayout 
+        android:id="@+id/text_table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/layout_control"
-        android:layout_alignParentTop="true" /-->
+        android:layout_below="@+id/textTitle"
+		android:stretchColumns="0,1,2,3,4,5,6"
+		android:layout_marginTop="20dip"
+        >
+        <TableRow>
+
+            <TextView
+                android:id="@+id/text11"
+                android:gravity="center"
+                android:padding="2dip"
+                android:text="@string/s11"
+                android:textSize="25sp" />
+
+            <TextView 
+                android:text="@string/s12"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp" 
+                />
+            <TextView 
+                android:text="@string/s13"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp" 
+                />
+            <TextView 
+                android:text="@string/s14"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp" 
+                />
+            <TextView 
+                android:text="@string/s15"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp" 
+                />
+            <TextView 
+                android:text="@string/s16"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp" 
+                />     
+            <TextView 
+                android:text="@string/s17"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp" 
+                />                       
+        </TableRow>
+                
+        <TableRow>
+            <TextView 
+                android:text="@string/s21"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s22"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s23"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s24"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s25"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s26"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />     
+            <TextView 
+                android:text="@string/s27"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />                       
+        </TableRow>
+                
+         <TableRow>
+            <TextView 
+                android:text="@string/s31"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s32"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s33"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s34"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s35"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s36"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />     
+            <TextView 
+                android:text="@string/s37"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />                       
+        </TableRow>
+        
+          <TableRow>
+            <TextView 
+                android:text="@string/s41"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s42"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s43"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s44"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s45"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s46"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />     
+            <TextView 
+                android:text="@string/s47"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />                       
+        </TableRow>
+        
+          
+            <TableRow>
+            <TextView 
+                android:text="@string/s51"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s52"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s53"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s54"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s55"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s56"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />     
+            <TextView 
+                android:text="@string/s57"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />                       
+        </TableRow>
+        
+              <TableRow>
+            <TextView 
+                android:text="@string/s61"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s62"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s63"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s64"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s65"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s66"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />     
+            <TextView 
+                android:text="@string/s67"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />                       
+        </TableRow>
+        
+                <TableRow>
+            <TextView 
+                android:text="@string/s71"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s72"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s73"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s74"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s75"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s76"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />     
+            <TextView 
+                android:text="@string/s77"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />                       
+        </TableRow>
+        
+                  <TableRow>
+            <TextView 
+                android:text="@string/s81"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s82"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s83"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s84"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s85"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />
+            <TextView 
+                android:text="@string/s86"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />     
+            <TextView 
+                android:text="@string/s87"
+                android:gravity="center"
+                android:padding="2dip"
+                android:textSize="25sp"
+                />                       
+        </TableRow>
+         
+    </TableLayout>
+
 
     <TableLayout
         android:id="@+id/layout_control"
@@ -82,16 +455,7 @@
 		</TableRow>
         
     </TableLayout>
-    
-    <Button 
-        android:id="@+id/btn_setting"
-        android:layout_width="48dip"
-        android:layout_height="48dip"
-        android:layout_margin="8dip"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/setting"
-        android:onClick="Setting" />
+
        
     <LinearLayout
         android:id="@+id/adLayout"
@@ -99,6 +463,5 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
-
 
 </RelativeLayout>
