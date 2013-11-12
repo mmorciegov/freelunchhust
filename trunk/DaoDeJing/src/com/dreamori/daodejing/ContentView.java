@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.AttributeSet;
@@ -69,14 +68,23 @@ public class ContentView extends View implements OnGestureListener{
 		dstRatio =  (float)m_orignalDstRect.width() / (float)m_orignalDstRect.height();
 		
 //		Hotspot.SetUiImageSize(m_orignalDstRect);  
-		
-		UpdateImageAndHotspot();		
+				
 	}
 			
 	public void UpdateImageAndHotspot()
 	{
 //		hotspots.clear();
-		m_bitmap = BitmapFactory.decodeResource( getContext().getResources(),  ResourceManager.GetIcon(getContext(), m_dbHelper.GetImageContentName(DaoDeJing.m_currentImageIndex)));
+		if(m_bitmap != null)
+		{
+			m_bitmap.recycle();
+			m_bitmap = null;
+		}
+		//m_bitmap = BitmapFactory.decodeResource( getContext().getResources(),  ResourceManager.GetIcon(getContext(), m_dbHelper.GetImageContentName(DaoDeJing.m_currentImageIndex)));
+		m_bitmap = m_dbHelper.getBitmap(DaoDeJing.m_currentImageIndex);
+		
+		if(m_bitmap == null)
+			return;
+		
 		m_srcRect.left = m_srcRect.top = 0;
 		m_srcRect.right = m_bitmap.getWidth(); 
 		m_srcRect.bottom = m_bitmap.getHeight();
@@ -98,7 +106,7 @@ public class ContentView extends View implements OnGestureListener{
 			m_finalDst.right = m_finalDst.left + (int)newWidth;
 		}
 		
-//		Hotspot.SetUiImageSize(m_finalDst);  
+//		Hotspot.SetUiImageSize(m_finalDst);
 //		
 //		m_dbHelper.GetImageHotSpot( DaoDeJing.m_currentImageIndex, hotspots);
 //		for ( int i = 0; i < hotspots.size(); i++) {
@@ -241,8 +249,9 @@ public class ContentView extends View implements OnGestureListener{
 	protected void onDraw(Canvas canvas)
 	{
 		if (!m_bInit)
-		{			
+		{	
 			InitRect();
+			UpdateImageAndHotspot();
 			m_bInit = true;
 		}
 		canvas.drawBitmap(m_bitmap, m_srcRect, m_finalDst, null);
