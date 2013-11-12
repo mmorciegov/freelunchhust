@@ -14,6 +14,8 @@ import SQLite3.Exception;
 import SQLite3.TableResult;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 
 public class DatabaseHelper {
@@ -21,7 +23,10 @@ public class DatabaseHelper {
 	private static DatabaseHelper mInstance = null;
 	static Database db = null;
 
-	public static final String DATABASE_NAME = "data.db3";
+	private static final String DATABASE_NAME = "data.db3";
+	private static final String DATABASE_VERSION = "1.0.2";
+	
+	private static Context mContext = null; 
     
 	private DatabaseHelper(Context context) {
 	}
@@ -30,20 +35,13 @@ public class DatabaseHelper {
 	static synchronized DatabaseHelper getInstance(Context context){
 		if(mInstance == null )
 		{
+			mContext = context;
 			mInstance = new DatabaseHelper(context);
 					
 	        //Init database   
-	        InitDabaseFile(context);
-	        try {
-	        	db = new Database();
-	        	db.open(context.getDatabasePath(DATABASE_NAME).getAbsolutePath(), Constants.SQLITE_OPEN_READWRITE);
-	        	
-	        	//String uri = (String) db.getdb()+"SQLITE_OPEN_READWRITE";
-		        //db.key(uri);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	        InitDabaseFile(context, false);
+	        openDatabase();
+	        checkDbVersion();
 	        
 	        if( db == null )
 	        {
@@ -59,7 +57,22 @@ public class DatabaseHelper {
 		return context.deleteDatabase(DATABASE_NAME);
 	}
 	
-	public void closeDatabase()
+	private static void checkDbVersion()
+	{
+		try {
+			if(!DATABASE_VERSION.equalsIgnoreCase(getConfig("version")))
+			{
+				db.close();
+				InitDabaseFile(mContext, true);
+				openDatabase();
+			}
+	
+			} catch (Exception e) {
+				e.printStackTrace();
+		}
+	}
+	
+	public static void closeDatabase()
 	{
 		try {
 			db.close();
@@ -74,9 +87,22 @@ public class DatabaseHelper {
 		}
 	}
 	
-	
+	static void openDatabase()
+	{
+    	try 
+    	{
+    		db = new Database();
+			db.open(mContext.getDatabasePath(DATABASE_NAME).getAbsolutePath(), Constants.SQLITE_OPEN_READWRITE);
+	    	//String uri = (String) db.getdb()+"SQLITE_OPEN_READWRITE";
+	        //db.key(uri);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
+	}
 
-	static private void InitDabaseFile(Context context)
+	static private void InitDabaseFile(Context context, boolean forceReplace)
     {    	
         File dbFile = context.getDatabasePath(DATABASE_NAME);
 		if (!dbFile.getParentFile().exists()) {
@@ -87,9 +113,10 @@ public class DatabaseHelper {
     	String databaseFileName = dbFile.getAbsolutePath().toString();  
     	
         File targetFile = new File(databaseFileName);
-        if (!targetFile.exists())        
+        if (!targetFile.exists() || forceReplace)        
     	{
 			try {
+				targetFile.delete();
 				targetFile.createNewFile();
 				copyBigDataBase(context,databaseFileName);
 				DreamoriLog.LogDaoDeJing("copyBigDataBase");
@@ -188,21 +215,21 @@ public class DatabaseHelper {
     public final static String TABLE_CONFIG = "config";
     public final static String CONFIG_LAST_IMAGE_INDEX = "sctp";
     public final static String CONFIG_SHOW_TOUCH_TIP = "xsbj";
-    public String getConfig(String key)
+    public static String getConfig(String key)
     {
+    	String ret = null;
     	TableResult tableResult = null;
 		try {
-			tableResult = db.get_table("select value from "+TABLE_CONFIG
-					+" where key='"+key+"'");
+			tableResult = db.get_table("select value from "+TABLE_CONFIG +" where key='"+key+"'");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
 
 		if( tableResult == null || tableResult.rows.isEmpty() )
 			return null;
 
-		String ret = tableResult.rows.get(0)[0];
+		ret = tableResult.rows.get(0)[0];
 
    		if( tableResult != null )
     	{
@@ -509,6 +536,40 @@ public class DatabaseHelper {
 		return result;
     }
     
-    
+    public Bitmap getBitmap(int index)
+    {
+    	Bitmap bmp = null;
+    	TableResult tableResult = null;
+    	
+    	try {
+			
+            String sql = "select " + CONTENT + " from " + TABLE_PIC_CONTENT  + " where " +  CONTENT_ID + " = " + index;
+			tableResult = db.get_table(sql);
+			
+			String str = tableResult.rows.get(0)[0];
+			String png = str.substring(2, str.length()-1);
+			
+			char[] hexChars = png.toCharArray();
+			int buflen = png.length()/2;
+			byte[] buff = new byte[buflen];
+			for (int i = 0; i < buflen; i++) {   
+		        int pos = i * 2;   
+		        buff[i] = (byte) ((byte) "0123456789ABCDEF".indexOf(hexChars[pos]) << 4 | (byte) "0123456789ABCDEF".indexOf(hexChars[pos + 1]));   
+		    }		
+			bmp = BitmapFactory.decodeByteArray(buff, 0, buflen);
+
+	   		if( tableResult != null )
+	    	{
+	    		tableResult.clear();
+	    		tableResult = null;
+	    	}  
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return bmp;
+		}
+    	
+    	return bmp;
+    }
     
 }

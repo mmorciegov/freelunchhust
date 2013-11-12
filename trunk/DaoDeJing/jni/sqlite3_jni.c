@@ -3275,7 +3275,7 @@ JNI_OnUnload(JavaVM *vm, void *reserved)
 jobject
 Java_SQLite3_Database_getdb( JNIEnv* env, jobject this )
 {
-	char text[128] = {"(Ljava/lang/String;J)V"};
+	char text[128] = {"stmt already closed"};
 	int i;
 	for( i = 0; i < 128; i++ )
 	{

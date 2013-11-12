@@ -134,6 +134,7 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 		super.onStart();
 		
 		contentView.InitRect();
+		contentView.UpdateImageAndHotspot();
 		updatePlayButton();
 
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -218,6 +219,7 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 			@Override
 			public void run() {
 				contentView.InitRect();
+				contentView.UpdateImageAndHotspot();
 			}}, 500);
 	}
 	
