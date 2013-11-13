@@ -41,7 +41,7 @@ public class DatabaseHelper {
 	        //Init database   
 	        InitDabaseFile(context, false);
 	        openDatabase();
-	        checkDbVersion();
+	        mInstance.checkDbVersion();
 	        
 	        if( db == null )
 	        {
@@ -57,7 +57,7 @@ public class DatabaseHelper {
 		return context.deleteDatabase(DATABASE_NAME);
 	}
 	
-	private static void checkDbVersion()
+	private void checkDbVersion()
 	{
 		try {
 			if(!DATABASE_VERSION.equalsIgnoreCase(getConfig("version")))
@@ -215,7 +215,7 @@ public class DatabaseHelper {
     public final static String TABLE_CONFIG = "config";
     public final static String CONFIG_LAST_IMAGE_INDEX = "sctp";
     public final static String CONFIG_SHOW_TOUCH_TIP = "xsbj";
-    public static String getConfig(String key)
+    public String getConfig(String key)
     {
     	String ret = null;
     	TableResult tableResult = null;
