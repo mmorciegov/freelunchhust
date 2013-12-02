@@ -44,6 +44,10 @@ public class SanZiJing extends Activity implements AdViewInterface {
 	private LinearLayout m_adLayout = null;
 	private boolean m_adLoaded = false;
 	
+	private final int TEXTVIEW_COUNT = 48;
+    
+    private String[] _textContent = new String[TEXTVIEW_COUNT];
+	
     
 	private BroadcastReceiver m_recv = new BroadcastReceiver()
 	{
@@ -68,24 +72,58 @@ public class SanZiJing extends Activity implements AdViewInterface {
 		if( m_dbHelper == null )
 		{
 			m_dbHelper = DatabaseHelper.getInstance(getApplicationContext());
-		}
-		
+		}	
 		return m_dbHelper;
 	}
     
     private void ChangeBackgroud()
     {
-		((View) editTextContent.getParent().getParent()).setBackgroundResource(ResourceManager.GetBackgroundIcon(this, m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));  	
+		((View) editTextContent.getParent().getParent().getParent()).setBackgroundResource(ResourceManager.GetBackgroundIcon(this, m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));  	
     }
-	
-	public void ShowNextImage(View v)
-	{
-		ChangeBackgroud();
-	}
-	
+
+
 	public void ShowPreviosImage(View v)
 	{	
 		ChangeBackgroud();
+		
+		m_currentImageIndex--;
+		if( m_currentImageIndex < Const.m_minImageIndex )
+		{
+			m_currentImageIndex = Const.m_maxImageIndex;
+		}
+		
+		UpdateTextContent();
+	}
+		
+	public void ShowNextImage(View v)
+	{
+		ChangeBackgroud();
+		m_currentImageIndex++;
+		if( m_currentImageIndex > Const.m_maxImageIndex )
+		{
+			m_currentImageIndex = Const.m_minImageIndex;
+		}
+		m_dbHelper.GetTextContent(m_currentImageIndex, _textContent);
+		
+		UpdateTextContent();
+	}
+	
+	
+	private void UpdateTextContent()
+	{
+		m_dbHelper.GetTextContent(m_currentImageIndex, _textContent);
+		
+		for( int i = 0; i < TEXTVIEW_COUNT; i++ )
+		{
+			if( (i+1) % 12 == 0)
+			{
+				txtViewGroup[i].setText(_textContent[i] + this.getResources().getString(R.string.s_dot) );
+			}
+			else
+			{
+				txtViewGroup[i].setText(_textContent[i]);
+			}
+		}
 	}
 	
 	public void ShowWholeExplanation(View v)
@@ -114,6 +152,9 @@ public class SanZiJing extends Activity implements AdViewInterface {
 		startActivity(new Intent(getApplicationContext(), SettingActivity.class));	
 	}
 
+	
+	private TextView [] txtViewGroup = new TextView[TEXTVIEW_COUNT];
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,12 +176,23 @@ public class SanZiJing extends Activity implements AdViewInterface {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 		PlayerService.CurrentPlayMode = sharedPref.getString(getString(R.string.pref_key_mode_list), getString(R.string.mode_single));
 		
+		
+		int index = 0;
+		for( int i = 1; i <= 8; i++ )
+		{
+			for( int j = 1; j<=6; j ++ )
+			{
+				txtViewGroup[index++] =  (TextView)findViewById(ResourceManager.GetTextViewId(this, "text"+i+j));				
+			}
+		}
+		
 
 		if (!isStartVersionUpdateFlag) {
 			isStartVersionUpdateFlag = true;
 
 			DomobUpdater.checkUpdate(this, "56OJznHIuNMr+C+6F6");
 		}
+		
 	}
 
 	@Override
@@ -245,7 +297,6 @@ public class SanZiJing extends Activity implements AdViewInterface {
 			finish();
 		}
 	}
-	
 
 	
 	public void updatePlayButton()

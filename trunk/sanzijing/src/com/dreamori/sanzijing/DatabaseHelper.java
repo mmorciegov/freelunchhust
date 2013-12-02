@@ -17,7 +17,7 @@ import android.content.Context;
 import android.graphics.Rect;
 
 public class DatabaseHelper {
-
+	
 	private static DatabaseHelper mInstance = null;
 	static Database db = null;
 
@@ -25,8 +25,7 @@ public class DatabaseHelper {
     
 	private DatabaseHelper(Context context) {
 	}
-	
-	
+		
 	static synchronized DatabaseHelper getInstance(Context context){
 		if(mInstance == null )
 		{
@@ -52,9 +51,7 @@ public class DatabaseHelper {
 		}
 		return mInstance;
 	}
-	
-
-    
+	    
 	public boolean deleteDatabase(Context context) {
 		return context.deleteDatabase(DATABASE_NAME);
 	}
@@ -74,8 +71,6 @@ public class DatabaseHelper {
 		}
 	}
 	
-	
-
 	static private void InitDabaseFile(Context context)
     {    	
         File dbFile = context.getDatabasePath(DATABASE_NAME);
@@ -116,8 +111,107 @@ public class DatabaseHelper {
         myInput.close();  
     }  
 	
-	
 	//Functions for tables	
+	public final static String TABLE_TEXT_CONTENT = "wzxx";
+	public final static String TEXT_ID = "id";
+	public final static String TEXT_CAPTER_ID = "bhdx";
+	public final static String TEXT_CONTENT = "wznr";
+	public final static String TEXT_EXPLANATION = "wzjs";
+	public final static String TEXT_SPELL_PREFIX = "wzpy";
+	private final int TextSpellCount = 24;
+	private static boolean _runOnce = false;
+	
+	private static String _selectContent = "";
+	private String GenerateTextSpellStrings()
+	{
+		if( _runOnce )
+		{
+			return _selectContent;
+		}
+		
+		if( !_runOnce )
+		{
+			_runOnce = true;
+		}
+		
+
+ 	   	for( int i = 0; i < TextSpellCount; i ++)
+ 	   	{
+ 	   		_selectContent = _selectContent + " , " +  TEXT_SPELL_PREFIX + (i + 1);
+ 	   	}
+		
+ 	   return _selectContent;
+	}
+	
+	
+	public void GetCapterIdName( int inputId, String captureId )
+	{
+	   	TableResult tableResult = null; 	   	
+
+ 	   	try {
+			//String sql = "select HEX("+ CONTENT + ") from wztp where " +  CONTENT_ID + " = " + index;
+			String sql = "select "+ TEXT_CAPTER_ID  + " from "+TABLE_TEXT_CONTENT  +" where " +  TEXT_ID + " = " + inputId;
+			tableResult = db.get_table(sql);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
+    	if( tableResult == null || tableResult.rows.isEmpty() )
+			return ;
+    	
+    	captureId = tableResult.rows.get(0)[0];
+		
+		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}   		
+    	   		
+		return;
+	}
+	
+
+	public void GetTextContent( int inputId, String[] textContent )
+	{
+	   	TableResult tableResult = null; 	   	
+
+ 	   	try {
+ 	   		String selectContent = GenerateTextSpellStrings();
+			String sql = "select "+ TEXT_CONTENT + selectContent  + " from "+TABLE_TEXT_CONTENT  +" where " +  TEXT_ID + " = " + inputId;
+			
+			DreamoriLog.LogSanZiJing(sql);
+			
+			tableResult = db.get_table(sql);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
+    	if( tableResult == null || tableResult.rows.isEmpty() )
+			return ;
+    	
+    	for( int k = 0; k < TextSpellCount/6; k ++ )
+    	{
+    		for( int s = 0; s< 6; s++ )
+    		{
+    			textContent[ 6*2*k + s ] = tableResult.rows.get(0)[ 6*k  + s + 1];
+    			textContent[ 6*(2*k+1) + s] = tableResult.rows.get(0)[0].substring(6*k + s, 6*k+ s + 1);
+    		}
+    	}
+    	
+    	DreamoriLog.LogSanZiJing(textContent);
+    	
+		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}   		
+    	   		
+		return;
+	}
+		
+	
     public final static String TABLE_PIC_CONTENT = "wztp";
     public final static String CONTENT_ID = "bh";
     public final static String CONTENT = "tp";

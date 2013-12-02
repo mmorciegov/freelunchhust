@@ -8,5 +8,13 @@ public final class DreamoriLog {
 	{
 		Log.v(DreamoriConst.LOG_CAT, msg);		
 	}
+	
+	static void LogSanZiJing(String[] msg)
+	{
+		for(String str : msg)
+		{
+			LogSanZiJing(str);
+		}	
+	}
 
 }
