@@ -84,8 +84,6 @@ public class SanZiJing extends Activity implements AdViewInterface {
 
 	public void ShowPreviosImage(View v)
 	{	
-		ChangeBackgroud();
-		
 		m_currentImageIndex--;
 		if( m_currentImageIndex < Const.m_minImageIndex )
 		{
@@ -97,20 +95,20 @@ public class SanZiJing extends Activity implements AdViewInterface {
 		
 	public void ShowNextImage(View v)
 	{
-		ChangeBackgroud();
+		
 		m_currentImageIndex++;
 		if( m_currentImageIndex > Const.m_maxImageIndex )
 		{
 			m_currentImageIndex = Const.m_minImageIndex;
 		}
-		m_dbHelper.GetTextContent(m_currentImageIndex, _textContent);
-		
+				
 		UpdateTextContent();
 	}
 	
 	
 	private void UpdateTextContent()
 	{
+		ChangeBackgroud();
 		m_dbHelper.GetTextContent(m_currentImageIndex, _textContent);
 		
 		for( int i = 0; i < TEXTVIEW_COUNT; i++ )

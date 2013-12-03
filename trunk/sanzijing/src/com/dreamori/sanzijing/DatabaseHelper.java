@@ -15,6 +15,8 @@ import SQLite3.TableResult;
 
 import android.content.Context;
 import android.graphics.Rect;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DatabaseHelper {
 	
@@ -116,32 +118,10 @@ public class DatabaseHelper {
 	public final static String TEXT_ID = "id";
 	public final static String TEXT_CAPTER_ID = "bhdx";
 	public final static String TEXT_CONTENT = "wznr";
+	public final static String TEXT_SPELL = "wzpy";
 	public final static String TEXT_EXPLANATION = "wzjs";
-	public final static String TEXT_SPELL_PREFIX = "wzpy";
 	private final int TextSpellCount = 24;
 	private static boolean _runOnce = false;
-	
-	private static String _selectContent = "";
-	private String GenerateTextSpellStrings()
-	{
-		if( _runOnce )
-		{
-			return _selectContent;
-		}
-		
-		if( !_runOnce )
-		{
-			_runOnce = true;
-		}
-		
-
- 	   	for( int i = 0; i < TextSpellCount; i ++)
- 	   	{
- 	   		_selectContent = _selectContent + " , " +  TEXT_SPELL_PREFIX + (i + 1);
- 	   	}
-		
- 	   return _selectContent;
-	}
 	
 	
 	public void GetCapterIdName( int inputId, String captureId )
@@ -171,15 +151,45 @@ public class DatabaseHelper {
 		return;
 	}
 	
+	private String replaceBlack(String str)
+	{
+		String dest = "";
+		if( str != null )
+		{
+			Pattern p = Pattern.compile("\\s*|\t|\r|\n");
+			Matcher m = p.matcher(str);
+			dest = m.replaceAll("");
+		}
+		
+		return dest;
+	}
+	
+
+	private String replaceBlackWithSingleBlack(String str)
+	{
+		String dest = "";
+		if( str != null )
+		{
+			Pattern p = Pattern.compile("\\s*|\t|\r|\n");
+			Matcher m = p.matcher(str);
+			dest = m.replaceAll(" ");
+			dest = dest.replace("  ", "|");
+			dest = dest.replace(" ", "");	
+			dest = dest.replace("|", " ");
+		}		
+
+		return dest;
+	}
 
 	public void GetTextContent( int inputId, String[] textContent )
 	{
 	   	TableResult tableResult = null; 	   	
 
  	   	try {
- 	   		String selectContent = GenerateTextSpellStrings();
-			String sql = "select "+ TEXT_CONTENT + selectContent  + " from "+TABLE_TEXT_CONTENT  +" where " +  TEXT_ID + " = " + inputId;
-			
+	
+ 	   		String sql = "select "+ TEXT_CONTENT + " , " + TEXT_SPELL   + " from "+TABLE_TEXT_CONTENT  +" where " +  TEXT_ID + " = " + inputId;
+		
+ 	   		
 			DreamoriLog.LogSanZiJing(sql);
 			
 			tableResult = db.get_table(sql);
@@ -190,17 +200,21 @@ public class DatabaseHelper {
     	
     	if( tableResult == null || tableResult.rows.isEmpty() )
 			return ;
+
+    	
+    	String textResult = replaceBlack(tableResult.rows.get(0)[0]);
+    	String spellResult = tableResult.rows.get(0)[1];
+    	
+    	String [] spellStrings = ( replaceBlackWithSingleBlack(spellResult) ).split(" ");
     	
     	for( int k = 0; k < TextSpellCount/6; k ++ )
     	{
     		for( int s = 0; s< 6; s++ )
     		{
-    			textContent[ 6*2*k + s ] = tableResult.rows.get(0)[ 6*k  + s + 1];
-    			textContent[ 6*(2*k+1) + s] = tableResult.rows.get(0)[0].substring(6*k + s, 6*k+ s + 1);
+    			textContent[ 6*2*k + s ] = (spellStrings[ 6*k  + s ]).trim();
+    			textContent[ 6*(2*k+1) + s] = textResult.substring(6*k + s, 6*k+ s + 1);
     		}
     	}
-    	
-    	DreamoriLog.LogSanZiJing(textContent);
     	
 		if( tableResult != null )
     	{
