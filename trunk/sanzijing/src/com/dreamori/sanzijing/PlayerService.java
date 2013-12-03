@@ -24,7 +24,6 @@ public class PlayerService extends Service {
 	private DatabaseHelper m_dbHelper = null;
 	private static MediaPlayer mp = null; 
 	
-
 	private BroadcastReceiver m_recv = new BroadcastReceiver()
 	{
 		@Override

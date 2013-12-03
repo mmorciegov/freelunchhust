@@ -121,7 +121,6 @@ public class DatabaseHelper {
 	public final static String TEXT_SPELL = "wzpy";
 	public final static String TEXT_EXPLANATION = "wzjs";
 	private final int TextSpellCount = 24;
-	private static boolean _runOnce = false;
 	
 	
 	public void GetCapterIdName( int inputId, String captureId )
@@ -164,7 +163,6 @@ public class DatabaseHelper {
 		return dest;
 	}
 	
-
 	private String replaceBlackWithSingleBlack(String str)
 	{
 		String dest = "";
@@ -224,7 +222,60 @@ public class DatabaseHelper {
     	   		
 		return;
 	}
+	
+	public String GetContentIndexString( int inputId )
+	{
+		String result = "";
+	   	TableResult tableResult = null;
+
+    	try {
+			String sql = "select "+ TEXT_CAPTER_ID + " from "+TABLE_TEXT_CONTENT  +" where " +  TEXT_ID + " = " + inputId;
+			tableResult = db.get_table(sql);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
+		if( tableResult == null || tableResult.rows.isEmpty() )
+			return result;
 		
+		result = tableResult.rows.get(0)[0];
+		
+   		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}   		
+    	
+		return result;	
+	}
+
+    public boolean GetExplanationContent( int inputId, TitleContent titleContent )
+    {
+ 	   	TableResult tableResult = null;
+
+    	try {
+			String sql = "select "+ TEXT_CONTENT + " , " + TEXT_EXPLANATION + " from "+TABLE_TEXT_CONTENT  +" where " +  TEXT_ID + " = " + inputId;
+			tableResult = db.get_table(sql);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
+		if( tableResult == null || tableResult.rows.isEmpty() )
+			return false;
+		
+		titleContent.title = tableResult.rows.get(0)[0];
+		titleContent.content = tableResult.rows.get(0)[1];
+		
+   		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}   		
+    	
+		return true;
+    }
 	
     public final static String TABLE_PIC_CONTENT = "wztp";
     public final static String CONTENT_ID = "bh";
@@ -281,7 +332,6 @@ public class DatabaseHelper {
 			return null;
 		
 		String result = tableResult.rows.get(0)[0];
-		//byte[] data =  getBytes( charData );;
 		
    		if( tableResult != null )
     	{
@@ -387,113 +437,11 @@ public class DatabaseHelper {
 
 		return lastImageIndex;
     }
-    
-    
+     
     public void SetLastImageIndex( int index )
     {
-		//Update food frequency
 		setConfig(CONFIG_LAST_IMAGE_INDEX, ""+index);
     }        
-    
-    public final static String TABLE_HOTSPOT = "cmqy";
-    public final static String HOTSPOT_IMAGE_INDEX = "tpbh";
-    public final static String HOTSPOT_HOTSPOT_INDEX = "qybh";
-    public final static String HOTSPOT_HOTSPOT_LEFT_TOP_X = "zsx";
-    public final static String HOTSPOT_HOTSPOT_LEFT_TOP_Y = "zsy";
-    public final static String HOTSPOT_HOTSPOT_RIGHT_BOTTOM_X = "yxx";
-    public final static String HOTSPOT_HOTSPOT_RIGHT_BOTTOM_Y = "yxy";
-    
-    public void GetImageHotSpot( int imageIndex, ArrayList<Hotspot> hotspots)
-    {
-    	//TODO:Add width/height for every picture.
-    	ParameterObject.Size size = new ParameterObject.Size();
-    	GeImageWidthAndHeight( imageIndex, size );
-    	
-    	Hotspot.SetOrignalImageSize( new Rect(0, 0, size.width, size.height) );
-	
-    	
- 	   	TableResult tableResult = null;
-
-    	try {
-			String sql = "select "+ HOTSPOT_HOTSPOT_INDEX + " , " + HOTSPOT_HOTSPOT_LEFT_TOP_X +
-					" , " + HOTSPOT_HOTSPOT_LEFT_TOP_Y +
-					" , " + HOTSPOT_HOTSPOT_RIGHT_BOTTOM_X +
-					" , " + HOTSPOT_HOTSPOT_RIGHT_BOTTOM_Y +	
-					" from "+ TABLE_HOTSPOT + " where " +  HOTSPOT_IMAGE_INDEX + " = " + imageIndex;
-			tableResult = db.get_table(sql);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
-		if( tableResult == null || tableResult.rows.isEmpty() )
-			return ;
-		
-		Hotspot.imgIndex = imageIndex;
-		TitleContent titleContent = new TitleContent();
-		
-		for (String[] tableRow : tableResult.rows) {
-			
-			Hotspot hotspot = new Hotspot();							
-			hotspot.hotspotIndex = Integer.parseInt(tableRow[0]);
-			hotspot.posRect.left = Integer.parseInt(tableRow[1]);
-			hotspot.posRect.top = Integer.parseInt(tableRow[2]); 
-			hotspot.posRect.right = Integer.parseInt(tableRow[3]);
-			hotspot.posRect.bottom = Integer.parseInt(tableRow[4]);
-			if( GetHotspotExplanation(imageIndex, hotspot.hotspotIndex, titleContent) )
-			{
-				hotspot.contentString = titleContent.content;
-				hotspot.titleString = titleContent.title;
-			}
-			
-			
-			hotspots.add(hotspot);			
-		}
-		
-   		if( tableResult != null )
-    	{
-    		tableResult.clear();
-    		tableResult = null;
-    	}   		
-    	
-		return;
-    }    
-
-    public final static String TABLE_HOTSPOT_CONTENT = "cmnr";
-    public final static String HOTSPOT_CONTENT_IMAGE_INDEX = "tpbh";
-    public final static String HOTSPOT_CONTENT_HOTSPOT_INDEX = "qybh";
-    public final static String HOTSPOT_CONTENT_TITLE = "jsbt";
-    public final static String HOTSPOT_CONTENT_EXPLANAITION= "jsnr";
-    
-    public boolean GetHotspotExplanation( int imageIndex, int hotspotIndex, TitleContent titleContent)
-    {   	
- 	   	TableResult tableResult = null;
-
-    	try {
-			String sql = "select "+ HOTSPOT_CONTENT_TITLE + " , " +HOTSPOT_CONTENT_EXPLANAITION + 
-					" from "+ TABLE_HOTSPOT_CONTENT + " where " +  HOTSPOT_CONTENT_IMAGE_INDEX + " = " + imageIndex 
-					+ " and " + HOTSPOT_CONTENT_HOTSPOT_INDEX + " = " + hotspotIndex ;
-			tableResult = db.get_table(sql);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
-		if( tableResult == null || tableResult.rows.isEmpty() )
-			return false;
-		
-		titleContent.title = tableResult.rows.get(0)[0];
-		titleContent.content = tableResult.rows.get(0)[1];
-		
-   		if( tableResult != null )
-    	{
-    		tableResult.clear();
-    		tableResult = null;
-    	}   	
-   		
-   		return true;
-    	
-    }
     
     public final static String TABLE_BACKGROUND_CONTENT = "bjtp";
     public final static String BACKGROUND_IMAGE_INDEX = "tpbh";
@@ -554,37 +502,6 @@ public class DatabaseHelper {
 		return backgroundImageCount;
     }
     
-    public final static String TABLE_EXPLANATION = "qwsy";
-    public final static String EXPLANATION_IMAGE_INDEX = "tpbh";
-    public final static String EXPLANATION_TITLE = "bt";
-    public final static String EXPLANATION_CONTENT = "qwsy";
-
-    public boolean GetExplanationContent( int index, TitleContent titleContent )
-    {
- 	   	TableResult tableResult = null;
-
-    	try {
-			String sql = "select "+ EXPLANATION_TITLE + " , " + EXPLANATION_CONTENT + " from "+ TABLE_EXPLANATION +" where " +  EXPLANATION_IMAGE_INDEX + " = " + index;
-			tableResult = db.get_table(sql);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
-		if( tableResult == null || tableResult.rows.isEmpty() )
-			return false;
-		
-		titleContent.title = tableResult.rows.get(0)[0];
-		titleContent.content = tableResult.rows.get(0)[1];
-		
-   		if( tableResult != null )
-    	{
-    		tableResult.clear();
-    		tableResult = null;
-    	}   		
-    	
-		return true;
-    }
     
     
     public final static String TABLE_MUSIC = "pyxx";
