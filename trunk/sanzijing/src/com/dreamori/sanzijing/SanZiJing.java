@@ -2,6 +2,7 @@ package com.dreamori.sanzijing;
 
 import cn.domob.android.ads.DomobUpdater;
 
+import com.dreamori.sanzijing.PlayerService;
 import com.dreamori.sanzijing.DatabaseHelper;
 import com.dreamori.sanzijing.ParameterObject.TitleContent;
 import com.kyview.AdViewInterface;
@@ -133,6 +134,14 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 		
 		String contentIndexString = m_dbHelper.GetContentIndexString(m_currentImageIndex);
 		textTitle.setText( String.format(this.getResources().getString(R.string.content_title), contentIndexString) );
+		
+		
+		if( PlayerService.isPlaying )
+		{
+			Intent intent = new Intent();  
+	        intent.setAction(PlayerService.ACTION_UPDATE_PLAYING);
+	        this.sendBroadcast(intent);
+		}
 	}
 	
 
