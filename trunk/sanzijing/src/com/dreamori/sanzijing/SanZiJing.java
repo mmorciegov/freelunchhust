@@ -383,8 +383,4 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 		return mGestureDetector.onTouchEvent(event);
 	}
 	
-	
-	
-
-		
 }

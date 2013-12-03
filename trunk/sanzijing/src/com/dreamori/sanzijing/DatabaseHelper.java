@@ -128,7 +128,6 @@ public class DatabaseHelper {
 	   	TableResult tableResult = null; 	   	
 
  	   	try {
-			//String sql = "select HEX("+ CONTENT + ") from wztp where " +  CONTENT_ID + " = " + index;
 			String sql = "select "+ TEXT_CAPTER_ID  + " from "+TABLE_TEXT_CONTENT  +" where " +  TEXT_ID + " = " + inputId;
 			tableResult = db.get_table(sql);
 
@@ -276,72 +275,7 @@ public class DatabaseHelper {
     	
 		return true;
     }
-	
-    public final static String TABLE_PIC_CONTENT = "wztp";
-    public final static String CONTENT_ID = "bh";
-    public final static String CONTENT = "tp";
-    public final static String CONTENT_NAME = "tpmc";
-    public final static String CONTENT_IMAGE_WIDTH = "tpkd";
-    public final static String CONTENT_IMAGE_HEIGHT = "tpgd";
-    public final static String CONTENT_COMMENT = "bz";
 
-    public void GeImageWidthAndHeight( int index, ParameterObject.Size size  )
-    {
-    	size.width = 0;
-    	size.height = 0;
- 	   	TableResult tableResult = null; 	   	
-
- 	   	try {
-			//String sql = "select HEX("+ CONTENT + ") from wztp where " +  CONTENT_ID + " = " + index;
-			String sql = "select "+ CONTENT_IMAGE_WIDTH + "," + CONTENT_IMAGE_HEIGHT + " from "+TABLE_PIC_CONTENT  +" where " +  CONTENT_ID + " = " + index;
-			tableResult = db.get_table(sql);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
-    	if( tableResult == null || tableResult.rows.isEmpty() )
-			return ;
-		
-		size.width = Integer.parseInt(tableResult.rows.get(0)[0]);
-		size.height = Integer.parseInt(tableResult.rows.get(0)[1]);
-		
-		if( tableResult != null )
-    	{
-    		tableResult.clear();
-    		tableResult = null;
-    	}   		
-    	   		
-		return;
-    }
-    
-    public String GetImageContentName( int index )
-    {
- 	   	TableResult tableResult = null;
-
-    	try {
-			//String sql = "select HEX("+ CONTENT + ") from wztp where " +  CONTENT_ID + " = " + index;
-			String sql = "select "+ CONTENT_NAME + " from "+ TABLE_PIC_CONTENT +" where " +  CONTENT_ID + " = " + index;
-			tableResult = db.get_table(sql);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
-		if( tableResult == null || tableResult.rows.isEmpty() )
-			return null;
-		
-		String result = tableResult.rows.get(0)[0];
-		
-   		if( tableResult != null )
-    	{
-    		tableResult.clear();
-    		tableResult = null;
-    	}   		
-    	
-		return result;
-    }
-    
 
     public final static String TABLE_CONFIG = "config";
     public final static String CONFIG_LAST_IMAGE_INDEX = "sctp";
@@ -452,7 +386,6 @@ public class DatabaseHelper {
  	   	TableResult tableResult = null;
 
     	try {
-			//String sql = "select HEX("+ CONTENT + ") from wztp where " +  CONTENT_ID + " = " + index;
 			String sql = "select "+ BACKGROUND_IMAGE_NAME + " from "+ TABLE_BACKGROUND_CONTENT +" where " +  BACKGROUND_IMAGE_INDEX + " = " + index;
 			tableResult = db.get_table(sql);
 
