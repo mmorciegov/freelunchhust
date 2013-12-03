@@ -3,6 +3,7 @@ package com.dreamori.sanzijing;
 import cn.domob.android.ads.DomobUpdater;
 
 import com.dreamori.sanzijing.DatabaseHelper;
+import com.dreamori.sanzijing.ParameterObject.TitleContent;
 import com.kyview.AdViewInterface;
 import com.kyview.AdViewLayout;
 
@@ -10,13 +11,20 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.view.GestureDetector;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.GestureDetector.OnGestureListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -24,7 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Random;
 
-public class SanZiJing extends Activity implements AdViewInterface {
+public class SanZiJing extends Activity implements  AdViewInterface   {
 
 	public final static String ACTION_UPDATE_PAGE = "com.dreamori.sanzijing.update_page";
 	public final static String ACTION_UPDATE_PLAY_STATE = "com.dreamori.sanzijing.update_play_state";
@@ -37,9 +45,9 @@ public class SanZiJing extends Activity implements AdViewInterface {
 	private DatabaseHelper m_dbHelper = null;	
 	private int backgroundImageCount = 0;	
 	private Random rand = new Random(5);
-//	private ContentView contentView = null;
-	
+
 	private TextView editTextContent = null;
+	private TextView textTitle = null;
 	private long m_exitTime = 0;
 	private LinearLayout m_adLayout = null;
 	private boolean m_adLoaded = false;
@@ -122,11 +130,45 @@ public class SanZiJing extends Activity implements AdViewInterface {
 				txtViewGroup[i].setText(_textContent[i]);
 			}
 		}
+		
+		String contentIndexString = m_dbHelper.GetContentIndexString(m_currentImageIndex);
+		textTitle.setText( String.format(this.getResources().getString(R.string.content_title), contentIndexString) );
+	}
+	
+
+	public void ShowWholeExplanation()
+	{
+		TitleContent titleContent = new TitleContent();
+		if( m_dbHelper.GetExplanationContent(SanZiJing.m_currentImageIndex, titleContent))
+		{
+			ShowExplanationDialog(titleContent.title, titleContent.content );		
+		}
+	}
+
+	public void ShowExplanationDialog( String title, String contentString )
+	{
+		AlertDialog.Builder builder = new Builder(this);
+		
+		LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+		View rootView = inflater.inflate(R.layout.explain_dialog, null);
+		rootView.setBackgroundResource(ResourceManager.GetBackgroundIcon(this, m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));
+
+		TextView expTV = (TextView)rootView.findViewById(R.id.explain_text);
+		expTV.setText(contentString);
+		
+	    builder.setView(rootView);
+	    builder.setPositiveButton(this.getString(R.string.OK), new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}});
+
+		builder.create().show();
 	}
 	
 	public void ShowWholeExplanation(View v)
 	{
-		//contentView.ShowWholeExplanation();
+		ShowWholeExplanation();
 	}
 	
 	public void PlayMp3(View v)
@@ -150,7 +192,7 @@ public class SanZiJing extends Activity implements AdViewInterface {
 		startActivity(new Intent(getApplicationContext(), SettingActivity.class));	
 	}
 
-	
+	private GestureDetector mGestureDetector;
 	private TextView [] txtViewGroup = new TextView[TEXTVIEW_COUNT];
 	
 	@Override
@@ -160,7 +202,7 @@ public class SanZiJing extends Activity implements AdViewInterface {
         setContentView(R.layout.activity_main);
         
         editTextContent = (TextView)findViewById(R.id.text11);
-   //     contentView =(ContentView)findViewById(R.id.img_content);
+        textTitle = (TextView)findViewById(R.id.textTitle);
 		m_currentImageIndex = getDatabaseHelper().GetLastImageIndex();
 		backgroundImageCount = m_dbHelper.GetBackgroundImageCount();
 		
@@ -184,13 +226,16 @@ public class SanZiJing extends Activity implements AdViewInterface {
 			}
 		}
 		
-
+		
+		UpdateTextContent();
+		
+		mGestureDetector = new GestureDetector(this, new MyGestureListener());
+		
 		if (!isStartVersionUpdateFlag) {
 			isStartVersionUpdateFlag = true;
 
 			DomobUpdater.checkUpdate(this, "56OJznHIuNMr+C+6F6");
 		}
-		
 	}
 
 	@Override
@@ -277,12 +322,6 @@ public class SanZiJing extends Activity implements AdViewInterface {
 
 	@Override
 	public void onDisplayAd() {
-		
-//		contentView.postDelayed(new Runnable(){
-//			@Override
-//			public void run() {
-//				contentView.InitRect();
-//			}}, 500);
 	}
 	
 	@Override
@@ -292,6 +331,8 @@ public class SanZiJing extends Activity implements AdViewInterface {
 			Toast.makeText(getApplicationContext(), getString(R.string.exit),Toast.LENGTH_LONG).show();
 			m_exitTime = System.currentTimeMillis();
 		} else {
+			
+			getDatabaseHelper().SetLastImageIndex(m_currentImageIndex);
 			finish();
 		}
 	}
@@ -312,4 +353,38 @@ public class SanZiJing extends Activity implements AdViewInterface {
 		}
 	}
 	
+	class MyGestureListener extends GestureDetector.SimpleOnGestureListener{
+
+		@Override
+		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+				float velocityY) {
+			if( e1.getX() - e2.getX() > 120 )
+			{
+				DreamoriLog.LogSanZiJing("fling right");
+				ShowNextImage(null);
+			}
+			else if( e1.getX() - e2.getX() < -120 ) 
+			{
+				DreamoriLog.LogSanZiJing("fling left");
+				ShowPreviosImage(null);
+			}
+			else
+			{
+				return false;
+			}
+			
+			return true;
+		}		
+	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		// TODO Auto-generated method stub
+		return mGestureDetector.onTouchEvent(event);
+	}
+	
+	
+	
+
+		
 }
