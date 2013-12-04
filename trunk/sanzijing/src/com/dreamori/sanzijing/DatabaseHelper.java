@@ -148,7 +148,7 @@ public class DatabaseHelper {
     	   		
 		return;
 	}
-	
+
 	private String replaceBlack(String str)
 	{
 		String dest = "";
@@ -185,9 +185,6 @@ public class DatabaseHelper {
  	   	try {
 	
  	   		String sql = "select "+ TEXT_CONTENT + " , " + TEXT_SPELL   + " from "+TABLE_TEXT_CONTENT  +" where " +  TEXT_ID + " = " + inputId;
-		
- 	   		
-			DreamoriLog.LogSanZiJing(sql);
 			
 			tableResult = db.get_table(sql);
 
@@ -205,9 +202,7 @@ public class DatabaseHelper {
     	String [] spellStrings = ( replaceBlackWithSingleBlack(spellResult) ).split(" ");
     	
     	int outputCount = spellStrings.length;
-    	
-    	DreamoriLog.LogSanZiJing(outputCount+ "");
-    	
+
     	if( outputCount > TextSpellCount )
     	{
     		outputCount = TextSpellCount;
