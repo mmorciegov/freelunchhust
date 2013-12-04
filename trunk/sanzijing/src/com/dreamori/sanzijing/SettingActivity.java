@@ -87,7 +87,7 @@ public class SettingActivity extends PreferenceActivity implements OnSharedPrefe
 			});
 		}
 		
-		TapjoyConnect.requestTapjoyConnect(getApplicationContext(), "a4893ce7-86f4-4ab0-b221-9aa5dfc0be55", "j0WmCFRtSs3tfOaC77Ya");
+		TapjoyConnect.requestTapjoyConnect(getApplicationContext(), "33a68bb1-d46a-4722-85a8-8711fecc56fa", "ymNgchYBn3QWeG3Qev7V");
 	}
 	
 	@Override

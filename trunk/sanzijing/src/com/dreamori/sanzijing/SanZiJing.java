@@ -257,7 +257,7 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 		if (!isStartVersionUpdateFlag) {
 			isStartVersionUpdateFlag = true;
 
-			DomobUpdater.checkUpdate(this, "56OJznHIuNMr+C+6F6");
+			DomobUpdater.checkUpdate(this, "56OJznHIuNPK/FPLav");
 		}
 	}
 
@@ -293,7 +293,7 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 		{
 			if (!m_adLoaded) 
 			{
-				AdViewLayout adViewLayout = new AdViewLayout(this, "SDK20131505030937atzn8f4t77r42lk");
+				AdViewLayout adViewLayout = new AdViewLayout(this, "SDK20131104111249sfvvqv3dqj42xc9");
 				adViewLayout.setAdViewInterface(this);
 				m_adLayout.addView(adViewLayout);
 				m_adLayout.invalidate();
