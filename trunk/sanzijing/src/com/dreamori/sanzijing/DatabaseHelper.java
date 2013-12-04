@@ -128,7 +128,7 @@ public class DatabaseHelper {
 	   	TableResult tableResult = null; 	   	
 
  	   	try {
-			String sql = "select "+ TEXT_CAPTER_ID  + " from "+TABLE_TEXT_CONTENT  +" where " +  TEXT_ID + " = " + inputId;
+			String sql = "select "+ TEXT_CAPTER_ID  + " from " + TABLE_TEXT_CONTENT  +" where " +  TEXT_ID + " = " + inputId;
 			tableResult = db.get_table(sql);
 
 		} catch (Exception e) {
@@ -178,7 +178,7 @@ public class DatabaseHelper {
 		return dest;
 	}
 
-	public void GetTextContent( int inputId, String[] textContent )
+	public int GetTextContent( int inputId, String[] textContent )
 	{
 	   	TableResult tableResult = null; 	   	
 
@@ -196,7 +196,7 @@ public class DatabaseHelper {
 		}
     	
     	if( tableResult == null || tableResult.rows.isEmpty() )
-			return ;
+			return 0;
 
     	
     	String textResult = replaceBlack(tableResult.rows.get(0)[0]);
@@ -204,7 +204,21 @@ public class DatabaseHelper {
     	
     	String [] spellStrings = ( replaceBlackWithSingleBlack(spellResult) ).split(" ");
     	
-    	for( int k = 0; k < TextSpellCount/6; k ++ )
+    	int outputCount = spellStrings.length;
+    	
+    	DreamoriLog.LogSanZiJing(outputCount+ "");
+    	
+    	if( outputCount > TextSpellCount )
+    	{
+    		outputCount = TextSpellCount;
+    	}
+    	
+    	if( outputCount % 6 != 0 )
+    	{
+    		outputCount = ( (outputCount + 1)/6 ) * 6 ;
+    	}
+    	
+    	for( int k = 0; k < outputCount/6; k ++ )
     	{
     		for( int s = 0; s< 6; s++ )
     		{
@@ -219,7 +233,7 @@ public class DatabaseHelper {
     		tableResult = null;
     	}   		
     	   		
-		return;
+		return outputCount;
 	}
 	
 	public String GetContentIndexString( int inputId )

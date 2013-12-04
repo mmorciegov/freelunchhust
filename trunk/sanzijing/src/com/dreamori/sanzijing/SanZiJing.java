@@ -118,17 +118,31 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 	private void UpdateTextContent()
 	{
 		ChangeBackgroud();
-		m_dbHelper.GetTextContent(m_currentImageIndex, _textContent);
+		int outputSpellCount = m_dbHelper.GetTextContent(m_currentImageIndex, _textContent);
 		
-		for( int i = 0; i < TEXTVIEW_COUNT; i++ )
+
+		
+		for( int i = 0; i < outputSpellCount*2; i++ )
 		{
-			if( (i+1) % 12 == 0)
+			if( (i+ 4)%12 == 0 )
+			{
+				txtViewGroup[i].setText(_textContent[i] + this.getResources().getString(R.string.s_comma) );
+			}
+			else if( (i+1) % 12 == 0)
 			{
 				txtViewGroup[i].setText(_textContent[i] + this.getResources().getString(R.string.s_dot) );
 			}
 			else
 			{
 				txtViewGroup[i].setText(_textContent[i]);
+			}
+		}
+		
+		if( outputSpellCount*2 < TEXTVIEW_COUNT )
+		{
+			for( int j = outputSpellCount*2; j < TEXTVIEW_COUNT; j ++ )
+			{
+				txtViewGroup[j].setText("");
 			}
 		}
 		
