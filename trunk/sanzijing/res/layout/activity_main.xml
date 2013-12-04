@@ -26,15 +26,19 @@
         />
    <TableLayout 
         android:id="@+id/text_table"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/layout_control"
         android:layout_below="@+id/textTitle"
-		android:stretchColumns="0,1,2,3,4,5,6"
+		android:stretchColumns="0,1,2,3,4,5"
+		android:layout_marginLeft="2dip"
+		android:layout_marginRight="2dip"
+		android:paddingRight="2dip"
 		android:layout_marginTop="20dip"
 		android:layout_centerVertical="true"
 		android:layout_centerInParent="true"
 		android:layout_centerHorizontal="true"
+		android:layout_alignWithParentIfMissing="true"
         >
         <TableRow>
 
@@ -44,48 +48,42 @@
                 android:gravity="center"
                 android:padding="2dip"
                 android:text="@string/s11"
-                android:textSize="25sp" />
+                android:textSize="22sp" />
 
             <TextView 
                 android:id="@+id/text12"
                 android:text="@string/s12"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp" 
+                android:textSize="22sp" 
                 />
             <TextView 
                 android:id="@+id/text13"
                 android:text="@string/s13"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp" 
-                />
-            <TextView 
-                android:text="@string/s_space"
-                android:gravity="center"
-                android:padding="2dip"
-                android:textSize="25sp" 
+                android:textSize="22sp" 
                 />
             <TextView 
                 android:id="@+id/text14"
                 android:text="@string/s14"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp" 
+                android:textSize="22sp" 
                 />
             <TextView 
                 android:id="@+id/text15"
                 android:text="@string/s15"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp" 
+                android:textSize="22sp" 
                 />     
             <TextView 
                 android:id="@+id/text16"
                 android:text="@string/s16"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp" 
+                android:textSize="22sp" 
                 />                       
         </TableRow>
                 
@@ -107,12 +105,6 @@
             <TextView 
                 android:id="@+id/text23"
                 android:text="@string/s23"
-                android:gravity="center"
-                android:padding="2dip"
-                android:textSize="25sp"
-                />
-            <TextView                 
-                android:text="@string/s_comma"
                 android:gravity="center"
                 android:padding="2dip"
                 android:textSize="25sp"
@@ -146,48 +138,42 @@
                 android:text="@string/s31"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 />
             <TextView 
                 android:id="@+id/text32"
                 android:text="@string/s32"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 />
             <TextView 
                 android:id="@+id/text33"
                 android:text="@string/s33"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp"
-                />
-            <TextView 
-                android:text="@string/s_space"
-                android:gravity="center"
-                android:padding="2dip"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 />
             <TextView 
                 android:id="@+id/text34"
                 android:text="@string/s34"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 />
             <TextView 
                 android:id="@+id/text35"
                 android:text="@string/s35"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 />     
             <TextView 
                 android:id="@+id/text36"
                 android:text="@string/s36"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 />                       
         </TableRow>
         
@@ -209,12 +195,6 @@
             <TextView 
                 android:id="@+id/text43"
                 android:text="@string/s43"
-                android:gravity="center"
-                android:padding="2dip"
-                android:textSize="25sp"
-                />
-            <TextView 
-                android:text="@string/s_comma"
                 android:gravity="center"
                 android:padding="2dip"
                 android:textSize="25sp"
@@ -249,48 +229,42 @@
                 android:text="@string/s51"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 />
             <TextView 
                 android:id="@+id/text52"
                 android:text="@string/s52"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 />
             <TextView                 
                 android:id="@+id/text53"
                 android:text="@string/s53"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp"
-                />
-            <TextView                 
-                android:text="@string/s_space"
-                android:gravity="center"
-                android:padding="2dip"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 />
             <TextView 
                 android:id="@+id/text54"
                 android:text="@string/s54"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 />
             <TextView 
                 android:id="@+id/text55"
                 android:text="@string/s55"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 />     
             <TextView 
                 android:id="@+id/text56"
                 android:text="@string/s56"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 />                       
         </TableRow>
         
@@ -312,12 +286,6 @@
             <TextView 
                 android:id="@+id/text63"
                 android:text="@string/s63"
-                android:gravity="center"
-                android:padding="2dip"
-                android:textSize="25sp"
-                />
-            <TextView 
-                android:text="@string/s_comma"
                 android:gravity="center"
                 android:padding="2dip"
                 android:textSize="25sp"
@@ -351,48 +319,42 @@
                 android:text="@string/s71"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 />
             <TextView 
                 android:id="@+id/text72"
                 android:text="@string/s72"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 />
             <TextView 
                 android:id="@+id/text73"
                 android:text="@string/s73"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp"
-                />
-            <TextView 
-                android:text="@string/s_space"
-                android:gravity="center"
-                android:padding="2dip"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 />
             <TextView 
                 android:id="@+id/text74"
                 android:text="@string/s74"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 />
             <TextView 
                 android:id="@+id/text75"
                 android:text="@string/s75"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 />     
             <TextView 
                 android:id="@+id/text76"
                 android:text="@string/s76"
                 android:gravity="center"
                 android:padding="2dip"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 />                       
         </TableRow>
         
@@ -414,12 +376,6 @@
             <TextView 
                 android:id="@+id/text83"
                 android:text="@string/s83"
-                android:gravity="center"
-                android:padding="2dip"
-                android:textSize="25sp"
-                />
-            <TextView 
-                android:text="@string/s_comma"
                 android:gravity="center"
                 android:padding="2dip"
                 android:textSize="25sp"

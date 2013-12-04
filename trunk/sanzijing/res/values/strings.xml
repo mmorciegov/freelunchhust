@@ -45,7 +45,7 @@
         <item>全书循环</item>
     </string-array>
         
-    <string name="content_title">三字经(%1$s)</string>
+    <string name="content_title">三字经 - %1$s</string>
     
     <string name="s_space"> </string>
     <string name="s_comma">,</string>
