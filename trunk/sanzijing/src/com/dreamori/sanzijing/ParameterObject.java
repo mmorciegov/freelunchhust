@@ -13,5 +13,12 @@ public class ParameterObject {
 		String title;
 		String content;
 	}
+	
+	static public class MusicInfo
+	{
+		int id;
+		int startTime;
+		int stopTime;
+	}
 
 }
