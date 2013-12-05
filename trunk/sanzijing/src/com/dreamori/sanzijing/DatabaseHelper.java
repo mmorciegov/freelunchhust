@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 
 import com.dreamori.sanzijing.ParameterObject.MusicInfo;
 import com.dreamori.sanzijing.ParameterObject.TitleContent;
@@ -16,7 +15,6 @@ import SQLite3.Exception;
 import SQLite3.TableResult;
 
 import android.content.Context;
-import android.graphics.Rect;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -382,8 +380,14 @@ public class DatabaseHelper {
    		
    		return ret;
     }
+   
+    public void pointReched()
+    {
+    	setConfig("showAds","0");
+    }
     
-    public void setConfig(String key, String value)
+//	We shall use shared preference to save config, don't use db, so set it private
+    private void setConfig(String key, String value)
     {
     	TableResult tableResult = null;
 		try {
@@ -416,44 +420,44 @@ public class DatabaseHelper {
 		}
     }
     
-	public boolean NeedShowTouchTips() 
-	{
-		int res = 1;
-		try 
-		{
-			res = Integer.parseInt(getConfig(CONFIG_SHOW_TOUCH_TIP));
-		} 
-		catch (java.lang.Exception e) 
-		{
-			e.toString();
-		}
-		if (res == 0) {
-    		return false;
-    	}
-    	
-		return true;
-    }
+//	public boolean NeedShowTouchTips() 
+//	{
+//		int res = 1;
+//		try 
+//		{
+//			res = Integer.parseInt(getConfig(CONFIG_SHOW_TOUCH_TIP));
+//		} 
+//		catch (java.lang.Exception e) 
+//		{
+//			e.toString();
+//		}
+//		if (res == 0) {
+//    		return false;
+//    	}
+//    	
+//		return true;
+//    }
     
 
-    public int GetLastImageIndex( )
-    {
-    	int lastImageIndex = Const.m_minImageIndex;
-    	try 
-    	{
-    		lastImageIndex = Integer.parseInt(getConfig(CONFIG_LAST_IMAGE_INDEX));
-		} 
-    	catch (java.lang.Exception e) 
-    	{
-			e.toString();
-		}
-
-		return lastImageIndex;
-    }
+//    public int GetLastImageIndex( )
+//    {
+//    	int lastImageIndex = Const.m_minImageIndex;
+//    	try 
+//    	{
+//    		lastImageIndex = Integer.parseInt(getConfig(CONFIG_LAST_IMAGE_INDEX));
+//		} 
+//    	catch (java.lang.Exception e) 
+//    	{
+//			e.toString();
+//		}
+//
+//		return lastImageIndex;
+//    }
      
-    public void SetLastImageIndex( int index )
-    {
-		setConfig(CONFIG_LAST_IMAGE_INDEX, ""+index);
-    }        
+//    public void SetLastImageIndex( int index )
+//    {
+//		setConfig(CONFIG_LAST_IMAGE_INDEX, ""+index);
+//    }        
     
     public final static String TABLE_BACKGROUND_CONTENT = "bjtp";
     public final static String BACKGROUND_IMAGE_INDEX = "tpbh";

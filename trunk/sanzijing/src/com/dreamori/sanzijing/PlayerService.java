@@ -12,12 +12,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.preference.PreferenceManager;
 
 public class PlayerService extends Service {
 	
@@ -151,7 +153,7 @@ public class PlayerService extends Service {
 	{
 		if( mp!= null )
 		{
-			getDatabaseHelper().GetMusicInfo(SanZiJing.m_currentImageIndex , musicInfo);
+			getDatabaseHelper().GetMusicInfo(SanZiJing.m_currentImageIndex, musicInfo);
 			
 			mp.seekTo(musicInfo.startTime);
 			mp.start();			
@@ -168,11 +170,10 @@ public class PlayerService extends Service {
 		Notification notification = new Notification(R.drawable.ic_launcher, getString(R.string.player_service_msg), System.currentTimeMillis());
 		notification.setLatestEventInfo(this, getString(R.string.player_service_title), getString(R.string.player_service_detail), pendIntent);
 		
-		startForeground(54316, notification);		
-		
+		startForeground(54316, notification);
+
 		if(CurrentPlayMode == null)
 			CurrentPlayMode = getString(R.string.mode_single);
-
 		
 		mp = MediaPlayer.create(this, ResourceManager.GetMusicId(this, "m0001"));
 		
