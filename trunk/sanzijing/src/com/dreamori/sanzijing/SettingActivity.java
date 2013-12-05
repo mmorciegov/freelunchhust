@@ -114,7 +114,7 @@ public class SettingActivity extends PreferenceActivity implements OnSharedPrefe
 				m_curPoint = pointTotal;
 				if(m_curPoint >= MAX_POINT)
 				{
-					getDatabaseHelper().setConfig("showAds","0");
+					getDatabaseHelper().pointReched();
 				}
 				final String curPointText = getString(R.string.current_point) + m_curPoint;
 				m_Handler.post(new Runnable(){

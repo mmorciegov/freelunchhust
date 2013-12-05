@@ -20,14 +20,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.GestureDetector.OnGestureListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +46,6 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 	private int backgroundImageCount = 0;	
 	private Random rand = new Random(5);
 
-	private TextView editTextContent = null;
 	private TextView textTitle = null;
 	private long m_exitTime = 0;
 	private LinearLayout m_adLayout = null;
@@ -86,7 +84,7 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
     
     private void ChangeBackgroud()
     {
-		((View) editTextContent.getParent().getParent().getParent()).setBackgroundResource(ResourceManager.GetBackgroundIcon(this, m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));  	
+    	getWindow().getDecorView().setBackgroundResource(ResourceManager.GetBackgroundIcon(this, m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));  	
     }
 
 
@@ -132,17 +130,23 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 				
 		for( int i = 0; i < outputSpellCount*2; i++ )
 		{
-			if( (i+ 4)%12 == 0 )
-			{
-				txtViewGroup[i].setText(_textContent[i] + this.getResources().getString(R.string.s_comma) );
-			}
-			else if( (i+1) % 12 == 0)
-			{
-				txtViewGroup[i].setText(_textContent[i] + this.getResources().getString(R.string.s_dot) );
-			}
-			else
+//			if( (i+ 4)%12 == 0 )
+//			{
+//				txtViewGroup[i].setText(_textContent[i] + this.getResources().getString(R.string.s_comma) );
+//			}
+//			else if( (i+1) % 12 == 0)
+//			{
+//				txtViewGroup[i].setText(_textContent[i] + this.getResources().getString(R.string.s_dot) );
+//			}
+//			else
 			{
 				txtViewGroup[i].setText(_textContent[i]);
+			}
+			
+			View v = findViewById(ResourceManager.GetTextViewId(this, "pun"+i/4));
+			if(v != null)
+			{
+				v.setVisibility(View.VISIBLE);
 			}
 		}
 		
@@ -151,6 +155,12 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 			for( int j = outputSpellCount*2; j < TEXTVIEW_COUNT; j ++ )
 			{
 				txtViewGroup[j].setText("");
+				
+				View v = findViewById(ResourceManager.GetTextViewId(this, "pun"+j/4));
+				if(v != null)
+				{
+					v.setVisibility(View.INVISIBLE);
+				}
 			}
 		}
 		
@@ -225,10 +235,9 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
         
         setContentView(R.layout.activity_main);
         
-        editTextContent = (TextView)findViewById(R.id.text11);
         textTitle = (TextView)findViewById(R.id.textTitle);
-		m_currentImageIndex = getDatabaseHelper().GetLastImageIndex();
-		backgroundImageCount = m_dbHelper.GetBackgroundImageCount();
+		//m_currentImageIndex = getDatabaseHelper().GetLastImageIndex();
+		backgroundImageCount = getDatabaseHelper().GetBackgroundImageCount();
 		
 		PreferenceManager.setDefaultValues(this, R.xml.preference, false);
 
@@ -238,18 +247,31 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
         registerReceiver(m_recv, filter);  
 		
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+		m_currentImageIndex = sharedPref.getInt(getString(R.string.pref_key_last_img_index), 1);
 		PlayerService.CurrentPlayMode = sharedPref.getString(getString(R.string.pref_key_mode_list), getString(R.string.mode_single));
 		
-		
+
+		Typeface face = Typeface.createFromAsset (getAssets(), "STXINGKA.TTF");
+		textTitle.setTypeface(face);
 		int index = 0;
 		for( int i = 1; i <= 8; i++ )
 		{
-			for( int j = 1; j<=6; j ++ )
+			for( int j = 1; j<=6; j++ )
 			{
-				txtViewGroup[index++] =  (TextView)findViewById(ResourceManager.GetTextViewId(this, "text"+i+j));				
+				txtViewGroup[index] =  (TextView)findViewById(ResourceManager.GetTextViewId(this, "text"+i+j));
+				if(i%2 == 0)
+				{
+					txtViewGroup[index].setTypeface(face);
+				}
+				index++;
 			}
 		}
 		
+		for( int i = 1; i<= 8; i++)
+		{
+			TextView tv = (TextView)findViewById(ResourceManager.GetTextViewId(this, "pun"+i));
+			tv.setTypeface(face);
+		}
 		
 		UpdateTextContentAndMusic();
 		
@@ -268,9 +290,6 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 		
 		//contentView.InitRect();
 		updatePlayButton();
-
-		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean showAdsChecked = sharedPref.getBoolean(getString(R.string.pref_key_show_ads), true);
 		
 		m_adLayout = (LinearLayout) findViewById(R.id.adLayout);
 		if (m_adLayout == null)
@@ -278,6 +297,9 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 			return;
 		}
 
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean showAdsChecked = sharedPref.getBoolean(getString(R.string.pref_key_show_ads), true);
+		
 		int showAds = 1;
 		String value = getDatabaseHelper().getConfig("showAds");
 		try 
@@ -355,8 +377,12 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 			Toast.makeText(getApplicationContext(), getString(R.string.exit),Toast.LENGTH_LONG).show();
 			m_exitTime = System.currentTimeMillis();
 		} else {
+
+			//getDatabaseHelper().SetLastImageIndex(m_currentImageIndex);
+			SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+			editor.putInt(getString(R.string.pref_key_last_img_index), m_currentImageIndex);
+			editor.commit();
 			
-			getDatabaseHelper().SetLastImageIndex(m_currentImageIndex);
 			finish();
 		}
 	}

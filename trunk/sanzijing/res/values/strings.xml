@@ -26,6 +26,7 @@
     <string name="on">开</string>
     <string name="off">关</string>
         
+    <string name="pref_key_last_img_index">pref_key_last_img_index</string>
     <string name="pref_key_mode_list">pref_key_mode_list</string>
     <string name="pref_key_keep_screen">pref_key_keep_screen</string>
     <string name="pref_key_show_ads">pref_key_show_ads</string>
@@ -49,7 +50,7 @@
     
     <string name="s_space"> </string>
     <string name="s_comma">,</string>
-    <string name="s_dot">。\n</string>
+    <string name="s_dot">。</string>
     <string name="s11">rén</string>
     <string name="s12">zhī</string>
     <string name="s13">chū</string>
@@ -61,7 +62,7 @@
     <string name="s23">初</string>
     <string name="s24">性</string>
     <string name="s25">本</string>
-    <string name="s26">善。\n</string>
+    <string name="s26">善</string>
        
     <string name="s31">xìng</string>
     <string name="s32">xiāng</string>
@@ -74,7 +75,7 @@
     <string name="s43">近</string>
     <string name="s44">习</string>
     <string name="s45">相</string>
-    <string name="s46">远。\n</string>    
+    <string name="s46">远</string>    
     
     <string name="s51">gǒu</string>
     <string name="s52">bú</string>
@@ -87,7 +88,7 @@
     <string name="s63">教</string>
     <string name="s64">性 </string>
     <string name="s65">乃</string>
-    <string name="s66">迁。\n</string>
+    <string name="s66">迁</string>
     
     <string name="s71">jiào</string>
     <string name="s72">zhī</string>
@@ -100,7 +101,7 @@
     <string name="s83">道</string>
     <string name="s84">贵</string>
     <string name="s85">以</string>
-    <string name="s86">专。\n</string>
+    <string name="s86">专</string>
     
     
     <string name="content_01" >
