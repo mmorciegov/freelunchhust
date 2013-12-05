@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+
+import com.dreamori.sanzijing.ParameterObject.MusicInfo;
 import com.dreamori.sanzijing.ParameterObject.TitleContent;
 
 import SQLite3.Constants;
@@ -139,6 +141,46 @@ public class DatabaseHelper {
 		myOutput.close();
         myInput.close();  
     }  
+	
+	
+	private final static String TABLE_MUSIC_INFO = "syxx";
+	private final static String MUSIC_ID = "id";
+	private final static String MUSIC_START_MINUTE = "startminute";
+	private final static String MUSIC_START_SECOND = "startsecond";
+	private final static String MUSIC_STOP_MINUTE = "stopminute";
+	private final static String MUSCI_STOP_SECOND = "stopsecond";
+
+	public void GetMusicInfo( int inputId, MusicInfo musicInfo )
+	{
+	   	TableResult tableResult = null; 	   	
+
+ 	   	try {
+			String sql = "select "+ MUSIC_START_MINUTE + " , " + MUSIC_START_SECOND 
+					+ " , " + MUSIC_STOP_MINUTE + " , " + MUSCI_STOP_SECOND
+					+ " from " + TABLE_MUSIC_INFO  +" where " +  MUSIC_ID + " = " + inputId;
+			tableResult = db.get_table(sql);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
+    	if( tableResult == null || tableResult.rows.isEmpty() )
+			return ;
+    	
+    	musicInfo.id = inputId;
+    	musicInfo.startTime = 1000* ( Integer.parseInt(tableResult.rows.get(0)[0]) * 60 + Integer.parseInt(tableResult.rows.get(0)[1] ) );
+    	musicInfo.stopTime = 1000* ( Integer.parseInt(tableResult.rows.get(0)[2]) * 60 + Integer.parseInt(tableResult.rows.get(0)[3]) );
+    	
+		if( tableResult != null )
+    	{
+    		tableResult.clear();
+    		tableResult = null;
+    	}   		
+    	   		
+		return;
+	}
+	
+	
 	
 	//Functions for tables	
 	public final static String TABLE_TEXT_CONTENT = "wzxx";

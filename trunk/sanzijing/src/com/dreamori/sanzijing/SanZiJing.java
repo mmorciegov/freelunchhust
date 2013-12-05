@@ -66,8 +66,7 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 
 			if(action.equalsIgnoreCase(ACTION_UPDATE_PAGE))
 			{
-				//TODO
-				//contentView.UpdateImageAndHotspot();
+				UpdateTextContent();
 			}
 			else if(action.equalsIgnoreCase(ACTION_UPDATE_PLAY_STATE))
 			{
@@ -99,7 +98,7 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 			m_currentImageIndex = Const.m_maxImageIndex;
 		}
 		
-		UpdateTextContent();
+		UpdateTextContentAndMusic();
 	}
 		
 	public void ShowNextImage(View v)
@@ -111,17 +110,26 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 			m_currentImageIndex = Const.m_minImageIndex;
 		}
 				
-		UpdateTextContent();
+		UpdateTextContentAndMusic();
 	}
 	
+	private void UpdateTextContentAndMusic()
+	{
+		UpdateTextContent();		
+		
+		if( PlayerService.isPlaying )
+		{
+			Intent intent = new Intent();  
+	        intent.setAction(PlayerService.ACTION_UPDATE_PLAYING);
+	        this.sendBroadcast(intent);
+		}
+	}
 	
 	private void UpdateTextContent()
 	{
 		ChangeBackgroud();
 		int outputSpellCount = m_dbHelper.GetTextContent(m_currentImageIndex, _textContent);
-		
-
-		
+				
 		for( int i = 0; i < outputSpellCount*2; i++ )
 		{
 			if( (i+ 4)%12 == 0 )
@@ -148,14 +156,7 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 		
 		String contentIndexString = m_dbHelper.GetContentIndexString(m_currentImageIndex);
 		textTitle.setText( String.format(this.getResources().getString(R.string.content_title), contentIndexString) );
-		
-		
-		if( PlayerService.isPlaying )
-		{
-			Intent intent = new Intent();  
-	        intent.setAction(PlayerService.ACTION_UPDATE_PLAYING);
-	        this.sendBroadcast(intent);
-		}
+
 	}
 	
 
@@ -250,7 +251,7 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 		}
 		
 		
-		UpdateTextContent();
+		UpdateTextContentAndMusic();
 		
 		mGestureDetector = new GestureDetector(this, new MyGestureListener());
 		

@@ -1,5 +1,10 @@
 package com.dreamori.sanzijing;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import com.dreamori.sanzijing.ParameterObject.MusicInfo;
+
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -23,6 +28,9 @@ public class PlayerService extends Service {
 	
 	private DatabaseHelper m_dbHelper = null;
 	private static MediaPlayer mp = null; 
+
+	private Timer timer = null;
+	
 	
 	private BroadcastReceiver m_recv = new BroadcastReceiver()
 	{
@@ -52,6 +60,105 @@ public class PlayerService extends Service {
 		return null;
 	}
 	
+	private MusicInfo musicInfo = new MusicInfo();
+	
+	void StartTimerForMeidaPlayer()
+	{
+		timer = new Timer();		
+		getDatabaseHelper().GetMusicInfo(SanZiJing.m_currentImageIndex , musicInfo);
+		
+		TimerTask timerTask = new TimerTask()
+		{
+
+			@Override
+			public void run() {
+				if(CurrentPlayMode.equals(getString(R.string.mode_single_cycle)))
+				{
+					if( mp != null  && isPlaying )
+					{						
+						int currPos = mp.getCurrentPosition() ;
+						if( currPos >= musicInfo.stopTime  ||  currPos < musicInfo.startTime )
+						{
+							mp.pause();
+							mp.seekTo(musicInfo.startTime);
+							mp.start();
+						}						
+					}	
+				}
+				else if(CurrentPlayMode.equals(getString(R.string.mode_all)))
+				{
+					if( mp != null  && isPlaying )
+					{						
+						int currPos = mp.getCurrentPosition() ;
+						if( currPos >= musicInfo.stopTime  ||  currPos < musicInfo.startTime )
+						{
+							if(SanZiJing.m_currentImageIndex == Const.m_maxImageIndex)
+							{
+								stopSelf();
+								UpdatePlayButton(false);
+							}
+							else
+							{
+								SanZiJing.m_currentImageIndex++;								
+								getDatabaseHelper().GetMusicInfo(SanZiJing.m_currentImageIndex , musicInfo);
+								
+								UpdatePage();
+							}
+						}						
+					}	
+					
+				}
+				else if(CurrentPlayMode.equals(getString(R.string.mode_all_cycle)))
+				{
+					if( mp != null  && isPlaying )
+					{						
+						int currPos = mp.getCurrentPosition() ;
+						if( currPos >= musicInfo.stopTime  ||  currPos < musicInfo.startTime )
+						{
+							SanZiJing.m_currentImageIndex++;
+							if( SanZiJing.m_currentImageIndex > Const.m_maxImageIndex )
+							{
+								SanZiJing.m_currentImageIndex = Const.m_minImageIndex;
+								StartPlay();
+							}
+							UpdatePage();
+							getDatabaseHelper().GetMusicInfo(SanZiJing.m_currentImageIndex , musicInfo);
+						}						
+					}										
+				}
+				else
+				{
+					if( mp != null  && isPlaying )
+					{						
+						int currPos = mp.getCurrentPosition() ;
+						if( currPos >= musicInfo.stopTime  ||  currPos < musicInfo.startTime )
+						{
+							stopSelf();
+							UpdatePlayButton(false);
+						}						
+					}	
+
+				}
+				
+			}
+			
+		};
+		
+		timer.scheduleAtFixedRate(timerTask, 1000, 1000);
+	}
+	
+	void StartPlay()
+	{
+		if( mp!= null )
+		{
+			getDatabaseHelper().GetMusicInfo(SanZiJing.m_currentImageIndex , musicInfo);
+			
+			mp.seekTo(musicInfo.startTime);
+			mp.start();			
+			isPlaying = true;
+		}
+	}
+	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		
@@ -61,60 +168,21 @@ public class PlayerService extends Service {
 		Notification notification = new Notification(R.drawable.ic_launcher, getString(R.string.player_service_msg), System.currentTimeMillis());
 		notification.setLatestEventInfo(this, getString(R.string.player_service_title), getString(R.string.player_service_detail), pendIntent);
 		
-		startForeground(54316, notification);
-
+		startForeground(54316, notification);		
+		
 		if(CurrentPlayMode == null)
 			CurrentPlayMode = getString(R.string.mode_single);
+
 		
-		SanZiJing.m_currentImageIndex = getDatabaseHelper().GetLastImageIndex();
-		mp = MediaPlayer.create(this, ResourceManager.GetMusicId(this, getDatabaseHelper().GetMusicName(SanZiJing.m_currentImageIndex)));
+		mp = MediaPlayer.create(this, ResourceManager.GetMusicId(this, "m0001"));
+		
 		if( mp!= null )
 		{
-			mp.setOnCompletionListener(new OnCompletionListener(){
-
-				@Override
-				public void onCompletion(MediaPlayer arg0) {
-
-					if(CurrentPlayMode.equals(getString(R.string.mode_single_cycle)))
-					{
-						mp.start();
-					}
-					else if(CurrentPlayMode.equals(getString(R.string.mode_all)))
-					{
-						if(SanZiJing.m_currentImageIndex == Const.m_maxImageIndex)
-						{
-							stopSelf();
-							UpdatePlayButton(false);
-						}
-						else
-						{
-							SanZiJing.m_currentImageIndex++;
-							UpdatePage();
-							UpdatePlaying();
-						}
-					}
-					else if(CurrentPlayMode.equals(getString(R.string.mode_all_cycle)))
-					{
-						SanZiJing.m_currentImageIndex++;
-						if( SanZiJing.m_currentImageIndex > Const.m_maxImageIndex )
-						{
-							SanZiJing.m_currentImageIndex = Const.m_minImageIndex;
-						}
-						UpdatePage();
-						UpdatePlaying();
-					}
-					else
-					{
-						stopSelf();
-						UpdatePlayButton(false);
-					}
-					getDatabaseHelper().SetLastImageIndex(SanZiJing.m_currentImageIndex);
-					
-				}
-			});
-
 			mp.setWakeMode(this, PowerManager.PARTIAL_WAKE_LOCK);
-			mp.start();
+
+			StartPlay();
+			
+			StartTimerForMeidaPlayer();
 			isPlaying = true;
 		}
 		
@@ -139,6 +207,13 @@ public class PlayerService extends Service {
 			mp.release();
 			mp = null;
 		}
+		
+		if( timer != null )
+		{
+			timer.cancel();
+			timer = null;
+		}
+		
 		isPlaying = false;
 	}
 	
@@ -159,27 +234,7 @@ public class PlayerService extends Service {
 
 	private void UpdatePlaying() 
 	{
-		if (mp == null)
-			return;
-
-		mp.reset();
-		
-		try {
-			mp.setDataSource(this, Uri.parse("android.resource://com.dreamori.sanzijing/" + ResourceManager.GetMusicId(this, getDatabaseHelper().GetMusicName(SanZiJing.m_currentImageIndex))));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		mp.setOnPreparedListener(new OnPreparedListener(){
-
-			@Override
-			public void onPrepared(MediaPlayer mp) {
-				mp.start();
-				
-			}});
-		
-		mp.prepareAsync();
-		
+		StartPlay();		
 	}
 
 }
