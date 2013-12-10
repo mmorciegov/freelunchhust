@@ -516,39 +516,6 @@ public class DatabaseHelper {
     	
 		return backgroundImageCount;
     }
-    
-    
-    
-    public final static String TABLE_MUSIC = "pyxx";
-    public final static String MUSIC_IMAGE_INDEX = "tpbh";
-    public final static String MUSIC_NAME = "pymc";
 
-    public String GetMusicName( int index )
-    {
- 	   	TableResult tableResult = null;
-
-    	try {
-			String sql = "select "+ MUSIC_NAME + " from "+ TABLE_MUSIC +" where " +  MUSIC_IMAGE_INDEX + " = " + index;
-			tableResult = db.get_table(sql);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
-		if( tableResult == null || tableResult.rows.isEmpty() )
-			return null;
-		
-		String result = tableResult.rows.get(0)[0];
-		
-   		if( tableResult != null )
-    	{
-    		tableResult.clear();
-    		tableResult = null;
-    	}   		
-    	
-		return result;
-    }
-    
-    
     
 }
