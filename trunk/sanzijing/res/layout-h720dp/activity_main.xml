@@ -21,6 +21,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="56dip"
         android:text="@string/content_title"
+        android:textColor="#ff000000"
+        android:singleLine="true"
         android:textSize="64sp" />
 
     <TableLayout
@@ -47,7 +49,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s11"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -60,7 +64,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s12"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -73,7 +79,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s13"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -89,7 +97,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s14"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -102,7 +112,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s15"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -115,7 +127,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s16"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -134,7 +148,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s21"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -147,7 +163,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s22"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -160,7 +178,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s23"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -173,7 +193,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s_comma"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -186,7 +208,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s24"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -199,7 +223,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s25"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -212,7 +238,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s26"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -225,7 +253,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s_dot"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
         </TableRow>
 
@@ -241,7 +271,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s31"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -254,7 +286,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s32"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -267,7 +301,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s33"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -283,7 +319,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s34"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -296,7 +334,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s35"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -309,7 +349,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s36"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -328,7 +370,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s41"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -341,7 +385,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s42"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -354,7 +400,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s43"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -367,7 +415,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s_comma"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -380,7 +430,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s44"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -393,7 +445,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s45"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -406,7 +460,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s46"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -419,7 +475,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s_dot"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
         </TableRow>
 
@@ -435,7 +493,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s51"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -448,7 +508,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s52"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -461,7 +523,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s53"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -477,7 +541,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s54"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -490,7 +556,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s55"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -503,7 +571,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s56"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -522,7 +592,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s61"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -535,7 +607,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s62"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -548,7 +622,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s63"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -561,7 +637,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s_comma"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -574,7 +652,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s64"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -587,7 +667,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s65"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -600,7 +682,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s66"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -613,7 +697,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s_dot"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
         </TableRow>
 
@@ -629,7 +715,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s71"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -642,7 +730,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s72"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -655,7 +745,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s73"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -671,7 +763,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s74"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -684,7 +778,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s75"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -697,7 +793,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s76"
+                    android:textColor="#ff000000"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -716,7 +814,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s81"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -729,7 +829,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s82"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -742,7 +844,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s83"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -755,7 +859,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s_comma"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -768,7 +874,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s84"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -781,7 +889,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s85"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -794,7 +904,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s86"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
 
             <RelativeLayout>
@@ -807,7 +919,9 @@
                     android:gravity="center"
                     android:padding="2dip"
                     android:text="@string/s_dot"
+                    android:textColor="#ff000000"
                     android:textSize="48sp" />
+
             </RelativeLayout>
         </TableRow>
     </TableLayout>

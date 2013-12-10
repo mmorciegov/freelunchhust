@@ -27,6 +27,8 @@ public class DatabaseHelper {
 	private static final String DATABASE_VERSION = "1.0.0";
 
 	private static Context mContext = null; 
+	
+	public static String TABLE_TEXT_CONTENT = "wzxx";
     
 	private DatabaseHelper(Context context) {
 	}
@@ -37,6 +39,7 @@ public class DatabaseHelper {
 			mContext = context;
 			mInstance = new DatabaseHelper(context);
 					
+			TABLE_TEXT_CONTENT = mContext.getString(R.string.table_text_content);
 	        //Init database   
 	        InitDabaseFile(context, false);
 	        openDatabase();
@@ -181,7 +184,6 @@ public class DatabaseHelper {
 	
 	
 	//Functions for tables	
-	public final static String TABLE_TEXT_CONTENT = "wzxx";
 	public final static String TEXT_ID = "id";
 	public final static String TEXT_CAPTER_ID = "bhdx";
 	public final static String TEXT_CONTENT = "wznr";

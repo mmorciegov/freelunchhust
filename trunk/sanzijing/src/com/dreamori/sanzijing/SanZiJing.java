@@ -250,9 +250,19 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 		m_currentImageIndex = sharedPref.getInt(getString(R.string.pref_key_last_img_index), 1);
 		PlayerService.CurrentPlayMode = sharedPref.getString(getString(R.string.pref_key_mode_list), getString(R.string.mode_single));
 		
-
-		Typeface face = Typeface.createFromAsset (getAssets(), "STXINGKA.TTF");
+		Typeface face = null;
+        
+		try {
+			face = Typeface.createFromAsset(getAssets(), getString(R.string.font_file));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (face == null) {
+			face = Typeface.DEFAULT;
+		}
 		textTitle.setTypeface(face);
+		
 		int index = 0;
 		for( int i = 1; i <= 8; i++ )
 		{
@@ -266,6 +276,8 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 				index++;
 			}
 		}
+		
+		
 		
 		for( int i = 1; i<= 8; i++)
 		{
@@ -338,12 +350,9 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 
 		if(!PlayerService.isPlaying)
 		{
-			if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.FROYO)
-			{
 			ActivityManager activityManager = (ActivityManager) this
 					.getSystemService(Context.ACTIVITY_SERVICE);
 			activityManager.killBackgroundProcesses(getPackageName());
-			}
 			System.exit(0);
 		}
 	}

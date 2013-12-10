@@ -25,6 +25,9 @@
     <string name="keep_screen">保持屏幕开启</string>
     <string name="on">开</string>
     <string name="off">关</string>
+    <string name="content_title">三字经 - %1$s</string>
+    <string name="table_text_content">wzxx</string>
+    <string name="font_file">DroidSansFallback.ttf</string>
         
     <string name="pref_key_last_img_index">pref_key_last_img_index</string>
     <string name="pref_key_mode_list">pref_key_mode_list</string>
@@ -45,8 +48,6 @@
         <item>全书朗读</item>
         <item>全书循环</item>
     </string-array>
-        
-    <string name="content_title">三字经 - %1$s</string>
     
     <string name="s_space"> </string>
     <string name="s_comma">,</string>

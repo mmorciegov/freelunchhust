@@ -66,7 +66,7 @@ public class PlayerService extends Service {
 	
 	void StartTimerForMeidaPlayer()
 	{
-		timer = new Timer();		
+		timer = new Timer(true);
 		getDatabaseHelper().GetMusicInfo(SanZiJing.m_currentImageIndex , musicInfo);
 		
 		TimerTask timerTask = new TimerTask()
@@ -180,6 +180,7 @@ public class PlayerService extends Service {
 		if( mp!= null )
 		{
 			mp.setWakeMode(this, PowerManager.PARTIAL_WAKE_LOCK);
+			mp.setLooping(true);
 
 			StartPlay();
 			

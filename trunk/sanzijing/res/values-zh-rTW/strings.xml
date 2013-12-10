@@ -25,6 +25,8 @@
     <string name="keep_screen">保持屏幕開啟</string>
     <string name="on">開</string>
     <string name="off">關</string>
+    <string name="content_title">三字經 - %1$s</string>
+    <string name="table_text_content">wzxxT</string>
     
     <string-array name="list_mode_array">
         <item>單章朗讀</item>
