@@ -46,14 +46,12 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 	private int backgroundImageCount = 0;	
 	private Random rand = new Random(5);
 
-	private TextView textTitle = null;
 	private long m_exitTime = 0;
 	private LinearLayout m_adLayout = null;
 	private boolean m_adLoaded = false;
 	
-	private final int TEXTVIEW_COUNT = 48;
     
-    private String[] _textContent = new String[TEXTVIEW_COUNT];
+    private String[] _textContent = new String[SanZiJingView.TEXTVIEW_COUNT];
 	
     
 	private BroadcastReceiver m_recv = new BroadcastReceiver()
@@ -127,46 +125,8 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 	{
 		ChangeBackgroud();
 		int outputSpellCount = m_dbHelper.GetTextContent(m_currentImageIndex, _textContent);
-				
-		for( int i = 0; i < outputSpellCount*2; i++ )
-		{
-//			if( (i+ 4)%12 == 0 )
-//			{
-//				txtViewGroup[i].setText(_textContent[i] + this.getResources().getString(R.string.s_comma) );
-//			}
-//			else if( (i+1) % 12 == 0)
-//			{
-//				txtViewGroup[i].setText(_textContent[i] + this.getResources().getString(R.string.s_dot) );
-//			}
-//			else
-			{
-				txtViewGroup[i].setText(_textContent[i]);
-			}
-			
-			View v = findViewById(ResourceManager.GetTextViewId(this, "pun"+i/4));
-			if(v != null)
-			{
-				v.setVisibility(View.VISIBLE);
-			}
-		}
-		
-		if( outputSpellCount*2 < TEXTVIEW_COUNT )
-		{
-			for( int j = outputSpellCount*2; j < TEXTVIEW_COUNT; j ++ )
-			{
-				txtViewGroup[j].setText("");
-				
-				View v = findViewById(ResourceManager.GetTextViewId(this, "pun"+j/4));
-				if(v != null)
-				{
-					v.setVisibility(View.INVISIBLE);
-				}
-			}
-		}
-		
 		String contentIndexString = m_dbHelper.GetContentIndexString(m_currentImageIndex);
-		textTitle.setText( String.format(this.getResources().getString(R.string.content_title), contentIndexString) );
-
+		((SanZiJingView)findViewById(R.id.text_content)).updateContent(_textContent, contentIndexString, outputSpellCount);
 	}
 	
 
@@ -227,7 +187,6 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 	}
 
 	private GestureDetector mGestureDetector;
-	private TextView [] txtViewGroup = new TextView[TEXTVIEW_COUNT];
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -235,7 +194,6 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
         
         setContentView(R.layout.activity_main);
         
-        textTitle = (TextView)findViewById(R.id.textTitle);
 		//m_currentImageIndex = getDatabaseHelper().GetLastImageIndex();
 		backgroundImageCount = getDatabaseHelper().GetBackgroundImageCount();
 		
@@ -250,40 +208,7 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 		m_currentImageIndex = sharedPref.getInt(getString(R.string.pref_key_last_img_index), 1);
 		PlayerService.CurrentPlayMode = sharedPref.getString(getString(R.string.pref_key_mode_list), getString(R.string.mode_single));
 		
-		Typeface face = null;
-        
-		try {
-			face = Typeface.createFromAsset(getAssets(), getString(R.string.font_file));
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if (face == null) {
-			face = Typeface.DEFAULT;
-		}
-		textTitle.setTypeface(face);
 		
-		int index = 0;
-		for( int i = 1; i <= 8; i++ )
-		{
-			for( int j = 1; j<=6; j++ )
-			{
-				txtViewGroup[index] =  (TextView)findViewById(ResourceManager.GetTextViewId(this, "text"+i+j));
-				if(i%2 == 0)
-				{
-					txtViewGroup[index].setTypeface(face);
-				}
-				index++;
-			}
-		}
-		
-		
-		
-		for( int i = 1; i<= 8; i++)
-		{
-			TextView tv = (TextView)findViewById(ResourceManager.GetTextViewId(this, "pun"+i));
-			tv.setTypeface(face);
-		}
 		
 		UpdateTextContentAndMusic();
 		
@@ -343,7 +268,6 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 
 		unregisterReceiver(m_recv);
@@ -438,7 +362,6 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		// TODO Auto-generated method stub
 		return mGestureDetector.onTouchEvent(event);
 	}
 	
