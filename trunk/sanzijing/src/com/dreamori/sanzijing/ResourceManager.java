@@ -17,7 +17,7 @@ public class ResourceManager {
 		return id;
 	}
 	
-	public static int GetTextViewId(Context context, String name)
+	public static int GetViewId(Context context, String name)
 	{
 		int id = context.getResources().getIdentifier(name, "id", context.getPackageName());
 		if( id == 0 )
