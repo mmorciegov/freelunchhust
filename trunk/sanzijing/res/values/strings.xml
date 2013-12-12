@@ -50,7 +50,7 @@
     </string-array>
     
     <string name="s_space"> </string>
-    <string name="s_comma">,</string>
+    <string name="s_comma">，</string>
     <string name="s_dot">。</string>
     <string name="s11">rén</string>
     <string name="s12">zhī</string>
