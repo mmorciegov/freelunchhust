@@ -69,56 +69,56 @@ public class QianZiWenView extends RelativeLayout {
 		}
         
 		ViewTreeObserver viewTree = getViewTreeObserver();
-//		viewTree.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//			
-//			@Override
-//			public void onGlobalLayout() {
-//				int curHeight = getHeight();
-//				if(mHeight != curHeight)
-//				{
-//					if(mHeight == 0)
-//						return;
-//					
-//					float ratio = (float) (1.0 * curHeight / mHeight);
-//					
-//					mTextTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextTitle.getTextSize() * ratio);
-//					
-//					TableLayout textTable = (TableLayout)findViewById(R.id.text_table);
-//					LayoutParams tableLP = (LayoutParams)textTable.getLayoutParams();
-//					tableLP.leftMargin *= ratio;
-//					textTable.setLayoutParams(tableLP);
-//					
-//					int index = 0;
-//					for( int i = 1; i <= 8; i++ )
-//					{
-//						TextView v = (TextView)findViewById(ResourceManager.GetViewId(mContext, "pun"+i));
-//						if(v != null)
-//						{
-//							v.setTextSize(TypedValue.COMPLEX_UNIT_PX, v.getTextSize()* ratio);
-//						}
-//						
-//						if(i%2 == 1)
-//						{
-//							TableRow row = (TableRow)findViewById(ResourceManager.GetViewId(mContext, "table_row"+i));
-//							TableLayout.LayoutParams lp = (TableLayout.LayoutParams)row.getLayoutParams();
-//							lp.topMargin *= ratio;
-//							row.setLayoutParams(lp);
-//						}
-//						
-//						for( int j = 1; j<=4; j++ )
-//						{
-//							mTxtViewGroup[index].setTextSize(TypedValue.COMPLEX_UNIT_PX, mTxtViewGroup[index].getTextSize()* ratio);
-//							
-//							index++;
-//						}
-//						
-//					}
-//					
-//					mHeight = curHeight;
-//				}
-//				
-//			}
-//		});
+		viewTree.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+			
+			@Override
+			public void onGlobalLayout() {
+				int curHeight = getHeight();
+				if(mHeight != curHeight)
+				{
+					if(mHeight == 0)
+						return;
+					
+					float ratio = (float) (1.0 * curHeight / mHeight);
+					
+					mTextTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextTitle.getTextSize() * ratio);
+					
+					TableLayout textTable = (TableLayout)findViewById(R.id.text_table);
+					LayoutParams tableLP = (LayoutParams)textTable.getLayoutParams();
+					tableLP.leftMargin *= ratio;
+					textTable.setLayoutParams(tableLP);
+					
+					int index = 0;
+					for( int i = 1; i <= 8; i++ )
+					{
+						TextView v = (TextView)findViewById(ResourceManager.GetViewId(mContext, "pun"+i));
+						if(v != null)
+						{
+							v.setTextSize(TypedValue.COMPLEX_UNIT_PX, v.getTextSize()* ratio);
+						}
+						
+						if(i%2 == 1)
+						{
+							TableRow row = (TableRow)findViewById(ResourceManager.GetViewId(mContext, "table_row"+i));
+							TableLayout.LayoutParams lp = (TableLayout.LayoutParams)row.getLayoutParams();
+							lp.topMargin *= ratio;
+							row.setLayoutParams(lp);
+						}
+						
+						for( int j = 1; j<=4; j++ )
+						{
+							mTxtViewGroup[index].setTextSize(TypedValue.COMPLEX_UNIT_PX, mTxtViewGroup[index].getTextSize()* ratio);
+							
+							index++;
+						}
+						
+					}
+					
+					mHeight = curHeight;
+				}
+				
+			}
+		});
 	}
 	
 	public void updateContent(String[] textContent, String contentIndexString, int outputSpellCount)
