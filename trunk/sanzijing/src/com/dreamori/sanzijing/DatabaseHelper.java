@@ -172,7 +172,7 @@ public class DatabaseHelper {
     	
     	musicInfo.id = inputId;
     	musicInfo.startTime = 1000* ( Integer.parseInt(tableResult.rows.get(0)[0]) * 60 + Integer.parseInt(tableResult.rows.get(0)[1] ) ) + Integer.parseInt(tableResult.rows.get(0)[2]);
-    	musicInfo.stopTime = 1000* ( Integer.parseInt(tableResult.rows.get(0)[3]) * 60 + Integer.parseInt(tableResult.rows.get(0)[4]) )+ Integer.parseInt(tableResult.rows.get(0)[5]);;
+    	musicInfo.stopTime = 1000* ( Integer.parseInt(tableResult.rows.get(0)[3]) * 60 + Integer.parseInt(tableResult.rows.get(0)[4]) )+ Integer.parseInt(tableResult.rows.get(0)[5]);
     	
 		if( tableResult != null )
     	{

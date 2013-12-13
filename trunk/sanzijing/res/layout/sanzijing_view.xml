@@ -28,7 +28,7 @@
 
         <TableRow
         	android:id="@+id/table_row1"
-            android:layout_marginTop="30px" >
+            android:layout_marginTop="25px" >
 
             <RelativeLayout>
 
@@ -252,7 +252,7 @@
 
         <TableRow
         	android:id="@+id/table_row3"
-            android:layout_marginTop="30px" >
+            android:layout_marginTop="25px" >
 
             <RelativeLayout>
 
@@ -476,7 +476,7 @@
 
         <TableRow
         	android:id="@+id/table_row5"
-            android:layout_marginTop="30px" >
+            android:layout_marginTop="25px" >
 
             <RelativeLayout>
 
@@ -700,7 +700,7 @@
 
         <TableRow
         	android:id="@+id/table_row7"
-            android:layout_marginTop="30px" >
+            android:layout_marginTop="25px" >
 
             <RelativeLayout>
 

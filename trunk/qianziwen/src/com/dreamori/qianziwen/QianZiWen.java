@@ -207,10 +207,8 @@ public class QianZiWen extends Activity implements  AdViewInterface   {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 		m_currentImageIndex = sharedPref.getInt(getString(R.string.pref_key_last_img_index), 1);
 		PlayerService.CurrentPlayMode = sharedPref.getString(getString(R.string.pref_key_mode_list), getString(R.string.mode_single));
-		
-		
-		
-		UpdateTextContentAndMusic();
+
+		UpdateTextContent();
 		
 		mGestureDetector = new GestureDetector(this, new MyGestureListener());
 		

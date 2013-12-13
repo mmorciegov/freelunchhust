@@ -20,7 +20,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -208,9 +207,7 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 		m_currentImageIndex = sharedPref.getInt(getString(R.string.pref_key_last_img_index), 1);
 		PlayerService.CurrentPlayMode = sharedPref.getString(getString(R.string.pref_key_mode_list), getString(R.string.mode_single));
 		
-		
-		
-		UpdateTextContentAndMusic();
+		UpdateTextContent();
 		
 		mGestureDetector = new GestureDetector(this, new MyGestureListener());
 		
@@ -265,7 +262,7 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 			m_adLayout.removeAllViews();
 		}
 	}
-
+	
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
@@ -294,6 +291,15 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
     		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     	}
     }
+
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+		SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+		editor.putInt(getString(R.string.pref_key_last_img_index), m_currentImageIndex);
+		editor.commit();
+	}
 	
 	@Override
 	public void onClickAd() {
@@ -312,9 +318,6 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 		} else {
 
 			//getDatabaseHelper().SetLastImageIndex(m_currentImageIndex);
-			SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
-			editor.putInt(getString(R.string.pref_key_last_img_index), m_currentImageIndex);
-			editor.commit();
 			
 			finish();
 		}
