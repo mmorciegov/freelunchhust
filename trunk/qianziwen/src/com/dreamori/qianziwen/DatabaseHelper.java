@@ -157,7 +157,7 @@ public class DatabaseHelper {
 	{
 	   	TableResult tableResult = null; 	   	
 
- 	   	try {
+	   	try {
 			String sql = "select "+ MUSIC_START_MINUTE + " , " + MUSIC_START_SECOND + " , " + MMUSIC_START_MS 
 					+ " , " + MUSIC_STOP_MINUTE + " , " + MUSCI_STOP_SECOND + " , " + MUSIC_STOP_MS
 					+ " from " + TABLE_MUSIC_INFO  +" where " +  MUSIC_ID + " = " + inputId;
@@ -166,15 +166,15 @@ public class DatabaseHelper {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    	
-    	if( tableResult == null || tableResult.rows.isEmpty() )
+	   	
+	   	if( tableResult == null || tableResult.rows.isEmpty() )
 			return ;
-    	
+    	    	
     	musicInfo.id = inputId;
     	musicInfo.startTime = 1000* ( Integer.parseInt(tableResult.rows.get(0)[0]) * 60 + Integer.parseInt(tableResult.rows.get(0)[1] ) ) + Integer.parseInt(tableResult.rows.get(0)[2]);
     	musicInfo.stopTime = 1000* ( Integer.parseInt(tableResult.rows.get(0)[3]) * 60 + Integer.parseInt(tableResult.rows.get(0)[4]) )+ Integer.parseInt(tableResult.rows.get(0)[5]);;
     	
-		if( tableResult != null )
+    	if( tableResult != null )
     	{
     		tableResult.clear();
     		tableResult = null;
