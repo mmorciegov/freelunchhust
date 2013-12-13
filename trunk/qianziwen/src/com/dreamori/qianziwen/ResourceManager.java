@@ -22,7 +22,7 @@ public class ResourceManager {
 		int id = context.getResources().getIdentifier(name, "id", context.getPackageName());
 		if( id == 0 )
 		{
-			id = R.id.text11;
+			id = 0;
 		}	
 		
 		return id;
