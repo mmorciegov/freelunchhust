@@ -148,16 +148,18 @@ public class DatabaseHelper {
 	private final static String MUSIC_ID = "id";
 	private final static String MUSIC_START_MINUTE = "startminute";
 	private final static String MUSIC_START_SECOND = "startsecond";
+	private final static String MMUSIC_START_MS = "startms";
 	private final static String MUSIC_STOP_MINUTE = "stopminute";
 	private final static String MUSCI_STOP_SECOND = "stopsecond";
-
+	private final static String MUSIC_STOP_MS	= "stopms";
+	
 	public void GetMusicInfo( int inputId, MusicInfo musicInfo )
 	{
 	   	TableResult tableResult = null; 	   	
 
  	   	try {
-			String sql = "select "+ MUSIC_START_MINUTE + " , " + MUSIC_START_SECOND 
-					+ " , " + MUSIC_STOP_MINUTE + " , " + MUSCI_STOP_SECOND
+			String sql = "select "+ MUSIC_START_MINUTE + " , " + MUSIC_START_SECOND + " , " + MMUSIC_START_MS 
+					+ " , " + MUSIC_STOP_MINUTE + " , " + MUSCI_STOP_SECOND + " , " + MUSIC_STOP_MS
 					+ " from " + TABLE_MUSIC_INFO  +" where " +  MUSIC_ID + " = " + inputId;
 			tableResult = db.get_table(sql);
 
