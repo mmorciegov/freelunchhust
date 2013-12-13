@@ -12,14 +12,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnCompletionListener;
-import android.media.MediaPlayer.OnPreparedListener;
-import android.net.Uri;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.preference.PreferenceManager;
 
 public class PlayerService extends Service {
 	
