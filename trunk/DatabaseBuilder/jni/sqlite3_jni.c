@@ -3273,10 +3273,13 @@ JNI_OnUnload(JavaVM *vm, void *reserved)
 #endif
 
 jobject
-Java_SQLite3_Database_getdb( JNIEnv* env, jobject this )
+Java_SQLite3_Database_getdb( JNIEnv* env, jobject this, jstring key )
 {
-	//char text[128] = {"([BLjava/lang/String;)V"};		//food
-	char text[128] = {"stmt already closed"};			//daodejing
+	char text[128] = {0};
+	const char *str = (*env)->GetStringUTFChars(env, key, 0);
+	strcpy(text, str);
+	(*env)->ReleaseStringUTFChars(env, key, str);
+
 	int i;
 	for( i = 0; i < 128; i++ )
 	{

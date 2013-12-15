@@ -427,7 +427,7 @@ public class Database {
 	public native String dbversion();
 
 
-	public native Object getdb();
+	public native Object getdb(String key);
 	
 	/**
 	 * Create regular function.
