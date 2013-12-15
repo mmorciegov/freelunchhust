@@ -132,9 +132,9 @@ public class DatabaseHelper {
 			String databaseFileNameString) throws IOException {
 		InputStream myInput;
 		OutputStream myOutput = new FileOutputStream(databaseFileNameString);
-
-		//myInput = context.getAssets().open(DATABASE_NAME_SRC);
+		
 		myInput = context.getAssets().open(DATABASE_NAME);
+		//myInput = context.getAssets().open(DATABASE_NAME_SRC);
 		byte[] buffer = new byte[1024];
 		int length;
 		while ((length = myInput.read(buffer)) > 0) {

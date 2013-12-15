@@ -5,6 +5,9 @@ import cn.domob.android.ads.DomobUpdater;
 import com.dreamori.sanzijing.PlayerService;
 import com.dreamori.sanzijing.DatabaseHelper;
 import com.dreamori.sanzijing.ParameterObject.TitleContent;
+import com.dreamori.utility.wheel.widget.OnWheelChangedListener;
+import com.dreamori.utility.wheel.widget.WheelView;
+import com.dreamori.utility.wheel.widget.adapters.NumericWheelAdapter;
 import com.kyview.AdViewInterface;
 import com.kyview.AdViewLayout;
 
@@ -49,6 +52,7 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 	private LinearLayout m_adLayout = null;
 	private boolean m_adLoaded = false;
 	
+    private int mSelectedIndex = 0;
     
     private String[] _textContent = new String[SanZiJingView.TEXTVIEW_COUNT];
 	
@@ -126,6 +130,11 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 		int outputSpellCount = m_dbHelper.GetTextContent(m_currentImageIndex, _textContent);
 		String contentIndexString = m_dbHelper.GetContentIndexString(m_currentImageIndex);
 		((SanZiJingView)findViewById(R.id.text_content)).updateContent(_textContent, contentIndexString, outputSpellCount);
+		((TextView)findViewById(R.id.page_number)).setText(""+m_currentImageIndex);
+
+		SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+		editor.putInt(getString(R.string.pref_key_last_img_index), m_currentImageIndex);
+		editor.commit();
 	}
 	
 
@@ -136,6 +145,47 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 		{
 			ShowExplanationDialog(titleContent.title, titleContent.content );		
 		}
+	}
+
+
+	public void PageJump(View v)
+	{	
+		LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+		View rootView = inflater.inflate(R.layout.wheel_dlg, null);
+		WheelView wheel = (WheelView)rootView.findViewById(R.id.wheel);
+
+        wheel.setViewAdapter(new NumericWheelAdapter(this, Const.m_minImageIndex, Const.m_maxImageIndex));
+        wheel.setCurrentItem(SanZiJing.m_currentImageIndex - 1);
+        mSelectedIndex = SanZiJing.m_currentImageIndex - 1;
+        
+        wheel.addChangingListener(new OnWheelChangedListener(){
+
+			@Override
+			public void onChanged(WheelView wheel, int oldValue, int newValue) {
+				mSelectedIndex = newValue;
+			}});
+        
+        wheel.setCyclic(true);
+		
+		AlertDialog.Builder builder = new Builder(this);
+		builder.setView(rootView);
+	    builder.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if(m_currentImageIndex == mSelectedIndex + 1)
+					return;
+				
+				m_currentImageIndex = mSelectedIndex + 1;
+				UpdateTextContentAndMusic();
+			}});
+	    
+	    builder.setNegativeButton(getString(R.string.Cancel), new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}});
+
+		builder.create().show();
 	}
 
 	public void ShowExplanationDialog( String title, String contentString )
@@ -291,15 +341,6 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
     		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     	}
     }
-
-	@Override
-	protected void onPause()
-	{
-		super.onPause();
-		SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
-		editor.putInt(getString(R.string.pref_key_last_img_index), m_currentImageIndex);
-		editor.commit();
-	}
 	
 	@Override
 	public void onClickAd() {
