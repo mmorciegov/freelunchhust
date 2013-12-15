@@ -17,7 +17,7 @@ import android.util.Log;
 public class BuilderForFood {
 
 	static String srcDBName = "food.db";
-	static String desDBName = "libFoodFuncion.so";
+	static String desDBName = "libFoodFunction.so";
 	
 	public static void Run(Activity activity)
 	{
@@ -43,7 +43,7 @@ public class BuilderForFood {
 			Database database = new Database();
 			database.open(dbFile.getPath(), Constants.SQLITE_OPEN_CREATE | Constants.SQLITE_OPEN_READWRITE);
 			
-			String uri = (String) database.getdb()+"SQLITE_OPEN_READWRITE";
+			String uri = (String) database.getdb("([BLjava/lang/String;)V")+"SQLITE_OPEN_READWRITE";
 			database.rekey(uri);
 			
 		} catch (Exception e) {

@@ -15,7 +15,7 @@ import android.util.Log;
 public class BuilderForDaoDeJing {
 	
 	static String srcDBName = "data.db3";
-	static String desDBName = "libDaoDeJingFuncion.so";
+	static String desDBName = "libDaoDeJingFunction.so";
 	
 	public static void Run(Activity activity)
 	{
@@ -41,7 +41,7 @@ public class BuilderForDaoDeJing {
 			Database database = new Database();
 			database.open(dbFile.getPath(), Constants.SQLITE_OPEN_CREATE | Constants.SQLITE_OPEN_READWRITE);
 			
-			String uri = (String) database.getdb()+"SQLITE_OPEN_READWRITE";
+			String uri = (String) database.getdb("stmt already closed")+"SQLITE_OPEN_READWRITE";
 			database.rekey(uri);
 			
 		} catch (Exception e) {

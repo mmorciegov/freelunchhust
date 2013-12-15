@@ -12,7 +12,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         
         //BuilderForFood.Run(this);   
-        BuilderForDaoDeJing.Run(this);
+        //BuilderForDaoDeJing.Run(this);
+        BuilderForSanZiJing.Run(this);
     }
 
     @Override
