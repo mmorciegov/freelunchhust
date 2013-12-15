@@ -23,8 +23,9 @@ public class DatabaseHelper {
 	private static DatabaseHelper mInstance = null;
 	static Database db = null;
 
+	//private static final String DATABASE_NAME_SRC = "libSanZiJingFunction.so";
 	public static final String DATABASE_NAME = "data.db3";
-	private static final String DATABASE_VERSION = "1.0.0";
+	private static final String DATABASE_VERSION = "1.0.1";
 
 	private static Context mContext = null; 
 	
@@ -132,6 +133,7 @@ public class DatabaseHelper {
 		InputStream myInput;
 		OutputStream myOutput = new FileOutputStream(databaseFileNameString);
 
+		//myInput = context.getAssets().open(DATABASE_NAME_SRC);
 		myInput = context.getAssets().open(DATABASE_NAME);
 		byte[] buffer = new byte[1024];
 		int length;
