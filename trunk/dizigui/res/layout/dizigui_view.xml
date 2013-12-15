@@ -14,7 +14,7 @@
         android:text="@string/content_title"
         android:textColor="#ff000000"
         android:singleLine="true"
-        android:textSize="54px" />
+        android:textSize="52px" />
     
     <TableLayout
         android:id="@+id/text_table"
