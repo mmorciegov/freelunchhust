@@ -155,8 +155,8 @@ public class SanZiJing extends Activity implements  AdViewInterface   {
 		WheelView wheel = (WheelView)rootView.findViewById(R.id.wheel);
 
         wheel.setViewAdapter(new NumericWheelAdapter(this, Const.m_minImageIndex, Const.m_maxImageIndex));
-        wheel.setCurrentItem(SanZiJing.m_currentImageIndex - 1);
-        mSelectedIndex = SanZiJing.m_currentImageIndex - 1;
+        wheel.setCurrentItem(m_currentImageIndex - 1);
+        mSelectedIndex = m_currentImageIndex - 1;
         
         wheel.addChangingListener(new OnWheelChangedListener(){
 

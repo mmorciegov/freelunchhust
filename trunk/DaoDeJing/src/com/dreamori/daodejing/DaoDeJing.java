@@ -3,18 +3,26 @@ package com.dreamori.daodejing;
 import cn.domob.android.ads.DomobUpdater;
 
 import com.dreamori.daodejing.DatabaseHelper;
+import com.dreamori.utility.wheel.widget.OnWheelChangedListener;
+import com.dreamori.utility.wheel.widget.WheelView;
+import com.dreamori.utility.wheel.widget.adapters.NumericWheelAdapter;
 import com.kyview.AdViewInterface;
 import com.kyview.AdViewLayout;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -37,6 +45,7 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 	private long m_exitTime = 0;
 	private LinearLayout m_adLayout = null;
 	private boolean m_adLoaded = false;
+    private int mSelectedIndex = 0;
 	
     
 	private BroadcastReceiver m_recv = new BroadcastReceiver()
@@ -81,6 +90,48 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 		contentView.ShowWholeExplanation();
 	}
 	
+
+	public void PageJump(View v)
+	{	
+
+		LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+		View rootView = inflater.inflate(R.layout.wheel_dlg, null);
+		WheelView wheel = (WheelView)rootView.findViewById(R.id.wheel);
+
+        wheel.setViewAdapter(new NumericWheelAdapter(this, Const.m_minImageIndex, Const.m_maxImageIndex));
+        wheel.setCurrentItem(m_currentImageIndex - 1);
+        mSelectedIndex = m_currentImageIndex - 1;
+        
+        wheel.addChangingListener(new OnWheelChangedListener(){
+
+			@Override
+			public void onChanged(WheelView wheel, int oldValue, int newValue) {
+				mSelectedIndex = newValue;
+			}});
+        
+        wheel.setCyclic(true);
+		
+		AlertDialog.Builder builder = new Builder(this);
+		builder.setView(rootView);
+	    builder.setPositiveButton(getString(R.string.OK), new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if(m_currentImageIndex == mSelectedIndex + 1)
+					return;
+				
+				m_currentImageIndex = mSelectedIndex + 1;
+				contentView.UpdateImageAndPlaying();
+			}});
+	    
+	    builder.setNegativeButton(getString(R.string.Cancel), new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}});
+
+		builder.create().show();
+	}
+	
 	public void PlayMp3(View v)
 	{
 		if( PlayerService.isPlaying  )
@@ -109,7 +160,6 @@ public class DaoDeJing extends Activity implements AdViewInterface {
         setContentView(R.layout.activity_main);
         
         contentView =(ContentView)findViewById(R.id.img_content);
-		m_currentImageIndex = getDatabaseHelper().GetLastImageIndex();
 		
 		PreferenceManager.setDefaultValues(this, R.xml.preference, false);
 
@@ -120,6 +170,7 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 		
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 		PlayerService.CurrentPlayMode = sharedPref.getString(getString(R.string.pref_key_mode_list), getString(R.string.mode_single));
+		m_currentImageIndex = sharedPref.getInt(getString(R.string.pref_key_last_img_index), 1);
 		
 
 		if (!isStartVersionUpdateFlag) {
@@ -175,6 +226,7 @@ public class DaoDeJing extends Activity implements AdViewInterface {
 		}
 	}
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub

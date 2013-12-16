@@ -133,6 +133,7 @@ public class DatabaseHelper {
 		OutputStream myOutput = new FileOutputStream(databaseFileNameString);
 
 		myInput = context.getAssets().open(DATABASE_NAME);
+		//myInput = context.getAssets().open(DATABASE_NAME_SRC);
 		byte[] buffer = new byte[1024];
 		int length;
 		while ((length = myInput.read(buffer)) > 0) {
@@ -290,29 +291,6 @@ public class DatabaseHelper {
     	
 		return true;
     }
-    
-
-    public int GetLastImageIndex( )
-    {
-    	int lastImageIndex = Const.m_minImageIndex;
-    	try 
-    	{
-    		lastImageIndex = Integer.parseInt(getConfig(CONFIG_LAST_IMAGE_INDEX));
-		} 
-    	catch (java.lang.Exception e) 
-    	{
-			e.toString();
-		}
-
-		return lastImageIndex;
-    }
-    
-    
-    public void SetLastImageIndex( int index )
-    {
-		//Update food frequency
-		setConfig(CONFIG_LAST_IMAGE_INDEX, ""+index);
-    }        
     
     public final static String TABLE_HOTSPOT = "cmqy";
     public final static String HOTSPOT_IMAGE_INDEX = "tpbh";

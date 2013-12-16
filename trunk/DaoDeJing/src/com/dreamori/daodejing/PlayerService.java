@@ -67,7 +67,6 @@ public class PlayerService extends Service {
 		if(CurrentPlayMode == null)
 			CurrentPlayMode = getString(R.string.mode_single);
 		
-		DaoDeJing.m_currentImageIndex = getDatabaseHelper().GetLastImageIndex();
 		mp = MediaPlayer.create(this, ResourceManager.GetMusicId(this, getDatabaseHelper().GetMusicName(DaoDeJing.m_currentImageIndex)));
 		if( mp!= null )
 		{
@@ -109,8 +108,6 @@ public class PlayerService extends Service {
 						stopSelf();
 						UpdatePlayButton(false);
 					}
-					getDatabaseHelper().SetLastImageIndex(DaoDeJing.m_currentImageIndex);
-					
 				}
 			});
 
