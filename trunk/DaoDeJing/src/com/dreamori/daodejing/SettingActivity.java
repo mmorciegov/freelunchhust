@@ -42,6 +42,8 @@ public class SettingActivity extends PreferenceActivity implements OnSharedPrefe
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		TapjoyConnect.requestTapjoyConnect(getApplicationContext(), "a4893ce7-86f4-4ab0-b221-9aa5dfc0be55", "j0WmCFRtSs3tfOaC77Ya");
+		
 		if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB)
 		{
 			ActionBar actionBar = getActionBar();
@@ -86,8 +88,6 @@ public class SettingActivity extends PreferenceActivity implements OnSharedPrefe
 				}
 			});
 		}
-		
-		TapjoyConnect.requestTapjoyConnect(getApplicationContext(), "a4893ce7-86f4-4ab0-b221-9aa5dfc0be55", "j0WmCFRtSs3tfOaC77Ya");
 	}
 	
 	@Override

@@ -9,9 +9,11 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 
 public class ContentView extends View implements OnGestureListener{
 	
+	private Context mContext = null;
 	private boolean m_bInit = false;
 	private DatabaseHelper m_dbHelper = null;	
 //	private ArrayList<Hotspot> hotspots = new ArrayList<Hotspot>();
@@ -45,6 +48,7 @@ public class ContentView extends View implements OnGestureListener{
 	public ContentView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// TODO Auto-generated constructor stub
+		mContext = context;
 		
 		if( m_dbHelper == null )
 		{
@@ -120,7 +124,13 @@ public class ContentView extends View implements OnGestureListener{
 //					hotspots.get(i).SetColor(hotspots.get(i-1).color);
 //				}
 //			}		
-//		}			
+//		}	
+		
+		((TextView)((DaoDeJing)mContext).findViewById(R.id.page_number)).setText(""+DaoDeJing.m_currentImageIndex);
+
+		SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(mContext).edit();
+		editor.putInt(mContext.getString(R.string.pref_key_last_img_index), DaoDeJing.m_currentImageIndex);
+		editor.commit();
 	}
 	
 	public void ShowNextImage() 
@@ -132,14 +142,7 @@ public class ContentView extends View implements OnGestureListener{
 			DaoDeJing.m_currentImageIndex = Const.m_minImageIndex;
 		}
 
-		UpdateImage();
-		
-		if( PlayerService.isPlaying )
-		{
-			Intent intent = new Intent();  
-	        intent.setAction(PlayerService.ACTION_UPDATE_PLAYING);
-	        getContext().sendBroadcast(intent);
-		}
+		UpdateImageAndPlaying();
 	}
 		
 	public void ShowPreviosImage()
@@ -151,7 +154,12 @@ public class ContentView extends View implements OnGestureListener{
 			DaoDeJing.m_currentImageIndex = Const.m_maxImageIndex;
 		}
 		
-		UpdateImage();
+		UpdateImageAndPlaying();
+	}
+	
+	public void UpdateImageAndPlaying()
+	{
+		UpdateImageAndHotspot();
 		
 		if( PlayerService.isPlaying )
 		{
@@ -159,15 +167,8 @@ public class ContentView extends View implements OnGestureListener{
 	        intent.setAction(PlayerService.ACTION_UPDATE_PLAYING);
 	        getContext().sendBroadcast(intent);
 		}
-	}
-	
-	private void UpdateImage()
-	{
-		UpdateImageAndHotspot();
 		
 		((View) this.getParent()).setBackgroundResource(ResourceManager.GetBackgroundIcon(getContext(), m_dbHelper.GetBackgroundImageContentName(rand.nextInt(backgroundImageCount))));
-		
-		m_dbHelper.SetLastImageIndex(DaoDeJing.m_currentImageIndex);
 	}
 	
 	public void ShowWholeExplanation()

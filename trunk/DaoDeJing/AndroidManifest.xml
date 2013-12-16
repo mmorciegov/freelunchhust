@@ -1,10 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dreamori.daodejing"
-    android:versionCode="3"
-    android:versionName="1.0.2" >
+    android:versionCode="4"
+    android:versionName="1.0.3" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="7"
         android:targetSdkVersion="15" />
     
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
@@ -94,7 +94,7 @@
 			GFAN(机锋)
 			GOAPK(安智)
 			NDUOA(N多网)
-			91Store(手机91)
+			91Store(手机91-百度)
 			LIQUCN(历趣)
 			WAPTW(天网)
 			ANDROIDCN(安卓中国)
@@ -111,7 +111,8 @@
 			AIBALA(爱扒拉市场)
 			COOLAPK(酷安网)
 			ANFONE(安丰)
-			APKOK(乐致网) 
+			APKOK(乐致网) 
+			360MARKET(360市场)
         -->
     </application>
 
