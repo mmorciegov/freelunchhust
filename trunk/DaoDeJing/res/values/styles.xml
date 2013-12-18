@@ -1,6 +1,0 @@
-<resources>
-
-    <style name="AppTheme" parent="android:Theme.Light.NoTitleBar" />
-    <style name="SettingTheme" parent="android:Theme.Light" />
-
-</resources>

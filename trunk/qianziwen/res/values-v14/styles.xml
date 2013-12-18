@@ -1,5 +1,0 @@
-<resources>
-
-    <style name="SettingTheme" parent="android:Theme.Holo.Light.DarkActionBar" />
-
-</resources>
