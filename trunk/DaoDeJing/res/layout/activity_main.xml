@@ -15,86 +15,93 @@
         android:id="@+id/layout_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignWithParentIfMissing="true"
         android:layout_above="@+id/adLayout"
-        android:stretchColumns="0,1,2,3,4"
-        >
-        
+        android:layout_alignWithParentIfMissing="true"
+        android:stretchColumns="0,1,2,3,4" >
+
         <TableRow>
-            <RelativeLayout >
-	        <Button
-	            android:id="@+id/btn_previos"
-	            android:layout_width="48dip"
-	            android:layout_height="48dip"
-	            android:layout_margin="12dip"
-	            android:layout_centerInParent="true"
-	            android:background="@drawable/previous"
-	            android:onClick="ShowPreviosImage" />
-	        </RelativeLayout>
-	
-            <RelativeLayout >
-	        <Button
-	            android:id="@+id/btn_exp"
-	            android:layout_width="48dip"
-	            android:layout_height="48dip"
-	            android:layout_margin="12dip"
-	            android:layout_centerInParent="true"
-	            android:background="@drawable/exp"
-	            android:onClick="ShowWholeExplanation" />
-	        </RelativeLayout>
 
             <RelativeLayout>
-                
-                <TextView 
+
+                <Button
+                    android:id="@+id/btn_previos"
+                    android:layout_width="48dip"
+                    android:layout_height="48dip"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="12dip"
+                    android:layout_marginTop="12dip"
+                    android:background="@drawable/previous"
+                    android:onClick="ShowPreviosImage" />
+            </RelativeLayout>
+
+            <RelativeLayout>
+
+                <Button
+                    android:id="@+id/btn_exp"
+                    android:layout_width="48dip"
+                    android:layout_height="48dip"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="12dip"
+                    android:layout_marginTop="12dip"
+                    android:background="@drawable/exp"
+                    android:onClick="ShowWholeExplanation" />
+            </RelativeLayout>
+
+            <RelativeLayout>
+
+                <TextView
                     android:id="@+id/page_number"
                     android:layout_width="48dip"
                     android:layout_height="48dip"
-                    android:layout_margin="12dip"
                     android:layout_centerInParent="true"
+                    android:layout_marginBottom="12dip"
+                    android:layout_marginTop="12dip"
                     android:background="@drawable/page"
-                    android:textSize="20sp"
-                    android:textColor="#ffffffff"
-                    android:gravity="center"
                     android:clickable="true"
+                    android:gravity="center"
                     android:onClick="PageJump"
-                    />
+                    android:textColor="#ffffffff"
+                    android:textSize="20sp" />
             </RelativeLayout>
-	
-            <RelativeLayout >
-	        <Button
-	            android:id="@+id/btn_music"
-	            android:layout_width="48dip"
-	            android:layout_height="48dip"
-	            android:layout_margin="12dip"
-	            android:layout_centerInParent="true"
-	            android:background="@drawable/music"
-	            android:onClick="PlayMp3" />
-	        </RelativeLayout>
-	        
-            <RelativeLayout >
-			<Button
-	            android:id="@+id/btn_next"
-	            android:layout_width="48dip"
-	            android:layout_height="48dip"
-	            android:layout_margin="12dip"
-	            android:layout_centerInParent="true"
-	            android:background="@drawable/next"
-	            android:onClick="ShowNextImage" />
-	        </RelativeLayout>
-		</TableRow>
-        
+
+            <RelativeLayout>
+
+                <Button
+                    android:id="@+id/btn_music"
+                    android:layout_width="48dip"
+                    android:layout_height="48dip"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="12dip"
+                    android:layout_marginTop="12dip"
+                    android:background="@drawable/music"
+                    android:onClick="PlayMp3" />
+            </RelativeLayout>
+
+            <RelativeLayout>
+
+                <Button
+                    android:id="@+id/btn_next"
+                    android:layout_width="48dip"
+                    android:layout_height="48dip"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="12dip"
+                    android:layout_marginTop="12dip"
+                    android:background="@drawable/next"
+                    android:onClick="ShowNextImage" />
+            </RelativeLayout>
+        </TableRow>
     </TableLayout>
-    
-    <Button 
+
+    <Button
         android:id="@+id/btn_setting"
         android:layout_width="48dip"
         android:layout_height="48dip"
-        android:layout_margin="8dip"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:layout_margin="8dip"
         android:background="@drawable/setting"
         android:onClick="Setting" />
-       
+
     <LinearLayout
         android:id="@+id/adLayout"
         android:layout_width="wrap_content"

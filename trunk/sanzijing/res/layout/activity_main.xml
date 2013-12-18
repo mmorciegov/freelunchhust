@@ -40,7 +40,8 @@
                     android:layout_width="48dip"
                     android:layout_height="48dip"
                     android:layout_centerInParent="true"
-                    android:layout_margin="12dip"
+                    android:layout_marginBottom="12dip"
+                    android:layout_marginTop="12dip"
                     android:background="@drawable/previous"
                     android:onClick="ShowPreviosImage" />
             </RelativeLayout>
@@ -52,7 +53,8 @@
                     android:layout_width="48dip"
                     android:layout_height="48dip"
                     android:layout_centerInParent="true"
-                    android:layout_margin="12dip"
+                    android:layout_marginBottom="12dip"
+                    android:layout_marginTop="12dip"
                     android:background="@drawable/exp"
                     android:onClick="ShowWholeExplanation" />
             </RelativeLayout>
@@ -63,7 +65,8 @@
                     android:id="@+id/page_number"
                     android:layout_width="48dip"
                     android:layout_height="48dip"
-                    android:layout_margin="12dip"
+                    android:layout_marginBottom="12dip"
+                    android:layout_marginTop="12dip"
                     android:layout_centerInParent="true"
                     android:background="@drawable/page"
                     android:text="@string/number88"
@@ -82,7 +85,8 @@
                     android:layout_width="48dip"
                     android:layout_height="48dip"
                     android:layout_centerInParent="true"
-                    android:layout_margin="12dip"
+                    android:layout_marginBottom="12dip"
+                    android:layout_marginTop="12dip"
                     android:background="@drawable/music"
                     android:onClick="PlayMp3" />
             </RelativeLayout>
@@ -94,7 +98,8 @@
                     android:layout_width="48dip"
                     android:layout_height="48dip"
                     android:layout_centerInParent="true"
-                    android:layout_margin="12dip"
+                    android:layout_marginBottom="12dip"
+                    android:layout_marginTop="12dip"
                     android:background="@drawable/next"
                     android:onClick="ShowNextImage" />
             </RelativeLayout>

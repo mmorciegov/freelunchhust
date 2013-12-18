@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dreamori.daodejing"
-    android:versionCode="4"
-    android:versionName="1.0.3" >
+    android:versionCode="5"
+    android:versionName="1.0.4" >
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -104,9 +104,9 @@
 			ANDROIDD(安致)
 			YINGYONGSO(应用搜)
 			IMOBILE(手机之家)
-			SOUAPP(搜应用)
+			SOUAPP(搜应用-腾讯)
 			MUMAYI(木蚂蚁)
-			MOBIOMNI(欧米)
+			MOBIOMNI(欧米-小米)
 			PAOJIAO(泡椒网)
 			AIBALA(爱扒拉市场)
 			COOLAPK(酷安网)
