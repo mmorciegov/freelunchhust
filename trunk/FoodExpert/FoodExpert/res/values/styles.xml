@@ -1,5 +1,0 @@
-<resources>
-    <style name="AppTheme" parent="android:Theme.Light" />
-    <color name="bad_relationship">#FFF01010</color>
-    <color name="good_relationship">#FF10C830</color>
-</resources>
